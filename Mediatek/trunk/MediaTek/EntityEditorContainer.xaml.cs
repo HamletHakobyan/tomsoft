@@ -54,10 +54,13 @@ namespace MediaTek
                 objState = new ObjectState(e.NewValue);
         }
 
-        public static Control CreateEditor<T>(object entity) where T : Control, new()
+        public static Control CreateEditor<T>(object entity, string title) where T : Control, new()
         {
             Control editor = Activator.CreateInstance<T>();
             EntityEditorContainer container = new EntityEditorContainer();
+            container.lblTitle.Content = title;
+            container.Height = editor.Height + 80;
+            container.Width = editor.Width + 20;
             container.scvEditor.Content = editor;
             container.DataContext = entity;
             return container;
