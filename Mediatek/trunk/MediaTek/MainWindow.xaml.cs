@@ -135,18 +135,7 @@ namespace MediaTek
         {
             MovieEditor ed = new MovieEditor();
             ed.DataContext = lstMovies.SelectedItem as Movie;
-            ed.ShowModal(modalGrid, delegate(bool? ret)
-            {
-                if (ret == true)
-                {
-                    MessageBox.Show("OK");
-                }
-                else
-                {
-                    MessageBox.Show("NOK");
-                }
-            });
-            
+            ed.ShowModal(modalGrid, null);
         }
     }
 }
