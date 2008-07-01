@@ -133,13 +133,13 @@ namespace MediaTek
 
         private void lstMovies_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Control ed = EntityEditorContainer.CreateEditor<MovieEditor>(lstMovies.SelectedItem);
+            Control ed = EntityEditorContainer.CreateEditor<MovieEditor>(lstMovies.SelectedItem, "Edit movie");
             ed.ShowModal(modalGrid, null);
         }
 
         private void lstDirectors_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Control ed = EntityEditorContainer.CreateEditor<DirectorEditor>(lstDirectors.SelectedItem);
+            Control ed = EntityEditorContainer.CreateEditor<DirectorEditor>(lstDirectors.SelectedItem, "Edit director");
             ed.ShowModal(modalGrid, null);
         }
     }
