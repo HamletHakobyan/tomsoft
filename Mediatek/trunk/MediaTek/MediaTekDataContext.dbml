@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="dvd" EntityNamespace="MediaTek" ContextNamespace="MediaTek" Class="MediaTekDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=TOM-PORTABLE\SQLEXPRESS;Initial Catalog=dvd;Integrated Security=True" SettingsObjectName="MediaTek.Properties.Settings" SettingsPropertyName="SQLServerCS" Provider="System.Data.SqlClient" />
+  <Table Name="country" Member="Countries">
+    <Type Name="Country">
+      <Column Name="id" Member="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Member="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="language_id" Member="LanguageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Country_Director" Member="Directors" ThisKey="Id" OtherKey="CountryId" Type="Director" />
+      <Association Name="Language_Country" Member="Language" ThisKey="LanguageId" OtherKey="Id" Type="Language" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="movie" Member="Movies">
+    <Type Name="Movie">
+      <Column Name="id" Member="Id" AutoSync="Never" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="title" Member="Title" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="director_id" Member="DirectorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="year" Member="Year" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="media_type_id" Member="MediaTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="original_title" Member="OriginalTitle" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="language_id" Member="LanguageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cover" Member="CoverRaw" Type="System.Byte[]" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Movie_Lend" Member="Lends" ThisKey="Id" OtherKey="MovieId" Type="Lend" />
+      <Association Name="Director_Movie" Member="Director" ThisKey="DirectorId" OtherKey="Id" Type="Director" IsForeignKey="true" />
+      <Association Name="Language_Movie" Member="Language" ThisKey="LanguageId" OtherKey="Id" Type="Language" IsForeignKey="true" />
+      <Association Name="MediaType_Movie" Member="MediaType" ThisKey="MediaTypeId" OtherKey="Id" Type="MediaType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="director" Member="Directors">
+    <Type Name="Director">
+      <Column Name="id" Member="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Member="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="country_id" Member="CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Director_Movie" Member="Movies" ThisKey="Id" OtherKey="DirectorId" Type="Movie" />
+      <Association Name="Country_Director" Member="Country" ThisKey="CountryId" OtherKey="Id" Type="Country" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="language" Member="Languages">
+    <Type Name="Language">
+      <Column Name="id" Member="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Member="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="code" Member="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Language_Country" Member="Countries" ThisKey="Id" OtherKey="LanguageId" Type="Country" />
+      <Association Name="Language_Movie" Member="Movies" ThisKey="Id" OtherKey="LanguageId" Type="Movie" />
+    </Type>
+  </Table>
+  <Table Name="lend" Member="Lends">
+    <Type Name="Lend">
+      <Column Name="id" Member="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="movie_id" Member="MovieId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="lent_to" Member="LentTo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lent_date" Member="LentDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="return_date" Member="ReturnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Movie_Lend" Member="Movie" ThisKey="MovieId" OtherKey="Id" Type="Movie" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="media_type" Member="MediaTypes">
+    <Type Name="MediaType">
+      <Column Name="id" Member="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Member="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="MediaType_Movie" Member="Movies" ThisKey="Id" OtherKey="MediaTypeId" Type="Movie" />
+    </Type>
+  </Table>
+</Database>

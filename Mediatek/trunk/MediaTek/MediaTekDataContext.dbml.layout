@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 14, 8.5" name="DVDDataContext">
+  <DataContextMoniker Name="/MediaTekDataContext" />
+  <nestedChildShapes>
+    <classShape Id="5a741adb-3db0-465e-b522-c5d3d0d004a3" absoluteBounds="3.5, 1.375, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/MediaTekDataContext/Country" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f2713456-c419-4b06-a268-18ce7141af48" absoluteBounds="3.515, 1.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5ca705a3-87f7-435d-8fdf-78c83f776818" absoluteBounds="9, 1, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/MediaTekDataContext/Movie" />
+      <nestedChildShapes>
+        <elementListCompartment Id="46f4b433-41e3-4831-a430-eed5d46d2117" absoluteBounds="9.015, 1.46, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6fa65191-5cba-4c5c-9d6c-689421590872" absoluteBounds="6.25, 1.375, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/MediaTekDataContext/Director" />
+      <nestedChildShapes>
+        <elementListCompartment Id="862ba4d2-b4b6-42eb-b914-cb22b4a97202" absoluteBounds="6.265, 1.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="232bd327-28de-4f88-afeb-3592205d0442" absoluteBounds="0.75, 1.375, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/MediaTekDataContext/Language" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2d846185-52b5-49b7-8027-ac84a60cfece" absoluteBounds="0.765, 1.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ee405427-4e82-4fc3-8699-d10d44613875" absoluteBounds="11.75, 1.25, 2, 1.7708968098958329">
+      <DataClassMoniker Name="/MediaTekDataContext/Lend" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f9a30f3e-707c-43ad-9b53-77ff955b88fb" absoluteBounds="11.765, 1.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="aa231236-f935-46b2-a8c2-762d684aee62" absoluteBounds="6.25, 5.5, 2, 1.1939925130208327">
+      <DataClassMoniker Name="/MediaTekDataContext/MediaType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="422fc975-13e2-4dcd-bbf2-f8d13c2a3bbd" absoluteBounds="6.265, 5.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 2.06814697265625); (3.5 : 2.06814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MediaTekDataContext/Language/Language_Country" />
+      <nodes>
+        <classShapeMoniker Id="232bd327-28de-4f88-afeb-3592205d0442" />
+        <classShapeMoniker Id="5a741adb-3db0-465e-b522-c5d3d0d004a3" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 2.06814697265625); (9 : 2.06814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MediaTekDataContext/Director/Director_Movie" />
+      <nodes>
+        <classShapeMoniker Id="6fa65191-5cba-4c5c-9d6c-689421590872" />
+        <classShapeMoniker Id="5ca705a3-87f7-435d-8fdf-78c83f776818" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.75 : 2.7612939453125); (1.75 : 3.05454802604167); (9 : 3.05454802604167)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MediaTekDataContext/Language/Language_Movie" />
+      <nodes>
+        <classShapeMoniker Id="232bd327-28de-4f88-afeb-3592205d0442" />
+        <classShapeMoniker Id="5ca705a3-87f7-435d-8fdf-78c83f776818" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 6.09699625651042); (10 : 6.09699625651042); (10 : 3.34780110677083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MediaTekDataContext/MediaType/MediaType_Movie" />
+      <nodes>
+        <classShapeMoniker Id="aa231236-f935-46b2-a8c2-762d684aee62" />
+        <classShapeMoniker Id="5ca705a3-87f7-435d-8fdf-78c83f776818" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 2.06814697265625); (6.25 : 2.06814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MediaTekDataContext/Country/Country_Director" />
+      <nodes>
+        <classShapeMoniker Id="5a741adb-3db0-465e-b522-c5d3d0d004a3" />
+        <classShapeMoniker Id="6fa65191-5cba-4c5c-9d6c-689421590872" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(11 : 2.13544840494792); (11.75 : 2.13544840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MediaTekDataContext/Movie/Movie_Lend" />
+      <nodes>
+        <classShapeMoniker Id="5ca705a3-87f7-435d-8fdf-78c83f776818" />
+        <classShapeMoniker Id="ee405427-4e82-4fc3-8699-d10d44613875" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
