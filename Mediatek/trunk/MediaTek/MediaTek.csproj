@@ -75,6 +75,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="DirectorEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EntityEditorContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -107,6 +115,12 @@
   <ItemGroup>
     <Compile Include="CustomCommands.cs" />
     <Compile Include="DateConverter.cs" />
+    <Compile Include="DirectorEditor.xaml.cs">
+      <DependentUpon>DirectorEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EntityEditorContainer.xaml.cs">
+      <DependentUpon>EntityEditorContainer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ModalServices.cs" />
     <Compile Include="MovieEditor.xaml.cs">
       <DependentUpon>MovieEditor.xaml</DependentUpon>

@@ -38,7 +38,8 @@
                 <TabItem Name="tabDirectors"
                          Header="Directors">
                     <mediatek:ScalableListView
-                        x:Name="lstDirectors"/>
+                        x:Name="lstDirectors"
+                        MouseDoubleClick="lstDirectors_MouseDoubleClick"/>
                 </TabItem>
                 <TabItem Name="tabCountries"
                          Header="Countries">

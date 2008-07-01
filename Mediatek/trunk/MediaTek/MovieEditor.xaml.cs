@@ -25,40 +25,9 @@ namespace MediaTek
             InitializeComponent();
         }
 
-        private ObjectState objState;
-
         public Movie Movie
         {
             get { return this.DataContext as Movie; }
-            set { this.DataContext = value; }
-        }
-
-        private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.OldValue != null && objState != null)
-            {
-                objState.RestoreState(e.OldValue);
-                objState = null;
-            }
-
-            objState = null;
-
-            if (e.NewValue != null)
-                objState = new ObjectState(e.NewValue);
-        }
-
-        private void btnOK_Click(object sender, RoutedEventArgs e)
-        {
-            this.ReturnModal(true);
-        }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.Movie != null && objState != null)
-            {
-                objState.RestoreState(this.Movie);
-            }
-            this.ReturnModal(false);
         }
 
         private void btnImage_Click(object sender, RoutedEventArgs e)
