@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="MediaTek.EntityEditorContainer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+             Height="420" Width="400"
+             DataContextChanged="UserControl_DataContextChanged">
+    <aero:SystemDropShadowChrome x:Name="borderShadow" CornerRadius="8">
+        <Border CornerRadius="8"
+                BorderThickness="1"
+                BorderBrush="Blue"
+                Background="White"
+                Margin="0,0,5,5">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer Name="scvEditor" VerticalScrollBarVisibility="Auto">
+                    
+                </ScrollViewer>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
+                    <Button Name="btnCancel"
+                            IsCancel="True"
+                            HorizontalAlignment="Right"
+                            Margin="3"
+                            Width="50"
+                            Content="Cancel"
+                            Click="btnCancel_Click"/>
+                    <Button Name="btnOK"
+                            IsDefault="True"
+                            HorizontalAlignment="Right"
+                            Margin="3"
+                            Width="50"
+                            Content="OK"
+                            Click="btnOK_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </aero:SystemDropShadowChrome>
+</UserControl>
