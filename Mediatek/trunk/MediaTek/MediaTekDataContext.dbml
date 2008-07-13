@@ -3,7 +3,7 @@
   <Connection Mode="AppSettings" ConnectionString="Data Source=TOM-PORTABLE\SQLEXPRESS;Initial Catalog=dvd;Integrated Security=True" SettingsObjectName="MediaTek.Properties.Settings" SettingsPropertyName="SQLServerCS" Provider="System.Data.SqlClient" />
   <Table Name="country" Member="Countries">
     <Type Name="Country">
-      <Column Name="id" Member="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id" Member="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="name" Member="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
       <Column Name="language_id" Member="LanguageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Country_Director" Member="Directors" ThisKey="Id" OtherKey="CountryId" Type="Director" />
@@ -12,7 +12,7 @@
   </Table>
   <Table Name="movie" Member="Movies">
     <Type Name="Movie">
-      <Column Name="id" Member="Id" AutoSync="Never" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id" Member="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="title" Member="Title" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
       <Column Name="director_id" Member="DirectorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="year" Member="Year" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
@@ -28,7 +28,7 @@
   </Table>
   <Table Name="director" Member="Directors">
     <Type Name="Director">
-      <Column Name="id" Member="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id" Member="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="name" Member="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
       <Column Name="country_id" Member="CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Director_Movie" Member="Movies" ThisKey="Id" OtherKey="DirectorId" Type="Movie" />
@@ -37,7 +37,7 @@
   </Table>
   <Table Name="language" Member="Languages">
     <Type Name="Language">
-      <Column Name="id" Member="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id" Member="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="name" Member="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="code" Member="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="Language_Country" Member="Countries" ThisKey="Id" OtherKey="LanguageId" Type="Country" />
@@ -46,7 +46,7 @@
   </Table>
   <Table Name="lend" Member="Lends">
     <Type Name="Lend">
-      <Column Name="id" Member="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id" Member="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="movie_id" Member="MovieId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="lent_to" Member="LentTo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="lent_date" Member="LentDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
@@ -56,7 +56,7 @@
   </Table>
   <Table Name="media_type" Member="MediaTypes">
     <Type Name="MediaType">
-      <Column Name="id" Member="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id" Member="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="name" Member="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="MediaType_Movie" Member="Movies" ThisKey="Id" OtherKey="MediaTypeId" Type="Movie" />
     </Type>

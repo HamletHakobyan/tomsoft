@@ -28,6 +28,7 @@ namespace MediaTek
             App.Current.DataContext = db;
             db.Connection.Open();
             db.Transaction = db.Connection.BeginTransaction();
+            App.Current.InitializeViews();
             InitDataBindings();
             InitFilters();
         }
@@ -133,14 +134,53 @@ namespace MediaTek
 
         private void lstMovies_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Control ed = EntityEditorContainer.CreateEditor<MovieEditor>(lstMovies.SelectedItem, "Edit movie");
+            Control ed = EntityEditorContainer.CreateEditor(lstMovies.SelectedItem, "Edit movie");
             ed.ShowModal(modalGrid, null);
         }
 
         private void lstDirectors_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Control ed = EntityEditorContainer.CreateEditor<DirectorEditor>(lstDirectors.SelectedItem, "Edit director");
+            Control ed = EntityEditorContainer.CreateEditor(lstDirectors.SelectedItem, "Edit director");
             ed.ShowModal(modalGrid, null);
+        }
+
+        private void lstCountries_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Control ed = EntityEditorContainer.CreateEditor(lstCountries.SelectedItem, "Edit country");
+            ed.ShowModal(modalGrid, null);
+        }
+
+        private void lstLanguages_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Control ed = EntityEditorContainer.CreateEditor(lstLanguages.SelectedItem, "Edit language");
+            ed.ShowModal(modalGrid, null);
+        }
+
+        private void lstMediaTypes_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Control ed = EntityEditorContainer.CreateEditor(lstMediaTypes.SelectedItem, "Edit media type");
+            ed.ShowModal(modalGrid, null);
+        }
+
+        private void lstLends_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Control ed = EntityEditorContainer.CreateEditor(lstLends.SelectedItem, "Edit lend");
+            ed.ShowModal(modalGrid, null);
+        }
+
+        private void zzz_Click(object sender, RoutedEventArgs e)
+        {
+            Director d = new Director();
+            Control ed = EntityEditorContainer.CreateEditor(d, "New director");
+            ed.ShowModal(modalGrid, delegate(bool? result)
+            {
+                if (result ?? false)
+                {
+                    App.Current.DataContext.Directors.InsertOnSubmit(d);
+                    App.Current.DataContext.SubmitChanges();
+                    App.Current.Directors.Refresh();
+                }
+            });
         }
     }
 }

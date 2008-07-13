@@ -57,12 +57,39 @@ namespace MediaTek
         public static Control CreateEditor<T>(object entity, string title) where T : Control, new()
         {
             Control editor = Activator.CreateInstance<T>();
-            EntityEditorContainer container = new EntityEditorContainer();
+            EntityEditorContainer container = CreateContainer(editor);
+            container.scvEditor.Content = editor;
             container.lblTitle.Content = title;
+            container.DataContext = entity;
+            return container;
+        }
+
+        public static Control CreateEditor(object entity, string title)
+        {
+            Type type = entity.GetType();
+            EditorControlAttribute[] attr = type.GetCustomAttributes(typeof(EditorControlAttribute), true).Cast<EditorControlAttribute>().ToArray();
+            if (attr.Length > 0)
+            {
+                Type editorType = attr[0].EditorType;
+                Control editor = Activator.CreateInstance(editorType) as Control;
+                EntityEditorContainer container = CreateContainer(editor);
+                container.scvEditor.Content = editor;
+                container.lblTitle.Content = title;
+                container.DataContext = entity;
+                return container;
+
+            }
+            else
+            {
+                throw new NotSupportedException("No editor defined for type " + type.FullName);
+            }
+        }
+
+        private static EntityEditorContainer CreateContainer(Control editor)
+        {
+            EntityEditorContainer container = new EntityEditorContainer();
             container.Height = editor.Height + 80;
             container.Width = editor.Width + 20;
-            container.scvEditor.Content = editor;
-            container.DataContext = entity;
             return container;
         }
     }

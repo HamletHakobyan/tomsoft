@@ -24,14 +24,14 @@ namespace MediaTek
             InitializeComponent();
         }
 
-        public Director Director
+        public Director Target
         {
             get { return this.DataContext as Director; }
         }
 
         private void cmbCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Director.Country = App.Current.DataContext.Countries.Where(c => c.Id == Director.CountryId).FirstOrDefault();
+            Target.Country = App.Current.DataContext.Countries.Where(c => c.Id == Target.CountryId).FirstOrDefault();
         }
     }
 }

@@ -23,6 +23,7 @@
                     <Separator/>
                     <MenuItem Name="mnuQuit" Header="Quit" Command="mediatek:CustomCommands.Quit"/>
                 </MenuItem>
+                <MenuItem Name="zzz" Header="zzz" Click="zzz_Click"/>
             </Menu>
             <TextBox Name="txtFilter"
                      DockPanel.Dock="Top"
@@ -44,22 +45,26 @@
                 <TabItem Name="tabCountries"
                          Header="Countries">
                     <mediatek:ScalableListView
-                        x:Name="lstCountries"/>
+                        x:Name="lstCountries"
+                        MouseDoubleClick="lstCountries_MouseDoubleClick"/>
                 </TabItem>
                 <TabItem Name="tabLanguages"
                          Header="Languages">
                     <mediatek:ScalableListView
-                        x:Name="lstLanguages"/>
+                        x:Name="lstLanguages"
+                        MouseDoubleClick="lstLanguages_MouseDoubleClick"/>
                 </TabItem>
                 <TabItem Name="tabMediaTypes"
                          Header="Media Types">
                     <mediatek:ScalableListView
-                        x:Name="lstMediaTypes"/>
+                        x:Name="lstMediaTypes"
+                        MouseDoubleClick="lstMediaTypes_MouseDoubleClick"/>
                 </TabItem>
                 <TabItem Name="tabLends"
                          Header="Lends">
                     <mediatek:ScalableListView
-                        x:Name="lstLends"/>
+                        x:Name="lstLends"
+                        MouseDoubleClick="lstLends_MouseDoubleClick"/>
                 </TabItem>
             </TabControl>
         </DockPanel>
