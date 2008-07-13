@@ -1,7 +1,6 @@
 ﻿<UserControl x:Class="MediaTek.MovieEditor"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
              Height="420" Width="400">
     <Grid>
         <Grid.RowDefinitions>
@@ -38,12 +37,14 @@
         <ComboBox Name="cmbDirector"
                   Grid.Column="1" Grid.Row="2"
                   VerticalAlignment="Center"
-                  ItemsSource="{Binding Directors, Source={StaticResource db}}"
+                  ItemsSource="{Binding Directors, Source={x:Static Application.Current}}"
                   DisplayMemberPath="Name"
                   SelectedValuePath="Id"
                   SelectedValue="{Binding DirectorId}"
                   IsEditable="True"
-                  SelectionChanged="cmbDirector_SelectionChanged"/>
+                  IsSynchronizedWithCurrentItem="False"
+                  PreviewLostKeyboardFocus="cmbDirector_PreviewLostKeyboardFocus"
+                  SelectionChanged="cmbDirector_SelectionChanged" />
         <TextBox Name="txtYear"
                  Grid.Column="1" Grid.Row="3"
                  VerticalAlignment="Center"
@@ -51,12 +52,14 @@
         <ComboBox Name="cmbLanguage"
                   Grid.Column="1" Grid.Row="4"
                   VerticalAlignment="Center"
-                  ItemsSource="{Binding Languages, Source={StaticResource db}}"
+                  ItemsSource="{Binding Languages, Source={x:Static Application.Current}}"
                   DisplayMemberPath="Name"
                   SelectedValuePath="Id"
                   SelectedValue="{Binding LanguageId}"
                   IsEditable="True"
-                  SelectionChanged="cmbLanguage_SelectionChanged"/>
+                  IsSynchronizedWithCurrentItem="False"
+                  PreviewLostKeyboardFocus="cmbLanguage_PreviewLostKeyboardFocus"
+                  SelectionChanged="cmbLanguage_SelectionChanged" />
         <TextBox Name="txtOriginalTitle"
                  Grid.Column="1" Grid.Row="5"
                  VerticalAlignment="Center"
@@ -64,12 +67,14 @@
         <ComboBox Name="cmbMediaType"
                   Grid.Column="1" Grid.Row="6"
                   VerticalAlignment="Center"
-                  ItemsSource="{Binding MediaTypes, Source={StaticResource db}}"
+                  ItemsSource="{Binding Countries, Source={x:Static Application.Current}}"
                   DisplayMemberPath="Name"
                   SelectedValuePath="Id"
                   SelectedValue="{Binding MediaTypeId}"
                   IsEditable="True"
-                  SelectionChanged="cmbMediaType_SelectionChanged"/>
+                  IsSynchronizedWithCurrentItem="False"
+                  PreviewLostKeyboardFocus="cmbMediaType_PreviewLostKeyboardFocus"
+                  SelectionChanged="cmbMediaType_SelectionChanged" />
         <Button Name="btnImage"
                 Grid.Column="1" Grid.Row="7"
                 Width="120"

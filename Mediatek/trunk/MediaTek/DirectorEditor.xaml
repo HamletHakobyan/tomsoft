@@ -1,7 +1,6 @@
 ﻿<UserControl x:Class="MediaTek.DirectorEditor"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
              Height="100" Width="400">
     <Grid>
         <Grid.RowDefinitions>
@@ -28,7 +27,7 @@
         <ComboBox Name="cmbCountry"
                   Grid.Column="1" Grid.Row="2"
                   VerticalAlignment="Center"
-                  ItemsSource="{Binding Countries, Source={StaticResource db}}"
+                  ItemsSource="{Binding DataContext.Countries, Source={x:Static Application.Current}}"
                   DisplayMemberPath="Name"
                   SelectedValuePath="Id"
                   SelectedValue="{Binding CountryId}"

@@ -75,6 +75,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CountryEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DirectorEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -83,7 +87,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LanguageEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MediaTypeEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -113,13 +125,23 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CountryEditor.xaml.cs">
+      <DependentUpon>CountryEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomCommands.cs" />
     <Compile Include="DateConverter.cs" />
     <Compile Include="DirectorEditor.xaml.cs">
       <DependentUpon>DirectorEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditorControlAttribute.cs" />
     <Compile Include="EntityEditorContainer.xaml.cs">
       <DependentUpon>EntityEditorContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LanguageEditor.xaml.cs">
+      <DependentUpon>LanguageEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MediaTypeEditor.xaml.cs">
+      <DependentUpon>MediaTypeEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="ModalServices.cs" />
     <Compile Include="MovieEditor.xaml.cs">

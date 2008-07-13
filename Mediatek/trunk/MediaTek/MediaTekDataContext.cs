@@ -3,10 +3,15 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Data.Linq;
 
 namespace MediaTek
 {
+    partial class MediaTekDataContext
+    {
+    }
 
+    [EditorControl(typeof(MovieEditor))]
     partial class Movie : IFilterable
     {
         public ImageSource Cover
@@ -77,6 +82,7 @@ namespace MediaTek
         #endregion
     }
 
+    [EditorControl(typeof(DirectorEditor))]
     public partial class Director : IFilterable
     {
         public override string ToString()
@@ -99,6 +105,7 @@ namespace MediaTek
         #endregion
     }
 
+    [EditorControl(typeof(LanguageEditor))]
     public partial class Language : IFilterable
     {
         public override string ToString()
@@ -121,6 +128,7 @@ namespace MediaTek
         #endregion
     }
 
+    [EditorControl(typeof(CountryEditor))]
     public partial class Country : IFilterable
     {
         public override string ToString()
@@ -143,6 +151,7 @@ namespace MediaTek
         #endregion
     }
 
+    [EditorControl(typeof(MediaTypeEditor))]
     public partial class MediaType : IFilterable
     {
         public override string ToString()
