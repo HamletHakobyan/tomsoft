@@ -1,0 +1,237 @@
+﻿<Window x:Class="MediaTek.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:mediatek="clr-namespace:MediaTek"
+        xmlns:controls="clr-namespace:MediaTek.Controls"
+        xmlns:utilities="clr-namespace:MediaTek.Utilities"
+        xmlns:bagotricks="clr-namespace:Microsoft.Samples.KMoore.WPFSamples.InfoTextBox;assembly=WPFSamplesLib"
+        Title="Mediatek"
+        Icon="Resources/Movie.png"
+        Height="600" Width="800"
+        Closing="Window_Closing" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+
+    <Window.Resources>
+        <CollectionViewSource x:Key="cvsMovies" Source="{Binding Path=Movies}" Filter="cvsMovies_Filter"/>
+        <CollectionViewSource x:Key="cvsDirectors" Source="{Binding Path=Directors}" Filter="CollectionViewSource_Filter"/>
+        <CollectionViewSource x:Key="cvsCountries" Source="{Binding Path=Countries}" Filter="CollectionViewSource_Filter"/>
+        <CollectionViewSource x:Key="cvsLanguages" Source="{Binding Path=Languages}" Filter="CollectionViewSource_Filter"/>
+        <CollectionViewSource x:Key="cvsMediaTypes" Source="{Binding Path=MediaTypes}" Filter="CollectionViewSource_Filter"/>
+        <CollectionViewSource x:Key="cvsLends" Source="{Binding Path=Lends}" Filter="cvsLends_Filter"/>
+    </Window.Resources>
+    
+    <Window.CommandBindings>
+        <CommandBinding Command="utilities:CustomCommands.Quit"
+                        CanExecute="AppCommand_CanExecute"
+                        Executed="AppCommand_Executed"/>
+        <CommandBinding Command="utilities:CustomCommands.About"
+                        CanExecute="AppCommand_CanExecute"
+                        Executed="AppCommand_Executed"/>
+        <CommandBinding Command="ApplicationCommands.New"
+                        CanExecute="AppCommand_CanExecute"
+                        Executed="AppCommand_Executed"/>
+        <CommandBinding Command="ApplicationCommands.Open"
+                        CanExecute="AppCommand_CanExecute"
+                        Executed="AppCommand_Executed"/>
+        <CommandBinding Command="ApplicationCommands.Save"
+                        CanExecute="AppCommand_CanExecute"
+                        Executed="AppCommand_Executed"/>
+        <CommandBinding Command="ApplicationCommands.Properties"
+                        CanExecute="ItemCommand_CanExecute"
+                        Executed="ItemCommand_Executed"/>
+        <CommandBinding Command="ApplicationCommands.Delete"
+                        CanExecute="ItemCommand_CanExecute"
+                        Executed="ItemCommand_Executed"/>
+        <CommandBinding Command="utilities:CustomCommands.Add"
+                        CanExecute="ItemCommand_CanExecute"
+                        Executed="ItemCommand_Executed"/>
+        <CommandBinding Command="utilities:CustomCommands.Lend"
+                        CanExecute="ItemCommand_CanExecute"
+                        Executed="ItemCommand_Executed"/>
+        <CommandBinding Command="utilities:CustomCommands.Return"
+                        CanExecute="ItemCommand_CanExecute"
+                        Executed="ItemCommand_Executed"/>
+    </Window.CommandBindings>
+    
+    
+    <Grid x:Name="modalGrid">
+        <DockPanel>
+            <Menu x:Name="mnuMain"
+                  DockPanel.Dock="Top"
+                  Height="22">
+                <MenuItem x:Name="mnuFile" Header="File">
+                    <MenuItem x:Name="mnuNew" Header="New" Command="ApplicationCommands.New"/>
+                    <MenuItem x:Name="mnuOpen" Header="Open" Command="ApplicationCommands.Open"/>
+                    <MenuItem x:Name="mnuSave" Header="Save" Command="ApplicationCommands.Save"/>
+                    <Separator/>
+                    <MenuItem x:Name="mnuQuit" Header="Quit" Command="utilities:CustomCommands.Quit"/>
+                </MenuItem>
+                <MenuItem x:Name="mnuHelp" Header="?">
+                    <MenuItem x:Name="mnuAbout" Header="About Mediatek..." Command="utilities:CustomCommands.About" CommandParameter="App"/>
+                </MenuItem>
+            </Menu>
+                        
+            <ToolBarTray DockPanel.Dock="Top" Orientation="Horizontal">
+                <ToolBar Band="0" BandIndex="0" Height="32">
+                    <Button Command="ApplicationCommands.New"
+                            Style="{StaticResource stlButton}"
+                            ToolTip="New">
+                        <Image Source="Resources/New.png"/>
+                    </Button>
+                    <Button Command="ApplicationCommands.Open"
+                            Style="{StaticResource stlButton}"
+                            ToolTip="Open">
+                        <Image Source="Resources/Open.png"/>
+                    </Button>
+                    <Button Command="ApplicationCommands.Save"
+                            Style="{StaticResource stlButton}"
+                            ToolTip="Save">
+                        <Image Source="Resources/Save.png"/>
+                    </Button>
+                </ToolBar>
+                <ToolBar Band="0" BandIndex="1" Height="32">
+                    <Button Command="utilities:CustomCommands.Add"
+                            Style="{StaticResource stlButton}"
+                            ToolTip="Create new item">
+                        <Image Source="Resources/Add.png"/>
+                    </Button>
+                    <Button Command="ApplicationCommands.Delete"
+                            Style="{StaticResource stlButton}"
+                            ToolTip="Delete">
+                        <Image Source="Resources/Delete.png"/>
+                    </Button>
+                    <Button Command="ApplicationCommands.Properties"
+                            Style="{StaticResource stlButton}"
+                            ToolTip="Edit properties">
+                        <Image Source="Resources/Properties.png"/>
+                    </Button>
+                    <Separator/>
+                    <Image Source="Resources/Search.png" Margin="2" ToolTip="Filter"/>
+                    <!--<controls:FilterTextBox x:Name="txtFilter" Width="150" FontSize="16" FilterChanged="txtFilter_FilterChanged"/>-->
+                    <bagotricks:InfoTextBox Name="txtFilter" Width="150"
+                                            FontSize="16"
+                                            TextChanged="txtFilter_FilterChanged"
+                                            TextBoxInfo="Search..."/>
+                    <Button x:Name="btnClearFilter"
+                            Style="{StaticResource stlButton}"
+                            ToolTip="Clear filter"
+                            Click="btnClearFilter_Click">
+                        <Image Source="Resources/Close.png"/>
+                    </Button>
+                </ToolBar>
+                <ToolBar Band="0" BandIndex="2" Height="32">
+                    <Button x:Name="btnZoomOut"
+                            Style="{StaticResource stlButton}"
+                            ToolTip="Zoom out"
+                            Click="btnZoomOut_Click">
+                        <Image Source="Resources/ZoomOut.png"/>
+                    </Button>
+                    <Button x:Name="btnResetZoom"
+                            Style="{StaticResource stlButton}"
+                            ToolTip="Reset zoom"
+                            Width="50"
+                            Click="btnResetZoom_Click">
+                        <TextBlock Text="{Binding Path=Zoom, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type mediatek:MainWindow}}, StringFormat=\{0:P0\}}"/>
+                    </Button>
+                    <Button x:Name="btnZoomIn"
+                            Style="{StaticResource stlButton}"
+                            ToolTip="Zoom in"
+                            Click="btnZoomIn_Click">
+                        <Image Source="Resources/ZoomIn.png"/>
+                    </Button>
+                </ToolBar>
+                <ToolBar Band="0" BandIndex="3" Height="32">
+                    <Button Command="ApplicationCommands.Help"
+                            Style="{StaticResource stlButton}"
+                            ToolTip="Help">
+                        <Image Source="Resources/Help.png"/>
+                    </Button>
+                    <Button Command="utilities:CustomCommands.About"
+                            Style="{StaticResource stlButton}"
+                            ToolTip="About Mediatek...">
+                        <Image Source="Resources/About.png"/>
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
+            
+            <TabControl x:Name="tabMain"
+                        TabStripPlacement="Left"
+                        SelectionChanged="tabMain_SelectionChanged">
+                
+                <TabItem x:Name="tabMovies" Style="{StaticResource stlTabItem}">
+                    <TabItem.Header>
+                        <Image Source="Resources/Movie.png" Height="32" ToolTip="Movies"/>
+                    </TabItem.Header>
+                    <DockPanel>
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="24">
+                            <CheckBox Name="chkHideLentMovies"
+                                      Style="{StaticResource stlCheckBox}"
+                                      IsChecked="True"
+                                      Checked="chkHideLentMovies_Checked"
+                                      Unchecked="chkHideLentMovies_Checked">
+                                Hide lent movies
+                            </CheckBox>
+                        </StackPanel>
+                        <controls:ScalableListView
+                          x:Name="lstMovies"
+						  ItemsSource="{Binding Source={StaticResource cvsMovies}}"
+                          Zoom="{Binding Path=Zoom, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type mediatek:MainWindow}}}">
+                        </controls:ScalableListView>
+                    </DockPanel>
+                </TabItem>
+                
+                <TabItem x:Name="tabDirectors" Style="{StaticResource stlTabItem}">
+                    <TabItem.Header>
+                        <Image Source="Resources/Person.png" Height="32" ToolTip="Directors"/>
+                    </TabItem.Header>
+                    <controls:ScalableListView
+                        x:Name="lstDirectors"
+                        ItemsSource="{Binding Source={StaticResource cvsDirectors}}"
+                        Zoom="{Binding Path=Zoom, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type mediatek:MainWindow}}}"/>
+                </TabItem>
+                <TabItem x:Name="tabCountries" Style="{StaticResource stlTabItem}">
+                    <TabItem.Header>
+                        <Image Source="Resources/World.png" Height="32" ToolTip="Countries"/>
+                    </TabItem.Header>
+                    <controls:ScalableListView
+                        x:Name="lstCountries"
+                        ItemsSource="{Binding Source={StaticResource cvsCountries}}"
+                        Zoom="{Binding Path=Zoom, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type mediatek:MainWindow}}}"/>
+                </TabItem>
+                <TabItem x:Name="tabLanguages" Style="{StaticResource stlTabItem}">
+                    <TabItem.Header>
+                        <Image Source="Resources/Sound.png" Height="32" ToolTip="Languages"/>
+                    </TabItem.Header>
+                    <controls:ScalableListView
+                        x:Name="lstLanguages"
+                        ItemsSource="{Binding Source={StaticResource cvsLanguages}}"
+                        Zoom="{Binding Path=Zoom, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type mediatek:MainWindow}}}"/>
+                </TabItem>
+                <TabItem x:Name="tabMediaTypes" Style="{StaticResource stlTabItem}">
+                    <TabItem.Header>
+                        <Image Source="Resources/Disc.png" Height="32" ToolTip="Media types"/>
+                    </TabItem.Header>
+                    <controls:ScalableListView
+                        x:Name="lstMediaTypes"
+                        ItemsSource="{Binding Source={StaticResource cvsMediaTypes}}"
+                        Zoom="{Binding Path=Zoom, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type mediatek:MainWindow}}}"/>
+                </TabItem>
+                <TabItem x:Name="tabLends" Style="{StaticResource stlTabItem}">
+                    <TabItem.Header>
+                        <Image Source="Resources/Lend.png" Height="32" ToolTip="Lends"/>
+                    </TabItem.Header>
+                    <DockPanel>
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                            <CheckBox Name="chkHideReturnedMovies" IsChecked="True" Checked="chkHideReturnedMovies_Checked" Unchecked="chkHideReturnedMovies_Checked">Hide returned movies</CheckBox>
+                        </StackPanel>
+                        <controls:ScalableListView
+                        x:Name="lstLends"
+                        ItemsSource="{Binding Source={StaticResource cvsLends}}"
+                        Zoom="{Binding Path=Zoom, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type mediatek:MainWindow}}}"/>
+                    </DockPanel>
+                </TabItem>
+                <TabItem x:Name="tabDummy" Width="70" Visibility="Hidden"/>
+            </TabControl>
+        </DockPanel>
+    </Grid>
+</Window>

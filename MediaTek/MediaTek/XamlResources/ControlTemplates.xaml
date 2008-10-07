@@ -1,0 +1,91 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xmlns:controls="clr-namespace:MediaTek.Controls"
+                    xmlns:utilities="clr-namespace:MediaTek.Utilities"
+                    xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
+
+    <ControlTemplate x:Key="tplMediaTekItem" TargetType="ContentControl">
+        <aero:SystemDropShadowChrome x:Name="borderShadow" CornerRadius="8">
+            <Border CornerRadius="8"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    Background="{TemplateBinding Background}"
+                    Margin="3" Padding="5"
+                    Width="300"
+                    ContextMenu="{Binding ContextMenuKey, Converter={StaticResource convMenu}}">
+                <Border.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick"
+                              Command="ApplicationCommands.Properties"/>
+                    <KeyBinding Key="Enter"
+                                Command="ApplicationCommands.Properties"/>
+                    <KeyBinding Key="Return"
+                                Command="ApplicationCommands.Properties"/>
+                    <KeyBinding Key="Delete"
+                                Command="ApplicationCommands.Delete"/>
+                </Border.InputBindings>
+                <ContentPresenter/>
+            </Border>
+            <aero:SystemDropShadowChrome.LayoutTransform>
+                <ScaleTransform CenterX="0"
+                                    CenterY="0"
+                                    ScaleX="{Binding Zoom, RelativeSource={RelativeSource AncestorType={x:Type controls:ScalableListView}}}"
+                                    ScaleY="{Binding Zoom, RelativeSource={RelativeSource AncestorType={x:Type controls:ScalableListView}}}" />
+            </aero:SystemDropShadowChrome.LayoutTransform>
+        </aero:SystemDropShadowChrome>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Key="tplWrapListView" TargetType="controls:ScalableListView">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                      Background="{TemplateBinding Background}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+                <Rectangle Grid.Column="0">
+                  <Rectangle.Fill>
+                      <ImageBrush ImageSource="/Resources/Background_left.png" Stretch="None" AlignmentX="Left" AlignmentY="Top" TileMode="Tile" />
+                  </Rectangle.Fill>
+                </Rectangle>
+                <WrapPanel IsItemsHost="True"
+                       Orientation="Horizontal"
+                       Grid.Column="1">
+                    <WrapPanel.Background>
+                        <ImageBrush ImageSource="/Resources/Background_tile.png" Stretch="None" AlignmentX="Left" AlignmentY="Top" TileMode="Tile" />
+                    </WrapPanel.Background>
+                    <WrapPanel.InputBindings>
+                        <KeyBinding Key="Enter"
+                                Command="ApplicationCommands.Properties"/>
+                        <KeyBinding Key="Return"
+                                Command="ApplicationCommands.Properties"/>
+                    </WrapPanel.InputBindings>
+                </WrapPanel>
+                <Rectangle Grid.Column="2">
+                  <Rectangle.Fill>
+                      <ImageBrush ImageSource="/Resources/Background_right.png" Stretch="None" AlignmentX="Left" AlignmentY="Top" TileMode="Tile" />
+                  </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+
+        </ScrollViewer>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Key="tplImageButton" TargetType="{x:Type Button}">
+        <Border Width="{TemplateBinding Width}"
+                Height="{TemplateBinding Height}">
+            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Key="tplFieldInError">
+        <StackPanel Orientation="Horizontal">
+            <Image Source="/Resources/FieldError.png" Width="24" Height="16" Margin="4"/>
+            <Border BorderThickness="1" BorderBrush="Red">
+                <AdornedElementPlaceholder/>
+            </Border>
+        </StackPanel>
+    </ControlTemplate>
+    
+</ResourceDictionary>

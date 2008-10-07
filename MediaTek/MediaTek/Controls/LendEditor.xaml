@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="MediaTek.Controls.LendEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:bagotricks="clr-namespace:Microsoft.Samples.KMoore.WPFSamples.DateControls;assembly=WPFSamplesLib"
+             xmlns:utilities="clr-namespace:MediaTek.Utilities"
+             utilities:ValidationService.GroupName="lendEditorValidationGroup"
+             Height="140" Width="300">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="cvsAvailableMovies"
+                              Source="{Binding Movies, Source={x:Static Application.Current}}"
+                              Filter="cvsAvailableMovies_Filter">
+            
+        </CollectionViewSource>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28" />
+            <RowDefinition Height="28" />
+            <RowDefinition Height="28" />
+            <RowDefinition Height="28" />
+            <RowDefinition Height="28" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" Grid.Row="0">Id</Label>
+        <Label Grid.Column="0" Grid.Row="1">Movie</Label>
+        <Label Grid.Column="0" Grid.Row="2">Lent to</Label>
+        <Label Grid.Column="0" Grid.Row="3">Lent date</Label>
+        <Label Grid.Column="0" Grid.Row="4">Return date</Label>
+        <TextBlock Name="txtId"
+                   FontStyle="Italic"
+                   Grid.Column="1" Grid.Row="0"
+                   VerticalAlignment="Center"
+                   Text="{Binding Id, Mode=OneWay}"/>
+        <ComboBox Name="cmbMovie"
+                  Grid.Column="1" Grid.Row="1"
+                  VerticalAlignment="Center"
+                  ItemsSource="{Binding Source={StaticResource cvsAvailableMovies}}"
+                  DisplayMemberPath="Title"
+                  SelectedValue="{Binding Movie}"
+                  IsEditable="True"
+                  Style="{StaticResource stlRequiredComboField}"/>
+        <TextBox Name="txtLentTo"
+                 VerticalAlignment="Center"
+                 Grid.Column="1" Grid.Row="2"
+                 Text="{Binding LentTo}"
+                 Style="{StaticResource stlRequiredTextField}"/>
+        <bagotricks:DatePicker  Name="dtpLentDate"
+                                Grid.Column="1" Grid.Row="3"
+                                VerticalAlignment="Center"
+                                Value="{Binding LentDate}"
+                                CanEdit="True"
+                                Style="{StaticResource stlRequiredDateField}"/>
+        <bagotricks:DatePicker Name="dtpReturnDate"
+                               Grid.Column="1" Grid.Row="4"
+                               VerticalAlignment="Center"
+                               Value="{Binding ReturnDate}" CanEdit="True" NullValueText="" />
+    </Grid>
+</UserControl>

@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:utilities="clr-namespace:MediaTek.Utilities">
+
+    <ContextMenu x:Key="mnuMovie">
+        <MenuItem Header="Properties" FontWeight="Bold" Command="ApplicationCommands.Properties"/>
+        <MenuItem Header="Delete" Command="ApplicationCommands.Delete"/>
+        <Separator/>
+        <MenuItem Header="Lend" Command="utilities:CustomCommands.Lend"/>
+        <MenuItem Header="Mark as returned" Command="utilities:CustomCommands.Return"/>
+    </ContextMenu>
+
+    <ContextMenu x:Key="mnuDirector">
+        <MenuItem Header="Properties" FontWeight="Bold" Command="ApplicationCommands.Properties"/>
+        <MenuItem Header="Delete" Command="ApplicationCommands.Delete"/>
+        <Separator/>
+        <MenuItem Header="Movies by this director..."/>
+    </ContextMenu>
+
+    <ContextMenu x:Key="mnuCountry">
+        <MenuItem Header="Properties" FontWeight="Bold" Command="ApplicationCommands.Properties"/>
+        <MenuItem Header="Delete" Command="ApplicationCommands.Delete"/>
+        <Separator/>
+        <MenuItem Header="Directors from this country..."/>
+    </ContextMenu>
+
+    <ContextMenu x:Key="mnuLanguage">
+        <MenuItem Header="Properties" FontWeight="Bold" Command="ApplicationCommands.Properties"/>
+        <MenuItem Header="Delete" Command="ApplicationCommands.Delete"/>
+        <Separator/>
+        <MenuItem Header="Movies in this language..."/>
+        <MenuItem Header="Countries where this language is spoken..."/>
+    </ContextMenu>
+
+    <ContextMenu x:Key="mnuMediaType">
+        <MenuItem Header="Properties" FontWeight="Bold" Command="ApplicationCommands.Properties"/>
+        <MenuItem Header="Delete" Command="ApplicationCommands.Delete"/>
+        <Separator/>
+        <MenuItem Header="Movies on this media type..."/>
+    </ContextMenu>
+
+    <ContextMenu x:Key="mnuLend">
+        <MenuItem Header="Properties" FontWeight="Bold" Command="ApplicationCommands.Properties"/>
+        <MenuItem Header="Delete" Command="ApplicationCommands.Delete"/>
+        <Separator/>
+        <MenuItem Header="Mark as returned" Command="utilities:CustomCommands.Return"/>
+    </ContextMenu>
+</ResourceDictionary>
