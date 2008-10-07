@@ -1,0 +1,195 @@
+﻿<ResourceDictionary x:Class="MediaTek.XamlResources.Styles"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:MediaTek.Controls"
+                    xmlns:utilities="clr-namespace:MediaTek.Utilities"
+                    xmlns:bagotricks="clr-namespace:Microsoft.Samples.KMoore.WPFSamples.DateControls;assembly=WPFSamplesLib">
+
+	<Style x:Key="stlMediaTekItem" TargetType="{x:Type ContentControl}">
+	        <Setter Property="Background" Value="White"/>
+	        <Setter Property="BorderBrush" Value="LightGray"/>
+	        <Setter Property="BorderThickness" Value="1"/>
+	        <Setter Property="Template" Value="{StaticResource tplMediaTekItem}"/>
+	</Style>
+	
+    <Style x:Key="stlItemContainer" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource stlMediaTekItem}">
+		<Style.Resources>
+		    <ToolTip x:Key="zoomToolTip"
+				Placement="Center"
+				RenderTransformOrigin="0.5,0.5">
+				<ToolTip.Template>
+					<ControlTemplate>
+						<Grid Background="Transparent">
+							<ContentControl Margin="10"
+											Style="{StaticResource stlMediaTekItem}"
+											Content="{Binding PlacementTarget.Content, RelativeSource={RelativeSource FindAncestor, AncestorType=ToolTip}}"/>
+						</Grid>
+					</ControlTemplate>
+				</ToolTip.Template>
+		    	<ToolTip.LayoutTransform>
+		    			<ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+	    		</ToolTip.LayoutTransform>
+    		</ToolTip>
+		</Style.Resources>
+        <Style.Triggers>
+    		<Trigger Property="IsSelected" Value="True">
+    			<Setter Property="BorderBrush" Value="Blue"/>
+    			<Setter Property="Background" Value="Cyan"/>
+    		</Trigger>
+    		<Trigger Property="IsMouseOver" Value="True">
+    			<Setter Property="BitmapEffect">
+    				<Setter.Value>
+    					<OuterGlowBitmapEffect GlowSize="10" GlowColor="Blue" Opacity="0.3"/>
+    				</Setter.Value>
+    			</Setter>
+    			<Setter Property="ToolTipService.InitialShowDelay" Value="500" />
+				<Setter Property="ToolTipService.BetweenShowDelay" Value="500" />
+    			<Setter Property="ToolTip" Value="{StaticResource zoomToolTip}"/>
+    		</Trigger>
+    	</Style.Triggers>
+    </Style>
+    
+    <Style x:Key="{x:Type controls:ScalableListView}" TargetType="{x:Type controls:ScalableListView}">
+        <Setter Property="Template" Value="{StaticResource tplWrapListView}"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource stlItemContainer}"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+    </Style>
+    
+    <Style x:Key="{x:Type controls:FilterTextBox}" TargetType="{x:Type controls:FilterTextBox}">
+        <Style.Triggers>
+            <Trigger Property="IsFilterSet" Value="True">
+                <Setter Property="Background" Value="Yellow"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="stlButton" TargetType="{x:Type Button}">
+        <Setter Property="Template" Value="{StaticResource tplImageButton}"/>
+        <Setter Property="Margin" Value="2"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="BitmapEffect">
+                    <Setter.Value>
+                        <BlurBitmapEffect/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BitmapEffect">
+                    <Setter.Value>
+                        <OuterGlowBitmapEffect/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="BitmapEffect">
+                    <Setter.Value>
+                        <BevelBitmapEffect LightAngle="330" EdgeProfile="CurvedOut" Relief="0.1" Smoothness="1"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="stlTabItem" TargetType="{x:Type TabItem}">
+        <Setter Property="LayoutTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSelected" Value="False"/>
+                    <Condition Property="IsMouseOver" Value="False"/>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(TabItem.LayoutTransform).(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.5" BeginTime="0:0:0"/>
+                            <DoubleAnimation Storyboard.TargetProperty="(TabItem.LayoutTransform).(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.5" BeginTime="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </MultiTrigger.EnterActions>
+                <MultiTrigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(TabItem.LayoutTransform).(ScaleTransform.ScaleX)" To="1.5" Duration="0:0:0.5" BeginTime="0:0:0"/>
+                            <DoubleAnimation Storyboard.TargetProperty="(TabItem.LayoutTransform).(ScaleTransform.ScaleY)" To="1.5" Duration="0:0:0.5" BeginTime="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </MultiTrigger.ExitActions>
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="stlRequiredField" TargetType="{x:Type Control}">
+        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource tplFieldInError}"/>
+        <Setter Property="utilities:ValidationService.Rule" Value="{StaticResource validRequired}"/>
+        <Style.Triggers>
+            <Trigger Property="utilities:ValidationService.HasError" Value="True">
+                <Setter Property="ToolTip" Value="{Binding Path=(utilities:ValidationService.ErrorText), RelativeSource={x:Static RelativeSource.Self}}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="stlRequiredTextField" TargetType="{x:Type TextBox}" BasedOn="{StaticResource stlRequiredField}">
+        <Setter Property="utilities:ValidationService.Property" Value="{x:Static TextBox.TextProperty}"/>
+        <EventSetter Event="TextChanged" Handler="stlTextField_TextChanged"/>
+    </Style>
+    
+    <Style x:Key="stlRequiredComboField" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource stlRequiredField}">
+        <Setter Property="utilities:ValidationService.Property" Value="{x:Static Selector.SelectedItemProperty}"/>
+        <EventSetter Event="SelectionChanged" Handler="stlComboField_SelectionChanged"/>
+    </Style>
+    
+    <Style x:Key="stlRequiredDateField" TargetType="{x:Type bagotricks:DatePicker}" BasedOn="{StaticResource stlRequiredField}">
+        <Setter Property="utilities:ValidationService.Property" Value="{x:Static bagotricks:DatePicker.ValueProperty}"/>
+        <EventSetter Event="ValueChanged" Handler="stlDateField_ValueChanged"/>
+    </Style>
+    
+    <Style x:Key="stlCheckBox" TargetType="{x:Type CheckBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <BulletDecorator>
+                        <BulletDecorator.Bullet>
+                            <Image Name="imgCheck" Source="/Resources/Unchecked.png"/>
+                        </BulletDecorator.Bullet>
+                        <ContentPresenter Margin="2,0,0,0"/>
+                    </BulletDecorator>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="imgCheck" Property="Source" Value="/Resources/Checked.png"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Margin" Value="2"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="BitmapEffect">
+                    <Setter.Value>
+                        <BlurBitmapEffect/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BitmapEffect">
+                    <Setter.Value>
+                        <OuterGlowBitmapEffect/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="BitmapEffect">
+                    <Setter.Value>
+                        <BevelBitmapEffect LightAngle="330" EdgeProfile="CurvedOut" Relief="0.1" Smoothness="1"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

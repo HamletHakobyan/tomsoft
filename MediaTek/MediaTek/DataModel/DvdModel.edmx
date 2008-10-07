@@ -1,0 +1,460 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dvdModel.Store" Alias="Self" Provider="System.Data.SQLite" ProviderManifestToken="ISO8601" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityContainer Name="dvdModelStoreContainer">
+          <EntitySet Name="country" EntityType="dvdModel.Store.country" store:Type="Tables" />
+          <EntitySet Name="director" EntityType="dvdModel.Store.director" store:Type="Tables" />
+          <EntitySet Name="language" EntityType="dvdModel.Store.language" store:Type="Tables" />
+          <EntitySet Name="lend" EntityType="dvdModel.Store.lend" store:Type="Tables" />
+          <EntitySet Name="media_type" EntityType="dvdModel.Store.media_type" store:Type="Tables" />
+          <EntitySet Name="movie" EntityType="dvdModel.Store.movie" store:Type="Tables" />
+          <AssociationSet Name="FK_country_language_id_id" Association="dvdModel.Store.FK_country_language_id_id">
+            <End Role="language" EntitySet="language" />
+            <End Role="country" EntitySet="country" />
+          </AssociationSet>
+          <AssociationSet Name="FK_director_country_id_id" Association="dvdModel.Store.FK_director_country_id_id">
+            <End Role="country" EntitySet="country" />
+            <End Role="director" EntitySet="director" />
+          </AssociationSet>
+          <AssociationSet Name="FK_lend_movie_id_id" Association="dvdModel.Store.FK_lend_movie_id_id">
+            <End Role="movie" EntitySet="movie" />
+            <End Role="lend" EntitySet="lend" />
+          </AssociationSet>
+          <AssociationSet Name="FK_movie_director_id_id" Association="dvdModel.Store.FK_movie_director_id_id">
+            <End Role="director" EntitySet="director" />
+            <End Role="movie" EntitySet="movie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_movie_language_id_id" Association="dvdModel.Store.FK_movie_language_id_id">
+            <End Role="language" EntitySet="language" />
+            <End Role="movie" EntitySet="movie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_movie_media_type_id_id" Association="dvdModel.Store.FK_movie_media_type_id_id">
+            <End Role="media_type" EntitySet="media_type" />
+            <End Role="movie" EntitySet="movie" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="country">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="language_id" Type="integer" />
+          <Property Name="flag" Type="blob" />
+        </EntityType>
+        <EntityType Name="director">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="country_id" Type="integer" />
+          <Property Name="picture" Type="blob" />
+        </EntityType>
+        <EntityType Name="language">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="code" Type="nvarchar" MaxLength="10" />
+          <Property Name="symbol" Type="blob" />
+        </EntityType>
+        <EntityType Name="lend">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="movie_id" Type="integer" Nullable="false" />
+          <Property Name="lent_to" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="lent_date" Type="datetime" Nullable="false" />
+          <Property Name="return_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="media_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="symbol" Type="blob" />
+        </EntityType>
+        <EntityType Name="movie">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="director_id" Type="integer" />
+          <Property Name="year" Type="nvarchar" MaxLength="10" />
+          <Property Name="media_type_id" Type="integer" Nullable="false" />
+          <Property Name="original_title" Type="nvarchar" MaxLength="500" />
+          <Property Name="language_id" Type="integer" />
+          <Property Name="cover" Type="blob" />
+        </EntityType>
+        <Association Name="FK_country_language_id_id">
+          <End Role="language" Type="dvdModel.Store.language" Multiplicity="0..1" />
+          <End Role="country" Type="dvdModel.Store.country" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="language">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="country">
+              <PropertyRef Name="language_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_director_country_id_id">
+          <End Role="country" Type="dvdModel.Store.country" Multiplicity="0..1" />
+          <End Role="director" Type="dvdModel.Store.director" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="country">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="director">
+              <PropertyRef Name="country_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_lend_movie_id_id">
+          <End Role="movie" Type="dvdModel.Store.movie" Multiplicity="1" />
+          <End Role="lend" Type="dvdModel.Store.lend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movie">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lend">
+              <PropertyRef Name="movie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_movie_director_id_id">
+          <End Role="director" Type="dvdModel.Store.director" Multiplicity="0..1" />
+          <End Role="movie" Type="dvdModel.Store.movie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="director">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movie">
+              <PropertyRef Name="director_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_movie_language_id_id">
+          <End Role="language" Type="dvdModel.Store.language" Multiplicity="0..1" />
+          <End Role="movie" Type="dvdModel.Store.movie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="language">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movie">
+              <PropertyRef Name="language_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_movie_media_type_id_id">
+          <End Role="media_type" Type="dvdModel.Store.media_type" Multiplicity="1" />
+          <End Role="movie" Type="dvdModel.Store.movie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="media_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movie">
+              <PropertyRef Name="media_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MediaTek" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+        <EntityContainer Name="DvdEntities">
+          <EntitySet Name="Countries" EntityType="MediaTek.Country" />
+          <EntitySet Name="Directors" EntityType="MediaTek.Director" />
+          <EntitySet Name="Languages" EntityType="MediaTek.Language" />
+          <EntitySet Name="Lends" EntityType="MediaTek.Lend" />
+          <EntitySet Name="MediaTypes" EntityType="MediaTek.MediaType" />
+          <EntitySet Name="Movies" EntityType="MediaTek.Movie" />
+          <AssociationSet Name="FK_country_language_id_id" Association="MediaTek.FK_country_language_id_id">
+            <End Role="language" EntitySet="Languages" />
+            <End Role="country" EntitySet="Countries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_director_country_id_id" Association="MediaTek.FK_director_country_id_id">
+            <End Role="country" EntitySet="Countries" />
+            <End Role="director" EntitySet="Directors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_movie_director_id_id" Association="MediaTek.FK_movie_director_id_id">
+            <End Role="director" EntitySet="Directors" />
+            <End Role="movie" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_movie_language_id_id" Association="MediaTek.FK_movie_language_id_id">
+            <End Role="language" EntitySet="Languages" />
+            <End Role="movie" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_lend_movie_id_id" Association="MediaTek.FK_lend_movie_id_id">
+            <End Role="movie" EntitySet="Movies" />
+            <End Role="lend" EntitySet="Lends" />
+          </AssociationSet>
+          <AssociationSet Name="FK_movie_media_type_id_id" Association="MediaTek.FK_movie_media_type_id_id">
+            <End Role="media_type" EntitySet="MediaTypes" />
+            <End Role="movie" EntitySet="Movies" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="FlagRaw" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <NavigationProperty Name="Language" Relationship="MediaTek.FK_country_language_id_id" FromRole="country" ToRole="language" />
+          <NavigationProperty Name="Directors" Relationship="MediaTek.FK_director_country_id_id" FromRole="country" ToRole="director" />
+        </EntityType>
+        <EntityType Name="Director">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="PictureRaw" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <NavigationProperty Name="Country" Relationship="MediaTek.FK_director_country_id_id" FromRole="director" ToRole="country" />
+          <NavigationProperty Name="Movies" Relationship="MediaTek.FK_movie_director_id_id" FromRole="director" ToRole="movie" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Code" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Countries" Relationship="MediaTek.FK_country_language_id_id" FromRole="language" ToRole="country" />
+          <NavigationProperty Name="Movies" Relationship="MediaTek.FK_movie_language_id_id" FromRole="language" ToRole="movie" />
+          <Property Name="SymbolRaw" Type="Binary" Nullable="true" /></EntityType>
+        <EntityType Name="Lend">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="LentTo" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="LentDate" Type="DateTime" Nullable="false" />
+          <Property Name="ReturnDate" Type="DateTime" />
+          <NavigationProperty Name="Movie" Relationship="MediaTek.FK_lend_movie_id_id" FromRole="lend" ToRole="movie" />
+        </EntityType>
+        <EntityType Name="MediaType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="SymbolRaw" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <NavigationProperty Name="Movies" Relationship="MediaTek.FK_movie_media_type_id_id" FromRole="media_type" ToRole="movie" />
+        </EntityType>
+        <EntityType Name="Movie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Year" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="OriginalTitle" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="CoverRaw" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <NavigationProperty Name="Director" Relationship="MediaTek.FK_movie_director_id_id" FromRole="movie" ToRole="director" />
+          <NavigationProperty Name="Language" Relationship="MediaTek.FK_movie_language_id_id" FromRole="movie" ToRole="language" />
+          <NavigationProperty Name="Lends" Relationship="MediaTek.FK_lend_movie_id_id" FromRole="movie" ToRole="lend" />
+          <NavigationProperty Name="MediaType" Relationship="MediaTek.FK_movie_media_type_id_id" FromRole="movie" ToRole="media_type" />
+        </EntityType>
+        <Association Name="FK_country_language_id_id">
+          <End Role="language" Type="MediaTek.Language" Multiplicity="0..1" />
+          <End Role="country" Type="MediaTek.Country" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_director_country_id_id">
+          <End Role="country" Type="MediaTek.Country" Multiplicity="0..1" />
+          <End Role="director" Type="MediaTek.Director" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_movie_director_id_id">
+          <End Role="director" Type="MediaTek.Director" Multiplicity="0..1" />
+          <End Role="movie" Type="MediaTek.Movie" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_movie_language_id_id">
+          <End Role="language" Type="MediaTek.Language" Multiplicity="0..1" />
+          <End Role="movie" Type="MediaTek.Movie" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_lend_movie_id_id">
+          <End Role="movie" Type="MediaTek.Movie" Multiplicity="1" />
+          <End Role="lend" Type="MediaTek.Lend" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_movie_media_type_id_id">
+          <End Role="media_type" Type="MediaTek.MediaType" Multiplicity="1" />
+          <End Role="movie" Type="MediaTek.Movie" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+        <EntityContainerMapping StorageEntityContainer="dvdModelStoreContainer" CdmEntityContainer="DvdEntities">
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="IsTypeOf(MediaTek.Country)">
+              <MappingFragment StoreEntitySet="country">
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="name" />
+                <ScalarProperty Name="FlagRaw" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Directors">
+            <EntityTypeMapping TypeName="IsTypeOf(MediaTek.Director)">
+              <MappingFragment StoreEntitySet="director">
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="name" />
+                <ScalarProperty Name="PictureRaw" ColumnName="picture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="IsTypeOf(MediaTek.Language)">
+              <MappingFragment StoreEntitySet="language">
+                <ScalarProperty Name="SymbolRaw" ColumnName="symbol" />
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="name" />
+                <ScalarProperty Name="Code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lends">
+            <EntityTypeMapping TypeName="IsTypeOf(MediaTek.Lend)">
+              <MappingFragment StoreEntitySet="lend">
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="LentTo" ColumnName="lent_to" />
+                <ScalarProperty Name="LentDate" ColumnName="lent_date" />
+                <ScalarProperty Name="ReturnDate" ColumnName="return_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MediaTypes">
+            <EntityTypeMapping TypeName="IsTypeOf(MediaTek.MediaType)">
+              <MappingFragment StoreEntitySet="media_type">
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="name" />
+                <ScalarProperty Name="SymbolRaw" ColumnName="symbol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movies">
+            <EntityTypeMapping TypeName="IsTypeOf(MediaTek.Movie)">
+              <MappingFragment StoreEntitySet="movie">
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="Title" ColumnName="title" />
+                <ScalarProperty Name="Year" ColumnName="year" />
+                <ScalarProperty Name="OriginalTitle" ColumnName="original_title" />
+                <ScalarProperty Name="CoverRaw" ColumnName="cover" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_country_language_id_id" TypeName="MediaTek.FK_country_language_id_id" StoreEntitySet="country">
+            <EndProperty Name="language">
+              <ScalarProperty Name="Id" ColumnName="language_id" />
+            </EndProperty>
+            <EndProperty Name="country">
+              <ScalarProperty Name="Id" ColumnName="id" />
+            </EndProperty>
+            <Condition ColumnName="language_id" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_director_country_id_id" TypeName="MediaTek.FK_director_country_id_id" StoreEntitySet="director">
+            <EndProperty Name="country">
+              <ScalarProperty Name="Id" ColumnName="country_id" />
+            </EndProperty>
+            <EndProperty Name="director">
+              <ScalarProperty Name="Id" ColumnName="id" />
+            </EndProperty>
+            <Condition ColumnName="country_id" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_movie_director_id_id" TypeName="MediaTek.FK_movie_director_id_id" StoreEntitySet="movie">
+            <EndProperty Name="director">
+              <ScalarProperty Name="Id" ColumnName="director_id" />
+            </EndProperty>
+            <EndProperty Name="movie">
+              <ScalarProperty Name="Id" ColumnName="id" />
+            </EndProperty>
+            <Condition ColumnName="director_id" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_movie_language_id_id" TypeName="MediaTek.FK_movie_language_id_id" StoreEntitySet="movie">
+            <EndProperty Name="language">
+              <ScalarProperty Name="Id" ColumnName="language_id" />
+            </EndProperty>
+            <EndProperty Name="movie">
+              <ScalarProperty Name="Id" ColumnName="id" />
+            </EndProperty>
+            <Condition ColumnName="language_id" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_lend_movie_id_id" TypeName="MediaTek.FK_lend_movie_id_id" StoreEntitySet="lend">
+            <EndProperty Name="movie">
+              <ScalarProperty Name="Id" ColumnName="movie_id" />
+            </EndProperty>
+            <EndProperty Name="lend">
+              <ScalarProperty Name="Id" ColumnName="id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_movie_media_type_id_id" TypeName="MediaTek.FK_movie_media_type_id_id" StoreEntitySet="movie">
+            <EndProperty Name="media_type">
+              <ScalarProperty Name="Id" ColumnName="media_type_id" />
+            </EndProperty>
+            <EndProperty Name="movie">
+              <ScalarProperty Name="Id" ColumnName="id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="DvdModel" ZoomLevel="86">
+        <EntityTypeShape EntityType="Mediatek.Country" Width="1.5" PointX="3" PointY="1.375" Height="1.9802864585071802" IsExpanded="true" />
+        <EntityTypeShape EntityType="Mediatek.Director" Width="1.5" PointX="5.25" PointY="1.375" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="Mediatek.Language" Width="1.5" PointX="0.75" PointY="1.375" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="Mediatek.Lend" Width="1.5" PointX="9.75" PointY="1.375" Height="1.9802864585071802" IsExpanded="true" />
+        <EntityTypeShape EntityType="Mediatek.MediaType" Width="1.5" PointX="5.25" PointY="5.5" Height="1.7879850268363953" IsExpanded="true" />
+        <EntityTypeShape EntityType="Mediatek.Movie" Width="1.5" PointX="7.5" PointY="1" Height="2.7494921875" IsExpanded="true" />
+        <AssociationConnector Association="Mediatek.FK_country_language_id_id" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.3651432291666667" />
+          <ConnectorPoint PointX="3" PointY="2.3651432291666667" />
+          </AssociationConnector>
+        <AssociationConnector Association="Mediatek.FK_director_country_id_id" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="2.3651432291666667" />
+          <ConnectorPoint PointX="5.25" PointY="2.3651432291666667" /></AssociationConnector>
+        <AssociationConnector Association="Mediatek.FK_movie_director_id_id" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="2.3651432291666667" />
+          <ConnectorPoint PointX="7.5" PointY="2.3651432291666667" />
+          </AssociationConnector>
+        <AssociationConnector Association="Mediatek.FK_movie_language_id_id" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="3.3552864583333335" />
+          <ConnectorPoint PointX="1.5" PointY="3.6052864583333335" />
+          <ConnectorPoint PointX="7.125" PointY="3.6052864583333335" />
+          <ConnectorPoint PointX="7.125" PointY="3.088569708333333" />
+          <ConnectorPoint PointX="7.5" PointY="3.088569708333333" /></AssociationConnector>
+        <AssociationConnector Association="Mediatek.FK_lend_movie_id_id" ManuallyRouted="false">
+          <ConnectorPoint PointX="9" PointY="2.36514322925359" />
+          <ConnectorPoint PointX="9.75" PointY="2.36514322925359" /></AssociationConnector>
+        <AssociationConnector Association="Mediatek.FK_movie_media_type_id_id" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="6.3939925134181976" />
+          <ConnectorPoint PointX="8.25" PointY="6.3939925134181976" />
+          <ConnectorPoint PointX="8.25" PointY="3.7494921875" /></AssociationConnector></Diagram></edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

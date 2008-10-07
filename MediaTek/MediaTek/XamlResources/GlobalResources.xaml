@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:MediaTek.Converters"
+                    xmlns:win32="clr-namespace:Microsoft.Win32;assembly=PresentationFramework"
+                    xmlns:utilities="clr-namespace:MediaTek.Utilities"
+                    xmlns:filter="clr-namespace:MediaTek.Filtering">
+    <win32:OpenFileDialog x:Key="dlgOpenImage"
+                          Title="Select image"
+                          Filter="Image files|*.jpg;*.png;*.gif;*.bmp;*.tiff;*.tif"/>
+    <win32:OpenFileDialog x:Key="dlgOpenDb"
+                          Title="Select database file"
+                          Filter="Database files|*.db"/>
+    <win32:SaveFileDialog x:Key="dlgSaveDb"
+                          Title="Choose file location"
+                          Filter="Database files|*.db"/>
+    <converters:DateConverter x:Key="convDate" />
+    <converters:VisibilityConverter x:Key="convVisibility"/>
+    <converters:ContextMenuByName x:Key="convMenu"/>
+    <converters:CenterConverter x:Key="convCenter"/>
+    <converters:NotNullConverter x:Key="convNotNull"/>
+    <utilities:RequiredFieldValidationRule x:Key="validRequired"/>
+
+	
+    <filter:StringFilter x:Key="titleFilter" DisplayName="Title" ComparedValue="big" CaseSensitive="False" Property="Title"/>
+</ResourceDictionary>
