@@ -37,38 +37,17 @@
     
     <ControlTemplate x:Key="tplWrapListView" TargetType="controls:ScalableListView">
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                      Background="{TemplateBinding Background}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="150"/>
-                </Grid.ColumnDefinitions>
-                <Rectangle Grid.Column="0">
-                  <Rectangle.Fill>
-                      <ImageBrush ImageSource="/Resources/Background_left.png" Stretch="None" AlignmentX="Left" AlignmentY="Top" TileMode="Tile" Viewport="0,0,150,1926" ViewportUnits="Absolute"/>
-                  </Rectangle.Fill>
-                </Rectangle>
-                <WrapPanel IsItemsHost="True"
+                      Background="Transparent">
+            <WrapPanel IsItemsHost="True"
                        Orientation="Horizontal"
-                       Grid.Column="1">
-                    <WrapPanel.Background>
-                        <ImageBrush ImageSource="/Resources/Background_tile.png" Stretch="None" AlignmentX="Left" AlignmentY="Top" TileMode="Tile" Viewport="0,0,30,1926" ViewportUnits="Absolute" />
-                    </WrapPanel.Background>
-                    <WrapPanel.InputBindings>
-                        <KeyBinding Key="Enter"
-                                Command="ApplicationCommands.Properties"/>
-                        <KeyBinding Key="Return"
-                                Command="ApplicationCommands.Properties"/>
-                    </WrapPanel.InputBindings>
-                </WrapPanel>
-                <Rectangle Grid.Column="2">
-                  <Rectangle.Fill>
-                      <ImageBrush ImageSource="/Resources/Background_right.png" Stretch="None" AlignmentX="Left" AlignmentY="Top" TileMode="Tile" Viewport="0,0,150,1926" ViewportUnits="Absolute"/>
-                  </Rectangle.Fill>
-                </Rectangle>
-            </Grid>
-
+                       Background="{TemplateBinding Background}">
+                <WrapPanel.InputBindings>
+                    <KeyBinding Key="Enter"
+                            Command="ApplicationCommands.Properties"/>
+                    <KeyBinding Key="Return"
+                            Command="ApplicationCommands.Properties"/>
+                </WrapPanel.InputBindings>
+            </WrapPanel>
         </ScrollViewer>
     </ControlTemplate>
     
