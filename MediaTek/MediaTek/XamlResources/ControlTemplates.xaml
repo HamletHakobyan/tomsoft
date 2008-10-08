@@ -46,14 +46,14 @@
                 </Grid.ColumnDefinitions>
                 <Rectangle Grid.Column="0">
                   <Rectangle.Fill>
-                      <ImageBrush ImageSource="/Resources/Background_left.png" Stretch="None" AlignmentX="Left" AlignmentY="Top" TileMode="Tile" />
+                      <ImageBrush ImageSource="/Resources/Background_left.png" Stretch="None" AlignmentX="Left" AlignmentY="Top" TileMode="Tile" Viewport="0,0,150,1926" ViewportUnits="Absolute"/>
                   </Rectangle.Fill>
                 </Rectangle>
                 <WrapPanel IsItemsHost="True"
                        Orientation="Horizontal"
                        Grid.Column="1">
                     <WrapPanel.Background>
-                        <ImageBrush ImageSource="/Resources/Background_tile.png" Stretch="None" AlignmentX="Left" AlignmentY="Top" TileMode="Tile" />
+                        <ImageBrush ImageSource="/Resources/Background_tile.png" Stretch="None" AlignmentX="Left" AlignmentY="Top" TileMode="Tile" Viewport="0,0,30,1926" ViewportUnits="Absolute" />
                     </WrapPanel.Background>
                     <WrapPanel.InputBindings>
                         <KeyBinding Key="Enter"
@@ -64,7 +64,7 @@
                 </WrapPanel>
                 <Rectangle Grid.Column="2">
                   <Rectangle.Fill>
-                      <ImageBrush ImageSource="/Resources/Background_right.png" Stretch="None" AlignmentX="Left" AlignmentY="Top" TileMode="Tile" />
+                      <ImageBrush ImageSource="/Resources/Background_right.png" Stretch="None" AlignmentX="Left" AlignmentY="Top" TileMode="Tile" Viewport="0,0,150,1926" ViewportUnits="Absolute"/>
                   </Rectangle.Fill>
                 </Rectangle>
             </Grid>
