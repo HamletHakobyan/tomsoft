@@ -12,7 +12,7 @@
             
         </CollectionViewSource>
     </UserControl.Resources>
-    <Grid>
+    <Grid DataContextChanged="Grid_DataContextChanged">
         <Grid.RowDefinitions>
             <RowDefinition Height="28" />
             <RowDefinition Height="28" />
