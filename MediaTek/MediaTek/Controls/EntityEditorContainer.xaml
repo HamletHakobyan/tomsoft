@@ -44,7 +44,10 @@
                             Margin="3"
                             ToolTip="OK"
                             Click="btnOK_Click">
-                        <Image Source="/Resources/Accept.png"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Accept.png"/>
+                            <TextBlock VerticalAlignment="Center">OK</TextBlock>
+                        </StackPanel>
                     </Button>
                     <Button Name="btnCancel"
                             IsCancel="True"
@@ -53,7 +56,10 @@
                             Margin="3"
                             ToolTip="Cancel"
                             Click="btnCancel_Click">
-                        <Image Source="/Resources/Cancel.png"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Cancel.png"/>
+                            <TextBlock VerticalAlignment="Center">Cancel</TextBlock>
+                        </StackPanel>
                     </Button>
                 </StackPanel>
             </Grid>

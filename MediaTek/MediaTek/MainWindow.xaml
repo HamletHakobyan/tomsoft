@@ -221,8 +221,13 @@
                         <Image Source="Resources/Lend.png" Height="32" ToolTip="Lends"/>
                     </TabItem.Header>
                     <DockPanel>
-                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                            <CheckBox Name="chkHideReturnedMovies" IsChecked="True" Checked="chkHideReturnedMovies_Checked" Unchecked="chkHideReturnedMovies_Checked">Hide returned movies</CheckBox>
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="24">
+                            <CheckBox Name="chkHideReturnedMovies"
+                                      Style="{StaticResource stlCheckBox}"
+                                      IsChecked="True"
+                                      Checked="chkHideReturnedMovies_Checked"
+                                      Unchecked="chkHideReturnedMovies_Checked">
+                                Hide returned movies</CheckBox>
                         </StackPanel>
                         <controls:ScalableListView
                         x:Name="lstLends"

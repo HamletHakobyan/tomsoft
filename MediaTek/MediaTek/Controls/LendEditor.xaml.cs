@@ -29,9 +29,20 @@ namespace MediaTek.Controls
         {
             Movie m = e.Item as Movie;
             if (m != null)
-                e.Accepted = !m.Lent;
+            {
+                Movie current = null;
+                if (this.DataContext is Lend)
+                    current = (this.DataContext as Lend).Movie;
+                e.Accepted = !m.Lent || m.Equals(current);
+            }
             else
                 e.Accepted = false;
+        }
+
+        private void Grid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (cmbMovie.ItemsSource is ListCollectionView)
+                (cmbMovie.ItemsSource as ListCollectionView).Refresh();
         }
     }
 }
