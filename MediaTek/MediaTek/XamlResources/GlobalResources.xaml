@@ -19,7 +19,5 @@
     <converters:CenterConverter x:Key="convCenter"/>
     <converters:NotNullConverter x:Key="convNotNull"/>
     <utilities:RequiredFieldValidationRule x:Key="validRequired"/>
-
-	
     <filter:StringFilter x:Key="titleFilter" DisplayName="Title" ComparedValue="big" CaseSensitive="False" Property="Title"/>
 </ResourceDictionary>

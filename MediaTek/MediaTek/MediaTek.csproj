@@ -97,6 +97,9 @@
     <Compile Include="Converters\NotNullConverter.cs" />
     <Compile Include="Filtering\ComparisonFilter.cs" />
     <Compile Include="Filtering\StringFilter.cs" />
+    <Compile Include="SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\BitmapCache.cs" />
     <Compile Include="Utilities\AttachedValuesExtensions.cs" />
     <Compile Include="Utilities\CustomCommands.cs" />
@@ -182,6 +185,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Filtering\FilterTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SplashScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -295,6 +302,9 @@
     <Resource Include="Resources\Background_left.png" />
     <Resource Include="Resources\Background_right.png" />
     <Resource Include="Resources\Background_tile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Splash.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
