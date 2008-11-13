@@ -33,12 +33,6 @@ namespace MediaTek
             App.Current.ModalRoot = modalGrid;
 
             this.DataContext = App.Current;
-
-            string[] args = Environment.GetCommandLineArgs();
-            if (args.Length > 1)
-            {
-                App.Current.OpenDatabase(args[1]);
-            }
         }
 
         public ListView CurrentView

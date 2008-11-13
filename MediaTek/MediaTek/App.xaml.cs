@@ -13,6 +13,7 @@ using MediaTek.Utilities;
 using Microsoft.Win32;
 using System.ComponentModel;
 using System.Data;
+using System.Threading;
 
 namespace MediaTek
 {
@@ -21,9 +22,18 @@ namespace MediaTek
     /// </summary>
     public partial class App : Application, INotifyPropertyChanged
     {
+
+        private SplashScreen splash;
+
         public App()
         {
+            InitializeComponent();
+
             this.Exit += new ExitEventHandler(App_Exit);
+
+            splash = new SplashScreen();
+            splash.Show();
+
         }
 
         void App_Exit(object sender, ExitEventArgs e)
