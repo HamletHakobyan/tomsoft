@@ -1,0 +1,21 @@
+﻿<Window x:Class="FlickIt.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Flickr authentication" Height="500" Width="600"
+        Name="me">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Name="btnOK"
+                    Content="OK"
+                    MinWidth="50"
+                    Margin="3" IsDefault="True" Click="btnOK_Click" />
+            <Button Name="btnCancel"
+                    Content="Cancel"
+                    MinWidth="50"
+                    Margin="3" IsCancel="True" />
+        </StackPanel>
+        <WebBrowser Name="browser" />
+    </DockPanel>
+</Window>

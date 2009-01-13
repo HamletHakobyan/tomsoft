@@ -1,0 +1,100 @@
+﻿<Window x:Class="FlickIt.UploadTaskDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mrk="clr-namespace:Tom.Wpf.Markup;assembly=Tom.Wpf"
+        xmlns:flk="clr-namespace:FlickrNet;assembly=FlickrNet"
+        Title="Image upload" Height="280" Width="400"
+        Name="me">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Name="btnOK"
+                    Content="OK"
+                    MinWidth="50"
+                    Margin="3" IsDefault="True" Click="btnOK_Click"/>
+            <Button Name="btnCancel"
+                    Content="Cancel"
+                    MinWidth="50"
+                    Margin="3" IsCancel="True" />
+        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                       Margin="3"
+                       Text="Flicker account"/>
+            <ComboBox Grid.Row="0" Grid.Column="1"
+                      Margin="3"
+                      ItemsSource="{Binding Config.Accounts, Source={x:Static Application.Current}}"
+                      DisplayMemberPath="Name"
+                      SelectedItem="{Binding Account}"/>
+            <TextBlock Grid.Row="1" Grid.Column="0"
+                       Margin="3"
+                       Text="Title"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                     Margin="3"
+                     Text="{Binding Title}"/>
+            <TextBlock Grid.Row="2" Grid.Column="0"
+                       Margin="3"
+                       Text="Description"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                     Margin="3"
+                     AcceptsReturn="True"
+                     Text="{Binding Description}" VerticalScrollBarVisibility="Auto" />
+            <TextBlock Grid.Row="3" Grid.Column="0"
+                       Margin="3"
+                       Text="Tags"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+                     Margin="3"
+                     Text="{Binding Tags}"/>
+            <CheckBox Grid.Row="4" Grid.Column="0"
+                      Margin="3"
+                      Content="Public"
+                      IsChecked="{Binding IsPublic}"/>
+            <CheckBox Grid.Row="4" Grid.Column="1"
+                      Margin="3"
+                      Content="Family"
+                      IsChecked="{Binding IsFamily}"/>
+            <CheckBox Grid.Row="4" Grid.Column="2"
+                      Margin="3"
+                      Content="Friends"
+                      IsChecked="{Binding IsFriend}"/>
+            <TextBlock Grid.Row="5" Grid.Column="0"
+                       Margin="3"
+                       Text="Content type"/>
+            <ComboBox Grid.Row="5" Grid.Column="1"
+                      Margin="3"
+                      ItemsSource="{mrk:EnumValues flk:ContentType}"
+                      SelectedItem="{Binding ContentType}"/>
+            <TextBlock Grid.Row="6" Grid.Column="0"
+                       Margin="3"
+                       Text="Safety level"/>
+            <ComboBox Grid.Row="6" Grid.Column="1"
+                      Margin="3"
+                      ItemsSource="{mrk:EnumValues flk:SafetyLevel}"
+                      SelectedItem="{Binding SafetyLevel}"/>
+            <TextBlock Grid.Row="7" Grid.Column="0"
+                       Margin="3"
+                       Text="Hidden from search"/>
+            <ComboBox Grid.Row="7" Grid.Column="1"
+                      Margin="3"
+                      ItemsSource="{mrk:EnumValues flk:HiddenFromSearch}"
+                      SelectedItem="{Binding HiddenFromSearch}"/>
+        </Grid>
+    </DockPanel>
+</Window>
