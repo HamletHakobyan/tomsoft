@@ -47,5 +47,13 @@ namespace MediaTek.Controls
         {
             Zoom *= 1.1;
         }
+
+        protected override void OnItemsChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            object _selectedItem = SelectedItem;
+            base.OnItemsChanged(e);
+            if (_selectedItem != null && Items.Contains(_selectedItem))
+                SelectedItem = _selectedItem;
+        }
     }
 }

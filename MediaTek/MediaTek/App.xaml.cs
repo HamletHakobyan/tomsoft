@@ -14,6 +14,7 @@ using Microsoft.Win32;
 using System.ComponentModel;
 using System.Data;
 using System.Threading;
+using System.Data.Objects.DataClasses;
 
 namespace MediaTek
 {
@@ -259,10 +260,6 @@ namespace MediaTek
 
         public void Quit()
         {
-            //if (ConfirmClose())
-            //{
-            //    this.Shutdown();
-            //}
             this.MainWindow.Close();
         }
 
@@ -295,8 +292,8 @@ namespace MediaTek
                 }
                 else
                 {
-                    ObjectStateEntry e = this.DataContext.ObjectStateManager.GetObjectStateEntry(entity);
-                    if (e != null && e.State != EntityState.Detached)
+                    EntityObject e = (entity as EntityObject);
+                    if (e != null && e.EntityState != EntityState.Detached)
                         this.DataContext.Detach(entity);
                 }
             });

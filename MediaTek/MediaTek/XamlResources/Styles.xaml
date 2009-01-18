@@ -51,6 +51,14 @@
     
     <Style x:Key="{x:Type controls:ScalableListView}" TargetType="{x:Type controls:ScalableListView}">
         <Setter Property="Template" Value="{StaticResource tplWrapListView}"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="White" Offset="0" />
+                    <GradientStop Color="LightBlue" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
         <Setter Property="ItemContainerStyle" Value="{StaticResource stlItemContainer}"/>
         <Setter Property="SelectionMode" Value="Single"/>
     </Style>
@@ -92,6 +100,17 @@
     </Style>
     
     <Style x:Key="stlTabItem" TargetType="{x:Type TabItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Grid Background="Transparent">
+                        <Border CornerRadius="5,0,0,5" Background="{TemplateBinding Background}">
+                            <ContentPresenter ContentSource="Header"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="LayoutTransform">
             <Setter.Value>
                 <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
@@ -119,6 +138,9 @@
                         </Storyboard>
                     </BeginStoryboard>
                 </MultiTrigger.ExitActions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Background" Value="Transparent"/>
+                </MultiTrigger.Setters>
             </MultiTrigger>
         </Style.Triggers>
     </Style>
@@ -192,4 +214,16 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="stlExpander" TargetType="{x:Type Expander}">
+        <Setter Property="HeaderTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <ContentControl Content="{Binding}"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
 </ResourceDictionary>

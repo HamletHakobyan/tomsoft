@@ -14,14 +14,15 @@ namespace MediaTek.Utilities
 
         public BitmapSource GetBitmapFromCache(EntityKey key, byte[] rawData)
         {
-            if (_cache.ContainsKey(key))
+            if (key != null && _cache.ContainsKey(key))
             {
                 return _cache[key];
             }
             else if (rawData != null)
             {
                 BitmapSource bitmap = ImageHelper.ImageFromBytes(rawData);
-                _cache[key] = bitmap;
+                if (key != null)
+                    _cache[key] = bitmap;
                 return bitmap;
 
             }
@@ -38,11 +39,13 @@ namespace MediaTek.Utilities
 
         public void SetBitmap(EntityKey key, BitmapSource value)
         {
-            _cache[key] = value;
+            if (key != null)
+                _cache[key] = value;
         }
 
         public void ClearBitmap(EntityKey key)
         {
+            if (key != null)
             _cache.Remove(key);
         }
 

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MediaTek.Controls;
+using System.Windows.Media;
 
 namespace MediaTek.Utilities
 {
@@ -62,6 +63,17 @@ namespace MediaTek.Utilities
                 ev.Handled = true;
                 ev.OldFocus.Focus();
             }
+        }
+
+        public static T FindAncestor<T>(this DependencyObject obj) where T : DependencyObject
+        {
+            DependencyObject parent = VisualTreeHelper.GetParent(obj);
+            if (parent is T)
+                return (parent as T);
+            else if (parent == null)
+                return null;
+            else
+                return parent.FindAncestor<T>();
         }
 
     }

@@ -9,6 +9,7 @@ using System.Windows.Markup;
 using MediaTek.DataModel;
 using MediaTek.Utilities;
 using MediaTek.Controls;
+using System.Windows.Controls.Primitives;
 
 namespace MediaTek
 {
@@ -35,15 +36,12 @@ namespace MediaTek
             this.DataContext = App.Current;
         }
 
-        public ListView CurrentView
+        public Selector CurrentView
         {
             get
             {
                 if (tabMain == null) return null;
                 TabItem tab = tabMain.SelectedItem as TabItem;
-                //if (tab == null) return null;
-                //ListView lst = tab.Content as ListView;
-                //return lst;
                 if (tab == tabMovies)
                     return lstMovies;
                 else if (tab == tabDirectors)
@@ -65,10 +63,27 @@ namespace MediaTek
         {
             get
             {
-                ListView lst = CurrentView;
+                Selector lst = CurrentView;
                 if (lst == null) return null;
                 else return lst.SelectedItem;
             }
+        }
+
+        private Selector GetViewForCommand(RoutedEventArgs e)
+        {
+            Selector s = e.Source as Selector;
+            if (s == null)
+                s = CurrentView;
+            return s;
+        }
+
+        public object GetSelectedItem(RoutedEventArgs e)
+        {
+            Selector s = GetViewForCommand(e);
+            if (s != null)
+                return s.SelectedItem;
+            else
+                return SelectedItem;
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -98,19 +113,19 @@ namespace MediaTek
             RefreshFilters(CurrentView);
         }
 
-        private void RefreshFilters(ListView listView)
+        private void RefreshFilters(Selector lst)
         {
-            CollectionViewSource cvs = GetViewSource(listView);
+            CollectionViewSource cvs = GetViewSource(lst);
             if (cvs != null)
             {
                 cvs.View.Refresh();
             }
-            SetViewDirty(listView, false);
+            SetViewDirty(lst, false);
         }
 
-        private CollectionViewSource GetViewSource(ListView listView)
+        private CollectionViewSource GetViewSource(Selector lst)
         {
-            Binding bnd = BindingOperations.GetBinding(listView, ItemsControl.ItemsSourceProperty);
+            Binding bnd = BindingOperations.GetBinding(lst, ItemsControl.ItemsSourceProperty);
             if (bnd != null)
             {
                 CollectionViewSource cvs = bnd.Source as CollectionViewSource;
@@ -122,14 +137,14 @@ namespace MediaTek
             }
         }
 
-        private void SetViewDirty(ListView listView, bool value)
+        private void SetViewDirty(Selector lst, bool value)
         {
-            listView.SetAttachedValue("dirty", value);
+            lst.SetAttachedValue("dirty", value);
         }
 
-        private bool IsViewDirty(ListView listView)
+        private bool IsViewDirty(Selector lst)
         {
-            return listView.GetAttachedValue<bool>("dirty");
+            return lst.GetAttachedValue<bool>("dirty");
         }
         
         private void txtFilter_FilterChanged(object sender, RoutedEventArgs e)
@@ -234,7 +249,7 @@ namespace MediaTek
             }
             else if (e.Command == CustomCommands.About)
             {
-                App.Current.About();
+                //App.Current.About();
                 e.Handled = true;
             }
         }
@@ -245,10 +260,16 @@ namespace MediaTek
 
         private void ItemCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            ListView curView = CurrentView;
+            Selector curView = CurrentView;
+
+            if (e.Command != CustomCommands.Add)
+            {
+                curView = GetViewForCommand(e);
+            }
+
             if (curView == null) return;
 
-            if (curView == lstMovies)
+            if (curView == lstMovies || curView == lstDirectorMovies)
             {
                 MovieCommand_CanExecute(sender, e);
             }
@@ -276,10 +297,16 @@ namespace MediaTek
 
         private void ItemCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            ListView curView = CurrentView;
+            Selector curView = CurrentView;
+            
+            if (e.Command != CustomCommands.Add)
+            {
+                curView = GetViewForCommand(e);
+            }
+            
             if (curView == null) return;
 
-            if (curView == lstMovies)
+            if (curView == lstMovies || curView == lstDirectorMovies)
             {
                 MovieCommand_Executed(sender, e);
             }
@@ -313,13 +340,15 @@ namespace MediaTek
         {
             if (e.Command == ApplicationCommands.Properties)
             {
-                if (SelectedItem == null) return;
+                object item = GetSelectedItem(e);
+                if (item == null) return;
                 e.CanExecute = true;
                 e.Handled = true;
             }
             else if (e.Command == ApplicationCommands.Delete)
             {
-                if (SelectedItem == null) return;
+                object item = GetSelectedItem(e);
+                if (item == null) return;
                 e.CanExecute = true;
                 e.Handled = true;
             }
@@ -330,7 +359,8 @@ namespace MediaTek
             }
             else if (e.Command == CustomCommands.Lend)
             {
-                if (SelectedItem is Movie && !(SelectedItem as Movie).Lent)
+                object item = GetSelectedItem(e);
+                if (item is Movie && !(item as Movie).Lent)
                 {
                     e.CanExecute = true;
                     e.Handled = true;
@@ -338,7 +368,8 @@ namespace MediaTek
             }
             else if (e.Command == CustomCommands.Return)
             {
-                if (SelectedItem is Movie && (SelectedItem as Movie).Lent)
+                object item = GetSelectedItem(e);
+                if (item is Movie && (item as Movie).Lent)
                 {
                     e.CanExecute = true;
                     e.Handled = true;
@@ -350,14 +381,16 @@ namespace MediaTek
         {
             if (e.Command == ApplicationCommands.Properties)
             {
-                if (SelectedItem == null) return;
-                App.Current.EditEntity(SelectedItem, "Movies", "Edit movie");
+                object item = GetSelectedItem(e);
+                if (item == null) return;
+                App.Current.EditEntity(item, "Movies", "Edit movie");
                 e.Handled = true;
             }
             else if (e.Command == ApplicationCommands.Delete)
             {
-                if (SelectedItem == null) return;
-                App.Current.DeleteEntity(SelectedItem, "Movies");
+                object item = GetSelectedItem(e);
+                if (item == null) return;
+                App.Current.DeleteEntity(item, "Movies");
                 e.Handled = true;
             }
             else if (e.Command == CustomCommands.Add)
@@ -368,7 +401,7 @@ namespace MediaTek
             }
             else if (e.Command == CustomCommands.Lend)
             {
-                Movie m = SelectedItem as Movie;
+                Movie m = GetSelectedItem(e) as Movie;
                 Lend l = new Lend();
                 l.Movie = m;
                 l.LentDate = DateTime.Today;
@@ -377,12 +410,15 @@ namespace MediaTek
             }
             else if (e.Command == CustomCommands.Return)
             {
-                Movie m = SelectedItem as Movie;
-                Lend l = m.CurrentLend;
-                if (l != null)
+                Movie m = GetSelectedItem(e) as Movie;
+                if (m != null)
                 {
-                    l.ReturnDate = DateTime.Today;
-                    App.Current.EditEntity(l, "Lends", "Recover lent movie");
+                    Lend l = m.CurrentLend;
+                    if (l != null)
+                    {
+                        l.ReturnDate = DateTime.Today;
+                        App.Current.EditEntity(l, "Lends", "Recover lent movie");
+                    }
                 }
                 e.Handled = true;
             }
@@ -396,13 +432,15 @@ namespace MediaTek
         {
             if (e.Command == ApplicationCommands.Properties)
             {
-                if (SelectedItem == null) return;
+                object item = GetSelectedItem(e);
+                if (item == null) return;
                 e.CanExecute = true;
                 e.Handled = true;
             }
             else if (e.Command == ApplicationCommands.Delete)
             {
-                if (SelectedItem == null) return;
+                object item = GetSelectedItem(e);
+                if (item == null) return;
                 e.CanExecute = true;
                 e.Handled = true;
             }
@@ -417,14 +455,16 @@ namespace MediaTek
         {
             if (e.Command == ApplicationCommands.Properties)
             {
-                if (SelectedItem == null) return;
-                App.Current.EditEntity(SelectedItem, "Directors", "Edit director");
+                object item = GetSelectedItem(e);
+                if (item == null) return;
+                App.Current.EditEntity(item, "Directors", "Edit director");
                 e.Handled = true;
             }
             else if (e.Command == ApplicationCommands.Delete)
             {
-                if (SelectedItem == null) return;
-                App.Current.DeleteEntity(SelectedItem, "Directors");
+                object item = GetSelectedItem(e);
+                if (item == null) return;
+                App.Current.DeleteEntity(item, "Directors");
                 e.Handled = true;
             }
             else if (e.Command == CustomCommands.Add)
@@ -443,13 +483,15 @@ namespace MediaTek
         {
             if (e.Command == ApplicationCommands.Properties)
             {
-                if (SelectedItem == null) return;
+                object item = GetSelectedItem(e);
+                if (item == null) return;
                 e.CanExecute = true;
                 e.Handled = true;
             }
             else if (e.Command == ApplicationCommands.Delete)
             {
-                if (SelectedItem == null) return;
+                object item = GetSelectedItem(e);
+                if (item == null) return;
                 e.CanExecute = true;
                 e.Handled = true;
             }
@@ -464,14 +506,16 @@ namespace MediaTek
         {
             if (e.Command == ApplicationCommands.Properties)
             {
-                if (SelectedItem == null) return;
-                App.Current.EditEntity(SelectedItem, "Countries", "Edit country");
+                object item = GetSelectedItem(e);
+                if (item == null) return;
+                App.Current.EditEntity(item, "Countries", "Edit country");
                 e.Handled = true;
             }
             else if (e.Command == ApplicationCommands.Delete)
             {
-                if (SelectedItem == null) return;
-                App.Current.DeleteEntity(SelectedItem, "Countries");
+                object item = GetSelectedItem(e);
+                if (item == null) return;
+                App.Current.DeleteEntity(item, "Countries");
                 e.Handled = true;
             }
             else if (e.Command == CustomCommands.Add)
@@ -490,13 +534,15 @@ namespace MediaTek
         {
             if (e.Command == ApplicationCommands.Properties)
             {
-                if (SelectedItem == null) return;
+                object item = GetSelectedItem(e);
+                if (item == null) return;
                 e.CanExecute = true;
                 e.Handled = true;
             }
             else if (e.Command == ApplicationCommands.Delete)
             {
-                if (SelectedItem == null) return;
+                object item = GetSelectedItem(e);
+                if (item == null) return;
                 e.CanExecute = true;
                 e.Handled = true;
             }
@@ -511,14 +557,16 @@ namespace MediaTek
         {
             if (e.Command == ApplicationCommands.Properties)
             {
-                if (SelectedItem == null) return;
-                App.Current.EditEntity(SelectedItem, "Languages", "Edit language");
+                object item = GetSelectedItem(e);
+                if (item == null) return;
+                App.Current.EditEntity(item, "Languages", "Edit language");
                 e.Handled = true;
             }
             else if (e.Command == ApplicationCommands.Delete)
             {
-                if (SelectedItem == null) return;
-                App.Current.DeleteEntity(SelectedItem, "Languages");
+                object item = GetSelectedItem(e);
+                if (item == null) return;
+                App.Current.DeleteEntity(item, "Languages");
                 e.Handled = true;
             }
             else if (e.Command == CustomCommands.Add)
@@ -537,13 +585,15 @@ namespace MediaTek
         {
             if (e.Command == ApplicationCommands.Properties)
             {
-                if (SelectedItem == null) return;
+                object item = GetSelectedItem(e);
+                if (item == null) return;
                 e.CanExecute = true;
                 e.Handled = true;
             }
             else if (e.Command == ApplicationCommands.Delete)
             {
-                if (SelectedItem == null) return;
+                object item = GetSelectedItem(e);
+                if (item == null) return;
                 e.CanExecute = true;
                 e.Handled = true;
             }
@@ -558,14 +608,16 @@ namespace MediaTek
         {
             if (e.Command == ApplicationCommands.Properties)
             {
-                if (SelectedItem == null) return;
-                App.Current.EditEntity(SelectedItem, "MediaTypes", "Edit media type");
+                object item = GetSelectedItem(e);
+                if (item == null) return;
+                App.Current.EditEntity(item, "MediaTypes", "Edit media type");
                 e.Handled = true;
             }
             else if (e.Command == ApplicationCommands.Delete)
             {
-                if (SelectedItem == null) return;
-                App.Current.DeleteEntity(SelectedItem, "MediaTypes");
+                object item = GetSelectedItem(e);
+                if (item == null) return;
+                App.Current.DeleteEntity(item, "MediaTypes");
                 e.Handled = true;
             }
             else if (e.Command == CustomCommands.Add)
@@ -584,13 +636,15 @@ namespace MediaTek
         {
             if (e.Command == ApplicationCommands.Properties)
             {
-                if (SelectedItem == null) return;
+                object item = GetSelectedItem(e);
+                if (item == null) return;
                 e.CanExecute = true;
                 e.Handled = true;
             }
             else if (e.Command == ApplicationCommands.Delete)
             {
-                if (SelectedItem == null) return;
+                object item = GetSelectedItem(e);
+                if (item == null) return;
                 e.CanExecute = true;
                 e.Handled = true;
             }
@@ -601,7 +655,9 @@ namespace MediaTek
             }
             else if (e.Command == CustomCommands.Return)
             {
-                if (SelectedItem is Lend && !(SelectedItem as Lend).Returned)
+                object item = GetSelectedItem(e);
+                if (item == null) return;
+                if (item is Lend && !(item as Lend).Returned)
                 {
                     e.CanExecute = true;
                     e.Handled = true;
@@ -613,14 +669,16 @@ namespace MediaTek
         {
             if (e.Command == ApplicationCommands.Properties)
             {
-                if (SelectedItem == null) return;
-                App.Current.EditEntity(SelectedItem, "Lends", "Edit lend");
+                object item = GetSelectedItem(e);
+                if (item == null) return;
+                App.Current.EditEntity(item, "Lends", "Edit lend");
                 e.Handled = true;
             }
             else if (e.Command == ApplicationCommands.Delete)
             {
-                if (SelectedItem == null) return;
-                App.Current.DeleteEntity(SelectedItem, "Lends");
+                object item = GetSelectedItem(e);
+                if (item == null) return;
+                App.Current.DeleteEntity(item, "Lends");
                 e.Handled = true;
             }
             else if (e.Command == CustomCommands.Add)
@@ -632,7 +690,7 @@ namespace MediaTek
             }
             else if (e.Command == CustomCommands.Return)
             {
-                Lend l = SelectedItem as Lend;
+                Lend l = GetSelectedItem(e) as Lend;
                 if (l != null)
                 {
                     l.ReturnDate = DateTime.Today;
@@ -681,6 +739,26 @@ namespace MediaTek
         {
             if (lstLends == null) return;
             RefreshFilters(lstLends);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            ExpanderHelper.RegisterExpanderInGrid(
+                expDirectorMovies,
+                splDirectorMovies,
+                rowDirectorMovies,
+                rowDirectorMovies.Height);
+            ExpanderHelper.RegisterExpanderInGrid(
+                expMovieDetails,
+                splMovieDetails,
+                rowMovieDetails,
+                rowMovieDetails.Height);
+        }
+
+        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+            ExpanderHelper.UnregisterExpanderInGrid(expDirectorMovies);
+            ExpanderHelper.UnregisterExpanderInGrid(expMovieDetails);
         }
 
     }

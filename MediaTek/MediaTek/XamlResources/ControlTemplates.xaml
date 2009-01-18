@@ -16,7 +16,7 @@
                     ContextMenu="{Binding ContextMenuKey, Converter={StaticResource convMenu}}">
                 <Border.InputBindings>
                     <MouseBinding MouseAction="LeftDoubleClick"
-                              Command="ApplicationCommands.Properties"/>
+                                  Command="ApplicationCommands.Properties"/>
                     <KeyBinding Key="Enter"
                                 Command="ApplicationCommands.Properties"/>
                     <KeyBinding Key="Return"
@@ -37,10 +37,10 @@
     
     <ControlTemplate x:Key="tplWrapListView" TargetType="controls:ScalableListView">
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                      Background="Transparent">
+                      Background="{TemplateBinding Background}">
             <WrapPanel IsItemsHost="True"
                        Orientation="Horizontal"
-                       Background="{TemplateBinding Background}">
+                       Background="Transparent">
                 <WrapPanel.InputBindings>
                     <KeyBinding Key="Enter"
                             Command="ApplicationCommands.Properties"/>

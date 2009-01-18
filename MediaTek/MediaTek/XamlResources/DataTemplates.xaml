@@ -23,7 +23,7 @@
                         </TextBlock>
                     </Image.ToolTip>
                 </Image>
-                <TextBlock Name="test" FontSize="16"
+                <TextBlock FontSize="16"
                    FontWeight="Bold"
                    Text="{Binding Title}"
                    TextWrapping="Wrap"/>
@@ -140,5 +140,117 @@
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
-    
+
+    <DataTemplate x:Key="tplMovieDetails"  DataType="{x:Type data:Movie}">
+        <Grid Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0"
+                   Source="{Binding Cover}"
+                   ToolTip="{Binding Title}"
+                   Stretch="Uniform"/>
+            <Grid Grid.Column="1" Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                           VerticalAlignment="Center"
+                           FontSize="24" FontWeight="Bold" TextWrapping="Wrap"
+                           Text="{Binding Title}"/>
+                <TextBlock Grid.Column="0" Grid.Row="1"
+                           VerticalAlignment="Center"
+                           FontSize="14" FontWeight="Bold"
+                           Text="Year"/>
+                <TextBlock Grid.Column="0" Grid.Row="2"
+                           VerticalAlignment="Center"
+                           FontSize="14" FontWeight="Bold"
+                           Text="Director"/>
+                <TextBlock Grid.Column="0" Grid.Row="3"
+                           VerticalAlignment="Center"
+                           FontSize="14" FontWeight="Bold"
+                           Text="Media type"/>
+                <TextBlock Grid.Column="0" Grid.Row="4"
+                           VerticalAlignment="Center"
+                           FontSize="14" FontWeight="Bold"
+                           Text="Language"/>
+                
+                <TextBlock Grid.Column="2" Grid.Row="1"
+                           FontSize="14"
+                           Text="{Binding Year}"/>
+                <TextBlock Grid.Column="2" Grid.Row="2"
+                           FontSize="14"
+                           Text="{Binding Director.Name}" />
+                <Image Grid.Column="2" Grid.Row="3"
+                       MaxWidth="50"
+                       Margin="5"
+                       HorizontalAlignment="Left"
+                       Stretch="Uniform"
+                       Source="{Binding MediaType.Symbol}"
+                       ToolTip="{Binding MediaType.Name}"/>
+                <Image Grid.Column="2" Grid.Row="4"
+                       MaxWidth="50"
+                       Margin="5"
+                       HorizontalAlignment="Left"
+                       Stretch="Uniform"
+                       Source="{Binding Language.Symbol}"
+                       ToolTip="{Binding Language.Name}"/>
+                <Grid Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="3"
+                      Name="grdLent"
+                      Visibility="Hidden">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="32"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                           Source="/Resources/Lend.png"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1"
+                               FontSize="14" FontWeight="Bold"
+                               Text="Lent to"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1"
+                               FontSize="14" FontWeight="Bold"
+                               Text="Since"/>
+                    <TextBlock Grid.Row="0" Grid.Column="3"
+                               FontSize="14"
+                               Text="{Binding CurrentLend.LentTo}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="3"
+                               FontSize="14">
+                        <TextBlock.Text>
+                            <Binding Path="CurrentLend.LentDate" StringFormat="{}{0:D}"/>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+            </Grid>
+            <Image Grid.Column="2"
+                   Source="{Binding Director.Picture}"
+                   ToolTip="{Binding Director.Name}"
+                   Stretch="Uniform"/>
+        </Grid>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Lent}" Value="True">
+                <Setter TargetName="grdLent" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
 </ResourceDictionary>

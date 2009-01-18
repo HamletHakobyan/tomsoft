@@ -6,10 +6,10 @@
         xmlns:controls="clr-namespace:MediaTek.Controls"
         xmlns:utilities="clr-namespace:MediaTek.Utilities"
         xmlns:bagotricks="clr-namespace:Microsoft.Samples.KMoore.WPFSamples.InfoTextBox;assembly=WPFSamplesLib"
-        Title="Mediatek"
+        Title="MediaTek"
         Icon="Resources/Movie.png"
         Height="600" Width="800"
-        Closing="Window_Closing" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+        Closing="Window_Closing" Loaded="Window_Loaded" Unloaded="Window_Unloaded">
 
     <Window.Resources>
         <CollectionViewSource x:Key="cvsMovies" Source="{Binding Path=Movies}" Filter="cvsMovies_Filter"/>
@@ -18,6 +18,16 @@
         <CollectionViewSource x:Key="cvsLanguages" Source="{Binding Path=Languages}" Filter="CollectionViewSource_Filter"/>
         <CollectionViewSource x:Key="cvsMediaTypes" Source="{Binding Path=MediaTypes}" Filter="CollectionViewSource_Filter"/>
         <CollectionViewSource x:Key="cvsLends" Source="{Binding Path=Lends}" Filter="cvsLends_Filter"/>
+        
+        <LinearGradientBrush x:Key="brushPanelHeader" StartPoint="0,0" EndPoint="0,1">
+            <LinearGradientBrush.GradientStops>
+                <GradientStop Offset="0" Color="#FFF3F3F3"/>
+                <GradientStop Offset="0.5" Color="#FFEBEBEB"/>
+                <GradientStop Offset="0.5" Color="#FFDDDDDD"/>
+                <GradientStop Offset="1" Color="#FFCDCDCD"/>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+        
     </Window.Resources>
     
     <Window.CommandBindings>
@@ -157,13 +167,14 @@
             <TabControl x:Name="tabMain"
                         TabStripPlacement="Left"
                         SelectionChanged="tabMain_SelectionChanged">
-                
                 <TabItem x:Name="tabMovies" Style="{StaticResource stlTabItem}">
                     <TabItem.Header>
                         <Image Source="Resources/Movie.png" Height="32" ToolTip="Movies"/>
                     </TabItem.Header>
                     <DockPanel>
-                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="24">
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top"
+                                    Height="24"
+                                    Background="White">
                             <CheckBox Name="chkHideLentMovies"
                                       Style="{StaticResource stlCheckBox}"
                                       IsChecked="True"
@@ -172,22 +183,72 @@
                                 Hide lent movies
                             </CheckBox>
                         </StackPanel>
-                        <controls:ScalableListView
-                          x:Name="lstMovies"
-						  ItemsSource="{Binding Source={StaticResource cvsMovies}}"
-                          Zoom="{Binding Path=Zoom, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type mediatek:MainWindow}}}">
-                        </controls:ScalableListView>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="225" Name="rowMovieDetails"/>
+                            </Grid.RowDefinitions>
+                            <controls:ScalableListView
+                                x:Name="lstMovies"
+                                Grid.Row="0"
+						        ItemsSource="{Binding Source={StaticResource cvsMovies}}"
+                                Zoom="{Binding Path=Zoom, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type mediatek:MainWindow}}}"/>
+                            <GridSplitter Name="splMovieDetails"
+                                      Grid.Row="1"
+                                      Height="5"
+                                      HorizontalAlignment="Stretch"/>
+                            <Expander Name="expMovieDetails"
+                                      Grid.Row="2"
+                                      IsExpanded="True"
+                                      Background="{StaticResource brushPanelHeader}">
+                                <Expander.Header>
+                                    <TextBlock>
+                                        <TextBlock Text="About "/>
+                                        <TextBlock Text="{Binding SelectedValue.Title, ElementName=lstMovies}"/>
+                                    </TextBlock>
+                                </Expander.Header>
+                                <ContentControl ContentTemplate="{StaticResource tplMovieDetails}"
+                                                Content="{Binding SelectedValue, ElementName=lstMovies}"/>
+                            </Expander>
+                        </Grid>
                     </DockPanel>
                 </TabItem>
-                
                 <TabItem x:Name="tabDirectors" Style="{StaticResource stlTabItem}">
                     <TabItem.Header>
                         <Image Source="Resources/Person.png" Height="32" ToolTip="Directors"/>
                     </TabItem.Header>
-                    <controls:ScalableListView
-                        x:Name="lstDirectors"
-                        ItemsSource="{Binding Source={StaticResource cvsDirectors}}"
-                        Zoom="{Binding Path=Zoom, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type mediatek:MainWindow}}}"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Name="rowDirectorMovies"  Height="0.5*"/>
+                        </Grid.RowDefinitions>
+                        <controls:ScalableListView
+                            x:Name="lstDirectors"
+                            Grid.Row="0"
+                            ItemsSource="{Binding Source={StaticResource cvsDirectors}}"
+                            Zoom="{Binding Path=Zoom, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type mediatek:MainWindow}}}"/>
+                        <GridSplitter Name="splDirectorMovies"
+                                      Grid.Row="1"
+                                      Height="5"
+                                      HorizontalAlignment="Stretch"/>
+                        <Expander Name="expDirectorMovies"
+                                  Grid.Row="2"
+                                  IsExpanded="True"
+                                  Background="{StaticResource brushPanelHeader}">
+                            <Expander.Header>
+                                <TextBlock>
+                                    <TextBlock Text="Movies by "/>
+                                    <TextBlock Text="{Binding SelectedValue.Name, ElementName=lstDirectors}"/>
+                                </TextBlock>
+                            </Expander.Header>
+                            <controls:ScalableListView
+                                    x:Name="lstDirectorMovies"
+                                    ItemsSource="{Binding SelectedValue.Movies, ElementName=lstDirectors}"
+                                    Zoom="{Binding Path=Zoom, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type mediatek:MainWindow}}}"/>
+                        </Expander>
+                    </Grid>
                 </TabItem>
                 <TabItem x:Name="tabCountries" Style="{StaticResource stlTabItem}">
                     <TabItem.Header>
@@ -221,7 +282,9 @@
                         <Image Source="Resources/Lend.png" Height="32" ToolTip="Lends"/>
                     </TabItem.Header>
                     <DockPanel>
-                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="24">
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top"
+                                    Height="24"
+                                    Background="White">
                             <CheckBox Name="chkHideReturnedMovies"
                                       Style="{StaticResource stlCheckBox}"
                                       IsChecked="True"
