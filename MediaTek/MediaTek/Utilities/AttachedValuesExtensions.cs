@@ -29,5 +29,11 @@ namespace MediaTek.Utilities
             else
                 return default(T);
         }
+
+        public static void ClearAttachedValue(this object target, string propertyName)
+        {
+            if (attachedProperties.ContainsKey(propertyName))
+                attachedProperties[propertyName].Remove(target);
+        }
     }
 }

@@ -13,11 +13,13 @@
     <win32:SaveFileDialog x:Key="dlgSaveDb"
                           Title="Choose file location"
                           Filter="Database files|*.db"/>
+    
     <converters:DateConverter x:Key="convDate" />
     <converters:VisibilityConverter x:Key="convVisibility"/>
     <converters:ContextMenuByName x:Key="convMenu"/>
     <converters:CenterConverter x:Key="convCenter"/>
     <converters:NotNullConverter x:Key="convNotNull"/>
+    
     <utilities:RequiredFieldValidationRule x:Key="validRequired"/>
     <filter:StringFilter x:Key="titleFilter" DisplayName="Title" ComparedValue="big" CaseSensitive="False" Property="Title"/>
 </ResourceDictionary>

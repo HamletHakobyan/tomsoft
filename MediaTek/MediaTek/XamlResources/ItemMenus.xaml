@@ -13,30 +13,21 @@
     <ContextMenu x:Key="mnuDirector">
         <MenuItem Header="Properties" FontWeight="Bold" Command="ApplicationCommands.Properties"/>
         <MenuItem Header="Delete" Command="ApplicationCommands.Delete"/>
-        <Separator/>
-        <MenuItem Header="Movies by this director..."/>
     </ContextMenu>
 
     <ContextMenu x:Key="mnuCountry">
         <MenuItem Header="Properties" FontWeight="Bold" Command="ApplicationCommands.Properties"/>
         <MenuItem Header="Delete" Command="ApplicationCommands.Delete"/>
-        <Separator/>
-        <MenuItem Header="Directors from this country..."/>
     </ContextMenu>
 
     <ContextMenu x:Key="mnuLanguage">
         <MenuItem Header="Properties" FontWeight="Bold" Command="ApplicationCommands.Properties"/>
         <MenuItem Header="Delete" Command="ApplicationCommands.Delete"/>
-        <Separator/>
-        <MenuItem Header="Movies in this language..."/>
-        <MenuItem Header="Countries where this language is spoken..."/>
     </ContextMenu>
 
     <ContextMenu x:Key="mnuMediaType">
         <MenuItem Header="Properties" FontWeight="Bold" Command="ApplicationCommands.Properties"/>
         <MenuItem Header="Delete" Command="ApplicationCommands.Delete"/>
-        <Separator/>
-        <MenuItem Header="Movies on this media type..."/>
     </ContextMenu>
 
     <ContextMenu x:Key="mnuLend">

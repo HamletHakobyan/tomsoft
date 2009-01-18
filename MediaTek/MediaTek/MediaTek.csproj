@@ -120,6 +120,7 @@
       <DependentUpon>EntityEditorContainer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Filtering\Filter.cs" />
+    <Compile Include="Utilities\ExpanderHelper.cs" />
     <Compile Include="Utilities\ValidationService.cs" />
     <Compile Include="Utilities\IFilterable.cs" />
     <Compile Include="Controls\LanguageEditor.xaml.cs">
