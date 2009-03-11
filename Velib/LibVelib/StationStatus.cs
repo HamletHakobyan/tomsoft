@@ -10,15 +10,15 @@ namespace Velib
     public class StationStatus
     {
         [XmlElement("available")]
-        public int Available { get; set; }
+        public int AvailableBikes { get; set; }
 
         [XmlElement("free")]
-        public int Free { get; set; }
+        public int FreeSlots { get; set; }
 
         [XmlElement("total")]
-        public int Total { get; set; }
+        public int TotalSlots { get; set; }
 
         [XmlElement("ticket")]
-        public int Ticket { get; set; }
+        public bool Ticket { get; set; }
     }
 }

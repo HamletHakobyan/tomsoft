@@ -45,10 +45,10 @@ namespace Velib
             {
                 return new StationStatus
                 {
-                    Available = -1,
-                    Free = -1,
-                    Total = -1,
-                    Ticket = -1
+                    AvailableBikes = -1,
+                    FreeSlots = -1,
+                    TotalSlots = -1,
+                    Ticket = false
                 };
             }
         }

@@ -26,13 +26,6 @@ namespace Velib
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             LoadRepository();
-            if (Repository.Networks.Count == 0)
-            {
-                VelibProvider provider = new VelibProvider("http://www.velib.paris.fr/service");
-                Network network = provider.GetNetwork();
-                network.Name = "Vélib Paris";
-                Repository.Networks.Add(network);
-            }
 
             Velib.MainWindow window = new MainWindow();
 

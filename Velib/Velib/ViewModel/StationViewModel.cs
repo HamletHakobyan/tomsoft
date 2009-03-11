@@ -24,13 +24,15 @@ namespace Velib.ViewModel
             get { return _station.Name; }
         }
 
-        private StationStatus _status;
-        public StationStatus Status
+        private StationStatusViewModel _status;
+        public StationStatusViewModel Status
         {
             get
             {
                 if (_status == null)
-                    _status = _station.GetStatus();
+                {
+                    _status = new StationStatusViewModel(_station.GetStatus());
+                }
                 return _status;
             }
         }
@@ -47,7 +49,7 @@ namespace Velib.ViewModel
                         new RelayCommand(
                             parameter =>
                             {
-                                _status = _station.GetStatus();
+                                _status = new StationStatusViewModel(_station.GetStatus());
                                 OnPropertyChanged("Status");
                             });
                 }

@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="ViewModel\NetworkRepositoryViewModel.cs" />
     <Compile Include="ViewModel\NetworkViewModel.cs" />
+    <Compile Include="ViewModel\StationStatusViewModel.cs" />
     <Compile Include="ViewModel\StationViewModel.cs" />
     <Compile Include="View\NetworkRepositoryView.xaml.cs">
       <DependentUpon>NetworkRepositoryView.xaml</DependentUpon>

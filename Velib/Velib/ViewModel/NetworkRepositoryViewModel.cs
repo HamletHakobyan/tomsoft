@@ -40,6 +40,32 @@ namespace Velib.ViewModel
 
         #endregion
 
+        #region New network properties
+
+        private string _newNetworkUri;
+        public string NewNetworkUri
+        {
+            get { return _newNetworkUri; }
+            set
+            {
+                _newNetworkUri = value;
+                OnPropertyChanged("NewNetworkUri");
+            }
+        }
+
+        private string _newNetworkName;
+        public string NewNetworkName
+        {
+            get { return _newNetworkName; }
+            set
+            {
+                _newNetworkName = value;
+                OnPropertyChanged("NewNetworkName");
+            }
+        }
+
+        #endregion
+
         #region Commands
 
         private RelayCommand _showNetworkCommand = null;
@@ -64,6 +90,34 @@ namespace Velib.ViewModel
             }
         }
 
+        private RelayCommand _addNetworkCommand;
+        public RelayCommand AddNetworkCommand
+        {
+            get
+            {
+                if (_addNetworkCommand == null)
+                {
+                    _addNetworkCommand =
+                        new RelayCommand(
+                            parameter =>
+                            {
+                                VelibProvider provider = new VelibProvider(NewNetworkUri);
+                                Network network = provider.GetNetwork();
+                                network.Name = NewNetworkName;
+                                _repository.Networks.Add(network);
+                                this.Networks.Add(new NetworkViewModel(_navigationWindow, network));
+                            },
+                            parameter =>
+                            {
+                                if (string.IsNullOrEmpty(NewNetworkUri) || string.IsNullOrEmpty(NewNetworkName))
+                                    return false;
+                                else
+                                    return true;
+                            });
+                }
+                return _addNetworkCommand;
+            }
+        }
 
         #endregion
 
