@@ -12,14 +12,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Velib
+namespace Velib.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for StationView.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class StationView : UserControl
     {
-        public MainWindow()
+        public StationView()
         {
             InitializeComponent();
         }

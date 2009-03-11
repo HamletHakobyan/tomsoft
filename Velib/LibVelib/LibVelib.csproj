@@ -8,7 +8,7 @@
     <ProjectGuid>{4A023981-5C68-4450-8BB9-6D4466DB817A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LibVelib</RootNamespace>
+    <RootNamespace>Velib</RootNamespace>
     <AssemblyName>LibVelib</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -47,9 +47,11 @@
   <ItemGroup>
     <Compile Include="Area.cs" />
     <Compile Include="Station.cs" />
-    <Compile Include="StationList.cs" />
+    <Compile Include="Network.cs" />
     <Compile Include="StationStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UriExtensions.cs" />
+    <Compile Include="VelibProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

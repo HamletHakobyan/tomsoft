@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace LibVelib
+namespace Velib
 {
     [XmlRoot("arrondissement")]
     public class Area
