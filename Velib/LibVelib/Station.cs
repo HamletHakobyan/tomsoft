@@ -4,33 +4,53 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace LibVelib
+namespace Velib
 {
     [XmlRoot("marker")]
     public class Station
     {
-        [XmlElement("name")]
+        [XmlAttribute("name")]
         public string Name { get; set; }
 
-        [XmlElement("number")]
+        [XmlAttribute("number")]
         public string Number { get; set; }
 
-        [XmlElement("address")]
+        [XmlAttribute("address")]
         public string Address { get; set; }
 
-        [XmlElement("fullAddress")]
+        [XmlAttribute("fullAddress")]
         public string FullAddress { get; set; }
 
-        [XmlElement("lat")]
+        [XmlAttribute("lat")]
         public double Latitude { get; set; }
 
-        [XmlElement("lng")]
+        [XmlAttribute("lng")]
         public double Longitude { get; set; }
 
-        [XmlElement("open")]
+        [XmlAttribute("open")]
         public bool Open { get; set; }
 
-        [XmlElement("bonus")]
+        [XmlAttribute("bonus")]
         public bool Bonus { get; set; }
+
+        internal VelibProvider Provider { get; set; }
+
+        public StationStatus GetStatus()
+        {
+            if (Provider != null)
+            {
+                return Provider.GetStatus(this);
+            }
+            else
+            {
+                return new StationStatus
+                {
+                    Available = -1,
+                    Free = -1,
+                    Total = -1,
+                    Ticket = -1
+                };
+            }
+        }
     }
 }
