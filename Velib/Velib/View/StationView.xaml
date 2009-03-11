@@ -19,12 +19,12 @@
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Nom" />
         <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Name}"/>
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Nombre de bornes" />
-        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Status.Total}"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Status.TotalSlots}"/>
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Vélos libres" />
-        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Status.Available}"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Status.AvailableBikes}"/>
         <TextBlock Grid.Row="3" Grid.Column="0" Text="Bornes libres" />
-        <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Status.Free}"/>
-        <TextBlock Grid.Row="4" Grid.Column="0" Text="Bornes en panne" />
+        <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Status.FreeSlots}"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Borne CB" />
         <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Status.Ticket}"/>
     </Grid>
 </UserControl>
