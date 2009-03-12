@@ -17,13 +17,6 @@ namespace Velib.ViewModel
         {
             this._navigationWindow = navigationWindow;
             this._network = network;
-
-            var stationViewModels =
-                from s in network.Data.Stations
-                select new StationViewModel(navigationWindow, s);
-
-            this.Stations = new ObservableCollection<StationViewModel>(stationViewModels);
-            this.Stations.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(Stations_CollectionChanged);
         }
 
         private NavigationWindow _navigationWindow;
@@ -52,7 +45,22 @@ namespace Velib.ViewModel
             }
         }
 
-        public ObservableCollection<StationViewModel> Stations { get; private set; }
+        private ObservableCollection<StationViewModel> _stations = null;
+        public ObservableCollection<StationViewModel> Stations
+        {
+            get
+            {
+                if (_stations == null)
+                {
+                    var stationViewModels =
+                        from s in _network.Data.Stations
+                        select new StationViewModel(_navigationWindow, s);
+                    _stations = new ObservableCollection<StationViewModel>(stationViewModels);
+                    _stations.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(Stations_CollectionChanged);
+                }
+                return _stations;
+            }
+        }
 
         void Stations_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
