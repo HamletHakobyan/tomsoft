@@ -2,14 +2,76 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:view="clr-namespace:Velib.View"
+      xmlns:vm="clr-namespace:Velib.ViewModel"
       Title="{Binding Name}">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition />
             <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <GroupBox Grid.Row="0"
+        <ContentControl Content="{Binding}">
+            <ContentControl.ContentTemplate>
+                <DataTemplate DataType="{x:Type vm:NetworkViewModel}">
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Nom"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Name}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="URL"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding BaseUri}"/>
+                        <Button Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right"
+                                Content="Modifier" Command="{Binding BeginEditCommand}"/>
+                    </Grid>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+            <ContentControl.Style>
+                <Style TargetType="{x:Type ContentControl}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsInEditMode}" Value="True">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate DataType="{x:Type vm:NetworkViewModel}">
+                                        <Grid Grid.Row="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="10"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Nom"/>
+                                            <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding NewName}"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="0" Text="URL"/>
+                                            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding NewBaseUri}"/>
+                                            <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
+                                                <Button HorizontalAlignment="Right" Content="Valider"
+                                                        Command="{Binding CommitEditCommand}"/>
+                                                <Button HorizontalAlignment="Right" Content="Annuler"
+                                                        Command="{Binding CancelEditCommand}"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+        <GroupBox Grid.Row="1"
                   Header="Stations">
             <ListView ItemsSource="{Binding Stations}"
                       SelectedItem="{Binding SelectedStation}"
@@ -23,8 +85,8 @@
                 </ListView.View>
             </ListView>
         </GroupBox>
-        <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch"/>
-        <GroupBox Grid.Row="2"
+        <GridSplitter Grid.Row="2" Height="5" HorizontalAlignment="Stretch"/>
+        <GroupBox Grid.Row="3"
                   Header="Détails">
             <view:StationView DataContext="{Binding SelectedStation}"/>
         </GroupBox>

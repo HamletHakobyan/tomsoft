@@ -11,15 +11,14 @@ using Velib.View;
 
 namespace Velib.ViewModel
 {
-    public class NetworkRepositoryViewModel : ViewModelBase
+    public class HomeViewModel : ViewModelBase
     {
-        public NetworkRepositoryViewModel(NavigationWindow navigationWindow, NetworkRepository repository)
+        public HomeViewModel(NavigationWindow navigationWindow)
         {
             this._navigationWindow = navigationWindow;
-            this._repository = repository;
             
             var networkViewModels =
-                from n in repository.Networks
+                from n in App.Current.Config.Networks
                 select new NetworkViewModel(navigationWindow, n);
             
             this.Networks = new ObservableCollection<NetworkViewModel>(networkViewModels);
@@ -27,7 +26,6 @@ namespace Velib.ViewModel
         }
 
         private NavigationWindow _navigationWindow;
-        private NetworkRepository _repository;
 
         #region Networks
 
@@ -101,10 +99,8 @@ namespace Velib.ViewModel
                         new RelayCommand(
                             parameter =>
                             {
-                                VelibProvider provider = new VelibProvider(NewNetworkUri);
-                                Network network = provider.GetNetwork();
-                                network.Name = NewNetworkName;
-                                _repository.Networks.Add(network);
+                                Network network = new Network(NewNetworkName, NewNetworkUri);
+                                App.Current.Config.Networks.Add(network);
                                 this.Networks.Add(new NetworkViewModel(_navigationWindow, network));
                             },
                             parameter =>

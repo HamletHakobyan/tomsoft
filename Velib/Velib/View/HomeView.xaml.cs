@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Velib.View
 {
     /// <summary>
-    /// Interaction logic for NetworkRepositoryView.xaml
+    /// Interaction logic for HomeView.xaml
     /// </summary>
-    public partial class NetworkRepositoryView : Page
+    public partial class HomeView : Page
     {
-        public NetworkRepositoryView()
+        public HomeView()
         {
             InitializeComponent();
         }

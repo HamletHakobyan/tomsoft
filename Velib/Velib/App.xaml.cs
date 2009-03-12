@@ -25,12 +25,12 @@ namespace Velib
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            LoadRepository();
+            LoadConfig();
 
             Velib.MainWindow window = new MainWindow();
 
-            Velib.ViewModel.NetworkRepositoryViewModel viewModel = new Velib.ViewModel.NetworkRepositoryViewModel(window, Repository);
-            Velib.View.NetworkRepositoryView view = new Velib.View.NetworkRepositoryView();
+            Velib.ViewModel.HomeViewModel viewModel = new Velib.ViewModel.HomeViewModel(window);
+            Velib.View.HomeView view = new Velib.View.HomeView();
             view.DataContext = viewModel;
 
             this.MainWindow = window;
@@ -38,66 +38,62 @@ namespace Velib
             window.Show();
         }
 
-        public NetworkRepository Repository { get; private set; }
+        public Config Config { get; private set; }
 
-        public string RepositoryPath
+        public string ConfigPath
         {
             get
             {
                 string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string path = Path.Combine(appData, @"Velib\networkRepository.xml");
+                string path = Path.Combine(appData, @"Velib\config.xml");
                 return path;
             }
         }
 	
 
-        private void LoadRepository()
+        private void LoadConfig()
         {
-            if (File.Exists(RepositoryPath))
+            if (File.Exists(ConfigPath))
             {
-                using (StreamReader reader = new StreamReader(RepositoryPath))
+                using (StreamReader reader = new StreamReader(ConfigPath))
                 {
-                    XmlSerializer xs = new XmlSerializer(typeof(NetworkRepository));
+                    XmlSerializer xs = new XmlSerializer(typeof(Config));
                     try
                     {
-                        this.Repository = xs.Deserialize(reader) as NetworkRepository;
-                        foreach (Network network in this.Repository.Networks)
-                        {
-                            new VelibProvider(network);
-                        }
+                        this.Config = xs.Deserialize(reader) as Config;
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error loading network repository :\n" + ex.ToString());
-                        File.Copy(RepositoryPath, RepositoryPath + ".bak", true);
+                        MessageBox.Show("Error loading config :\n" + ex.ToString());
+                        File.Copy(ConfigPath, ConfigPath + ".bak", true);
                     }
                 }
             }
-            if (this.Repository == null)
+            if (this.Config == null)
             {
-                this.Repository = new NetworkRepository();
+                this.Config = new Config();
             }
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            if (Repository != null)
+            if (Config != null)
             {
-                SaveRepository();
+                SaveConfig();
             }
         }
 
-        private void SaveRepository()
+        private void SaveConfig()
         {
-            string dir = Path.GetDirectoryName(RepositoryPath);
+            string dir = Path.GetDirectoryName(ConfigPath);
 
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 
-            using (StreamWriter writer = new StreamWriter(RepositoryPath))
+            using (StreamWriter writer = new StreamWriter(ConfigPath))
             {
-                XmlSerializer xs = new XmlSerializer(typeof(NetworkRepository));
-                xs.Serialize(writer, Repository);
+                XmlSerializer xs = new XmlSerializer(typeof(Config));
+                xs.Serialize(writer, Config);
             }
         }
     }

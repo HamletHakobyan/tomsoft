@@ -1,8 +1,8 @@
-﻿<Page x:Class="Velib.View.NetworkRepositoryView"
+﻿<Page x:Class="Velib.View.HomeView"
       Name="page"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:velib="clr-namespace:Velib;assembly=LibVelib"
+      xmlns:vm="clr-namespace:Velib.ViewModel"
       Title="Vélib - Accueil">
     <Grid>
         <StackPanel Orientation="Vertical">
@@ -16,10 +16,10 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type velib:Network}">
-                        <BulletDecorator>
+                    <DataTemplate DataType="{x:Type vm:NetworkViewModel}">
+                        <BulletDecorator Width="Auto">
                             <BulletDecorator.Bullet>
-                                <Ellipse Fill="Black" Width="10" Height="8"/>
+                                <Ellipse Fill="White" Stroke="Black" StrokeThickness="1" Width="8" Height="8"/>
                             </BulletDecorator.Bullet>
                             <Button Content="{Binding Name}"
                                     Command="{Binding DataContext.ShowNetworkCommand, ElementName=page}"
