@@ -21,7 +21,7 @@ namespace Velib
         {
         }
 
-        public VelibProvider(Network network)
+        public VelibProvider(NetworkData network)
         {
             this.BaseUri = network.BaseUri;
             InitUris(network.BaseUri);
@@ -51,13 +51,13 @@ namespace Velib
                 _xmlOverrides = new XmlAttributeOverrides();
                 XmlAttributes attr = new XmlAttributes();
                 attr.XmlIgnore = true;
-                _xmlOverrides.Add(typeof(Network), "Name", attr);
-                _xmlOverrides.Add(typeof(Network), "BaseUriString", attr);
+                _xmlOverrides.Add(typeof(NetworkData), "Name", attr);
+                _xmlOverrides.Add(typeof(NetworkData), "BaseUriString", attr);
             }
             return _xmlOverrides;
         }
 
-        public Network GetNetwork()
+        public NetworkData GetNetworkData()
         {
             HttpWebRequest req = WebRequest.Create(NetworkUri) as HttpWebRequest;
             HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
@@ -65,8 +65,8 @@ namespace Velib
             {
                 using (Stream respStream = resp.GetResponseStream())
                 {
-                    XmlSerializer xs = new XmlSerializer(typeof(Network), GetXmlOverrides());
-                    Network network = xs.Deserialize(respStream) as Network;
+                    XmlSerializer xs = new XmlSerializer(typeof(NetworkData), GetXmlOverrides());
+                    NetworkData network = xs.Deserialize(respStream) as NetworkData;
                     network.BaseUri = this.BaseUri;
                     foreach (Station station in network.Stations)
                     {

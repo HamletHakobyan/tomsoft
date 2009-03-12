@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace Velib
 {
     [XmlRoot("carto")]
-    public class Network
+    public class NetworkData
     {
         [XmlArray("markers")]
         [XmlArrayItem("marker")]

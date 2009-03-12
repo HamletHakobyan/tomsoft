@@ -6,14 +6,13 @@ using System.Xml.Serialization;
 
 namespace Velib.Model
 {
-    public class NetworkRepository
+    public class Config
     {
-        public NetworkRepository()
+        public Config()
         {
             this.Networks = new List<Network>();
         }
 
-        [XmlElement("Networks")]
         public List<Network> Networks { get; set; }
 
         public string CurrentNetwork { get; set; }

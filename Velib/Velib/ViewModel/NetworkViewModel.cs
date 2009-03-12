@@ -5,6 +5,8 @@ using System.Text;
 using MVVMLib.ViewModel;
 using System.Windows.Navigation;
 using System.Collections.ObjectModel;
+using Velib.Model;
+using MVVMLib;
 
 namespace Velib.ViewModel
 {
@@ -17,7 +19,7 @@ namespace Velib.ViewModel
             this._network = network;
 
             var stationViewModels =
-                from s in network.Stations
+                from s in network.Data.Stations
                 select new StationViewModel(navigationWindow, s);
 
             this.Stations = new ObservableCollection<StationViewModel>(stationViewModels);
@@ -27,6 +29,8 @@ namespace Velib.ViewModel
         private NavigationWindow _navigationWindow;
         private Network _network;
 
+        #region Properties
+
         public string Name
         {
             get { return _network.Name; }
@@ -34,6 +38,17 @@ namespace Velib.ViewModel
             {
                 _network.Name = value;
                 OnPropertyChanged("Name");
+            }
+        }
+
+        public string BaseUri
+        {
+            get { return _network.BaseUri; }
+            set
+            {
+                _network.BaseUri = value;
+                _network.InvalidateData();
+                OnPropertyChanged("BaseUri");
             }
         }
 
@@ -58,5 +73,107 @@ namespace Velib.ViewModel
             }
         }
 
+        private bool _isInEditMode = false;
+        public bool IsInEditMode
+        {
+            get { return _isInEditMode; }
+            set
+            {
+                _isInEditMode = value;
+                OnPropertyChanged("IsInEditMode");
+            }
+        }
+
+        private string _newName;
+        public string NewName
+        {
+            get { return _newName; }
+            set
+            {
+                _newName = value;
+                OnPropertyChanged("NewName");
+            }
+        }
+
+        private string _newBaseUri;
+        public string NewBaseUri
+        {
+            get { return _newBaseUri; }
+            set
+            {
+                _newBaseUri = value;
+                OnPropertyChanged("NewBaseUri");
+            }
+        }
+
+        #endregion Properties
+
+        #region Commands
+
+        private RelayCommand _beginEditCommand;
+        public RelayCommand BeginEditCommand
+        {
+            get
+            {
+                if (_beginEditCommand == null)
+                {
+                    _beginEditCommand = new RelayCommand(
+                        parameter =>
+                        {
+                            NewName = Name;
+                            NewBaseUri = BaseUri;
+                            IsInEditMode = true;
+                        });
+                }
+                return _beginEditCommand;
+            }
+        }
+
+        private RelayCommand _commitEditCommand;
+        public RelayCommand CommitEditCommand
+        {
+            get
+            {
+                if (_commitEditCommand == null)
+                {
+                    _commitEditCommand = new RelayCommand(
+                        parameter =>
+                        {
+                            Name = NewName;
+                            BaseUri = NewBaseUri;
+                            IsInEditMode = false;
+                        },
+                        parameter =>
+                        {
+                            if (string.IsNullOrEmpty(NewName) || string.IsNullOrEmpty(NewBaseUri))
+                                return false;
+                            else
+                                return true;
+                        });
+                }
+                return _commitEditCommand;
+            }
+        }
+
+        private RelayCommand _cancelEditCommand;
+        public RelayCommand CancelEditCommand
+        {
+            get
+            {
+                if (_cancelEditCommand == null)
+                {
+                    _cancelEditCommand = new RelayCommand(
+                        parameter =>
+                        {
+                            NewName = Name;
+                            NewBaseUri = BaseUri;
+                            IsInEditMode = false;
+                        });
+                }
+                return _cancelEditCommand;
+            }
+        }
+
+        #endregion Commands
     }
 }
