@@ -45,9 +45,11 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Nom"/>
-                <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding NewNetworkName}"/>
+                <TextBox Grid.Row="0" Grid.Column="2"
+                         Text="{Binding NewNetworkName, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="URL"/>
-                <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding NewNetworkUri}"/>
+                <TextBox Grid.Row="1" Grid.Column="2"
+                         Text="{Binding NewNetworkUri, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right"
                         Content="Ajouter" Command="{Binding AddNetworkCommand}"/>
             </Grid>
