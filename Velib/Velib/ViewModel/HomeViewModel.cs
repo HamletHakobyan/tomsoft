@@ -1,31 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
+using MVVMLib;
 using MVVMLib.ViewModel;
 using Velib.Model;
-using System.Collections.ObjectModel;
-using MVVMLib;
-using System.Windows.Navigation;
-using Velib.View;
+using Velib.Navigation;
+using MVVMLib.Input;
 
 namespace Velib.ViewModel
 {
     public class HomeViewModel : ViewModelBase
     {
-        public HomeViewModel(NavigationWindow navigationWindow)
+        public HomeViewModel(INavigationService navigationService)
         {
-            this._navigationWindow = navigationWindow;
+            this._navigationService = navigationService;
             
             var networkViewModels =
                 from n in App.Current.Config.Networks
-                select new NetworkViewModel(navigationWindow, n);
+                select new NetworkViewModel(navigationService, n);
             
             this.Networks = new ObservableCollection<NetworkViewModel>(networkViewModels);
             this.Networks.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(Networks_CollectionChanged);
         }
 
-        private NavigationWindow _navigationWindow;
+        private INavigationService _navigationService;
 
         #region Networks
 
@@ -79,9 +76,9 @@ namespace Velib.ViewModel
                             parameter =>
                             {
                                 NetworkViewModel viewModel = parameter as NetworkViewModel;
-                                NetworkView view = new NetworkView();
-                                view.DataContext = viewModel;
-                                _navigationWindow.Navigate(view);
+                                //NetworkView view = new NetworkView();
+                                //view.DataContext = viewModel;
+                                _navigationService.Navigate(viewModel);
                             });
                 }
                 return _showNetworkCommand;
@@ -101,7 +98,7 @@ namespace Velib.ViewModel
                             {
                                 Network network = new Network(NewNetworkName, NewNetworkUri);
                                 App.Current.Config.Networks.Add(network);
-                                this.Networks.Add(new NetworkViewModel(_navigationWindow, network));
+                                this.Networks.Add(new NetworkViewModel(_navigationService, network));
                             },
                             parameter =>
                             {

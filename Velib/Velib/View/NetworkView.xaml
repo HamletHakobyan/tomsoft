@@ -3,92 +3,128 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:view="clr-namespace:Velib.View"
       xmlns:vm="clr-namespace:Velib.ViewModel"
+      xmlns:ctl="clr-namespace:Velib.Controls"
+      xmlns:input="clr-namespace:MVVMLib.Input;assembly=MVVMLib"
       Title="{Binding Name}">
+
+    <Page.Resources>
+        
+        <DataTemplate x:Key="NetworkEditTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Text="Nom"/>
+                <TextBox Grid.Row="0" Grid.Column="2"
+                         Text="{Binding NewName}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0"
+                           Text="URL"/>
+                <TextBox Grid.Row="1" Grid.Column="2"
+                         Text="{Binding NewBaseUri}"/>
+                <Button Grid.Row="0" Grid.Column="4"
+                        Style="{StaticResource LinkButtonStyle}"
+                        Content="Annuler"
+                        Command="{Binding CancelEditCommand}"/>
+                <Button Grid.Row="1" Grid.Column="4"
+                        Style="{StaticResource LinkButtonStyle}"
+                        Content="Valider"
+                        Command="{Binding CommitEditCommand}"/>
+            </Grid>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="NetworkDisplayTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Text="Nom"/>
+                <TextBlock Grid.Row="0" Grid.Column="2"
+                           Text="{Binding Name}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0"
+                           Text="URL"/>
+                <TextBlock Grid.Row="1" Grid.Column="2"
+                           Text="{Binding BaseUri}"/>
+                <Button Grid.Row="0" Grid.Column="4"
+                        Style="{StaticResource LinkButtonStyle}"
+                        Content="Modifier"
+                        Command="{Binding BeginEditCommand}"/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:StationViewModel}">
+            <view:StationView DataContext="{Binding}"/>
+        </DataTemplate>
+        
+    </Page.Resources>
+    
     <Grid>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition />
             <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
+        
         <ContentControl Content="{Binding}">
-            <ContentControl.ContentTemplate>
-                <DataTemplate DataType="{x:Type vm:NetworkViewModel}">
-                    <Grid Grid.Row="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Nom"/>
-                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Name}"/>
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="URL"/>
-                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding BaseUri}"/>
-                        <Button Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right"
-                                Content="Modifier" Command="{Binding BeginEditCommand}"/>
-                    </Grid>
-                </DataTemplate>
-            </ContentControl.ContentTemplate>
             <ContentControl.Style>
                 <Style TargetType="{x:Type ContentControl}">
+                    <Setter Property="ContentTemplate" Value="{StaticResource NetworkDisplayTemplate}" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsInEditMode}" Value="True">
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate DataType="{x:Type vm:NetworkViewModel}">
-                                        <Grid Grid.Row="0">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="10"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Nom"/>
-                                            <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding NewName}"/>
-                                            <TextBlock Grid.Row="1" Grid.Column="0" Text="URL"/>
-                                            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding NewBaseUri}"/>
-                                            <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
-                                                <Button HorizontalAlignment="Right" Content="Valider"
-                                                        Command="{Binding CommitEditCommand}"/>
-                                                <Button HorizontalAlignment="Right" Content="Annuler"
-                                                        Command="{Binding CancelEditCommand}"/>
-                                            </StackPanel>
-                                        </Grid>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
+                            <Setter Property="ContentTemplate" Value="{StaticResource NetworkEditTemplate}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </ContentControl.Style>
         </ContentControl>
-        <GroupBox Grid.Row="1"
-                  Header="Stations">
+        
+        <ctl:DualHeaderGroupBox Grid.Row="1"
+                                LeftHeader="Stations">
+            <ctl:DualHeaderGroupBox.RightHeader>
+                <Button Style="{StaticResource LinkButtonStyle}"
+                        Content="Actualiser"
+                        Command="{Binding RefreshStationsCommand}"/>
+            </ctl:DualHeaderGroupBox.RightHeader>
+            
             <ListView ItemsSource="{Binding Stations}"
                       SelectedItem="{Binding SelectedStation}"
                       IsSynchronizedWithCurrentItem="True">
                 <ListView.View>
                     <GridView>
                         <GridView.Columns>
+                            <GridViewColumn Header="N°" DisplayMemberBinding="{Binding Number}"/>
                             <GridViewColumn Header="Nom" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Adresse" DisplayMemberBinding="{Binding Address}"/>
                         </GridView.Columns>
                     </GridView>
                 </ListView.View>
             </ListView>
-        </GroupBox>
-        <GridSplitter Grid.Row="2" Height="5" HorizontalAlignment="Stretch"/>
+        </ctl:DualHeaderGroupBox>
+        
+        <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch"/>
+        
         <GroupBox Grid.Row="3"
-                  Header="Détails">
-            <view:StationView DataContext="{Binding SelectedStation}"/>
+                 Header="Détails">
+            <ContentControl Content="{Binding SelectedStation}"/>
         </GroupBox>
     </Grid>
 </Page>

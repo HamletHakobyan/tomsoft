@@ -1,6 +1,17 @@
 ﻿<NavigationWindow x:Class="Velib.MainWindow"
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:vm="clr-namespace:Velib.ViewModel"
+                  xmlns:view="clr-namespace:Velib.View"
                   Name="navWindow"
-                  Title="{Binding Content.Title, ElementName=navWindow, FallbackValue=Vélib}" Height="450" Width="450">
+                  Title="{Binding Content.Title, ElementName=navWindow, FallbackValue=Vélib}"
+                  Height="450" Width="450">
+    <NavigationWindow.Resources>
+        <DataTemplate DataType="{x:Type vm:HomeViewModel}">
+            <view:HomeView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:NetworkViewModel}">
+            <view:NetworkView DataContext="{Binding}"/>
+        </DataTemplate>
+    </NavigationWindow.Resources>
 </NavigationWindow>
