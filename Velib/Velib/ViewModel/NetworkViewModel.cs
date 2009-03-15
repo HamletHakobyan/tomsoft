@@ -1,25 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using MVVMLib.ViewModel;
-using System.Windows.Navigation;
-using System.Collections.ObjectModel;
-using Velib.Model;
 using MVVMLib;
+using MVVMLib.ViewModel;
+using Velib.Model;
+using Velib.Navigation;
+using MVVMLib.Input;
 
 namespace Velib.ViewModel
 {
     public class NetworkViewModel : ViewModelBase
     {
 
-        public NetworkViewModel(NavigationWindow navigationWindow, Network network)
+        public NetworkViewModel(INavigationService navigationService, Network network)
         {
-            this._navigationWindow = navigationWindow;
+            this._navigationService = navigationService;
             this._network = network;
         }
 
-        private NavigationWindow _navigationWindow;
+        private INavigationService _navigationService;
         private Network _network;
 
         #region Properties
@@ -54,7 +52,7 @@ namespace Velib.ViewModel
                 {
                     var stationViewModels =
                         from s in _network.Data.Stations
-                        select new StationViewModel(_navigationWindow, s);
+                        select new StationViewModel(_navigationService, s);
                     _stations = new ObservableCollection<StationViewModel>(stationViewModels);
                     _stations.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(Stations_CollectionChanged);
                 }
@@ -181,6 +179,26 @@ namespace Velib.ViewModel
                 return _cancelEditCommand;
             }
         }
+
+        private RelayCommand _refreshStationsCommand;
+        public RelayCommand RefreshStationsCommand
+        {
+            get
+            {
+                if (_refreshStationsCommand == null)
+                {
+                    _refreshStationsCommand = new RelayCommand(
+                        parameter =>
+                        {
+                            _stations = null;
+                            _network.RefreshData();
+                            OnPropertyChanged("Stations");
+                        });
+                }
+                return _refreshStationsCommand;
+            }
+        }
+
 
         #endregion Commands
     }

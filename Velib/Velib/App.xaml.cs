@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Windows;
-using Velib.Model;
 using System.IO;
+using System.Windows;
 using System.Xml.Serialization;
+using Velib.Model;
+using Velib.Navigation;
+using Velib.ViewModel;
 
 namespace Velib
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : Application, INavigationService
     {
         public new static App Current
         {
@@ -29,12 +27,9 @@ namespace Velib
 
             Velib.MainWindow window = new MainWindow();
 
-            Velib.ViewModel.HomeViewModel viewModel = new Velib.ViewModel.HomeViewModel(window);
-            Velib.View.HomeView view = new Velib.View.HomeView();
-            view.DataContext = viewModel;
-
+            HomeViewModel viewModel = new HomeViewModel(this);
             this.MainWindow = window;
-            window.Navigate(view);
+            window.Navigate(viewModel);
             window.Show();
         }
 
@@ -96,5 +91,14 @@ namespace Velib
                 xs.Serialize(writer, Config);
             }
         }
+
+        #region INavigationService Members
+
+        public void Navigate(object content)
+        {
+            (this.MainWindow as MainWindow).Navigate(content);
+        }
+
+        #endregion
     }
 }

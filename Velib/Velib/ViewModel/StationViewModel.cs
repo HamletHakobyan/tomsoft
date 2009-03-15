@@ -1,27 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using MVVMLib;
 using MVVMLib.ViewModel;
-using System.Windows.Navigation;
-using MVVMLib;
+using Velib.Navigation;
+using MVVMLib.Input;
 
 namespace Velib.ViewModel
 {
     public class StationViewModel : ViewModelBase
     {
-        public StationViewModel(NavigationWindow navigationWindow, Station station)
+        public StationViewModel(INavigationService navigationService, Station station)
         {
-            this._navigationWindow = navigationWindow;
+            this._navigationService = navigationService;
             this._station = station;
         }
 
-        private NavigationWindow _navigationWindow;
+        private INavigationService _navigationService;
         private Station _station;
+
+        #region Properties
+
+        public string Number
+        {
+            get { return _station.Number; }
+        }
 
         public string Name
         {
             get { return _station.Name; }
+        }
+
+        public string Address
+        {
+            get { return _station.Address; }
         }
 
         private StationStatusViewModel _status;
@@ -36,6 +45,10 @@ namespace Velib.ViewModel
                 return _status;
             }
         }
+
+        #endregion Properties
+
+        #region Commands
 
         private RelayCommand _refreshStatusCommand = null;
 
@@ -56,6 +69,8 @@ namespace Velib.ViewModel
                 return _refreshStatusCommand;
             }
         }
+
+        #endregion Commands
 
     }
 }
