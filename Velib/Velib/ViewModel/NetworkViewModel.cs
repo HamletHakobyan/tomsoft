@@ -5,6 +5,8 @@ using MVVMLib.ViewModel;
 using Velib.Model;
 using Velib.Navigation;
 using MVVMLib.Input;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace Velib.ViewModel
 {
@@ -39,7 +41,9 @@ namespace Velib.ViewModel
             {
                 _network.BaseUri = value;
                 _network.InvalidateData();
+                _stations = null;
                 OnPropertyChanged("BaseUri");
+                OnPropertyChanged("Stations");
             }
         }
 
@@ -50,20 +54,41 @@ namespace Velib.ViewModel
             {
                 if (_stations == null)
                 {
-                    var stationViewModels =
-                        from s in _network.Data.Stations
-                        select new StationViewModel(_navigationService, s);
-                    _stations = new ObservableCollection<StationViewModel>(stationViewModels);
-                    _stations.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(Stations_CollectionChanged);
+                    CreateStations();
                 }
                 return _stations;
             }
+        }
+
+        private void CreateStations()
+        {
+            var stationViewModels =
+                from s in _network.Data.Stations
+                select new StationViewModel(_navigationService, s);
+            _stations = new ObservableCollection<StationViewModel>(stationViewModels);
+            _stations.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(Stations_CollectionChanged);
+            SetStationFilter();
         }
 
         void Stations_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             // TODO
         }
+
+        private bool _networkDataReady = false;
+        public bool NetworkDataReady
+        {
+            get { return _networkDataReady; }
+            set
+            {
+                if (value != _networkDataReady)
+                {
+                    _networkDataReady = value;
+                    OnPropertyChanged("NetworkDataReady");
+                }
+            }
+        }
+
 
         private StationViewModel _selectedStation;
         public StationViewModel SelectedStation
@@ -111,6 +136,17 @@ namespace Velib.ViewModel
                 OnPropertyChanged("NewBaseUri");
             }
         }
+
+        private string _searchText = "";
+        public string SearchText
+        {
+            set
+            {
+                _searchText = value.ToLower();
+                SetStationFilter();
+            }
+        }
+
 
         #endregion Properties
 
@@ -201,5 +237,26 @@ namespace Velib.ViewModel
 
 
         #endregion Commands
+
+
+        private void SetStationFilter()
+        {
+            ICollectionView view = CollectionViewSource.GetDefaultView(_stations);
+            view.Filter = (item) =>
+            {
+                StationViewModel station = item as StationViewModel;
+                if (station != null)
+                {
+                    if (station.Name.ToLower().Contains(_searchText))
+                        return true;
+                    if (station.Address.ToLower().Contains(_searchText))
+                        return true;
+                    if (station.FullAddress.ToLower().Contains(_searchText))
+                        return true;
+                }
+                return false;
+            };
+        }
+
     }
 }

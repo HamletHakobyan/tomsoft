@@ -104,20 +104,26 @@
                         Content="Actualiser"
                         Command="{Binding RefreshStationsCommand}"/>
             </ctl:DualHeaderGroupBox.RightHeader>
-            
-            <ListView ItemsSource="{Binding Stations}"
+
+            <DockPanel>
+                <DockPanel DockPanel.Dock="Top">
+                    <TextBlock DockPanel.Dock="Left" Text="Rechercher"/>
+                    <TextBox Margin="5,0,0,0" Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                </DockPanel>
+                <ListView x:Name="lstStations" ItemsSource="{Binding Stations}"
                       SelectedItem="{Binding SelectedStation}"
                       IsSynchronizedWithCurrentItem="True">
-                <ListView.View>
-                    <GridView>
-                        <GridView.Columns>
-                            <GridViewColumn Header="N°" DisplayMemberBinding="{Binding Number}"/>
-                            <GridViewColumn Header="Nom" DisplayMemberBinding="{Binding Name}"/>
-                            <GridViewColumn Header="Adresse" DisplayMemberBinding="{Binding Address}"/>
-                        </GridView.Columns>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                    <ListView.View>
+                        <GridView>
+                            <GridView.Columns>
+                                <GridViewColumn Header="N°" DisplayMemberBinding="{Binding Number}"/>
+                                <GridViewColumn Header="Nom" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Adresse" DisplayMemberBinding="{Binding Address}"/>
+                            </GridView.Columns>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </DockPanel>
         </ctl:DualHeaderGroupBox>
         
         <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch"/>

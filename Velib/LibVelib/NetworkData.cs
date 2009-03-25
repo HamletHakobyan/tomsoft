@@ -26,5 +26,14 @@ namespace Velib
             get { return BaseUri.AbsoluteUri; }
             set { BaseUri = new Uri(value); }
         }
+
+        public void InitProvider()
+        {
+            VelibProvider provider = new VelibProvider(BaseUri);
+            foreach (Station s in Stations)
+            {
+                s.Provider = provider;
+            }
+        }
     }
 }
