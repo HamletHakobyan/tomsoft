@@ -35,12 +35,21 @@ namespace Velib
 
         public Config Config { get; private set; }
 
-        public string ConfigPath
+        public string AppDataPath
         {
             get
             {
-                string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string path = Path.Combine(appData, @"Velib\config.xml");
+                string userAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string path = Path.Combine(userAppData, "Velib");
+                return path;
+            }
+        }
+        
+        public string ConfigFileName
+        {
+            get
+            {
+                string path = Path.Combine(AppDataPath, "config.xml");
                 return path;
             }
         }
@@ -48,9 +57,9 @@ namespace Velib
 
         private void LoadConfig()
         {
-            if (File.Exists(ConfigPath))
+            if (File.Exists(ConfigFileName))
             {
-                using (StreamReader reader = new StreamReader(ConfigPath))
+                using (StreamReader reader = new StreamReader(ConfigFileName))
                 {
                     XmlSerializer xs = new XmlSerializer(typeof(Config));
                     try
@@ -60,7 +69,7 @@ namespace Velib
                     catch (Exception ex)
                     {
                         MessageBox.Show("Error loading config :\n" + ex.ToString());
-                        File.Copy(ConfigPath, ConfigPath + ".bak", true);
+                        File.Copy(ConfigFileName, ConfigFileName + ".bak", true);
                     }
                 }
             }
@@ -80,12 +89,12 @@ namespace Velib
 
         private void SaveConfig()
         {
-            string dir = Path.GetDirectoryName(ConfigPath);
+            string dir = Path.GetDirectoryName(ConfigFileName);
 
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 
-            using (StreamWriter writer = new StreamWriter(ConfigPath))
+            using (StreamWriter writer = new StreamWriter(ConfigFileName))
             {
                 XmlSerializer xs = new XmlSerializer(typeof(Config));
                 xs.Serialize(writer, Config);

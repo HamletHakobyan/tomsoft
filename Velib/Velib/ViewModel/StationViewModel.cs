@@ -33,6 +33,11 @@ namespace Velib.ViewModel
             get { return _station.Address; }
         }
 
+        public string FullAddress
+        {
+            get { return _station.FullAddress; }
+        }
+
         private StationStatusViewModel _status;
         public StationStatusViewModel Status
         {
