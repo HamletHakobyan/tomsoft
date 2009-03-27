@@ -26,5 +26,13 @@
         <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Status.FreeSlots}"/>
         <TextBlock Grid.Row="4" Grid.Column="0" Text="Borne CB" />
         <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Status.Ticket}"/>
+
+        <Grid Grid.Row="0" Grid.Column="0"
+              Grid.RowSpan="5" Grid.ColumnSpan="4"
+              Background="White"
+              Visibility="{Binding LoadingPanelVisibility}">
+            <ProgressBar IsIndeterminate="True"
+                         Width="100" Height="20"/>
+        </Grid>
     </Grid>
 </UserControl>

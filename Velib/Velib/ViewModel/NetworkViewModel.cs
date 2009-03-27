@@ -6,6 +6,8 @@ using MVVMLib.Input;
 using MVVMLib.ViewModel;
 using Velib.Model;
 using Velib.Navigation;
+using System.Threading;
+using System.Windows;
 
 namespace Velib.ViewModel
 {
@@ -53,41 +55,36 @@ namespace Velib.ViewModel
             {
                 if (_stations == null)
                 {
-                    CreateStations();
+                    CreateStationsAsync(false);
                 }
                 return _stations;
             }
-        }
-
-        private void CreateStations()
-        {
-            var stationViewModels =
-                from s in _network.Data.Stations
-                select new StationViewModel(_navigationService, s);
-            _stations = new ObservableCollection<StationViewModel>(stationViewModels);
-            _stations.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(Stations_CollectionChanged);
-            SetStationFilter();
-        }
-
-        void Stations_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            // TODO
-        }
-
-        private bool _networkDataReady = false;
-        public bool NetworkDataReady
-        {
-            get { return _networkDataReady; }
             set
             {
-                if (value != _networkDataReady)
-                {
-                    _networkDataReady = value;
-                    OnPropertyChanged("NetworkDataReady");
-                }
+                _stations = value;
+                OnPropertyChanged("Stations");
             }
         }
 
+        private bool _isDataReady = false;
+        public bool IsDataReady
+        {
+            get { return _isDataReady; }
+            private set
+            {
+                _isDataReady = value;
+                OnPropertyChanged("IsDataReady");
+                OnPropertyChanged("LoadingPanelVisibility");
+            }
+        }
+
+        public Visibility LoadingPanelVisibility
+        {
+            get
+            {
+                return _isDataReady ? Visibility.Hidden : Visibility.Visible;
+            }
+        }
 
         private StationViewModel _selectedStation;
         public StationViewModel SelectedStation
@@ -225,9 +222,7 @@ namespace Velib.ViewModel
                     _refreshStationsCommand = new RelayCommand(
                         parameter =>
                         {
-                            _stations = null;
-                            _network.RefreshData();
-                            OnPropertyChanged("Stations");
+                            CreateStationsAsync(true);
                         });
                 }
                 return _refreshStationsCommand;
@@ -276,6 +271,36 @@ namespace Velib.ViewModel
 
         #endregion Commands
 
+        private bool _creatingStations = false;
+        private void CreateStationsAsync(bool refresh)
+        {
+            if (!_creatingStations)
+            {
+                _creatingStations = true;
+                IsDataReady = false;
+                ThreadPool.QueueUserWorkItem(CreateStations, refresh);
+            }
+        }
+
+        private void CreateStations(object oRefresh)
+        {
+            bool refresh = (bool)oRefresh;
+            
+            if (refresh)
+                _network.RefreshData();
+
+            var stationViewModels =
+                from s in _network.Data.Stations
+                select new StationViewModel(_navigationService, s);
+
+            Stations = new ObservableCollection<StationViewModel>(stationViewModels);
+
+            SetStationFilter();
+
+            IsDataReady = true;
+            _creatingStations = false;
+        }
+
         private void SetStationFilter()
         {
             ICollectionView view = CollectionViewSource.GetDefaultView(_stations);
@@ -284,7 +309,7 @@ namespace Velib.ViewModel
                 StationViewModel station = item as StationViewModel;
                 if (station != null)
                 {
-                    if (station.Name.ToLower().Contains(_searchText))
+                    if (station.FullName.ToLower().Contains(_searchText))
                         return true;
                     if (station.Address.ToLower().Contains(_searchText))
                         return true;

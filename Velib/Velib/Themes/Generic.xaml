@@ -69,7 +69,8 @@
                                 Grid.RowSpan="3" Grid.ColumnSpan="5"
                                 CornerRadius="4"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                BorderBrush="White">
+                                BorderBrush="White"
+                                IsHitTestVisible="False">
                             <Border.OpacityMask>
                                 <MultiBinding Converter="{StaticResource DualBorderGapMaskConverter}" ConverterParameter="7">
                                     <Binding ElementName="LeftHeader" Path="ActualWidth" />
