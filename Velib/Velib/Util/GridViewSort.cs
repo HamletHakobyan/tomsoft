@@ -116,7 +116,7 @@ namespace Velib.Util
         private static void ColumnHeader_Click(object sender, RoutedEventArgs e)
         {
             GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
-            if (headerClicked != null)
+            if (headerClicked != null && headerClicked.Column != null)
             {
                 string propertyName = GetPropertyName(headerClicked.Column);
                 if (!string.IsNullOrEmpty(propertyName))

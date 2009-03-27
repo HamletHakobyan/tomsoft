@@ -2,6 +2,8 @@
 using MVVMLib.ViewModel;
 using Velib.Navigation;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Windows;
 
 namespace Velib.ViewModel
 {
@@ -62,9 +64,34 @@ namespace Velib.ViewModel
             {
                 if (_status == null)
                 {
-                    _status = new StationStatusViewModel(_station.GetStatus());
+                    GetStatusAsync();
                 }
                 return _status;
+            }
+            private set
+            {
+                _status = value;
+                OnPropertyChanged("Status");
+            }
+        }
+
+        private bool _isDataReady = false;
+        public bool IsDataReady
+        {
+            get { return _isDataReady; }
+            private set
+            {
+                _isDataReady = value;
+                OnPropertyChanged("IsDataReady");
+                OnPropertyChanged("LoadingPanelVisibility");
+            }
+        }
+
+        public Visibility LoadingPanelVisibility
+        {
+            get
+            {
+                return _isDataReady ? Visibility.Hidden : Visibility.Visible;
             }
         }
 
@@ -84,8 +111,7 @@ namespace Velib.ViewModel
                         new RelayCommand(
                             parameter =>
                             {
-                                _status = new StationStatusViewModel(_station.GetStatus());
-                                OnPropertyChanged("Status");
+                                GetStatusAsync();
                             });
                 }
                 return _refreshStatusCommand;
@@ -93,6 +119,26 @@ namespace Velib.ViewModel
         }
 
         #endregion Commands
+
+        bool _gettingStatus = false;
+        private void GetStatusAsync()
+        {
+            if (!_gettingStatus)
+            {
+                _gettingStatus = true;
+                IsDataReady = false;
+                ThreadPool.QueueUserWorkItem(GetStatus);
+            }
+        }
+
+        private void GetStatus(object state)
+        {
+            Status = new StationStatusViewModel(_station.GetStatus());
+            IsDataReady = true;
+            _gettingStatus = false;
+        }
+
+
 
     }
 }

@@ -105,32 +105,39 @@
                         Command="{Binding RefreshStationsCommand}"/>
             </ctl:DualHeaderGroupBox.RightHeader>
 
-            <DockPanel>
-                <DockPanel DockPanel.Dock="Top">
-                    <TextBlock DockPanel.Dock="Left" Text="Rechercher"/>
-                    <TextBox Margin="5,0,0,0" Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
-                </DockPanel>
-                <ListView ItemsSource="{Binding Stations}"
-                      SelectedItem="{Binding SelectedStation}"
-                      IsSynchronizedWithCurrentItem="True"
-                      util:GridViewSort.AutoSort="True">
-                    <ListView.View>
-                        <GridView>
-                            <GridView.Columns>
-                                <GridViewColumn Header="N°"
+            <Grid>
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top">
+                        <TextBlock DockPanel.Dock="Left" Text="Rechercher"/>
+                        <TextBox Margin="5,0,0,0" Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                    </DockPanel>
+                    <ListView ItemsSource="{Binding Stations}"
+                              SelectedItem="{Binding SelectedStation}"
+                              IsSynchronizedWithCurrentItem="True"
+                              util:GridViewSort.AutoSort="True">
+                        <ListView.View>
+                            <GridView>
+                                <GridView.Columns>
+                                    <GridViewColumn Header="N°"
                                                 DisplayMemberBinding="{Binding Number}"
                                                 util:GridViewSort.PropertyName="Number"/>
-                                <GridViewColumn Header="Nom"
+                                    <GridViewColumn Header="Nom"
                                                 DisplayMemberBinding="{Binding Name}"
                                                 util:GridViewSort.PropertyName="Name"/>
-                                <GridViewColumn Header="Adresse"
+                                    <GridViewColumn Header="Adresse"
                                                 DisplayMemberBinding="{Binding Address}"
                                                 util:GridViewSort.PropertyName="Address"/>
-                            </GridView.Columns>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </DockPanel>
+                                </GridView.Columns>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </DockPanel>
+                <Grid Background="White"
+                      Visibility="{Binding LoadingPanelVisibility}">
+                    <ProgressBar IsIndeterminate="True"
+                                 Width="100" Height="20"/>
+                </Grid>
+            </Grid>
         </ctl:DualHeaderGroupBox>
         <GroupBox Grid.Row="2"
                  Header="Détails">
