@@ -5,7 +5,7 @@
                   xmlns:view="clr-namespace:Velib.View"
                   Name="navWindow"
                   Title="{Binding Content.Title, ElementName=navWindow, FallbackValue=Vélib}"
-                  Height="450" Width="450">
+                  Height="450" Width="600">
     <NavigationWindow.Resources>
         <DataTemplate DataType="{x:Type vm:HomeViewModel}">
             <view:HomeView DataContext="{Binding}"/>

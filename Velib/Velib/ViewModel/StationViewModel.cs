@@ -1,7 +1,7 @@
-﻿using MVVMLib;
+﻿using MVVMLib.Input;
 using MVVMLib.ViewModel;
 using Velib.Navigation;
-using MVVMLib.Input;
+using System.Text.RegularExpressions;
 
 namespace Velib.ViewModel
 {
@@ -18,15 +18,32 @@ namespace Velib.ViewModel
 
         #region Properties
 
-        public string Number
+        public long Number
         {
             get { return _station.Number; }
         }
 
+        private static Regex regexName =
+            new Regex(@"^\s*[0-9]+\s*-\s*", RegexOptions.Compiled);
+
+        private string _name = null;
         public string Name
+        {
+            get
+            {
+                if (_name == null)
+                {
+                    _name = regexName.Replace(_station.Name, "", 1);
+                }
+                return _name;
+            }
+        }
+
+        public string FullName
         {
             get { return _station.Name; }
         }
+
 
         public string Address
         {

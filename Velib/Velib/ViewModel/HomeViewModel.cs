@@ -1,10 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using MVVMLib;
+using MVVMLib.Input;
 using MVVMLib.ViewModel;
 using Velib.Model;
 using Velib.Navigation;
-using MVVMLib.Input;
 
 namespace Velib.ViewModel
 {
@@ -99,6 +98,8 @@ namespace Velib.ViewModel
                                 Network network = new Network(NewNetworkName, NewNetworkUri);
                                 App.Current.Config.Networks.Add(network);
                                 this.Networks.Add(new NetworkViewModel(_navigationService, network));
+                                NewNetworkName = "";
+                                NewNetworkUri = "";
                             },
                             parameter =>
                             {

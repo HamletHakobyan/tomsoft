@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         <Button Grid.Row="0" Grid.Column="3" Content="Actualiser" Command="{Binding RefreshStatusCommand}"/>
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Nom" />
-        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Name}"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding FullName}"/>
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Nombre de bornes" />
         <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Status.TotalSlots}"/>
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Vélos libres" />

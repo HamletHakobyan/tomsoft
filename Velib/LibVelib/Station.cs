@@ -9,7 +9,7 @@ namespace Velib
         public string Name { get; set; }
 
         [XmlAttribute("number")]
-        public string Number { get; set; }
+        public long Number { get; set; }
 
         [XmlAttribute("address")]
         public string Address { get; set; }

@@ -1,9 +1,8 @@
-﻿using System.Xml.Serialization;
+﻿using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using System;
-using System.IO;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace Velib.Model
 {
