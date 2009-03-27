@@ -81,7 +81,7 @@ namespace Velib
 
         public StationStatus GetStatus(Station station)
         {
-            Uri reqUri = StationStatusUri.Combine(station.Number);
+            Uri reqUri = StationStatusUri.Combine(station.Number.ToString());
             HttpWebRequest req = WebRequest.Create(reqUri) as HttpWebRequest;
             HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
             if (resp.StatusCode == HttpStatusCode.OK)

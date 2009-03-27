@@ -1,12 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
-using MVVMLib;
+using System.Windows.Data;
+using MVVMLib.Input;
 using MVVMLib.ViewModel;
 using Velib.Model;
 using Velib.Navigation;
-using MVVMLib.Input;
-using System.ComponentModel;
-using System.Windows.Data;
 
 namespace Velib.ViewModel
 {
@@ -235,9 +234,47 @@ namespace Velib.ViewModel
             }
         }
 
+        private RelayCommand _sortCommand;
+        public RelayCommand SortCommand
+        {
+            get
+            {
+                if (_sortCommand == null)
+                {
+                    _sortCommand = new RelayCommand(
+                        parameter =>
+                        {
+                            SortStationsBy(parameter as string);
+                        });
+                }
+                return _sortCommand;
+            }
+        }
+
+        private void SortStationsBy(string propertyName)
+        {
+            ICollectionView view = CollectionViewSource.GetDefaultView(_stations);
+            ListSortDirection direction = ListSortDirection.Ascending;
+            if (view.SortDescriptions.Count > 0)
+            {
+                SortDescription currentSort = view.SortDescriptions[0];
+                if (currentSort.PropertyName == propertyName)
+                {
+                    if (currentSort.Direction == ListSortDirection.Ascending)
+                        direction = ListSortDirection.Descending;
+                    else
+                        direction = ListSortDirection.Ascending;
+                }
+                view.SortDescriptions.Clear();
+            }
+            if (!string.IsNullOrEmpty(propertyName))
+            {
+                view.SortDescriptions.Add(new SortDescription(propertyName, direction));
+            }
+        }
+
 
         #endregion Commands
-
 
         private void SetStationFilter()
         {

@@ -5,6 +5,7 @@
       xmlns:vm="clr-namespace:Velib.ViewModel"
       xmlns:ctl="clr-namespace:Velib.Controls"
       xmlns:input="clr-namespace:MVVMLib.Input;assembly=MVVMLib"
+      xmlns:util="clr-namespace:Velib.Util"
       Title="{Binding Name}">
 
     <Page.Resources>
@@ -81,7 +82,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition />
             <RowDefinition Height="Auto"/>
-            <RowDefinition />
         </Grid.RowDefinitions>
         
         <ContentControl Content="{Binding}">
@@ -110,25 +110,29 @@
                     <TextBlock DockPanel.Dock="Left" Text="Rechercher"/>
                     <TextBox Margin="5,0,0,0" Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
                 </DockPanel>
-                <ListView x:Name="lstStations" ItemsSource="{Binding Stations}"
+                <ListView ItemsSource="{Binding Stations}"
                       SelectedItem="{Binding SelectedStation}"
-                      IsSynchronizedWithCurrentItem="True">
+                      IsSynchronizedWithCurrentItem="True"
+                      util:GridViewSort.AutoSort="True">
                     <ListView.View>
                         <GridView>
                             <GridView.Columns>
-                                <GridViewColumn Header="N°" DisplayMemberBinding="{Binding Number}"/>
-                                <GridViewColumn Header="Nom" DisplayMemberBinding="{Binding Name}"/>
-                                <GridViewColumn Header="Adresse" DisplayMemberBinding="{Binding Address}"/>
+                                <GridViewColumn Header="N°"
+                                                DisplayMemberBinding="{Binding Number}"
+                                                util:GridViewSort.PropertyName="Number"/>
+                                <GridViewColumn Header="Nom"
+                                                DisplayMemberBinding="{Binding Name}"
+                                                util:GridViewSort.PropertyName="Name"/>
+                                <GridViewColumn Header="Adresse"
+                                                DisplayMemberBinding="{Binding Address}"
+                                                util:GridViewSort.PropertyName="Address"/>
                             </GridView.Columns>
                         </GridView>
                     </ListView.View>
                 </ListView>
             </DockPanel>
         </ctl:DualHeaderGroupBox>
-        
-        <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch"/>
-        
-        <GroupBox Grid.Row="3"
+        <GroupBox Grid.Row="2"
                  Header="Détails">
             <ContentControl Content="{Binding SelectedStation}"/>
         </GroupBox>
