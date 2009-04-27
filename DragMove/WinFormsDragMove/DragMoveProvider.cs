@@ -8,14 +8,13 @@ using System.Windows.Forms;
 namespace WinFormsDragMove
 {
     /// <summary>
-    /// Ajoute aux contrôles une propriété AutoDragMove, qui permet d'activer un comportement de
-    /// glisser/déplacer automatique.
+    /// Provides an extra property for controls to enable or disable the DragMove behavior.
     /// </summary>
-    [ProvideProperty("AutoDragMove", typeof(Control))]
+    [ProvideProperty("EnableDragMove", typeof(Control))]
     public partial class DragMoveProvider : Component, IExtenderProvider
     {
         /// <summary>
-        /// Initialise une nouvelle instance de DragMoveProvider sans spécifier de conteneur
+        /// Initializes a new instance of the DragMoveProvider class without a specified container.
         /// </summary>
         public DragMoveProvider()
         {
@@ -23,8 +22,8 @@ namespace WinFormsDragMove
         }
 
         /// <summary>
-        /// Initialise une nouvelle instance de DragMoveProvider avec le conteneur spécifié
-        /// <param name="container">Un IContainer qui représente le conteneur de ce DragMoveProvider.</param>
+        /// Initializes a new instance of the DragMoveProvider class with a specified container.
+        /// <param name="container">An IContainer that represents the container of the DragMoveProvider.</param>
         /// </summary>
         public DragMoveProvider(IContainer container)
         {
@@ -48,43 +47,31 @@ namespace WinFormsDragMove
         #endregion
 
         /// <summary>
-        /// Renvoie une valeur qui indique si le comportement AutoDragMove est activé pour le contrôle spécifié
+        /// Retrieves a value indicating whether the DragMove behavior is enabled on the specified control.
         /// </summary>
-        /// <param name="control">Le contrôle pour lequel on veut récupérer la propriété AutoDragMove.</param>
-        /// <returns>true si le comportement AutoDragMove est activé pour ce contrôle ; sinon, false.</returns>
+        /// <param name="control">The Control for which to retrieve DragMove status</param>
+        /// <returns>true if the DragMove behavior is enabled for this control ; otherwise, false.</returns>
         [DefaultValue(false)]
-        public bool GetAutoDragMove(Control control)
+        public bool GetEnableDragMove(Control control)
         {
 #if FX_20
-            return WinFormExtensions.IsRegisteredForDragMove(control);
+            return DragMoveExtensions.IsDragMoveEnabled(control);
 #else
-            return control.IsRegisteredForDragMove();
+            return control.IsDragMoveEnabled();
 #endif
         }
 
         /// <summary>
-        /// Active ou désactive le comportement AutoDragMove pour un contrôle
+        /// Enable or disables the DragMove behavior for the specified control.
         /// </summary>
-        /// <param name="control">Le contrôle pour lequel le comportement AutoDragMove doit être activé ou désactivé.</param>
-        /// <param name="autoDragMove">true pour active le comportement AutoDragMove, false pour le désactiver.</param>
-        public void SetAutoDragMove(Control control, bool autoDragMove)
+        /// <param name="control">The control for which to enable or disable the DragMove behavior.</param>
+        /// <param name="value">A value indicating if the DragMove behavior must be enabled or disabled for this control.</param>
+        public void SetEnableDragMove(Control control, bool value)
         {
 #if FX_20
-            if (WinFormExtensions.IsRegisteredForDragMove(control) != autoDragMove)
-            {
-                if (autoDragMove)
-                    WinFormExtensions.RegisterForDragMove(control);
-                else
-                    WinFormExtensions.UnregisterForDragMove(control);
-            }
+            DragMoveExtensions.EnableDragMove(control, value);
 #else
-            if (control.IsRegisteredForDragMove() != autoDragMove)
-            {
-                if (autoDragMove)
-                    control.RegisterForDragMove();
-                else
-                    control.UnregisterForDragMove();
-            }
+            control.EnableDragMove(value);
 #endif
         }
     }

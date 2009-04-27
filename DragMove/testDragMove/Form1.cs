@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-// On importe le namespace contenant FormExtensionMethods pour pouvoir
+// On importe le namespace contenant DragMoveExtensions pour pouvoir
 // utiliser ses méthodes d'extension.
 using WinFormsDragMove;
 
@@ -18,33 +18,44 @@ namespace testDragMove
         {
             InitializeComponent();
             
-            // On active le déplacement automatique pour la Form et le label1
-            // Plus besoin de se préoccuper des évènements souris pour ces 2 éléments
+            // Enable the DragMove behavior for label1. From now on,
+            // no need to handle the MouseDown event for this control
 
 #if FX_20
-            // Utilisation avec C# 2 (méthode statique) :
-            WinFormExtensions.RegisterForDragMove(this);
-            WinFormExtensions.RegisterForDragMove(label1);
+            // C# 2 usage (static method) :
+            DragMoveExtensions.EnableDragMove(this, true);
+            DragMoveExtensions.EnableDragMove(label1, true);
 #else
-            // Utilisation avec C# 3 (méthode d'extension) :
-            this.RegisterForDragMove();
-            label1.RegisterForDragMove();
+            // C# 3 usage (extension method) :
+            label1.EnableDragMove(true);
 #endif
 
         }
 
         private void label2_MouseDown(object sender, MouseEventArgs e)
         {
-            // La gestion du déplacement automatique n'est pas activée pour le label2
-            // Quand le bouton de la souris est enfoncé, on déclenche le déplacement
+            // Automatic DragMove isn't enabled for label2, so we temporarily
+            // activate it on the MouseDown event
 
 #if FX_20
-            // Utilisation avec C# 2 (méthode statique) :
-            WinFormExtensions.DragMove(label2, e);
+            // C# 2 usage (static method) :
+            DragMoveExtensions.DragMove(label2);
 #else
-            // Utilisation avec C# 3 (méthode d'extension) :
-            label2.DragMove(e);
+            // C# 3 usage (extension method) :
+            label2.DragMove();
 
+#endif
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            // Enable or disable DragMove fot the Form according to the checkbox
+
+#if FX_20
+            DragMoveExtensions.EnableDragMove(this, checkBox1.Checked);
+#else
+            this.EnableDragMove(checkBox1.Checked);
 #endif
 
         }
@@ -53,5 +64,6 @@ namespace testDragMove
         {
             Close();
         }
+
     }
 }

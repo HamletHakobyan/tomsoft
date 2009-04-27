@@ -46,7 +46,7 @@
     <Compile Include="DragMoveProvider.Designer.cs">
       <DependentUpon>DragMoveProvider.cs</DependentUpon>
     </Compile>
-    <Compile Include="WinFormExtensions.cs" />
+    <Compile Include="DragMoveExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
