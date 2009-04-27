@@ -6,73 +6,65 @@ using System.Drawing;
 namespace WinFormsDragMove
 {
     /// <summary>
-    /// Cette classe fournit des méthodes d'extension pour les contrôles Windows Forms
+    /// Provides extension methods for automatic dragging of Windows Forms controls
     /// </summary>
-    public static partial class WinFormExtensions
+    public static partial class DragMoveExtensions
     {
-        #region DragMove extension
-
-        private static Dictionary<Control, DraggedControl> draggedControls = new Dictionary<Control, DraggedControl>();
+        private static Dictionary<IntPtr, DraggedControl> draggedControls = new Dictionary<IntPtr, DraggedControl>();
 
         /// <summary>
-        /// Met temporairement le contrôle en mode "DragMove".
-        /// Cette méthode doit être appelée à partir du gestionnaire de l'évènement MouseDown du contrôle.
+        /// Temporarily enables the DragMove behavior for the specified control, until the mouse button is released.
         /// </summary>
-        /// <param name="ctl">Le contrôle à déplacer</param>
-        /// <param name="e">Les informations sur l'évènement MouseDown</param>
+        /// <param name="ctl">The control to drag</param>
 #if FX_20
-        public static void DragMove(Control ctl, MouseEventArgs e)
+        public static void DragMove(Control ctl)
 #else
-        public static void DragMove(this Control ctl, MouseEventArgs e)
+        public static void DragMove(this Control ctl)
 #endif
         {
-            new DraggedControl(ctl, e.X, e.Y);
+            Point absolutePosition = Control.MousePosition;
+            Point relativePosition = ctl.PointToClient(absolutePosition);
+            new DraggedControl(ctl, relativePosition.X, relativePosition.Y);
         }
 
         /// <summary>
-        /// Enregistre le contrôle pour la gestion par le DragMove.
-        /// Ce contrôle pourra être déplacé par la souris sans aucun code supplémentaire.
+        /// Enables or disables the DragMove behavior for the specified control.
         /// </summary>
-        /// <param name="ctl">Le contrôle à enregistrer</param>
+        /// <param name="ctl">The control for which the DragMove behavior must be enabled or disabled</param>
+        /// <param name="value">A value indicating whether to enable or disable the DragMove behavior</param>
 #if FX_20
-        public static void RegisterForDragMove(Control ctl)
+        public static void EnableDragMove(Control ctl, bool value)
 #else
-        public static void RegisterForDragMove(this Control ctl)
+        public static void EnableDragMove(this Control ctl, bool value)
 #endif
         {
-            draggedControls.Add(ctl, new DraggedControl(ctl));
-        }
-
-        /// <summary>
-        /// Désenregistre le contrôle spécifié pour la gestion par le DragMove.
-        /// Ce contrôle ne sera plus automatiquement déplacé par la souris.
-        /// </summary>
-        /// <param name="ctl">Le contrôle à désenregistrer</param>
-#if FX_20
-        public static void UnregisterForDragMove(Control ctl)
-#else
-        public static void UnregisterForDragMove(this Control ctl)
-#endif
-        {
-            if (draggedControls.ContainsKey(ctl))
+            if (value)
             {
-                draggedControls[ctl].Dispose();
-                draggedControls.Remove(ctl);
+                if (!draggedControls.ContainsKey(ctl.Handle))
+                    draggedControls.Add(ctl.Handle, new DraggedControl(ctl));
+            }
+            else
+            {
+                if (draggedControls.ContainsKey(ctl.Handle))
+                {
+                    draggedControls[ctl.Handle].Dispose();
+                    draggedControls.Remove(ctl.Handle);
+                }
             }
         }
 
         /// <summary>
-        /// Vérifie si le contrôle est enregistré pour la gestion par le DragMove
+        /// Checks whether the DragMove behavior is enabled for the specified control
         /// </summary>
-        /// <param name="ctl">Le contrôle à vérifier</param>
-        /// <returns>true si le contrôle est enregistré; sinon, false</returns>
+        /// <param name="ctl">The control to check</param>
+        /// <returns>true if DragMove is enabled for this control; otherwise, false</returns>
 #if FX_20
-        public static bool IsRegisteredForDragMove(Control ctl)
+        public static bool IsDragMoveEnabled(Control ctl)
 #else
-        public static bool IsRegisteredForDragMove(this Control ctl)
+        public static bool IsDragMoveEnabled(this Control ctl)
 #endif
         {
-            return draggedControls.ContainsKey(ctl);
+            return draggedControls.ContainsKey(ctl.Handle);
         }
 
         private class DraggedControl : IDisposable
@@ -99,7 +91,7 @@ namespace WinFormsDragMove
             {
                 XStart = xStart;
                 YStart = yStart;
-                IsMoving = true;
+                IsMoving = (Control.MouseButtons & MouseButtons.Left) == MouseButtons.Left;
                 IsTemporary = true;
             }
 
@@ -135,9 +127,9 @@ namespace WinFormsDragMove
             void Target_Disposed(object sender, EventArgs e)
             {
 #if FX_20
-                UnregisterForDragMove(Target);
+                EnableDragMove(Target, false);
 #else
-                Target.UnregisterForDragMove();
+                Target.EnableDragMove(false);
 #endif
             }
 
@@ -150,8 +142,6 @@ namespace WinFormsDragMove
                 Target = null;
             }
         }
-
-        #endregion
 
     }
 }
