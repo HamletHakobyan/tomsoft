@@ -1,4 +1,4 @@
-﻿- musique et sons => OK (manque quelques uns)
+﻿- musique et sons => OK
 - vert quand bonne réponse => OK
 - barre les jokers et en enlever (y en a trop) => OK
 - photo tim tiph sur les slides selon qui repond => OK

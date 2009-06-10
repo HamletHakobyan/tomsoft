@@ -15,6 +15,7 @@ using System.Xml.Serialization;
 using Millionaire.Model;
 using System.IO;
 using System.Configuration;
+using Microsoft.Win32;
 
 namespace Millionaire
 {
@@ -44,7 +45,17 @@ namespace Millionaire
                 }
                 else
                 {
-                    MessageBox.Show("Veuillez fournir en paramètre le nom du fichier Quiz à utiliser.");
+                    OpenFileDialog ofd = new OpenFileDialog();
+                    ofd.Filter = "Fichiers quiz XML|*.xml";
+                    ofd.Title = "Choisissez un fichier quiz à utiliser";
+                    if (ofd.ShowDialog() == true)
+                    {
+                        quiz = Quiz.Load(ofd.FileName);
+                    }
+                    else
+                    {
+                        App.Current.Shutdown();
+                    }
                 }
             }
             catch(Exception ex)
