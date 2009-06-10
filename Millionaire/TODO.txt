@@ -1,0 +1,18 @@
+﻿- musique et sons => OK (manque quelques uns)
+- vert quand bonne réponse => OK
+- barre les jokers et en enlever (y en a trop) => OK
+- photo tim tiph sur les slides selon qui repond => OK
+- lettres devant chaque réponse
+
+Ordre de Passage
+INtro : Steph
+1 : Fabien / Arno?
+2 : Nicap
+3 : Steph
+4 : Piot'
+5 : Paco
+6 : Olivier
+7 : Tom 
+
+Conclusion :
+

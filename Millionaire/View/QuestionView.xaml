@@ -1,0 +1,202 @@
+﻿<UserControl x:Class="Millionaire.View.QuestionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:u="clr-namespace:Millionaire.Util"
+             xmlns:d="clr-namespace:Millionaire.Design"
+             xmlns:vm="clr-namespace:Millionaire.ViewModel"
+             xmlns:dvp="http://www.developpez.com/xaml"
+             Background="Black" Width="1026" Height="770"
+             Focusable="True" Loaded="QuestionView_Loaded"
+             u:DesignTimeHelper.DesignTimeData="{x:Type d:DesignQuestionViewModel}">
+    <UserControl.InputBindings>
+        <KeyBinding Key="Space" Command="{dvp:CommandBinding NextCommand}"/>
+        <KeyBinding Key="Backspace" Command="{dvp:CommandBinding PreviousCommand}"/>
+        <KeyBinding Key="Right" Command="{dvp:CommandBinding NextCommand}"/>
+        <KeyBinding Key="Left" Command="{dvp:CommandBinding PreviousCommand}"/>
+        <MouseBinding Gesture="{x:Static u:MouseWheelGesture.WheelDown}" Command="{dvp:CommandBinding NextCommand}"/>
+        <MouseBinding Gesture="{x:Static u:MouseWheelGesture.WheelUp}" Command="{dvp:CommandBinding PreviousCommand}"/>
+        <KeyBinding Key="A" Command="{dvp:CommandBinding AnswerCommand}" CommandParameter="0"/>
+        <KeyBinding Key="B" Command="{dvp:CommandBinding AnswerCommand}" CommandParameter="1"/>
+        <KeyBinding Key="C" Command="{dvp:CommandBinding AnswerCommand}" CommandParameter="2"/>
+        <KeyBinding Key="D" Command="{dvp:CommandBinding AnswerCommand}" CommandParameter="3"/>
+        <KeyBinding Key="Delete" Command="{dvp:CommandBinding AnswerCommand}" CommandParameter="-1"/>
+        <KeyBinding Key="D0" Command="{dvp:CommandBinding AnswerCommand}" CommandParameter="-1"/>
+        <KeyBinding Key="D1" Command="{dvp:CommandBinding AnswerCommand}" CommandParameter="0"/>
+        <KeyBinding Key="D2" Command="{dvp:CommandBinding AnswerCommand}" CommandParameter="1"/>
+        <KeyBinding Key="D3" Command="{dvp:CommandBinding AnswerCommand}" CommandParameter="2"/>
+        <KeyBinding Key="D4" Command="{dvp:CommandBinding AnswerCommand}" CommandParameter="3"/>
+        <KeyBinding Key="NumPad0" Command="{dvp:CommandBinding AnswerCommand}" CommandParameter="-1"/>
+        <KeyBinding Key="NumPad1" Command="{dvp:CommandBinding AnswerCommand}" CommandParameter="0"/>
+        <KeyBinding Key="NumPad2" Command="{dvp:CommandBinding AnswerCommand}" CommandParameter="1"/>
+        <KeyBinding Key="NumPad3" Command="{dvp:CommandBinding AnswerCommand}" CommandParameter="2"/>
+        <KeyBinding Key="NumPad4" Command="{dvp:CommandBinding AnswerCommand}" CommandParameter="3"/>
+        <KeyBinding Key="F" Command="{dvp:CommandBinding JokerCommand}" CommandParameter="FiftyFifty"/>
+        <KeyBinding Key="G" Command="{dvp:CommandBinding RemoveFiftyFiftyCommand}"/>
+        <KeyBinding Key="P" Command="{dvp:CommandBinding JokerCommand}" CommandParameter="PublicChoice"/>
+        <KeyBinding Key="T" Command="{dvp:CommandBinding JokerCommand}" CommandParameter="PhoneCall"/>
+    </UserControl.InputBindings>
+    <Canvas>
+        <Canvas.Background>
+            <ImageBrush ImageSource="/Images/BackgroundQuestion.png" Stretch="Uniform"/>
+        </Canvas.Background>
+        
+        <MediaElement Source="{Binding Sound}" LoadedBehavior="Play" UnloadedBehavior="Stop" Volume="1.0" />
+        
+        <!-- Score -->
+        <Label Canvas.Left="124" Canvas.Top="98"
+               Width="182" Height="30"
+               Style="{StaticResource labelStyleScore}"
+               Content="{Binding Game.Score, FallbackValue=0}"/>
+        
+        <!-- Question number -->
+        <Label Canvas.Left="166.347" Canvas.Top="144.531"
+               Height="87.264" Width="90.9"
+               Style="{StaticResource labelStyleQuestionNumber}"
+               Content="{Binding QuestionNumber}"/>
+
+        <!-- Photo -->
+        <Image Canvas.Left="717.358" Canvas.Top="75.737"
+               Height="184.341" Width="202.918"
+               Stretch="Uniform" Source="{Binding Photo}"/>
+        
+        <!-- Question text -->
+        <Label Canvas.Left="143.622" Canvas.Top="266.337"
+               Height="114.534" Width="740.835"
+               Style="{StaticResource labelStyleQuestionText}"
+               Content="{Binding QuestionText}"/>
+
+        <!-- Answer A -->
+        <Label Canvas.Left="143.861" Canvas.Top="401.268"
+               Height="58.548" Width="369.138"
+               Style="{StaticResource labelStyleAnswerText}"
+               Content="{Binding Answers[0]}"
+               Visibility="{Binding AnswerVisible[0], Converter={StaticResource convVisibility}}">
+            <Label.InputBindings>
+                <MouseBinding Gesture="LeftClick"
+                              Command="{dvp:CommandBinding AnswerCommand}"
+                              CommandParameter="0"/>
+            </Label.InputBindings>
+        </Label>
+        
+        <Image Canvas.Left="143.861" Canvas.Top="401.268"
+               Height="58.548" Width="369.138"
+               Style="{StaticResource imageAnswerSelectionStyle}"
+               Visibility="{Binding AnswerSelected[0], Converter={StaticResource convVisibility}}"/>
+
+        <Image Canvas.Left="143.861" Canvas.Top="401.268"
+               Height="58.548" Width="369.138"
+               Style="{StaticResource imageCorrectAnswerStyle}"
+               Visibility="{Binding CorrectAnswerVisible[0], Converter={StaticResource convVisibility}}"/>
+
+        <!-- Answer B -->
+        <Label Canvas.Left="513.861" Canvas.Top="401.268"
+               Height="58.548" Width="369.138"
+               Style="{StaticResource labelStyleAnswerText}"
+               Content="{Binding Answers[1]}"
+               Visibility="{Binding AnswerVisible[1], Converter={StaticResource convVisibility}}">
+            <Label.InputBindings>
+                <MouseBinding Gesture="LeftClick"
+                              Command="{dvp:CommandBinding AnswerCommand}"
+                              CommandParameter="1"/>
+            </Label.InputBindings>
+        </Label>
+
+        <Image Canvas.Left="513.861" Canvas.Top="401.268"
+               Height="58.548" Width="369.138"
+               Style="{StaticResource imageAnswerSelectionStyle}"
+               Visibility="{Binding AnswerSelected[1], Converter={StaticResource convVisibility}}"/>
+
+        <Image Canvas.Left="513.861" Canvas.Top="401.268"
+               Height="58.548" Width="369.138"
+               Style="{StaticResource imageCorrectAnswerStyle}"
+               Visibility="{Binding CorrectAnswerVisible[1], Converter={StaticResource convVisibility}}"/>
+
+        <!-- Answer C -->
+        <Label Canvas.Left="143.861" Canvas.Top="468.268"
+               Height="58.548" Width="369.138"
+               Style="{StaticResource labelStyleAnswerText}"
+               Content="{Binding Answers[2]}"
+               Visibility="{Binding AnswerVisible[2], Converter={StaticResource convVisibility}}">
+            <Label.InputBindings>
+                <MouseBinding Gesture="LeftClick"
+                              Command="{dvp:CommandBinding AnswerCommand}"
+                              CommandParameter="2"/>
+            </Label.InputBindings>
+        </Label>
+
+        <Image Canvas.Left="143.861" Canvas.Top="468.268"
+               Height="58.548" Width="369.138"
+               Style="{StaticResource imageAnswerSelectionStyle}"
+               Visibility="{Binding AnswerSelected[2], Converter={StaticResource convVisibility}}"/>
+
+        <Image Canvas.Left="143.861" Canvas.Top="468.268"
+               Height="58.548" Width="369.138"
+               Style="{StaticResource imageCorrectAnswerStyle}"
+               Visibility="{Binding CorrectAnswerVisible[2], Converter={StaticResource convVisibility}}"/>
+
+        <!-- Answer D -->
+        <Label Canvas.Left="513.861" Canvas.Top="468.268"
+               Height="58.548" Width="369.138"
+               Style="{StaticResource labelStyleAnswerText}"
+               Content="{Binding Answers[3]}"
+               Visibility="{Binding AnswerVisible[3], Converter={StaticResource convVisibility}}">
+            <Label.InputBindings>
+                <MouseBinding Gesture="LeftClick"
+                              Command="{dvp:CommandBinding AnswerCommand}"
+                              CommandParameter="3"/>
+            </Label.InputBindings>
+        </Label>
+        
+        <Image Canvas.Left="513.861" Canvas.Top="468.268"
+               Height="58.548" Width="369.138"
+               Style="{StaticResource imageAnswerSelectionStyle}"
+               Visibility="{Binding AnswerSelected[3], Converter={StaticResource convVisibility}}"/>
+        
+        <Image Canvas.Left="513.861" Canvas.Top="468.268"
+               Height="58.548" Width="369.138"
+               Style="{StaticResource imageCorrectAnswerStyle}"
+               Visibility="{Binding CorrectAnswerVisible[3], Converter={StaticResource convVisibility}}"/>
+
+        <ItemsControl Canvas.Left="933.8" Canvas.Top="111"
+                      Width="92.046" Height="566"
+                      ItemsSource="{Binding Game.Jokers}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type vm:JokerViewModel}">
+                    <Grid Margin="7,7">
+                        <Image Name="imgJoker"
+                               Width="75" Height="50"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                        <Image Source="/Images/JokerUsed.png"
+                               Width="75" Height="50"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Visibility="{Binding IsUsed, Converter={StaticResource convVisibility}}"/>
+                    </Grid>
+                    <DataTemplate.Triggers>
+                        
+                        <DataTrigger Binding="{Binding Type}" Value="FiftyFifty">
+                            <Setter TargetName="imgJoker" Property="Source" Value="/Images/FiftyFifty.png"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Type}" Value="PublicChoice">
+                            <Setter TargetName="imgJoker" Property="Source" Value="/Images/PublicChoice.png"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Type}" Value="PhoneCall">
+                            <Setter TargetName="imgJoker" Property="Source" Value="/Images/PhoneCall.png"/>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Button Name="btnDebug" Content="Debug"
+                Canvas.Right="0" Canvas.Bottom="0"
+                Click="btnDebug_Click"
+                Visibility="Hidden"/>
+    </Canvas>
+</UserControl>

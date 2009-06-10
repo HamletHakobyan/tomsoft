@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Quiz>
+  <Question>
+    <Number>1</Number>
+    <Text>Ceci est la première question</Text>
+    <Answers>
+      <Answer>Première réponse</Answer>
+      <Answer>Deuxième réponse</Answer>
+      <Answer>Troisième réponse</Answer>
+      <Answer>Quatrième réponse</Answer>
+    </Answers>
+    <FiftyFifty>
+      <Hide>1</Hide>
+      <Hide>2</Hide>
+    </FiftyFifty>
+    <PublicChoice>
+      <Percentage>53</Percentage>
+      <Percentage>15</Percentage>
+      <Percentage>12</Percentage>
+      <Percentage>20</Percentage>
+    </PublicChoice>
+    <CorrectAnswer>-1</CorrectAnswer>
+  </Question>
+  <Photo>
+    <Path>/Images/BackgroundScore.png</Path>
+  </Photo>
+  <Question>
+    <Number>2</Number>
+    <Text>Ceci est la deuxième question</Text>
+    <Answers>
+      <Answer>Première réponse</Answer>
+      <Answer>Deuxième réponse</Answer>
+      <Answer>Troisième réponse</Answer>
+      <Answer>Quatrième réponse</Answer>
+    </Answers>
+    <CorrectAnswer>-1</CorrectAnswer>
+  </Question>
+  <Jokers>
+    <Joker Type="FiftyFifty"/>
+    <Joker Type="PublicChoice"/>
+    <Joker Type="PhoneCall"/>
+  </Jokers>
+</Quiz>

@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="Millionaire.View.PhotoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dvp="http://www.developpez.com/xaml"
+             xmlns:u="clr-namespace:Millionaire.Util"
+             xmlns:d="clr-namespace:Millionaire.Design"
+             Focusable="True" Loaded="UserControl_Loaded"
+             u:DesignTimeHelper.DesignTimeData="{x:Type d:DesignPhotoViewModel}">
+    <UserControl.InputBindings>
+        <KeyBinding Key="Space" Command="{dvp:CommandBinding NextCommand}"/>
+        <KeyBinding Key="Backspace" Command="{dvp:CommandBinding PreviousCommand}"/>
+        <KeyBinding Key="Right" Command="{dvp:CommandBinding NextCommand}"/>
+        <KeyBinding Key="Left" Command="{dvp:CommandBinding PreviousCommand}"/>
+        <MouseBinding Gesture="{x:Static u:MouseWheelGesture.WheelDown}" Command="{dvp:CommandBinding NextCommand}"/>
+        <MouseBinding Gesture="{x:Static u:MouseWheelGesture.WheelUp}" Command="{dvp:CommandBinding PreviousCommand}"/>
+    </UserControl.InputBindings>
+    <Grid>
+        <MediaElement Source="{Binding Sound}" LoadedBehavior="Play" UnloadedBehavior="Stop" Volume="1.0" />
+        <Image Source="{Binding Image}"/>
+    </Grid>
+</UserControl>
