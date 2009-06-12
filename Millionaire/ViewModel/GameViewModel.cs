@@ -47,6 +47,7 @@ namespace Millionaire.ViewModel
             }
         }
 
+
         private SlideViewModel _currentSlide;
         public SlideViewModel CurrentSlide
         {
@@ -138,6 +139,27 @@ namespace Millionaire.ViewModel
                 return _previousCommand;
             }
         }
+
+        private ICommand _cheatCommand;
+        public ICommand CheatCommand
+        {
+            get
+            {
+                if (_cheatCommand == null)
+                {
+                    _cheatCommand =
+                        new RelayCommand(
+                            (param) =>
+                            {
+                                _game.Score = _quizVM.ScoreMap.Length - 1;
+                                OnPropertyChanged("Score");
+                                ChangeSlide(_quizVM.Slides.Count - 1);
+                            });
+                }
+                return _cheatCommand;
+            }
+        }
+
 
         #endregion
 

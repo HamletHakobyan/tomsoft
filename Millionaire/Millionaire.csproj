@@ -85,11 +85,12 @@
     <Compile Include="Model\Joker.cs" />
     <Compile Include="Model\JokerType.cs" />
     <Compile Include="Model\Photo.cs" />
+    <Compile Include="Model\ScorePage.cs" />
     <Compile Include="Model\Slide.cs" />
     <Compile Include="Model\SlideShow.cs" />
     <Compile Include="Model\StartPage.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Util\ChildCollection.cs" />
+    <Compile Include="Util\ChildItemCollection.cs" />
     <Compile Include="Util\DesignTimeHelper.cs" />
     <Compile Include="Design\DesignQuestionViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -109,7 +110,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Model\Question.cs" />
-    <Compile Include="Util\IChild.cs" />
+    <Compile Include="Util\IChildItem.cs" />
     <Compile Include="Util\MouseWheelGesture.cs" />
     <Compile Include="Util\QuizBindingHelper.cs" />
     <Compile Include="ViewModel\FiftyFiftyViewModel.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="ViewModel\PhotoViewModel.cs" />
     <Compile Include="ViewModel\PublicChoiceViewModel.cs" />
     <Compile Include="ViewModel\QuizViewModel.cs" />
+    <Compile Include="ViewModel\ScorePageViewModel.cs" />
     <Compile Include="ViewModel\SlideShowViewModel.cs" />
     <Compile Include="ViewModel\SlideViewModel.cs" />
     <Compile Include="ViewModel\StartPageViewModel.cs" />
@@ -136,6 +138,9 @@
     </Compile>
     <Compile Include="ViewModel\QuestionViewModel.cs" />
     <Compile Include="Model\Quiz.cs" />
+    <Compile Include="View\ScorePageView.xaml.cs">
+      <DependentUpon>ScorePageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SlideShowView.xaml.cs">
       <DependentUpon>SlideShowView.xaml</DependentUpon>
     </Compile>
@@ -171,6 +176,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\QuestionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ScorePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -211,6 +220,10 @@
     <Resource Include="Images\PhoneCall.png" />
     <Resource Include="Images\PublicChoice.png" />
     <Resource Include="Images\JokerUsed.png" />
+    <Resource Include="Images\A.png" />
+    <Resource Include="Images\B.png" />
+    <Resource Include="Images\C.png" />
+    <Resource Include="Images\D.png" />
     <Content Include="Sounds\Countdown.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

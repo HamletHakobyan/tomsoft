@@ -32,29 +32,29 @@
                Content="{Binding QuestionText}"/>
 
         <!-- Answer A -->
-        <Label Canvas.Left="405.081" Canvas.Top="640.128"
-               Height="46.676" Width="291.725"
+        <Label Canvas.Left="466.48" Canvas.Top="640.128"
+               Height="46.676" Width="199.087"
                Style="{StaticResource labelStyleAnswerTextSmaller}"
                Content="{Binding Answers[0]}"
                Visibility="{Binding AnswerVisible[0], Converter={StaticResource convVisibility}}"/>
         
         <!-- Answer B -->
-        <Label Canvas.Left="698.473" Canvas.Top="640.128"
-               Height="46.676" Width="291.725"
+        <Label Canvas.Left="759.6" Canvas.Top="640.128"
+               Height="46.676" Width="198"
                Style="{StaticResource labelStyleAnswerTextSmaller}"
                Content="{Binding Answers[1]}"
                Visibility="{Binding AnswerVisible[1], Converter={StaticResource convVisibility}}" />
         
         <!-- Answer C -->
-        <Label Canvas.Left="405.081" Canvas.Top="691.805"
-               Height="46.676" Width="291.725"
+        <Label Canvas.Left="466.48" Canvas.Top="691.805"
+               Height="46.676" Width="198.846"
                Style="{StaticResource labelStyleAnswerTextSmaller}"
                Content="{Binding Answers[2]}"
                Visibility="{Binding AnswerVisible[2], Converter={StaticResource convVisibility}}" />
         
         <!-- Answer D -->
-        <Label Canvas.Left="698.473" Canvas.Top="691.805"
-               Height="46.676" Width="291.725"
+        <Label Canvas.Left="759.6" Canvas.Top="691.805"
+               Height="46.676" Width="197.872"
                Style="{StaticResource labelStyleAnswerTextSmaller}"
                Content="{Binding Answers[3]}"
                Visibility="{Binding AnswerVisible[3], Converter={StaticResource convVisibility}}" />
@@ -95,8 +95,25 @@
                Style="{StaticResource labelStylePollResult}"
                Content="{Binding Percentage[3]}"/>
 
+        <Image Canvas.Left="419.543" Canvas.Top="645.656"
+               Height="34.017" Width="47.357"
+               Source="/Images/A.png" Stretch="Uniform"
+               Visibility="{Binding AnswerVisible[0], Converter={StaticResource convVisibility}}" />
+        <Image Canvas.Left="711.689" Canvas.Top="645.656"
+               Height="34.017" Width="47.357"
+               Source="/Images/B.png" Stretch="Uniform"
+               Visibility="{Binding AnswerVisible[1], Converter={StaticResource convVisibility}}" />
+        <Image Canvas.Left="419.543" Canvas.Top="698.349"
+               Height="34.017" Width="47.357"
+               Source="/Images/C.png" Stretch="Uniform"
+               Visibility="{Binding AnswerVisible[2], Converter={StaticResource convVisibility}}" />
+        <Image Canvas.Left="711.689" Canvas.Top="698.349"
+               Height="34.017" Width="47.357"
+               Source="/Images/D.png" Stretch="Uniform"
+               Visibility="{Binding AnswerVisible[3], Converter={StaticResource convVisibility}}" />
 
         <Button Name="btnDebug" Canvas.Bottom="0" Canvas.Right="0"
                 Content="Debug"  Click="btnDebug_Click" Visibility="Hidden"/>
+
     </Canvas>
 </UserControl>

@@ -12,7 +12,7 @@ namespace Millionaire.Model
     {
         public Quiz()
         {
-            this.Slides = new ChildCollection<Quiz, Slide>(this);
+            this.Slides = new ChildItemCollection<Quiz, Slide>(this);
             this.Jokers = new List<Joker>();
             this.ContentPath = "";
         }
@@ -21,7 +21,8 @@ namespace Millionaire.Model
         [XmlElement("Photo", typeof(Photo))]
         [XmlElement("StartPage", typeof(StartPage))]
         [XmlElement("SlideShow", typeof(SlideShow))]
-        public ChildCollection<Quiz,Slide> Slides { get; set; }
+        [XmlElement("ScorePage", typeof(ScorePage))]
+        public ChildItemCollection<Quiz,Slide> Slides { get; private set; }
 
         public List<Joker> Jokers { get; set; }
 

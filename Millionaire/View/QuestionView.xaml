@@ -66,8 +66,8 @@
                Content="{Binding QuestionText}"/>
 
         <!-- Answer A -->
-        <Label Canvas.Left="143.861" Canvas.Top="401.268"
-               Height="58.548" Width="369.138"
+        <Label Canvas.Left="232.5" Canvas.Top="401.268"
+               Height="58.548" Width="246"
                Style="{StaticResource labelStyleAnswerText}"
                Content="{Binding Answers[0]}"
                Visibility="{Binding AnswerVisible[0], Converter={StaticResource convVisibility}}">
@@ -89,8 +89,8 @@
                Visibility="{Binding CorrectAnswerVisible[0], Converter={StaticResource convVisibility}}"/>
 
         <!-- Answer B -->
-        <Label Canvas.Left="513.861" Canvas.Top="401.268"
-               Height="58.548" Width="369.138"
+        <Label Canvas.Left="598.734" Canvas.Top="401.268"
+               Height="58.548" Width="246"
                Style="{StaticResource labelStyleAnswerText}"
                Content="{Binding Answers[1]}"
                Visibility="{Binding AnswerVisible[1], Converter={StaticResource convVisibility}}">
@@ -112,8 +112,8 @@
                Visibility="{Binding CorrectAnswerVisible[1], Converter={StaticResource convVisibility}}"/>
 
         <!-- Answer C -->
-        <Label Canvas.Left="143.861" Canvas.Top="468.268"
-               Height="58.548" Width="369.138"
+        <Label Canvas.Left="232.434" Canvas.Top="468.268"
+               Height="58.548" Width="246.066"
                Style="{StaticResource labelStyleAnswerText}"
                Content="{Binding Answers[2]}"
                Visibility="{Binding AnswerVisible[2], Converter={StaticResource convVisibility}}">
@@ -135,8 +135,8 @@
                Visibility="{Binding CorrectAnswerVisible[2], Converter={StaticResource convVisibility}}"/>
 
         <!-- Answer D -->
-        <Label Canvas.Left="513.861" Canvas.Top="468.268"
-               Height="58.548" Width="369.138"
+        <Label Canvas.Left="599.067" Canvas.Top="468.268"
+               Height="58.548" Width="245.667"
                Style="{StaticResource labelStyleAnswerText}"
                Content="{Binding Answers[3]}"
                Visibility="{Binding AnswerVisible[3], Converter={StaticResource convVisibility}}">
@@ -193,6 +193,23 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+
+        <Image Canvas.Left="166.347" Canvas.Top="407"
+               Height="45" Width="60"
+               Source="/Images/A.png" Stretch="Uniform" Panel.ZIndex="10"
+               Visibility="{Binding AnswerVisible[0], Converter={StaticResource convVisibility}}" />
+        <Image Canvas.Left="533" Canvas.Top="407"
+               Height="45" Width="60"
+               Source="/Images/B.png" Stretch="Uniform" Panel.ZIndex="10"
+               Visibility="{Binding AnswerVisible[1], Converter={StaticResource convVisibility}}" />
+        <Image Canvas.Left="166.347" Canvas.Top="474"
+               Height="45" Width="60"
+               Source="/Images/C.png" Stretch="Uniform" Panel.ZIndex="10"
+               Visibility="{Binding AnswerVisible[2], Converter={StaticResource convVisibility}}" />
+        <Image Canvas.Left="533" Canvas.Top="474"
+               Height="45" Width="60"
+               Source="/Images/D.png" Stretch="Uniform" Panel.ZIndex="10"
+               Visibility="{Binding AnswerVisible[3], Converter={StaticResource convVisibility}}" />
 
         <Button Name="btnDebug" Content="Debug"
                 Canvas.Right="0" Canvas.Bottom="0"

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Millionaire.Util
+namespace Millionaire.Model
 {
-    public interface IChild<P> where P : class
+    public class ScorePage : Slide
     {
-        P Parent { get; set; }
+        public string SoundPath { get; set; }
     }
 }

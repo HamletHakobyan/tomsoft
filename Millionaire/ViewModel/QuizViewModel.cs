@@ -26,27 +26,35 @@ namespace Millionaire.ViewModel
             }
             else
             {
-                this.ScoreMap = new int[]
-                {
-                    0,
-                    200,
-                    300,
-                    500,
-                    800,
-                    1500,
-                    3000,
-                    6000,
-                    12000,
-                    24000,
-                    48000,
-                    72000,
-                    100000,
-                    150000,
-                    300000,
-                    1000000
-                };
+                this.ScoreMap = DefaultScoreMap;
             }
         }
+
+        static QuizViewModel()
+        {
+            DefaultScoreMap = new int[]
+                {
+                    0,
+                    100,
+                    200,
+                    300,
+                    5000,
+                    1000,
+                    2000,
+                    4000,
+                    8000,
+                    16000,
+                    32000,
+                    64000,
+                    125000,
+                    250000,
+                    500000,
+                    1000000
+                };
+        }
+
+        public static int[] DefaultScoreMap { get; private set; }
+
 
         private GameViewModel _game;
         public GameViewModel Game
@@ -79,6 +87,10 @@ namespace Millionaire.ViewModel
             else if (s.GetType() == typeof(SlideShow))
             {
                 return new SlideShowViewModel(s as SlideShow, _game);
+            }
+            else if (s.GetType() == typeof(ScorePage))
+            {
+                return new ScorePageViewModel(s as ScorePage, _game);
             }
             else
             {
