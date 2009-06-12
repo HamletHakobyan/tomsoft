@@ -4,6 +4,7 @@
              xmlns:dvp="http://www.developpez.com/xaml"
              xmlns:u="clr-namespace:Millionaire.Util"
              xmlns:d="clr-namespace:Millionaire.Design"
+             Background="Black"
              Focusable="True" Loaded="UserControl_Loaded"
              u:DesignTimeHelper.DesignTimeData="{x:Type d:DesignPhotoViewModel}">
     <UserControl.InputBindings>

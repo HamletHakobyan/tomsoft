@@ -5,6 +5,7 @@
         xmlns:v="clr-namespace:Millionaire.View"
         xmlns:dvp="http://www.developpez.com/xaml"
         Title="Millionaire" Height="300" Width="300"
+        Loaded="Window_Loaded"
         WindowStyle="None" ResizeMode="NoResize" Background="Black">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:QuestionViewModel}">
@@ -22,6 +23,9 @@
         <DataTemplate DataType="{x:Type vm:StartPageViewModel}">
             <v:StartPageView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ScorePageViewModel}">
+            <v:ScorePageView/>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:SlideShowViewModel}">
             <v:SlideShowView/>
         </DataTemplate>
@@ -29,6 +33,7 @@
 
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{dvp:CommandBinding QuitCommand}"/>
+        <KeyBinding Key="F12" Command="{dvp:CommandBinding CheatCommand}"/>
     </Window.InputBindings>
 
     <Grid>

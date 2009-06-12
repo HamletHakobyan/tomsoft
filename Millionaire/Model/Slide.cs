@@ -7,14 +7,14 @@ using System.Xml.Serialization;
 
 namespace Millionaire.Model
 {
-    public abstract class Slide : IChild<Quiz>
+    public abstract class Slide : IChildItem<Quiz>
     {
         [XmlIgnore]
-        public Quiz Quiz { get; set; }
+        public Quiz Quiz { get; private set; }
 
-        #region IChild<Quiz> Members
+        #region IChildItem<Quiz> Members
 
-        Quiz IChild<Quiz>.Parent
+        Quiz IChildItem<Quiz>.Parent
         {
             get
             {

@@ -6,25 +6,25 @@ using System.Text;
 namespace Millionaire.Util
 {
     /// <summary>
-    /// Proxy collection of child items. This collection automatically set the
+    /// Collection of child items. This collection automatically set the
     /// Parent property of the child items when they are added or removed
     /// </summary>
     /// <typeparam name="P">Type of the parent object</typeparam>
     /// <typeparam name="T">Type of the child items</typeparam>
-    public class ChildCollection<P, T> : IList<T>
+    public class ChildItemCollection<P, T> : IList<T>
         where P : class
-        where T : IChild<P>
+        where T : IChildItem<P>
     {
         private P _parent;
         private IList<T> _collection;
 
-        public ChildCollection(P parent)
+        public ChildItemCollection(P parent)
         {
             this._parent = parent;
             this._collection = new List<T>();
         }
 
-        public ChildCollection(P parent, IList<T> collection)
+        public ChildItemCollection(P parent, IList<T> collection)
         {
             this._parent = parent;
             this._collection = collection;

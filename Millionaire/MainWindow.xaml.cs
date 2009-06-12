@@ -34,6 +34,10 @@ namespace Millionaire
             this.Width = bounds.Width;
             this.Height = bounds.Height;
 
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
             Quiz quiz = null;
             try
             {
@@ -58,7 +62,7 @@ namespace Millionaire
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
                 Application.Current.Shutdown();
@@ -68,6 +72,7 @@ namespace Millionaire
             GameViewModel gameVM = new GameViewModel(Game.Current);
             this.DataContext = gameVM;
             gameVM.NextSlide();
+
         }
     }
 }

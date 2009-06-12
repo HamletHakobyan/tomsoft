@@ -30,25 +30,25 @@
                Content="{Binding QuestionText}" />
         
         <Label Canvas.Left="116" Canvas.Top="594"
-               Height="58" Width="368"
+               Height="58" Width="347.247"
                Style="{StaticResource labelStyleAnswerText}"
                Content="{Binding Answers[0]}"
                Visibility="{Binding AnswerVisible[0], Converter={StaticResource convVisibility}}"/>
         
         <Label Canvas.Left="630" Canvas.Top="594"
-               Height="58" Width="368"
+               Height="58" Width="345"
                Style="{StaticResource labelStyleAnswerText}"
                Content="{Binding Answers[1]}"
                Visibility="{Binding AnswerVisible[1], Converter={StaticResource convVisibility}}"/>
         
         <Label Canvas.Left="116" Canvas.Top="682"
-               Height="58" Width="368"
+               Height="58" Width="347.247"
                Style="{StaticResource labelStyleAnswerText}"
                Content="{Binding Answers[2]}"
                Visibility="{Binding AnswerVisible[2], Converter={StaticResource convVisibility}}"/>
         
         <Label Canvas.Left="630" Canvas.Top="682"
-               Height="58" Width="368"
+               Height="58" Width="345"
                Style="{StaticResource labelStyleAnswerText}"
                Content="{Binding Answers[3]}"
                Visibility="{Binding AnswerVisible[3], Converter={StaticResource convVisibility}}"/>
