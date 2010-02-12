@@ -12,9 +12,8 @@ namespace ProjectEuler
 
         public object GetSolution()
         {
-            var q = TriangleNumbers().Take(50);
-            // TODO
-            return null;
+            // Marche pas... (ou trop long en tous cas)
+            return TriangleNumbers().First(n => GetDivisors(n).Count() >= 500);
         }
 
         #endregion
@@ -22,6 +21,17 @@ namespace ProjectEuler
         public IEnumerable<long> TriangleNumbers()
         {
             return Util.InfiniteSequence(1).SelectAggregate(0L, (i, prev) => prev + i);
+        }
+
+        public IEnumerable<long> GetDivisors(long n)
+        {
+            int s = (n % 2 == 0) ? 1 : 2;
+            for (long i = 1; i <= n / 2; i += s)
+            {
+                if (n % i == 0)
+                    yield return i;
+            }
+            yield return n;
         }
     }
 }
