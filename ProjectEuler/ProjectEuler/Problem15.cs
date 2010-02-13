@@ -12,7 +12,24 @@ namespace ProjectEuler
 
         public object GetSolution()
         {
-            return NumberOfRoutes(20, 20);
+            return NumberOfRoutes2(20, 20);
+        }
+
+        private object NumberOfRoutes2(int width, int height)
+        {
+            long[,] g = new long[height + 1, width + 1];            
+            for (int i = 0; i <= height; i++)
+            {
+                for (int j = 0; j <= width; j++)
+                {
+                    if (i == 0 || j == 0)
+                        g[i, j] = 1;
+                    else
+                        g[i, j] = g[i - 1, j] + g[i, j - 1];
+                }
+            }
+
+            return g[height, width];
         }
 
         #endregion

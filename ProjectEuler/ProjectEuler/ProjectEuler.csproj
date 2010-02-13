@@ -80,8 +80,18 @@
     <Compile Include="Problem13.cs" />
     <Compile Include="Problem14.cs" />
     <Compile Include="Problem15.cs" />
+    <Compile Include="Problem16.cs" />
+    <Compile Include="Problem17.cs" />
+    <Compile Include="Problem18.cs" />
+    <Compile Include="Problem19.cs" />
     <Compile Include="Problem2.cs" />
     <Compile Include="IEulerProblem.cs" />
+    <Compile Include="Problem20.cs" />
+    <Compile Include="Problem21.cs" />
+    <Compile Include="Problem22.cs" />
+    <Compile Include="Problem23.cs" />
+    <Compile Include="Problem24.cs" />
+    <Compile Include="Problem25.cs" />
     <Compile Include="Problem3.cs" />
     <Compile Include="Problem4.cs" />
     <Compile Include="Problem5.cs" />
@@ -112,6 +122,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\names.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
