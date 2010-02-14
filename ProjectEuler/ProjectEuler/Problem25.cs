@@ -16,7 +16,7 @@ namespace ProjectEuler
             string sTarget = new string('9', 999);
             BigInteger target = BigInteger.Parse(sTarget);
 
-            return Util.Fibonacci()
+            return Util.FibonacciBig()
                 .AsIndexed()
                 .First(x => x.Value > target)
                 .Index;

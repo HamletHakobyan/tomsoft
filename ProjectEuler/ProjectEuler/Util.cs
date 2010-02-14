@@ -64,7 +64,7 @@ namespace ProjectEuler
                 .Where(x => n % x == 0);
         }
 
-        public static IEnumerable<BigInteger> Fibonacci()
+        public static IEnumerable<BigInteger> FibonacciBig()
         {
             BigInteger f0 = 0;
             BigInteger f1 = 1;
@@ -73,6 +73,22 @@ namespace ProjectEuler
             while (true)
             {
                 BigInteger f = f1 + f0;
+                yield return f;
+                f0 = f1;
+                f1 = f;
+            }
+
+        }
+
+        public static IEnumerable<long> Fibonacci()
+        {
+            long f0 = 0;
+            long f1 = 1;
+            yield return f0;
+            yield return f1;
+            while (true)
+            {
+                long f = f1 + f0;
                 yield return f;
                 f0 = f1;
                 f1 = f;

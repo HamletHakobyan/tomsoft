@@ -10,11 +10,8 @@ namespace ProjectEuler
     {
         public object GetSolution()
         {
-            Func<long, long, long, long> fibonacci = (n, prevFib1, prevFib2) => n <= 1 ? n : prevFib1 + prevFib2;
-
             var sequence =
-                Util.InfiniteSequence()
-                .SelectAggregate(fibonacci)
+                Util.Fibonacci()
                 .TakeWhile(x => x <= 4000000)
                 .Where(x => x % 2 == 0);
             return sequence.Sum();
