@@ -115,5 +115,82 @@ namespace ProjectEuler
                 }
             }
         }
+
+        /// <summary>
+        /// Returns the greatest common divisor of a and b
+        /// </summary>
+        /// <param name="a">Number a</param>
+        /// <param name="b">Number b</param>
+        /// <returns>The GCD of a and b</returns>
+        public static long GCD(long a, long b)
+        {
+            long remainder = a % b;
+            while (remainder != 0)
+            {
+                a = b;
+                b = remainder;
+                remainder = a % b;
+            }
+            return b;
+        }
+
+        public static bool IsTerminatingDecimal(long numerator, long denominator)
+        {
+            if (denominator == 0)
+                throw new ArgumentException("The denominator can't be 0", "denominator");
+
+            // 0 / x = 0, which is terminating
+            if (numerator == 0)
+                return true;
+
+            // Reduce fraction
+            long gcd = Util.GCD(numerator, denominator);
+            if (gcd > 1)
+            {
+                numerator /= gcd;
+                denominator /= gcd;
+            }
+
+            // Try to factorize denominator to (2^n * 5^m)
+            while (denominator % 2 == 0) denominator /= 2;
+            while (denominator % 5 == 0) denominator /= 5;
+            
+            // If factorization succeeded, denominator is now 1
+            return denominator == 1;
+        }
+
+        public static int GetDecimalCycleLength(long numerator, long denominator)
+        {
+            if (denominator == 0)
+                throw new ArgumentException("The denominator can't be 0", "denominator");
+
+            if (numerator == 0)
+                return 0;
+
+            long q;
+            long r = numerator % denominator;
+            var remainders = new List<long>();
+            
+            // Note: since numerator/denominator is a rational number,
+            // it will either terminate or have a cycle
+            // Only extra precaution : stop before reaching int.MaxValue decimals
+
+            while (r != 0 && remainders.Count < int.MaxValue)
+            {
+                numerator = r * 10;
+                q = numerator / denominator;
+                r = numerator % denominator;
+                int last = remainders.LastIndexOf(r);
+                if (last != -1)
+                {
+                    return (remainders.Count - last);
+                }
+                remainders.Add(r);
+            }
+            if (r == 0)
+                return 0;
+            else // if (remainders.Count >= int.MaxValue)
+                return -1;
+        }
     }
 }
