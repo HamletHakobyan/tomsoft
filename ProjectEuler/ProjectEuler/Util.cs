@@ -192,5 +192,15 @@ namespace ProjectEuler
             else // if (remainders.Count >= int.MaxValue)
                 return -1;
         }
+
+        public static long GetAlphaValue(string s)
+        {
+            return s.Select(c => (long)c - 64).Sum();
+        }
+
+        public static string Join(this IEnumerable<char> chars)
+        {
+            return new string(chars.ToArray());
+        }
     }
 }

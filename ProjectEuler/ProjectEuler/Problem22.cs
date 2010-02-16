@@ -16,13 +16,8 @@ namespace ProjectEuler
             var names = LoadNames();
             return names
                     .OrderBy(n => n)
-                    .Select((n, i) => (i + 1) * GetAlphaValue(n))
+                    .Select((n, i) => (i + 1) * Util.GetAlphaValue(n))
                     .Sum();
-        }
-
-        private long GetAlphaValue(string s)
-        {
-            return s.Select(c => (long)c - 64).Sum();
         }
 
         private List<string> LoadNames()
