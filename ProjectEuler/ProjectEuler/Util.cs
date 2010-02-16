@@ -32,7 +32,7 @@ namespace ProjectEuler
             {
                 long sqrt = (long)Math.Floor(Math.Sqrt(i));
                 bool hasDivisors = false;
-                foreach (long p in primes.Where(x => x <= sqrt))
+                foreach (long p in primes.TakeWhile(x => x <= sqrt))
                 {
                     if (i % p == 0)
                     {
