@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using Developpez.Dotnet;
+using System.Reflection;
+using System.IO;
 
 namespace ProjectEuler
 {
@@ -20,6 +22,11 @@ namespace ProjectEuler
                     continue;
                 if (line.ToLower() == "q")
                     break;
+                if (line == "*")
+                {
+                    RunAllProblems();
+                    continue;
+                }
                 int problemNumber;
                 if (int.TryParse(line, out problemNumber))
                 {
@@ -30,6 +37,51 @@ namespace ProjectEuler
                     WriteError("Incorrect number");
                 }
             }
+        }
+
+        private static void RunAllProblems()
+        {
+
+            Console.WriteLine("Running all problems...");
+
+            var problems = from t in Assembly.GetExecutingAssembly().GetTypes()
+                           where typeof(IEulerProblem).IsAssignableFrom(t)
+                           && !t.IsInterface && !t.IsAbstract
+                           let id = int.Parse(t.Name.Substring("Problem".Length))
+                           orderby id
+                           select new { Id = id, Problem = Activator.CreateInstance(t) as IEulerProblem };
+
+            string filename = Path.GetFullPath(@"Data\results.csv");
+            using (StreamWriter writer = new StreamWriter(filename))
+            {
+                foreach (var p in problems)
+                {
+                    Stopwatch sw = new Stopwatch();
+                    object result;
+                    try
+                    {
+                        try
+                        {
+                            sw.Start();
+                            result = p.Problem.GetSolution();
+                        }
+                        finally
+                        {
+                            sw.Stop();
+                        }
+                        writer.WriteLine("{0};{1};{2}", p.Id, result, sw.Elapsed);
+                    }
+                    catch
+                    {
+                        writer.WriteLine("{0};Failed;", p.Id);
+                    }
+                }
+            }
+
+            Console.WriteLine("Done. Opening results...");
+
+            Process.Start(filename);
+                        
         }
 
         private static void WriteError(string text, params object[] args)

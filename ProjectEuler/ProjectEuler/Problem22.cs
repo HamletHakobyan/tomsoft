@@ -27,7 +27,7 @@ namespace ProjectEuler
 
         private List<string> LoadNames()
         {
-            string inputFile = @"Data\names.txt";
+            string inputFile = @"Data\p22_names.txt";
             using (StreamReader reader = new StreamReader(inputFile))
             {
                 var allNames = new List<string>();
