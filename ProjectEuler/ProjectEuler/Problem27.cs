@@ -12,6 +12,8 @@ namespace ProjectEuler
 
         public object GetSolution()
         {
+            var sieve = new PrimeSieve();
+
             var ab =
                 from a in Enumerable.Range(-999, 1999)
                 from b in Enumerable.Range(-999, 1999)
@@ -25,7 +27,7 @@ namespace ProjectEuler
                 int nprimes =
                     Util.InfiniteSequence()
                     .Select(n => n * n + terms.a * n + terms.b)
-                    .TakeWhile(p => IsPrime(p))
+                    .TakeWhile(p => sieve.IsPrime(p))
                     .Count();
                 if (nprimes > nmax)
                 {
@@ -41,37 +43,5 @@ namespace ProjectEuler
         }
 
         #endregion
-
-        private SortedSet<long> _primes = new SortedSet<long>();
-        private bool IsPrime(long n)
-        {
-            CalculatePrimes(n);
-            return _primes.Contains(n);
-        }
-
-        private void CalculatePrimes(long max)
-        {
-            if (_primes.Count == 0)
-                _primes.Add(2);
-            long i = _primes.Max + 1;
-            while (i <= max)
-            {
-                long sqrt = (long)Math.Floor(Math.Sqrt(i));
-                bool hasDivisors = false;
-                foreach (long p in _primes.TakeWhile(x => x <= sqrt))
-                {
-                    if (i % p == 0)
-                    {
-                        hasDivisors = true;
-                        break;
-                    }
-                }
-                if (!hasDivisors)
-                {
-                    _primes.Add(i);
-                }
-                i++;
-            }
-        }
     }
 }

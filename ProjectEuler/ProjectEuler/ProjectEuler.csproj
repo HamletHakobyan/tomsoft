@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PrimeSieve.cs" />
     <Compile Include="Problem1.cs" />
     <Compile Include="Problem10.cs" />
     <Compile Include="Problem11.cs" />
@@ -98,14 +99,21 @@
     <Compile Include="Problem29.cs" />
     <Compile Include="Problem3.cs" />
     <Compile Include="Problem30.cs" />
+    <Compile Include="Problem31.cs" />
+    <Compile Include="Problem36.cs" />
+    <Compile Include="Problem37.cs" />
     <Compile Include="Problem4.cs" />
+    <Compile Include="Problem42.cs" />
+    <Compile Include="Problem45.cs" />
     <Compile Include="Problem5.cs" />
+    <Compile Include="Problem52.cs" />
     <Compile Include="Problem6.cs" />
     <Compile Include="Problem67.cs" />
     <Compile Include="Problem7.cs" />
     <Compile Include="Problem8.cs" />
     <Compile Include="Problem9.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Problem48.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>
@@ -131,6 +139,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\p22_names.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\p42_words.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\p67_triangle.txt">
