@@ -21,6 +21,18 @@ namespace ProjectEuler.UnitTests
         }
 
         [TestMethod]
+        public void TestLCM()
+        {
+            Assert.AreEqual(42, Util.LCM(21, 6));
+        }
+
+        [TestMethod]
+        public void TestLCM_MultipleArgs()
+        {
+            Assert.AreEqual(504, Util.LCM(8, 9, 21));
+        }
+
+        [TestMethod]
         public void TestIsTerminatingDecimal()
         {
             Assert.IsTrue(Util.IsTerminatingDecimal(1, 2));

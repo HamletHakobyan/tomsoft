@@ -134,6 +134,21 @@ namespace ProjectEuler
             return b;
         }
 
+        public static long LCM(long a, long b)
+        {
+            return a * b / GCD(a, b);
+        }
+
+        public static long LCM(params long[] terms)
+        {
+            long lcm = 1;
+            for (int i = 0; i < terms.Length; i++)
+            {
+                lcm = LCM(lcm, terms[i]);
+            }
+            return lcm;
+        }
+
         public static bool IsTerminatingDecimal(long numerator, long denominator)
         {
             if (denominator == 0)
