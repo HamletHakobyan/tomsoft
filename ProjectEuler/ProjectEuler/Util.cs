@@ -97,7 +97,7 @@ namespace ProjectEuler
 
         }
 
-        public static IEnumerable<IEnumerable<T>> GetPermutations<T>(IEnumerable<T> source)
+        public static IEnumerable<IEnumerable<T>> GetPermutations<T>(this IEnumerable<T> source)
         {
             var list = source.ToList();
             for (int i = 0; i < list.Count; i++)
@@ -228,6 +228,76 @@ namespace ProjectEuler
                 _factorialCached = factorial.AsCached();
             }
             return _factorialCached(n);
+        }
+
+        public static IEnumerable<int> GetDigits(this int n)
+        {
+            return GetDigitsFromEnd(n).Reverse();
+        }
+
+        private static IEnumerable<int> GetDigitsFromEnd(this int n)
+        {
+            do
+            {
+                int rem;
+                n = Math.DivRem(n, 10, out rem);
+                yield return rem;
+            } while (n != 0);
+        }
+
+        public static int MakeNumber(this IEnumerable<int> digits)
+        {
+            int n = 0;
+            foreach (var d in digits)
+            {
+                n *= 10;
+                n += d;
+            }
+            return n;
+        }
+
+        public static IEnumerable<T> Exclude<T>(this IEnumerable<T> source, T item)
+        {
+            Func<T, bool> predicate;
+            if (item == null)
+                predicate = i => i != null;
+            else
+                predicate = i => !item.Equals(i);
+
+            return source.Where(predicate);
+        }
+
+        public static IEnumerable<T> ExcludeOnce<T>(this IEnumerable<T> source, T item)
+        {
+            bool excluded = false;
+            Func<T, bool> predicate;
+            if (item == null)
+                predicate = i => i != null;
+            else
+                predicate = i => !item.Equals(i);
+
+            foreach (var it in source)
+            {
+                if (excluded || predicate(it))
+                    yield return it;
+                else
+                    excluded = true;
+            }
+        }
+
+        public static IEnumerable<long> GetRotations(this long n)
+        {
+            int log10 = (int)Math.Log10(n);
+            long mult = 1;
+            for (int i = 1; i <= log10; i++) mult *= 10;
+
+            long tmp = n;
+            do
+            {
+                yield return tmp;
+                long rem;
+                tmp = Math.DivRem(tmp, 10, out rem) + rem * mult;
+            } while (tmp != n);
         }
     }
 }

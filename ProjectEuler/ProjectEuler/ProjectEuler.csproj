@@ -101,9 +101,13 @@
     <Compile Include="Problem30.cs" />
     <Compile Include="Problem31.cs" />
     <Compile Include="Problem32.cs" />
+    <Compile Include="Problem33.cs" />
     <Compile Include="Problem34.cs" />
+    <Compile Include="Problem35.cs" />
     <Compile Include="Problem36.cs" />
     <Compile Include="Problem37.cs" />
+    <Compile Include="Problem38.cs" />
+    <Compile Include="Problem39.cs" />
     <Compile Include="Problem4.cs" />
     <Compile Include="Problem42.cs" />
     <Compile Include="Problem45.cs" />
