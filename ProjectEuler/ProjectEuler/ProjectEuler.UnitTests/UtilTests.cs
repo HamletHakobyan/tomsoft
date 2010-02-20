@@ -86,5 +86,21 @@ namespace ProjectEuler.UnitTests
             Assert.AreEqual(28, Util.GetDecimalCycleLength(1, 29));
             Assert.AreEqual(96, Util.GetDecimalCycleLength(1, 97));
         }
+
+        [TestMethod]
+        public void TestFactorial()
+        {
+            Assert.AreEqual(1, Util.Factorial(0));
+            Assert.AreEqual(1, Util.Factorial(1));
+            Assert.AreEqual(2, Util.Factorial(2));
+            Assert.AreEqual(6, Util.Factorial(3));
+            Assert.AreEqual(24, Util.Factorial(4));
+            Assert.AreEqual(120, Util.Factorial(5));
+            Assert.AreEqual(720, Util.Factorial(6));
+            Assert.AreEqual(5040, Util.Factorial(7));
+            Assert.AreEqual(40320, Util.Factorial(8));
+            Assert.AreEqual(362880, Util.Factorial(9));
+            Assert.AreEqual(3628800, Util.Factorial(10));
+        }
     }
 }
