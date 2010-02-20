@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Numerics;
 using Developpez.Dotnet.Collections;
+using Developpez.Dotnet;
 
 namespace ProjectEuler
 {
@@ -216,6 +217,17 @@ namespace ProjectEuler
         public static string Join(this IEnumerable<char> chars)
         {
             return new string(chars.ToArray());
+        }
+
+        static Func<long, long> _factorialCached;
+        public static long Factorial(long n)
+        {
+            if (_factorialCached == null)
+            {
+                Func<long, long> factorial = x => (x < 2) ? 1 : x * _factorialCached(x - 1);
+                _factorialCached = factorial.AsCached();
+            }
+            return _factorialCached(n);
         }
     }
 }
