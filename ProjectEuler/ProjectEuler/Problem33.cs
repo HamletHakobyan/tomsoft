@@ -43,8 +43,8 @@ namespace ProjectEuler
             var commonDigits = numeratorDigits.Intersect(denominatorDigits);
             return commonDigits.Any(d =>
                 {
-                    int num = numeratorDigits.ExcludeOnce(d).MakeNumber();
-                    int den = denominatorDigits.ExcludeOnce(d).MakeNumber();
+                    int num = numeratorDigits.ExcludeOnce(d).MakeInt32();
+                    int den = denominatorDigits.ExcludeOnce(d).MakeInt32();
                     double p1 = (double)numerator / denominator;
                     double p2 = (double)num / den;
                     return p1 == p2;

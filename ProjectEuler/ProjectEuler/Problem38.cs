@@ -15,7 +15,7 @@ namespace ProjectEuler
             return
                 Enumerable.Range(1, 9)
                 .GetPermutations()
-                .Select(digits => digits.MakeNumber())
+                .Select(digits => digits.MakeInt32())
                 .OrderByDescending(n => n)
                 .Where(n => IsMadeOfConsecutiveProducts(n))
                 .Max();

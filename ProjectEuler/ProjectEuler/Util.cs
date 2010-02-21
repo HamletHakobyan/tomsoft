@@ -214,11 +214,6 @@ namespace ProjectEuler
             return s.Select(c => (long)c - 64).Sum();
         }
 
-        public static string Join(this IEnumerable<char> chars)
-        {
-            return new string(chars.ToArray());
-        }
-
         static Func<long, long> _factorialCached;
         public static long Factorial(long n)
         {
@@ -245,9 +240,20 @@ namespace ProjectEuler
             } while (n != 0);
         }
 
-        public static int MakeNumber(this IEnumerable<int> digits)
+        public static int MakeInt32(this IEnumerable<int> digits)
         {
             int n = 0;
+            foreach (var d in digits)
+            {
+                n *= 10;
+                n += d;
+            }
+            return n;
+        }
+
+        public static long MakeInt64(this IEnumerable<int> digits)
+        {
+            long n = 0;
             foreach (var d in digits)
             {
                 n *= 10;
@@ -298,6 +304,38 @@ namespace ProjectEuler
                 long rem;
                 tmp = Math.DivRem(tmp, 10, out rem) + rem * mult;
             } while (tmp != n);
+        }
+
+        public static Func<T, TResult> AsSlideCached<T, TResult>(this Func<T, TResult> function, int maxCache)
+        {
+            var cachedResults = new SortedList<T, TResult>();
+            return (argument) =>
+            {
+                TResult result;
+                if (!cachedResults.TryGetValue(argument, out result))
+                {
+                    result = function(argument);
+                    cachedResults.Add(argument, result);
+                    if (cachedResults.Count > maxCache)
+                        cachedResults.RemoveAt(0);
+                }
+                return result;
+            };
+        }
+
+        public static IEnumerable<TResult> SelectWithPrevious<TSource, TResult>(
+            this IEnumerable<TSource> source,
+            Func<TSource, TSource, TResult> selector)
+        {
+            TSource previous = default(TSource);
+            bool hasPrevious = false;
+            foreach (var item in source)
+            {
+                if (hasPrevious)
+                    yield return selector(item, previous);
+                previous = item;
+                hasPrevious = true;
+            }
         }
     }
 }
