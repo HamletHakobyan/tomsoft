@@ -17,8 +17,22 @@ namespace ProjectEuler
 
         public bool IsPrime(long n)
         {
-            CalculatePrimes(n);
-            return _primes.Contains(n);
+            return IsPrime(n, true);
+        }
+
+        public bool IsPrime(long n, bool add)
+        {
+            if (add)
+            {
+                CalculatePrimes(n);
+                return _primes.Contains(n);
+            }
+            else
+            {
+                long sqrt = (long)Math.Floor(Math.Sqrt(n));
+                CalculatePrimes(sqrt);
+                return IsPrimeInternal(n);
+            }
         }
 
         public IEnumerable<long> GetPrimes(long max)
@@ -35,22 +49,28 @@ namespace ProjectEuler
             long i = _primes.Max + 1;
             while (i <= max)
             {
-                long sqrt = (long)Math.Floor(Math.Sqrt(i));
-                bool hasDivisors = false;
-                foreach (long p in _primes.TakeWhile(x => x <= sqrt))
-                {
-                    if (i % p == 0)
-                    {
-                        hasDivisors = true;
-                        break;
-                    }
-                }
-                if (!hasDivisors)
+                if (IsPrimeInternal(i))
                 {
                     _primes.Add(i);
+                    //System.Diagnostics.Debug.WriteLine(string.Format("{0} is prime", i));
                 }
                 i++;
             }
+        }
+
+        private bool IsPrimeInternal(long n)
+        {
+            bool hasDivisors = false;
+            long sqrt = (long)Math.Floor(Math.Sqrt(n));
+            foreach (long p in _primes.TakeWhile(x => x <= sqrt))
+            {
+                if (n % p == 0)
+                {
+                    hasDivisors = true;
+                    break;
+                }
+            }
+            return !hasDivisors;
         }
     }
 }

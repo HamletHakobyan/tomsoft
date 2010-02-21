@@ -24,11 +24,6 @@ namespace ProjectEuler
                 group 1 by ab + bc + ac into g
                 select new { Perimeter = g.Key, NumberOfSolutions = g.Count() };
 
-            //foreach (var g in solutionsPerPerimeter)
-            //{
-            //    Console.WriteLine("{0}\t{1}", g.Perimeter, g.NumberOfSolutions);
-            //}
-
             return solutionsPerPerimeter.WithMax(g => g.NumberOfSolutions).Perimeter;
         }
 

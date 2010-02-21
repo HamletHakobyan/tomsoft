@@ -102,5 +102,13 @@ namespace ProjectEuler.UnitTests
             Assert.AreEqual(362880, Util.Factorial(9));
             Assert.AreEqual(3628800, Util.Factorial(10));
         }
+
+        [TestMethod]
+        public void TestGetRotations()
+        {
+            var expected = new long[] { 197, 719, 971 };
+            var actual = 197L.GetRotations();
+            Assert.IsTrue(expected.SequenceEqual(actual));
+        }
     }
 }
