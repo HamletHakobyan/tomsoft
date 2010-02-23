@@ -110,8 +110,8 @@
             et délèguent leur implémentation à un IDictionary&lt;K, V&gt; passé en paramètre du constructeur
             protégé.
             </summary>
-            <typeparam name="K">Type de la clé</typeparam>
-            <typeparam name="V">Type de la valeur</typeparam>
+            <typeparam name="TKey">Type de la clé</typeparam>
+            <typeparam name="TValue">Type de la valeur</typeparam>
         </member>
         <member name="M:Developpez.Dotnet.Collections.DictionaryBase`2.#ctor(System.Collections.Generic.IDictionary{`0,`1})">
             <summary>
@@ -119,6 +119,14 @@
             au dictionaire passé en paramètre
             </summary>
             <param name="dictionary">Le dictionnaire auquel déléguer l'implémentation</param>
+        </member>
+        <member name="M:Developpez.Dotnet.Collections.DictionaryBase`2.#ctor(System.Collections.Generic.IDictionary{`0,`1},System.Boolean)">
+            <summary>
+            Initialise une nouvelle instance de DictionaryBase&lt;TKey, TValue&gt; qui délègue son implémentation
+            au dictionaire passé en paramètre, ou a une copie de ce dictionnaire
+            </summary>
+            <param name="dictionary">Le dictionnaire auquel déléguer l'implémentation</param>
+            <param name="copy">true pour réaliser une copie du dictionnaire original ; false pour simplement l'encapsuler</param>
         </member>
         <member name="M:Developpez.Dotnet.Collections.DictionaryBase`2.Add(`0,`1)">
             <summary>
@@ -424,6 +432,25 @@
             Renvoie la valeur du pointeur
             </summary>
             <exception cref="T:System.ObjectDisposedException">L'objet a été disposé et le pointeur libéré</exception>
+        </member>
+        <member name="T:Developpez.Dotnet.IO.TextReaderExtensions">
+            <summary>
+            Fournit des méthodes d'extension pour les TextReader
+            </summary>
+        </member>
+        <member name="M:Developpez.Dotnet.IO.TextReaderExtensions.AsLineEnumerable(System.IO.TextReader)">
+            <summary>
+            Renvoie une séquence de lignes lues par un TextReader
+            </summary>
+            <param name="reader">TextReader à utiliser pour lire les lignes</param>
+            <returns>La séquence des lignes lues par le TextReader</returns>
+        </member>
+        <member name="M:Developpez.Dotnet.IO.TextReaderExtensions.AsCharEnumerable(System.IO.TextReader)">
+            <summary>
+            Renvoie une séquence de caractères lue par un TextReader
+            </summary>
+            <param name="reader">TextReader à utiliser pour lire les caractères</param>
+            <returns>La séquence des caractères lue par le TextReader</returns>
         </member>
         <member name="T:Developpez.Dotnet.FuncExtensions">
             <summary>
@@ -752,6 +779,13 @@
             <param name="list">La liste de chaines à concaténer</param>
             <param name="separator">Le séparateur à utiliser</param>
             <returns>La concaténation des chaines de la liste</returns>
+        </member>
+        <member name="M:Developpez.Dotnet.StringExtensions.Join(System.Collections.Generic.IEnumerable{System.Char})">
+            <summary>
+            Renvoie une chaine construite à partir d'une séquence de caractères
+            </summary>
+            <param name="chars">La séquence de caractères à transformer en chaine</param>
+            <returns>Une chaine constituée des caractères de la séquence</returns>
         </member>
         <member name="M:Developpez.Dotnet.StringExtensions.GetLines(System.String)">
             <summary>
@@ -2073,6 +2107,13 @@
             </summary>
             <param name="dictionary">Le dictionnaire à encapsuler</param>
         </member>
+        <member name="M:Developpez.Dotnet.Collections.ReadOnlyDictionary`2.#ctor(System.Collections.Generic.IDictionary{`0,`1},System.Boolean)">
+            <summary>
+            Initialise une nouvelle instance de ReadOnlyDictionary&lt;TKey, TValue&gt;, en copiant éventuellement les données du dictionnaire original
+            </summary>
+            <param name="dictionary">Le dictionnaire à encapsuler ou copier</param>
+            <param name="copy">true pour réaliser une copie du dictionnaire original ; false pour simplement l'encapsuler.</param>
+        </member>
         <member name="M:Developpez.Dotnet.Collections.ReadOnlyDictionary`2.Add(`0,`1)">
             <summary>
             L'appel de cette méthode correspond à une opération illégale
@@ -2278,6 +2319,29 @@
             </summary>
             <param name="stream">Le flux à wrapper</param>
             <returns>Un wrapper non-fermable autour de ce flux</returns>
+        </member>
+        <member name="M:Developpez.Dotnet.IO.StreamExtensions.AsByteEnumerable(System.IO.Stream,System.Int32)">
+            <summary>
+            Renvoie une séquence d'octets lus à partir d'un flux.
+            </summary>
+            <param name="stream">Flux à partir duquel lire les données</param>
+            <param name="bufferSize">Taille de buffer à utiliser pour la lecture</param>
+            <returns>La séquence d'octets lus à partir du flux</returns>
+        </member>
+        <member name="M:Developpez.Dotnet.IO.StreamExtensions.AsByteEnumerable(System.IO.Stream)">
+            <summary>
+            Renvoie une séquence d'octets lus à partir d'un flux.
+            </summary>
+            <param name="stream">Flux à partir duquel lire les données</param>
+            <returns>La séquence d'octets lus à partir du flux</returns>
+        </member>
+        <member name="M:Developpez.Dotnet.IO.StreamExtensions.AsBlockEnumerable(System.IO.Stream,System.Int32)">
+            <summary>
+            Renvoie une séquence de blocs d'octets lus à partir d'un flux.
+            </summary>
+            <param name="stream">Flux à partir duquel lire les données</param>
+            <param name="blockSize">Taille de bloc désirée</param>
+            <returns>Une séquence de blocs d'octets de la taille spécifiée, lus à partir du flux ; le dernier bloc renvoyé peut être plus court si la fin du flux a été atteinte.</returns>
         </member>
         <member name="T:Developpez.Dotnet.IO.StreamExtensions.NonClosingStreamWrapper">
             <summary>
@@ -2587,16 +2651,6 @@
             Fournit des méthodes d'extension pour les types enumérables
             </summary>
         </member>
-        <member name="M:Developpez.Dotnet.Collections.EnumerableExtensions.FormatAll(System.Collections.IEnumerable,System.String,System.String)">
-            <summary>
-            Renvoie une chaine contenant chaque élément de l'énumération formaté avec
-            le format spécifié
-            </summary>
-            <param name="enumerable">L'énumération à formater</param>
-            <param name="format">Le format à appliquer à chaque élément, par exemple "x2" ou "{0:x2}"</param>
-            <param name="separator">Le séparateur à insérer entre chaque élément</param>
-            <returns>La chaine contenant tous les éléments formatés</returns>
-        </member>
         <member name="M:Developpez.Dotnet.Collections.EnumerableExtensions.IsNullOrEmpty(System.Collections.ICollection)">
             <summary>
             Indique si une collection est nulle ou vide
@@ -2633,6 +2687,26 @@
             <param name="selector">fonction de projection pour fusionner des éléments des 2 séquences</param>
             <returns>Une séquence d'éléments fusionnée</returns>
             <remarks>Si les 2 séquences ne sont pas de même longueur </remarks>
+        </member>
+        <member name="M:Developpez.Dotnet.Collections.EnumerableExtensions.FormatAll(System.Collections.IEnumerable,System.String,System.String)">
+            <summary>
+            Renvoie une chaine contenant chaque élément de l'énumération formaté avec
+            le format spécifié
+            </summary>
+            <param name="enumerable">L'énumération à formater</param>
+            <param name="format">Le format à appliquer à chaque élément, par exemple "x2" ou "{0:x2}"</param>
+            <param name="separator">Le séparateur à insérer entre chaque élément</param>
+            <returns>La chaine contenant tous les éléments formatés</returns>
+        </member>
+        <member name="M:Developpez.Dotnet.Collections.EnumerableExtensions.FormatAll``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.String},System.String)">
+            <summary>
+            Renvoie une chaine contenant chaque élément de l'énumération formaté avec
+            le delegate spécifié
+            </summary>
+            <param name="enumerable">L'énumération à formater</param>
+            <param name="format">Le delegate à appliquer à chaque élément pour le convertir en chaine de caractères</param>
+            <param name="separator">Le séparateur à insérer entre chaque élément</param>
+            <returns>La chaine contenant tous les éléments formatés</returns>
         </member>
         <member name="M:Developpez.Dotnet.Collections.EnumerableExtensions.Append``1(System.Collections.Generic.IEnumerable{``0},``0)">
             <summary>
@@ -2875,7 +2949,7 @@
             <param name="keySelector">Une fonction pour extraire la clé de tri de l'élément</param>
             <returns>true si la liste est triée selon le critère spécifié, false sinon</returns>
         </member>
-        <member name="M:Developpez.Dotnet.Collections.EnumerableExtensions.SelectAggregate``2(System.Collections.Generic.IEnumerable{``0},``1,System.Func{``0,``1,``1})">
+        <member name="M:Developpez.Dotnet.Collections.EnumerableExtensions.SelectAggregate``2(System.Collections.Generic.IEnumerable{``0},``1,System.Func{``1,``0,``1})">
             <summary>
             Applique une fonction d'accumulation sur une séquence, en renvoyant le résultat
             de chaque étape de l'accumulation.
@@ -2889,7 +2963,7 @@
             <remarks>Cette méthode est similaire à Enumerable.Aggregate, mais cette dernière ne renvoie que le résultat
             final, alors que SelectAggregate renvoie le résultat de chaque étape.</remarks>
         </member>
-        <member name="M:Developpez.Dotnet.Collections.EnumerableExtensions.SelectAggregate``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1,``1})">
+        <member name="M:Developpez.Dotnet.Collections.EnumerableExtensions.SelectAggregate``2(System.Collections.Generic.IEnumerable{``0},System.Func{``1,``0,``1})">
             <summary>
             Applique une fonction d'accumulation sur une séquence, en renvoyant le résultat
             de chaque étape de l'accumulation.
@@ -2902,7 +2976,7 @@
             <remarks>Cette méthode est similaire à Enumerable.Aggregate, mais cette dernière ne renvoie que le résultat
             final, alors que SelectAggregate renvoie le résultat de chaque étape.</remarks>
         </member>
-        <member name="M:Developpez.Dotnet.Collections.EnumerableExtensions.SelectAggregate``2(System.Collections.Generic.IEnumerable{``0},``1,``1,System.Func{``0,``1,``1,``1})">
+        <member name="M:Developpez.Dotnet.Collections.EnumerableExtensions.SelectAggregate``2(System.Collections.Generic.IEnumerable{``0},``1,``1,System.Func{``1,``1,``0,``1})">
             <summary>
             Applique une fonction d'accumulation sur une séquence, en renvoyant le résultat
             de chaque étape de l'accumulation. La fonction d'accumulation prend en paramètre
@@ -2916,7 +2990,7 @@
             <param name="func">Fonction d'accumulation à appeler sur chaque élément</param>
             <returns>Séquence des valeurs d'accumulation à chaque étape.</returns>
         </member>
-        <member name="M:Developpez.Dotnet.Collections.EnumerableExtensions.SelectAggregate``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1,``1,``1})">
+        <member name="M:Developpez.Dotnet.Collections.EnumerableExtensions.SelectAggregate``2(System.Collections.Generic.IEnumerable{``0},System.Func{``1,``1,``0,``1})">
             <summary>
             Applique une fonction d'accumulation sur une séquence, en renvoyant le résultat
             de chaque étape de l'accumulation. La fonction d'accumulation prend en paramètre
@@ -3178,6 +3252,13 @@
             <typeparam name="T">Le type de base dont <c>type</c> doit hériter</typeparam>
             <param name="type">Le type à vérifier</param>
             <returns>true si <c>type</c> est <c>T</c>, hérite de <c>T</c>, ou implémente <c>T</c>. Sinon, false</returns>
+        </member>
+        <member name="M:Developpez.Dotnet.Reflection.ReflectionExtensions.IsNullable(System.Type)">
+            <summary>
+            Indique si un type est nullable.
+            </summary>
+            <param name="type">Type dont on veut vérifier s'il est nullable</param>
+            <returns>true si <c>type</c> est un type référence ou un type générique Nullable&lt;T&gt;, false sinon</returns>
         </member>
         <member name="M:Developpez.Dotnet.Reflection.ReflectionExtensions.HasAttribute(System.Reflection.ICustomAttributeProvider,System.Type)">
             <summary>
@@ -3511,14 +3592,14 @@
         </member>
         <member name="M:Developpez.Dotnet.Roman.#ctor(System.Int32)">
             <summary>
-            Initialise une nouvelle instance de la classe <see cref="T:Developpez.Dotnet.Roman"/>
+            Initialise une nouvelle instance de la structure <see cref="T:Developpez.Dotnet.Roman"/>
             à partir d'un nombre entier.
             </summary>
             <param name="value">Entier.</param>
         </member>
         <member name="M:Developpez.Dotnet.Roman.#ctor(System.String)">
             <summary>
-            Initialise une nouvelle instance de la classe <see cref="T:Developpez.Dotnet.Roman"/>
+            Initialise une nouvelle instance de la structure <see cref="T:Developpez.Dotnet.Roman"/>
             à partir d'une chaîne de caractères.
             </summary>
             <param name="value">Chaîne de caractères.</param>
@@ -3599,9 +3680,9 @@
         </member>
         <member name="M:Developpez.Dotnet.Roman.ToInt">
             <summary>
-            Retourne l'entier correspondant à l'instance de la classe <see cref="T:Developpez.Dotnet.Roman"/>.
+            Retourne l'entier correspondant à l'instance de la structure <see cref="T:Developpez.Dotnet.Roman"/>.
             </summary>
-            <returns>L'entier correspondant à l'instance de la classe <see cref="T:Developpez.Dotnet.Roman"/>.</returns>
+            <returns>L'entier correspondant à l'instance de la structure <see cref="T:Developpez.Dotnet.Roman"/>.</returns>
         </member>
         <member name="M:Developpez.Dotnet.Roman.GetHashCode">
             <summary>
@@ -4564,7 +4645,17 @@
             <typeparam name="K">Type de la clé</typeparam>
             <typeparam name="V">Type de la valeur</typeparam>
             <param name="dictionary">Le dictionnaire pour lequel renvoyer un wrapper</param>
-            <returns>Un wrapper en lecture seule pour le dictionnaire</returns>
+            <returns>Un wrapper en lecture seule du dictionnaire</returns>
+        </member>
+        <member name="M:Developpez.Dotnet.Collections.DictionaryExtensions.AsReadOnly``2(System.Collections.Generic.IDictionary{``0,``1},System.Boolean)">
+            <summary>
+            Renvoie un wrapper ou une copie en lecture seule pour un dictionnaire
+            </summary>
+            <typeparam name="K">Type de la clé</typeparam>
+            <typeparam name="V">Type de la valeur</typeparam>
+            <param name="dictionary">Le dictionnaire pour lequel renvoyer un wrapper</param>
+            <param name="copy">true pour renvoyer une copie en lecture seule du dictionnaire ; false pour renvoyer simplement un wrapper du dictionnaire existant</param>
+            <returns>Un wrapper ou une copie en lecture seule du dictionnaire</returns>
         </member>
     </members>
 </doc>
