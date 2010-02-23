@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.IO;
-using Developpez.Dotnet.IO;
+using System.Linq;
 
 namespace ProjectEuler
 {
@@ -16,9 +13,11 @@ namespace ProjectEuler
             var names = LoadNames();
             return names
                     .OrderBy(n => n)
-                    .Select((n, i) => (i + 1) * Util.GetAlphaValue(n))
+                    .Select((n, i) => (i + 1) * GetAlphaValue(n))
                     .Sum();
         }
+
+        #endregion
 
         private List<string> LoadNames()
         {
@@ -36,6 +35,9 @@ namespace ProjectEuler
             }
         }
 
-        #endregion
+        public static long GetAlphaValue(string s)
+        {
+            return s.Select(c => (long)c - 64).Sum();
+        }
     }
 }

@@ -225,6 +225,17 @@ namespace ProjectEuler
             return _factorialCached(n);
         }
 
+        static Func<long, BigInteger> _factorialBigCached;
+        public static BigInteger FactorialBig(long n)
+        {
+            if (_factorialBigCached == null)
+            {
+                Func<long, BigInteger> factorialBig = x => (x < 2) ? 1 : x * _factorialBigCached(x - 1);
+                _factorialBigCached = factorialBig.AsCached();
+            }
+            return _factorialBigCached(n);
+        }
+
         public static IEnumerable<int> GetDigits(this int n)
         {
             return GetDigitsFromEnd(n).Reverse();
