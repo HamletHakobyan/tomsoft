@@ -15,11 +15,12 @@ namespace Mediatek.Entities
         public virtual string Description { get; set; }
         public virtual string Comment { get; set; }
         public virtual byte? Rating { get; set; }
-        public virtual byte[] Picture { get; set; }
+        public virtual Guid? PictureId { get; set; }
 
         public virtual Language Language { get; set; }
         public virtual ICollection<Country> Countries { get; set; }
         public virtual ICollection<Contribution> Contributions { get; set; }
         public virtual ICollection<Loan> Loans { get; set; }
+        public virtual Image Picture { get; set; }
     }
 }

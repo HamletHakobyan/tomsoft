@@ -28,6 +28,8 @@ namespace Mediatek.Data.EntityFramework
             _medias = CreateObjectSet<Media>();
             _contributions = CreateObjectSet<Contribution>();
             _loans = CreateObjectSet<Loan>();
+            _images = CreateObjectSet<Image>();
+            _imageData = CreateObjectSet<ImageData>();
         }
 
         #endregion
@@ -43,6 +45,8 @@ namespace Mediatek.Data.EntityFramework
         private ObjectSet<Media> _medias;
         private ObjectSet<Contribution> _contributions;
         private ObjectSet<Loan> _loans;
+        private ObjectSet<Image> _images;
+        private ObjectSet<ImageData> _imageData;
 
         #endregion
 
@@ -82,6 +86,17 @@ namespace Mediatek.Data.EntityFramework
         {
             get { return _loans; }
         }
+
+        public ObjectSet<Image> Images
+        {
+            get { return _images; }
+        }
+
+        public ObjectSet<ImageData> ImageData
+        {
+            get { return _imageData; }
+        }
+
 
         #endregion
 

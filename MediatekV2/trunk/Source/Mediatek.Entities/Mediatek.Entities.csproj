@@ -44,6 +44,8 @@
     <Compile Include="Book.cs" />
     <Compile Include="Contribution.cs" />
     <Compile Include="Country.cs" />
+    <Compile Include="Image.cs" />
+    <Compile Include="ImageData.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="Loan.cs" />
     <Compile Include="Media.cs" />
