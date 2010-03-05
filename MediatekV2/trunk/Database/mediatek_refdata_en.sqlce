@@ -1,0 +1,7 @@
+INSERT INTO Role(Id, Name, Description, Predefined) VALUES ('a3cb6aad-3149-4606-902a-f04317249a1d', 'Director', 'Movie director', 1);
+INSERT INTO Role(Id, Name, Description, Predefined) VALUES ('b6076138-d39a-4792-acf3-33f52510134e', 'Producer', 'Movie producer', 1);
+INSERT INTO Role(Id, Name, Description, Predefined) VALUES ('54ad8bca-2e3b-4c80-a892-8a1962a96237', 'Actor/actress', 'Movie actor or actress', 1);
+INSERT INTO Role(Id, Name, Description, Predefined) VALUES ('f14d1d45-4d32-4ce1-ab9d-33439f392a96', 'Author', 'Book author', 1);
+INSERT INTO Role(Id, Name, Description, Predefined) VALUES ('f6e2c152-7ea7-4521-be81-51a02d44dfa3', 'Performer', 'Musical performer', 1);
+INSERT INTO Role(Id, Name, Description, Predefined) VALUES ('70ca9ec7-f73c-407a-83c1-00fe39aa663a', 'Composer', 'Musical composer', 1);
+INSERT INTO Role(Id, Name, Description, Predefined) VALUES ('8d96e05c-2190-40a7-8e16-8139dadd3be1', 'Guest', 'Guest contributor', 1);
