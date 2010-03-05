@@ -62,7 +62,7 @@ namespace MigrationTool
             string sourceConnectionString = string.Format("Data source={0}", txtSource.Text);
             string destConnectionString = string.Format("Data source={0}", txtDestination.Text);
 
-            int stepCount = 5;
+            int stepCount = 6;
             int iStep = 0;
 
             using (var sourceConnection = new SQLiteConnection(sourceConnectionString))
@@ -80,6 +80,45 @@ namespace MigrationTool
                 destContext.Connection.Open();
                 using (var transaction = destContext.Connection.BeginTransaction())
                 {
+                    // Images
+                    var tablesWithPicture = new[]
+                        {
+                            new { TableName = "movie", ImageField = "cover", ImageIdField = "pictureid", NameField = "title" },
+                            new { TableName = "director", ImageField = "picture", ImageIdField = "pictureid", NameField = "name" },
+                            new { TableName = "language", ImageField = "symbol", ImageIdField = "flagid", NameField = "name" },
+                            new { TableName = "country", ImageField = "flag", ImageIdField = "flagid", NameField = "name" }
+                        };
+
+                    foreach (var tbl in tablesWithPicture)
+                    {
+                        var table = ds.Tables[tbl.TableName];
+                        foreach (DataRow row in table.Rows)
+                        {
+                            Guid imageId = Guid.NewGuid();
+                            row[tbl.ImageIdField] = imageId;
+
+                            if (row.IsNull(tbl.ImageField))
+                                continue;
+                            
+                            var image = new Mediatek.Entities.Image
+                            {
+                                Id = imageId,
+                                Name = row[tbl.NameField] as string
+                            };
+                            var imageData = new Mediatek.Entities.ImageData
+                            {
+                                Image = image,
+                                Bytes = row[tbl.ImageField] as byte[]
+                            };
+                            destContext.Images.AddObject(image);
+                            destContext.ImageData.AddObject(imageData);
+                        }
+                        destContext.SaveChanges();
+                    }
+
+                    iStep++;
+                    bgwMigration.ReportProgress(100 * iStep / stepCount);
+
                     // Language
                     foreach (var row in ds.language)
                     {
@@ -89,7 +128,7 @@ namespace MigrationTool
                             Id = row.guid,
                             Name = row.name,
                             Code = row.code,
-                            Flag = row.symbol
+                            Flag = destContext.Images.FirstOrDefault(img => img.Id == row.flagid)
                         };
                         destContext.Languages.AddObject(language);
                     }
@@ -106,7 +145,7 @@ namespace MigrationTool
                         {
                             Id = row.guid,
                             Name = row.name,
-                            Flag = row.flag,
+                            Flag = destContext.Images.FirstOrDefault(img => img.Id == row.flagid),
                             Languages = destContext.Languages
                                         .AsEnumerable()
                                         .Where(l => l.Id == (row.Islanguage_idNull()
@@ -129,7 +168,7 @@ namespace MigrationTool
                         {
                             Id = row.guid,
                             DisplayName = row.name,
-                            Picture = row.picture,
+                            Picture = destContext.Images.FirstOrDefault(img => img.Id == row.pictureid),
                             Countries = destContext.Countries
                                         .AsEnumerable()
                                         .Where(c => c.Id == (row.Iscountry_idNull()
@@ -176,7 +215,7 @@ namespace MigrationTool
                             OriginalTitle = row.original_title,
                             LanguageId = row.languageRow.guid,
                             Year = row.IsyearNull() ? (int?)null : int.Parse(row.year),
-                            Picture = row.cover
+                            Picture = destContext.Images.FirstOrDefault(img => img.Id == row.pictureid)
                         };
                         destContext.Medias.AddObject(movie);
 
@@ -188,6 +227,10 @@ namespace MigrationTool
                                 PersonId = row.directorRow.guid,
                                 RoleId = _directorRoleGuid
                             };
+
+                            if (!row.directorRow.Iscountry_idNull())
+                                movie.Countries = destContext.Countries.Where(c => c.Id == row.directorRow.countryRow.guid).ToList();
+
                             destContext.Contributions.AddObject(contrib);
                         }
                     }
