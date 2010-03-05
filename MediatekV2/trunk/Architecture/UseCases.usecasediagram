@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="8b9ebbcf-0c3c-4956-9235-5d6585070fc0" name="Use cases" linkedPackageId="01ef4767-6745-4e27-922f-3e90ac2d2712" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <profileInstances>
+    <packageHasProfileInstances Id="17eb23e9-e354-4e87-a2c6-a84a282079fb">
+      <profileInstance Id="33903216-60aa-4dd5-bbee-5bf6f06a1fa2" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="5aa6fb16-4110-4a4e-ba8e-ccfd7efd6864">
+      <profileInstance Id="711410b4-3da0-4c77-99ac-7655d4a2de56" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <actor Id="a303a683-ad1d-4401-ae88-11762fc124f7" name="End user" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="5c702609-9450-4b9d-bff6-4cec158ae174" />
+        <targetEnds>
+          <association Id="955fce58-55ac-4b45-ac80-05dcabedf150" isDerived="false" sourceEndRoleName="End user" targetEndRoleName="View media" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="296f1e1b-ab04-4cb5-90a8-f86eb5989cf4" LastKnownName="View media" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="8fdd3812-dfdd-48e3-92a6-635274889497" name="End user" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="8c49facf-8e68-4bfb-ae8e-5d7f7be8e890" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="684187c8-5973-4247-acd1-0670af890f0a" name="View media" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="8757cff8-2540-4def-871c-bf8951582255" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="76fbe9c0-d2b1-48ac-92f9-e6f742c485ce" />
+          </association>
+          <association Id="4167c5a0-b3c9-45e0-86fb-a0554da5fb9f" isDerived="false" sourceEndRoleName="End user" targetEndRoleName="Search media" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="ce52e51e-822d-499a-a75d-523106f2bba0" LastKnownName="Search media" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="8330f7cc-40ff-4229-9a6b-6f361713b2ae" name="End user" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="e8fbb854-32ed-4b5b-a119-09c0af619f75" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7b03ada3-62c2-4208-b5b4-0c7ebdb84e5b" name="Search media" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="d7a405a8-7e1c-416a-a54b-f21432754788" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="53ea4d97-4fc6-4c1b-885f-97a7416ec35a" />
+          </association>
+          <association Id="a0996fea-6c14-44e2-8b18-6c00ccaf31ae" isDerived="false" sourceEndRoleName="End user" targetEndRoleName="Add media" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="de93dd64-1418-4093-a790-087f5b6250be" LastKnownName="Add, edit or delete media" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="90eac84e-9bf6-4c27-babf-bfed72a7efbf" name="End user" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="98ac183f-8bda-4e65-a7fa-298ffee8be33" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="808722f8-3b02-4bda-9f5a-d21ba3b77b64" name="Add media" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="7ebd82b9-64ab-403e-b70e-a3d33b7e02ff" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="58a08efe-2496-451c-bc67-d6022a352cfd" />
+          </association>
+          <association Id="31a85f0e-61e8-45cd-907c-956856372c65" isDerived="false" sourceEndRoleName="End user" targetEndRoleName="Lend or recover  media" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="87b2bfc7-0717-4929-bd45-1998f83df73c" LastKnownName="Lend or recover  media" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="304771d4-5622-4b86-9133-813491adbd7a" name="End user" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="ebc5b30d-4890-4f00-9359-9f99e28c0f5c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a8271a02-f288-4496-97df-a408e12b45b1" name="Lend or recover  media" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="643c5917-6bb0-4841-a128-9c7c1c42abec" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="2304a64b-63ed-4d87-a179-68c52940ba53" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="1c1e3ce7-a010-43f3-88ef-0d2182808f92" name="Mediatek" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="bed8761b-1a96-4b9c-8b7b-9584785321a2" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <packageHasNamedElement>
+      <useCase Id="296f1e1b-ab04-4cb5-90a8-f86eb5989cf4" name="View media" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="8527c70e-3771-4dcf-8bd9-1a19fd9249e5" />
+        <subjects>
+          <subsystemMoniker Id="1c1e3ce7-a010-43f3-88ef-0d2182808f92" LastKnownName="Mediatek" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="ce52e51e-822d-499a-a75d-523106f2bba0" name="Search media" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="5f55fd34-91e9-475c-95a5-8ab6f22de4a7" />
+        <subjects>
+          <subsystemMoniker Id="1c1e3ce7-a010-43f3-88ef-0d2182808f92" LastKnownName="Mediatek" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="de93dd64-1418-4093-a790-087f5b6250be" name="Add, edit or delete media" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="f69abc03-74a8-46bd-b08d-9568eaef98a0" />
+        <subjects>
+          <subsystemMoniker Id="1c1e3ce7-a010-43f3-88ef-0d2182808f92" LastKnownName="Mediatek" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="87b2bfc7-0717-4929-bd45-1998f83df73c" name="Lend or recover  media" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="cfe3a8f1-f871-45c1-80bf-84069cc2b370" />
+        <subjects>
+          <subsystemMoniker Id="1c1e3ce7-a010-43f3-88ef-0d2182808f92" LastKnownName="Mediatek" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="01ef4767-6745-4e27-922f-3e90ac2d2712" name="Architecture">
+    <elementDefinition Id="8a75265c-a0d4-429f-9368-144ad48d8b21" />
+  </package>
+</useCaseModelRoot>

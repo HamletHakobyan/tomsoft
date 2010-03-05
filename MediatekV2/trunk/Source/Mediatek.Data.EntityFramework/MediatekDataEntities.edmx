@@ -1,0 +1,730 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Mediatek.Data.Store" Alias="Self" Provider="System.Data.SqlServerCe.3.5" ProviderManifestToken="3.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MediatekDataStoreContainer">
+          <EntitySet Name="Album" EntityType="Mediatek.Data.Store.Album" store:Type="Tables" />
+          <EntitySet Name="Book" EntityType="Mediatek.Data.Store.Book" store:Type="Tables" />
+          <EntitySet Name="Contribution" EntityType="Mediatek.Data.Store.Contribution" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Mediatek.Data.Store.Country" store:Type="Tables" />
+          <EntitySet Name="CountryLanguage" EntityType="Mediatek.Data.Store.CountryLanguage" store:Type="Tables" />
+          <EntitySet Name="Language" EntityType="Mediatek.Data.Store.Language" store:Type="Tables" />
+          <EntitySet Name="Loan" EntityType="Mediatek.Data.Store.Loan" store:Type="Tables" />
+          <EntitySet Name="Media" EntityType="Mediatek.Data.Store.Media" store:Type="Tables" />
+          <EntitySet Name="MediaCountry" EntityType="Mediatek.Data.Store.MediaCountry" store:Type="Tables" />
+          <EntitySet Name="Movie" EntityType="Mediatek.Data.Store.Movie" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Mediatek.Data.Store.Person" store:Type="Tables" />
+          <EntitySet Name="PersonCountry" EntityType="Mediatek.Data.Store.PersonCountry" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Mediatek.Data.Store.Role" store:Type="Tables" />
+          <AssociationSet Name="FK__Contribution__00000000000003B5" Association="Mediatek.Data.Store.FK__Contribution__00000000000003B5">
+            <End Role="Media" EntitySet="Media" />
+            <End Role="Contribution" EntitySet="Contribution" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Contribution__00000000000003B9" Association="Mediatek.Data.Store.FK__Contribution__00000000000003B9">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Contribution" EntitySet="Contribution" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Contribution__00000000000003BD" Association="Mediatek.Data.Store.FK__Contribution__00000000000003BD">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Contribution" EntitySet="Contribution" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CountryLanguage__000000000000040C" Association="Mediatek.Data.Store.FK__CountryLanguage__000000000000040C">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="CountryLanguage" EntitySet="CountryLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CountryLanguage__0000000000000410" Association="Mediatek.Data.Store.FK__CountryLanguage__0000000000000410">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="CountryLanguage" EntitySet="CountryLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Loan__00000000000003D6" Association="Mediatek.Data.Store.FK__Loan__00000000000003D6">
+            <End Role="Media" EntitySet="Media" />
+            <End Role="Loan" EntitySet="Loan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Loan__00000000000003DA" Association="Mediatek.Data.Store.FK__Loan__00000000000003DA">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Loan" EntitySet="Loan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Media__000000000000037E" Association="Mediatek.Data.Store.FK__Media__000000000000037E">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="Media" EntitySet="Media" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MediaCountry__00000000000003E8" Association="Mediatek.Data.Store.FK__MediaCountry__00000000000003E8">
+            <End Role="Media" EntitySet="Media" />
+            <End Role="MediaCountry" EntitySet="MediaCountry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MediaCountry__00000000000003EC" Association="Mediatek.Data.Store.FK__MediaCountry__00000000000003EC">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="MediaCountry" EntitySet="MediaCountry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonCountry__00000000000003FA" Association="Mediatek.Data.Store.FK__PersonCountry__00000000000003FA">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonCountry" EntitySet="PersonCountry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonCountry__00000000000003FE" Association="Mediatek.Data.Store.FK__PersonCountry__00000000000003FE">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="PersonCountry" EntitySet="PersonCountry" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Album">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NumberOfTracks" Type="int" />
+          <Property Name="Duration" Type="int" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ISBN" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Contribution">
+          <Key>
+            <PropertyRef Name="MediaId" />
+            <PropertyRef Name="PersonId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="MediaId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="512" />
+          <Property Name="Flag" Type="image" />
+          <Property Name="Predefined" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CountryLanguage">
+          <Key>
+            <PropertyRef Name="CountryId" />
+            <PropertyRef Name="LanguageId" />
+          </Key>
+          <Property Name="CountryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="Code" Type="nvarchar" MaxLength="5" />
+          <Property Name="Flag" Type="image" />
+          <Property Name="Predefined" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Loan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MediaId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LoanDate" Type="datetime" Nullable="false" />
+          <Property Name="ReturnDate" Type="datetime" />
+          <Property Name="Comment" Type="nvarchar" />
+        </EntityType>
+        <EntityType Name="Media">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="512" />
+          <Property Name="LanguageId" Type="uniqueidentifier" />
+          <Property Name="Year" Type="int" />
+          <Property Name="Description" Type="nvarchar" />
+          <Property Name="Comment" Type="nvarchar" />
+          <Property Name="Picture" Type="image" />
+          <Property Name="Rating" Type="tinyint" />
+          <Property Name="OriginalTitle" Type="nvarchar" MaxLength="512" />
+        </EntityType>
+        <EntityType Name="MediaCountry">
+          <Key>
+            <PropertyRef Name="MediaId" />
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="MediaId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Movie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Duration" Type="int" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" Nullable="false" MaxLength="512" />
+          <Property Name="IsGroup" Type="bit" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="512" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="512" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="512" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="DateOfDeath" Type="datetime" />
+          <Property Name="Biography" Type="nvarchar" />
+          <Property Name="Comment" Type="nvarchar" />
+          <Property Name="Picture" Type="image" />
+        </EntityType>
+        <EntityType Name="PersonCountry">
+          <Key>
+            <PropertyRef Name="PersonId" />
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="Description" Type="nvarchar" MaxLength="128" />
+          <Property Name="Predefined" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Contribution__00000000000003B5">
+          <End Role="Media" Type="Mediatek.Data.Store.Media" Multiplicity="1" />
+          <End Role="Contribution" Type="Mediatek.Data.Store.Contribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Media">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contribution">
+              <PropertyRef Name="MediaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Contribution__00000000000003B9">
+          <End Role="Person" Type="Mediatek.Data.Store.Person" Multiplicity="1" />
+          <End Role="Contribution" Type="Mediatek.Data.Store.Contribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contribution">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Contribution__00000000000003BD">
+          <End Role="Role" Type="Mediatek.Data.Store.Role" Multiplicity="1" />
+          <End Role="Contribution" Type="Mediatek.Data.Store.Contribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contribution">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CountryLanguage__000000000000040C">
+          <End Role="Country" Type="Mediatek.Data.Store.Country" Multiplicity="1" />
+          <End Role="CountryLanguage" Type="Mediatek.Data.Store.CountryLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CountryLanguage">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CountryLanguage__0000000000000410">
+          <End Role="Language" Type="Mediatek.Data.Store.Language" Multiplicity="1" />
+          <End Role="CountryLanguage" Type="Mediatek.Data.Store.CountryLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CountryLanguage">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Loan__00000000000003D6">
+          <End Role="Media" Type="Mediatek.Data.Store.Media" Multiplicity="1" />
+          <End Role="Loan" Type="Mediatek.Data.Store.Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Media">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Loan">
+              <PropertyRef Name="MediaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Loan__00000000000003DA">
+          <End Role="Person" Type="Mediatek.Data.Store.Person" Multiplicity="1" />
+          <End Role="Loan" Type="Mediatek.Data.Store.Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Loan">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Media__000000000000037E">
+          <End Role="Language" Type="Mediatek.Data.Store.Language" Multiplicity="0..1" />
+          <End Role="Media" Type="Mediatek.Data.Store.Media" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Media">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MediaCountry__00000000000003E8">
+          <End Role="Media" Type="Mediatek.Data.Store.Media" Multiplicity="1" />
+          <End Role="MediaCountry" Type="Mediatek.Data.Store.MediaCountry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Media">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MediaCountry">
+              <PropertyRef Name="MediaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MediaCountry__00000000000003EC">
+          <End Role="Country" Type="Mediatek.Data.Store.Country" Multiplicity="1" />
+          <End Role="MediaCountry" Type="Mediatek.Data.Store.MediaCountry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MediaCountry">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonCountry__00000000000003FA">
+          <End Role="Person" Type="Mediatek.Data.Store.Person" Multiplicity="1" />
+          <End Role="PersonCountry" Type="Mediatek.Data.Store.PersonCountry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonCountry">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonCountry__00000000000003FE">
+          <End Role="Country" Type="Mediatek.Data.Store.Country" Multiplicity="1" />
+          <End Role="PersonCountry" Type="Mediatek.Data.Store.PersonCountry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonCountry">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Mediatek.Data.EntityFramework" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MediatekDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Contributions" EntityType="Mediatek.Data.EntityFramework.Contribution" />
+          <EntitySet Name="Countries" EntityType="Mediatek.Data.EntityFramework.Country" />
+          <EntitySet Name="Languages" EntityType="Mediatek.Data.EntityFramework.Language" />
+          <EntitySet Name="Loans" EntityType="Mediatek.Data.EntityFramework.Loan" />
+          <EntitySet Name="Medias" EntityType="Mediatek.Data.EntityFramework.Media" />
+          <EntitySet Name="People" EntityType="Mediatek.Data.EntityFramework.Person" />
+          <EntitySet Name="Roles" EntityType="Mediatek.Data.EntityFramework.Role" />
+          <AssociationSet Name="FK__Contribution__00000000000000C5" Association="Mediatek.Data.EntityFramework.FK__Contribution__00000000000000C5">
+            <End Role="Media" EntitySet="Medias" />
+            <End Role="Contribution" EntitySet="Contributions" /></AssociationSet>
+          <AssociationSet Name="FK__Contribution__00000000000000C9" Association="Mediatek.Data.EntityFramework.FK__Contribution__00000000000000C9">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Contribution" EntitySet="Contributions" /></AssociationSet>
+          <AssociationSet Name="FK__Contribution__00000000000000CD" Association="Mediatek.Data.EntityFramework.FK__Contribution__00000000000000CD">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Contribution" EntitySet="Contributions" /></AssociationSet>
+          <AssociationSet Name="FK__Media__000000000000007A" Association="Mediatek.Data.EntityFramework.FK__Media__000000000000007A">
+            <End Role="Language" EntitySet="Languages" />
+            <End Role="Media" EntitySet="Medias" /></AssociationSet>
+          <AssociationSet Name="FK__Loan__00000000000000E3" Association="Mediatek.Data.EntityFramework.FK__Loan__00000000000000E3">
+            <End Role="Media" EntitySet="Medias" />
+            <End Role="Loan" EntitySet="Loans" /></AssociationSet>
+          <AssociationSet Name="FK__Loan__00000000000000E7" Association="Mediatek.Data.EntityFramework.FK__Loan__00000000000000E7">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Loan" EntitySet="Loans" /></AssociationSet>
+          <AssociationSet Name="CountryLanguage" Association="Mediatek.Data.EntityFramework.CountryLanguage">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Language" EntitySet="Languages" /></AssociationSet>
+          <AssociationSet Name="MediaCountry" Association="Mediatek.Data.EntityFramework.MediaCountry">
+            <End Role="Media" EntitySet="Medias" />
+            <End Role="Country" EntitySet="Countries" /></AssociationSet>
+          <AssociationSet Name="PersonCountry" Association="Mediatek.Data.EntityFramework.PersonCountry">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Country" EntitySet="Countries" /></AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Contribution">
+          <Key>
+            <PropertyRef Name="MediaId" />
+            <PropertyRef Name="PersonId" />
+            <PropertyRef Name="RoleId" /></Key>
+          <Property Type="Guid" Name="MediaId" Nullable="false" />
+          <Property Type="Guid" Name="PersonId" Nullable="false" />
+          <Property Type="Guid" Name="RoleId" Nullable="false" />
+          <Property Type="String" Name="Comment" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Media" Relationship="Mediatek.Data.EntityFramework.FK__Contribution__00000000000000C5" FromRole="Contribution" ToRole="Media" />
+          <NavigationProperty Name="Person" Relationship="Mediatek.Data.EntityFramework.FK__Contribution__00000000000000C9" FromRole="Contribution" ToRole="Person" />
+          <NavigationProperty Name="Role" Relationship="Mediatek.Data.EntityFramework.FK__Contribution__00000000000000CD" FromRole="Contribution" ToRole="Role" /></EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" /></Key>
+          <Property Type="Guid" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="Flag" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Languages" Relationship="Mediatek.Data.EntityFramework.CountryLanguage" FromRole="Country" ToRole="Language" />
+          <NavigationProperty Name="Medias" Relationship="Mediatek.Data.EntityFramework.MediaCountry" FromRole="Country" ToRole="Media" />
+          <NavigationProperty Name="Persons" Relationship="Mediatek.Data.EntityFramework.PersonCountry" FromRole="Country" ToRole="Person" />
+          <Property Type="Boolean" Name="Predefined" Nullable="false" /></EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="Id" /></Key>
+          <Property Type="Guid" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Code" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="Flag" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Medias" Relationship="Mediatek.Data.EntityFramework.FK__Media__000000000000007A" FromRole="Language" ToRole="Media" />
+          <NavigationProperty Name="Countries" Relationship="Mediatek.Data.EntityFramework.CountryLanguage" FromRole="Language" ToRole="Country" />
+          <Property Type="Boolean" Name="Predefined" Nullable="false" /></EntityType>
+        <EntityType Name="Loan">
+          <Key>
+            <PropertyRef Name="Id" />
+            </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Type="Guid" Name="MediaId" Nullable="false" />
+          <Property Type="Guid" Name="PersonId" Nullable="false" />
+          <Property Type="DateTime" Name="LoanDate" Nullable="false" />
+          <Property Type="DateTime" Name="ReturnDate" />
+          <Property Type="String" Name="Comment" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Media" Relationship="Mediatek.Data.EntityFramework.FK__Loan__00000000000000E3" FromRole="Loan" ToRole="Media" />
+          <NavigationProperty Name="Person" Relationship="Mediatek.Data.EntityFramework.FK__Loan__00000000000000E7" FromRole="Loan" ToRole="Person" />
+          </EntityType>
+        <EntityType Name="Media" Abstract="true">
+          <Key>
+            <PropertyRef Name="Id" /></Key>
+          <Property Type="Guid" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="LanguageId" />
+          <Property Type="Int32" Name="Year" />
+          <Property Type="String" Name="Description" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Comment" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="Picture" MaxLength="Max" FixedLength="false" />
+          <Property Type="Byte" Name="Rating" />
+          <NavigationProperty Name="Contributions" Relationship="Mediatek.Data.EntityFramework.FK__Contribution__00000000000000C5" FromRole="Media" ToRole="Contribution" />
+          <NavigationProperty Name="Language" Relationship="Mediatek.Data.EntityFramework.FK__Media__000000000000007A" FromRole="Media" ToRole="Language" />
+          <NavigationProperty Name="Loans" Relationship="Mediatek.Data.EntityFramework.FK__Loan__00000000000000E3" FromRole="Media" ToRole="Loan" />
+          <NavigationProperty Name="Countries" Relationship="Mediatek.Data.EntityFramework.MediaCountry" FromRole="Media" ToRole="Country" />
+          <Property Type="String" Name="OriginalTitle" MaxLength="512" FixedLength="false" Unicode="true" />
+          </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" /></Key>
+          <Property Type="Guid" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Type="String" Name="DisplayName" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsGroup" Nullable="false" />
+          <Property Type="String" Name="FirstName" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NickName" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="DateOfBirth" />
+          <Property Type="DateTime" Name="DateOfDeath" />
+          <Property Type="String" Name="Biography" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Comment" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="Picture" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Contributions" Relationship="Mediatek.Data.EntityFramework.FK__Contribution__00000000000000C9" FromRole="Person" ToRole="Contribution" />
+          <NavigationProperty Name="Loans" Relationship="Mediatek.Data.EntityFramework.FK__Loan__00000000000000E7" FromRole="Person" ToRole="Loan" />
+          <NavigationProperty Name="Countries" Relationship="Mediatek.Data.EntityFramework.PersonCountry" FromRole="Person" ToRole="Country" />
+          </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" /></Key>
+          <Property Type="Guid" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Contributions" Relationship="Mediatek.Data.EntityFramework.FK__Contribution__00000000000000CD" FromRole="Role" ToRole="Contribution" />
+          <Property Type="Boolean" Name="Predefined" Nullable="false" /></EntityType>
+        <Association Name="FK__Contribution__00000000000000C5">
+          <End Type="Mediatek.Data.EntityFramework.Media" Role="Media" Multiplicity="1" />
+          <End Type="Mediatek.Data.EntityFramework.Contribution" Role="Contribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Media">
+              <PropertyRef Name="Id" /></Principal>
+            <Dependent Role="Contribution">
+              <PropertyRef Name="MediaId" /></Dependent></ReferentialConstraint></Association>
+        <Association Name="FK__Contribution__00000000000000C9">
+          <End Type="Mediatek.Data.EntityFramework.Person" Role="Person" Multiplicity="1" />
+          <End Type="Mediatek.Data.EntityFramework.Contribution" Role="Contribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" /></Principal>
+            <Dependent Role="Contribution">
+              <PropertyRef Name="PersonId" /></Dependent></ReferentialConstraint></Association>
+        <Association Name="FK__Contribution__00000000000000CD">
+          <End Type="Mediatek.Data.EntityFramework.Role" Role="Role" Multiplicity="1" />
+          <End Type="Mediatek.Data.EntityFramework.Contribution" Role="Contribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" /></Principal>
+            <Dependent Role="Contribution">
+              <PropertyRef Name="RoleId" /></Dependent></ReferentialConstraint></Association>
+        <Association Name="FK__Media__000000000000007A">
+          <End Type="Mediatek.Data.EntityFramework.Language" Role="Language" Multiplicity="0..1" />
+          <End Type="Mediatek.Data.EntityFramework.Media" Role="Media" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" /></Principal>
+            <Dependent Role="Media">
+              <PropertyRef Name="LanguageId" /></Dependent></ReferentialConstraint></Association>
+        <Association Name="FK__Loan__00000000000000E3">
+          <End Type="Mediatek.Data.EntityFramework.Media" Role="Media" Multiplicity="1" />
+          <End Type="Mediatek.Data.EntityFramework.Loan" Role="Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Media">
+              <PropertyRef Name="Id" /></Principal>
+            <Dependent Role="Loan">
+              <PropertyRef Name="MediaId" /></Dependent></ReferentialConstraint></Association>
+        <Association Name="FK__Loan__00000000000000E7">
+          <End Type="Mediatek.Data.EntityFramework.Person" Role="Person" Multiplicity="1" />
+          <End Type="Mediatek.Data.EntityFramework.Loan" Role="Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" /></Principal>
+            <Dependent Role="Loan">
+              <PropertyRef Name="PersonId" /></Dependent></ReferentialConstraint></Association>
+        <Association Name="CountryLanguage">
+          <End Type="Mediatek.Data.EntityFramework.Country" Role="Country" Multiplicity="*" />
+          <End Type="Mediatek.Data.EntityFramework.Language" Role="Language" Multiplicity="*" /></Association>
+        <Association Name="MediaCountry">
+          <End Type="Mediatek.Data.EntityFramework.Media" Role="Media" Multiplicity="*" />
+          <End Type="Mediatek.Data.EntityFramework.Country" Role="Country" Multiplicity="*" /></Association>
+        <Association Name="PersonCountry">
+          <End Type="Mediatek.Data.EntityFramework.Person" Role="Person" Multiplicity="*" />
+          <End Type="Mediatek.Data.EntityFramework.Country" Role="Country" Multiplicity="*" /></Association>
+        <EntityType Name="Album" BaseType="Mediatek.Data.EntityFramework.Media">
+          <Property Type="Int32" Name="NumberOfTracks" />
+          <Property Type="Int32" Name="Duration" />
+          </EntityType>
+        <EntityType Name="Book" BaseType="Mediatek.Data.EntityFramework.Media">
+          <Property Type="String" Name="ISBN" MaxLength="20" FixedLength="false" Unicode="true" />
+          </EntityType>
+        <EntityType Name="Movie" BaseType="Mediatek.Data.EntityFramework.Media">
+          <Property Type="Int32" Name="Duration" />
+          </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MediatekDataStoreContainer" CdmEntityContainer="MediatekDataEntities">
+          <EntitySetMapping Name="Contributions">
+            <EntityTypeMapping TypeName="Mediatek.Data.EntityFramework.Contribution">
+              <MappingFragment StoreEntitySet="Contribution">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="MediaId" ColumnName="MediaId" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="Mediatek.Data.EntityFramework.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="Predefined" ColumnName="Predefined" />
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="Mediatek.Data.EntityFramework.Language">
+              <MappingFragment StoreEntitySet="Language">
+                <ScalarProperty Name="Predefined" ColumnName="Predefined" />
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Loans">
+            <EntityTypeMapping TypeName="Mediatek.Data.EntityFramework.Loan">
+              <MappingFragment StoreEntitySet="Loan">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="LoanDate" ColumnName="LoanDate" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="MediaId" ColumnName="MediaId" />
+                </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Medias">
+            <EntityTypeMapping TypeName="IsTypeOf(Mediatek.Data.EntityFramework.Media)">
+              <MappingFragment StoreEntitySet="Media">
+                <ScalarProperty Name="OriginalTitle" ColumnName="OriginalTitle" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="Title" ColumnName="Title" /></MappingFragment></EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(Mediatek.Data.EntityFramework.Book)">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                </MappingFragment>
+              </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(Mediatek.Data.EntityFramework.Movie)">
+              <MappingFragment StoreEntitySet="Movie">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                </MappingFragment></EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(Mediatek.Data.EntityFramework.Album)">
+              <MappingFragment StoreEntitySet="Album">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="NumberOfTracks" ColumnName="NumberOfTracks" />
+                </MappingFragment></EntityTypeMapping>
+            </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="Mediatek.Data.EntityFramework.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Biography" ColumnName="Biography" />
+                <ScalarProperty Name="DateOfDeath" ColumnName="DateOfDeath" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="IsGroup" ColumnName="IsGroup" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Id" ColumnName="Id" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="Mediatek.Data.EntityFramework.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Predefined" ColumnName="Predefined" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <AssociationSetMapping Name="CountryLanguage" TypeName="Mediatek.Data.EntityFramework.CountryLanguage" StoreEntitySet="CountryLanguage">
+            <EndProperty Name="Language">
+              <ScalarProperty Name="Id" ColumnName="LanguageId" /></EndProperty>
+            <EndProperty Name="Country">
+              <ScalarProperty Name="Id" ColumnName="CountryId" /></EndProperty></AssociationSetMapping>
+          <AssociationSetMapping Name="MediaCountry" TypeName="Mediatek.Data.EntityFramework.MediaCountry" StoreEntitySet="MediaCountry">
+            <EndProperty Name="Country">
+              <ScalarProperty Name="Id" ColumnName="CountryId" /></EndProperty>
+            <EndProperty Name="Media">
+              <ScalarProperty Name="Id" ColumnName="MediaId" /></EndProperty></AssociationSetMapping>
+          <AssociationSetMapping Name="PersonCountry" TypeName="Mediatek.Data.EntityFramework.PersonCountry" StoreEntitySet="PersonCountry">
+            <EndProperty Name="Country">
+              <ScalarProperty Name="Id" ColumnName="CountryId" /></EndProperty>
+            <EndProperty Name="Person">
+              <ScalarProperty Name="Id" ColumnName="PersonId" /></EndProperty></AssociationSetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Default" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="MediatekDataEntities" ZoomLevel="74">
+        <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.Contribution" Width="1.5" PointX="9.75" PointY="9.25" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.Country" Width="1.5" PointX="3" PointY="9.375" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.Language" Width="1.5" PointX="5.25" PointY="9.375" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.Loan" Width="1.5" PointX="12.75" PointY="9.125" Height="2.5571907552083335" />
+        <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.Media" Width="1.5" PointX="7.5" PointY="8.625" Height="3.3263964843749996" />
+        <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.Person" Width="1.5" PointX="0.75" PointY="8.625" Height="3.7109993489583335" />
+        <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.Role" Width="1.5" PointX="7.5" PointY="5.5" Height="1.7879850260416674" />
+        <AssociationConnector Association="Mediatek.Data.EntityFramework.FK__Contribution__00000000000000C5" >
+          <ConnectorPoint PointX="9" PointY="10.432444661458334" />
+          <ConnectorPoint PointX="9.75" PointY="10.432444661458334" />
+          </AssociationConnector>
+        <AssociationConnector Association="Mediatek.Data.EntityFramework.FK__Contribution__00000000000000C9" >
+          <ConnectorPoint PointX="2.25" PointY="12.174947916666667" />
+          <ConnectorPoint PointX="8.1666666666666661" PointY="12.174947916666667" />
+          <ConnectorPoint PointX="8.3333333333333339" PointY="12.174947916666667" />
+          <ConnectorPoint PointX="10.5" PointY="12.174947916666667" />
+          <ConnectorPoint PointX="10.5" PointY="11.614889322916667" />
+          </AssociationConnector>
+        <AssociationConnector Association="Mediatek.Data.EntityFramework.FK__Contribution__00000000000000CD" >
+          <ConnectorPoint PointX="9" PointY="6.3939925130208337" />
+          <ConnectorPoint PointX="10.5" PointY="6.3939925130208337" />
+          <ConnectorPoint PointX="10.5" PointY="9.25" /></AssociationConnector>
+        <AssociationConnector Association="Mediatek.Data.EntityFramework.FK__Media__000000000000007A" >
+          <ConnectorPoint PointX="6.75" PointY="10.4612939453125" />
+          <ConnectorPoint PointX="7.5" PointY="10.4612939453125" /></AssociationConnector>
+        <AssociationConnector Association="Mediatek.Data.EntityFramework.FK__Loan__00000000000000E3" >
+          <ConnectorPoint PointX="9" PointY="9.15625" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="9.15625" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="9.15625" />
+          <ConnectorPoint PointX="12.75" PointY="9.15625" /></AssociationConnector>
+        <AssociationConnector Association="Mediatek.Data.EntityFramework.FK__Loan__00000000000000E7" >
+          <ConnectorPoint PointX="2.25" PointY="12.063169700520835" />
+          <ConnectorPoint PointX="8.1666666666666661" PointY="12.063169700520835" />
+          <ConnectorPoint PointX="8.3333333333333339" PointY="12.063169700520835" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="12.063169700520835" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="12.063169700520835" />
+          <ConnectorPoint PointX="13.5" PointY="12.063169700520835" />
+          <ConnectorPoint PointX="13.5" PointY="11.682190755208334" />
+          </AssociationConnector>
+        <AssociationConnector Association="Mediatek.Data.EntityFramework.CountryLanguage" >
+          <ConnectorPoint PointX="4.5" PointY="10.4612939453125" />
+          <ConnectorPoint PointX="5.25" PointY="10.4612939453125" />
+          </AssociationConnector>
+        <AssociationConnector Association="Mediatek.Data.EntityFramework.MediaCountry" >
+          <ConnectorPoint PointX="7.5" PointY="8.9999995000000013" />
+          <ConnectorPoint PointX="3.75" PointY="8.9999995000000013" />
+          <ConnectorPoint PointX="3.75" PointY="9.375" /></AssociationConnector>
+        <AssociationConnector Association="Mediatek.Data.EntityFramework.PersonCountry" >
+          <ConnectorPoint PointX="2.25" PointY="10.4612939453125" />
+          <ConnectorPoint PointX="3" PointY="10.4612939453125" /></AssociationConnector>
+        <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.Album" Width="1.5" PointX="9.75" PointY="12.875" Height="1.4033821614583335" />
+        <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.Book" Width="1.5" PointX="5.25" PointY="12.875" Height="1.2110807291666657" />
+        <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.Movie" Width="1.5" PointX="7.5" PointY="12.875" Height="1.2110807291666657" />
+        <InheritanceConnector EntityType="Mediatek.Data.EntityFramework.Book" ManuallyRouted="false">
+          <ConnectorPoint PointX="8.25" PointY="11.951396484375" />
+          <ConnectorPoint PointX="8.25" PointY="12.5" />
+          <ConnectorPoint PointX="6" PointY="12.5" />
+          <ConnectorPoint PointX="6" PointY="12.875" /></InheritanceConnector>
+        <InheritanceConnector EntityType="Mediatek.Data.EntityFramework.Album" ManuallyRouted="false">
+          <ConnectorPoint PointX="8.25" PointY="11.951396484375" />
+          <ConnectorPoint PointX="8.25" PointY="12.5" />
+          <ConnectorPoint PointX="10.5" PointY="12.5" />
+          <ConnectorPoint PointX="10.5" PointY="12.875" /></InheritanceConnector>
+        <InheritanceConnector EntityType="Mediatek.Data.EntityFramework.Movie" ManuallyRouted="false">
+          <ConnectorPoint PointX="8.25" PointY="11.951396484375" />
+          <ConnectorPoint PointX="8.25" PointY="12.875" /></InheritanceConnector>
+        </Diagram></Diagrams>
+  </Designer>
+</edmx:Edmx>

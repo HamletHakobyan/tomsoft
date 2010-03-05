@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<layerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="0c1db79a-9501-4c36-83a9-8b81323856ce" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/LayerDesigner">
+  <layers>
+    <layer Id="6a2b68bb-d107-4af7-8cc6-fc08717cd912" name="Data Access Layer" requiredNamespace="Mediatek.Data">
+      <description>Data Access Layer</description>
+    </layer>
+    <layer Id="b805fd4f-26f0-4e24-b632-0392fef4dd99" name="Business Logic Layer">
+      <description>Business Logic Layer</description>
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="42df793a-3421-40c3-9a0a-a463c0961e0e" direction="Forward">
+          <layerMoniker Id="6a2b68bb-d107-4af7-8cc6-fc08717cd912" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+    </layer>
+    <layer Id="b4458048-7e80-4ebb-8f64-fbfe788e7370" name="User Interface">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="545f33cd-c0ff-4519-8663-dabec43f516d" direction="Forward">
+          <layerMoniker Id="b805fd4f-26f0-4e24-b632-0392fef4dd99" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+    </layer>
+  </layers>
+</layerModel>
