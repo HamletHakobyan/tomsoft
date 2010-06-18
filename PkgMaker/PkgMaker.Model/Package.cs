@@ -5,7 +5,6 @@ using System.Text;
 using System.IO;
 using System.Xml.Serialization;
 using Developpez.Dotnet.Collections;
-using ICSharpCode.SharpZipLib.Zip;
 using System.Diagnostics;
 
 namespace PkgMaker.Model
@@ -17,7 +16,7 @@ namespace PkgMaker.Model
         public string Description { get; set; }
         public string Version { get; set; }
         public string OutputFileName { get; set; }
-        public string BasePath { get; set; }
+        public string SourceBasePath { get; set; }
 
         public PackageDirectory Root { get; set; }
 
