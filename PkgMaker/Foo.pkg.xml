@@ -5,7 +5,7 @@
   <Description>Foo binaries, sources and documentation</Description>
   <Version>1.0</Version>
   <OutputFileName>foo-1.0-full.zip</OutputFileName>
-  <BasePath>.</BasePath>
+  <SourceBasePath>.</SourceBasePath>
 
   <Root>
     
