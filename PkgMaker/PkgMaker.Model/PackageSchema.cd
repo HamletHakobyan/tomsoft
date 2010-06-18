@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PkgMaker.Model.Package">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAAAAIAAgAAgACAAAAAAAAQAAAAAAAAEAABAAAAAAAA=</HashCode>
+      <FileName>Package.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Root" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PkgMaker.Model.PackageDirectory">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PackageDirectory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Sources" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="PkgMaker.Model.ContentSourceBase" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ContentSourceBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PkgMaker.Model.DirectorySource">
+    <Position X="5.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAIAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DirectorySource.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Exclusions" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="PkgMaker.Model.FileSource">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PkgMaker.Model.ExclusionBase" Collapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ExclusionBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PkgMaker.Model.ExtensionExclusion">
+    <Position X="0.5" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>ExtensionExclusion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PkgMaker.Model.FileExclusion">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileExclusion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PkgMaker.Model.PatternExclusion">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PatternExclusion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PkgMaker.Model.DirectoryExclusion">
+    <Position X="7.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DirectoryExclusion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
