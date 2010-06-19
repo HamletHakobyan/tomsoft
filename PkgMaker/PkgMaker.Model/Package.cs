@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Xml.Serialization;
-using Developpez.Dotnet;
-using Developpez.Dotnet.Collections;
 using System.Diagnostics;
 
-namespace PkgMaker.Model
+namespace PkgMaker.Core
 {
     [DebuggerDisplay("Package [{Name}]")]
     public class Package

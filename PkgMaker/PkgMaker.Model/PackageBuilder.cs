@@ -4,13 +4,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using Developpez.Dotnet;
-using Developpez.Dotnet.Collections;
 using ICSharpCode.SharpZipLib.Zip;
-using PkgMaker.Model;
+using PkgMaker.Core;
 
-namespace PkgMaker
+namespace PkgMaker.Core
 {
     public class PackageBuilder
     {
@@ -28,19 +25,21 @@ namespace PkgMaker
 
             int nDirectories = 0;
             int nFiles = 0;
-            Action<PackageEntry> counter =
+            Func<PackageEntry, bool> counter =
                 e =>
                 {
                     if (e.IsDirectory) nDirectories++;
                     else nFiles++;
+                    return true;
                 };
 
-            var entries = packageEntries.Apply(counter).OrderBy(e => e.EntryName).ToList();
-
-            string fileListPath = WriteFileList(pkg, basePath, entries);
+            var entries = packageEntries.TakeWhile(counter).OrderBy(e => e.EntryName).ToList();
 
             Trace.TraceInformation("Found {0} directories and {1} files", nDirectories, nFiles);
-            Trace.TraceInformation("File list stored in {0}", fileListPath);
+            if (CreateFileList)
+            {
+                WriteFileList(pkg, basePath, entries);
+            }
 
             Trace.TraceInformation("Building archive...");
 
@@ -81,7 +80,7 @@ namespace PkgMaker
             }
         }
 
-        private string WriteFileList(Package pkg, string basePath, List<PackageEntry> entries)
+        private void WriteFileList(Package pkg, string basePath, List<PackageEntry> entries)
         {
             string outputPath = Path.GetDirectoryName(PathUtil.GetFullPath(basePath, pkg.OutputFileName));
             string baseFileName = Path.GetFileNameWithoutExtension(pkg.OutputFileName);
@@ -95,7 +94,7 @@ namespace PkgMaker
                         entry.EntryName);
                 }
             }
-            return fileListPath;
+            Trace.TraceInformation("File list stored in {0}", fileListPath);
         }
 
         private void PopulateEntries(Package pkg, string sourceBasePath, List<PackageEntry> entries)
@@ -185,51 +184,7 @@ namespace PkgMaker
 
         private bool IncludeItem(FileSystemInfo item, string basePath, IEnumerable<ExclusionBase> exclusions)
         {
-            foreach (var exclusion in exclusions)
-            {
-                if (IsMatch(item, basePath, exclusion))
-                    return false;
-            }
-            return true;
-        }
-
-        private bool IsMatch(FileSystemInfo item, string basePath, ExclusionBase exclusion)
-        {
-            if (exclusion is FileSystemEntryExclusion)
-                return IsMatch(item, basePath, (FileSystemEntryExclusion)exclusion);
-            if (exclusion is ExtensionExclusion)
-                return IsMatch(item, basePath, (ExtensionExclusion)exclusion);
-            if (exclusion is PatternExclusion)
-                return IsMatch(item, basePath, (PatternExclusion)exclusion);
-
-            Trace.TraceWarning("{0} is not a known exclusion type", exclusion.GetType());
-            return false;
-        }
-
-        private bool IsMatch(FileSystemInfo item, string basePath, FileSystemEntryExclusion exclusion)
-        {
-            if (exclusion.Directory == (item is DirectoryInfo))
-            {
-                string relativePath = exclusion.Any ? item.Name : PathUtil.GetRelativePath(basePath, item.FullName);
-                return relativePath.Equals(exclusion.Path.TrimEnd('\\'), StringComparison.CurrentCultureIgnoreCase);
-            }
-            return false;
-        }
-
-        private bool IsMatch(FileSystemInfo item, string basePath, ExtensionExclusion exclusion)
-        {
-            if (item is FileInfo)
-            {
-                string extension = ((FileInfo)item).Extension.TrimStart('.');
-                return extension.Equals(exclusion.Extension.TrimStart('.'), StringComparison.CurrentCultureIgnoreCase);
-            }
-            return false;
-        }
-
-        private bool IsMatch(FileSystemInfo item, string basePath, PatternExclusion exclusion)
-        {
-            string relativePath = PathUtil.GetRelativePath(basePath, item.FullName);
-            return Regex.IsMatch(relativePath, exclusion.Pattern, RegexOptions.IgnoreCase);
+            return !exclusions.Any(e => e.IsMatch(item, basePath));
         }
 
         private class PackageEntry
@@ -238,5 +193,7 @@ namespace PkgMaker
             public string EntryName { get; set; }
             public bool IsDirectory { get; set; }
         }
+
+        public bool CreateFileList { get; set; }
     }
 }

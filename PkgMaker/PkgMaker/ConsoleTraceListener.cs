@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 
 namespace PkgMaker
 {
@@ -68,11 +64,6 @@ namespace PkgMaker
                 }
             }
             return oldColor;
-        }
-
-        public override void WriteLine(string message)
-        {
-            base.WriteLine(message);
         }
     }
 }

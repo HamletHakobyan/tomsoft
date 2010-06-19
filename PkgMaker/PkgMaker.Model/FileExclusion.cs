@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Serialization;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace PkgMaker.Model
+namespace PkgMaker.Core
 {
     [DebuggerDisplay("FileExclusion [{Path}]")]
     public class FileExclusion : FileSystemEntryExclusion

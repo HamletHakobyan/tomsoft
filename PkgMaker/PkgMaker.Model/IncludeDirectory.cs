@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using System.Xml.Serialization;
-using Developpez.Dotnet;
 
-namespace PkgMaker.Model
+namespace PkgMaker.Core
 {
     [DebuggerDisplay("IncludeDirectory [{Name} (from {Source})]")]
     public class IncludeDirectory

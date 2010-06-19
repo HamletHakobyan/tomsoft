@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml.Serialization;
 using System.Diagnostics;
 
-namespace PkgMaker.Model
+namespace PkgMaker.Core
 {
     [DebuggerDisplay("DirectorySource [{Path}]")]
     public class DirectorySource : ContentSourceBase

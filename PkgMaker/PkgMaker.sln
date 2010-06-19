@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PkgMaker", "PkgMaker\PkgMaker.csproj", "{7EC11A7F-D7E3-4324-B983-0131DD486D87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PkgMaker.Model", "PkgMaker.Model\PkgMaker.Model.csproj", "{5669E692-FA2C-44F2-AF46-6346411806D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PkgMaker.Core", "PkgMaker.Model\PkgMaker.Core.csproj", "{5669E692-FA2C-44F2-AF46-6346411806D1}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution

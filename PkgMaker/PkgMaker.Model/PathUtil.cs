@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace PkgMaker.Model
+namespace PkgMaker.Core
 {
     public static class PathUtil
     {
