@@ -8,9 +8,11 @@ using System.Diagnostics;
 namespace PkgMaker.Model
 {
     [DebuggerDisplay("FileExclusion [{Path}]")]
-    public class FileExclusion : ExclusionBase
+    public class FileExclusion : FileSystemEntryExclusion
     {
-        [XmlText]
-        public string Path { get; set; }
+        public override bool Directory
+        {
+            get { return false; }
+        }
     }
 }

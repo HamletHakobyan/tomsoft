@@ -31,9 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Developpez.Dotnet">
-      <HintPath>..\..\..\..\DVP\Dvp.NET\trunk\bin\Developpez.Dotnet.dll</HintPath>
-    </Reference>
+    <Reference Include="Developpez.Dotnet, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -53,8 +51,11 @@
     <Compile Include="ExtensionExclusion.cs" />
     <Compile Include="FileExclusion.cs" />
     <Compile Include="FileSource.cs" />
+    <Compile Include="FileSystemEntryExclusion.cs" />
+    <Compile Include="IncludeDirectory.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="PackageDirectory.cs" />
+    <Compile Include="PathUtil.cs" />
     <Compile Include="PatternExclusion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

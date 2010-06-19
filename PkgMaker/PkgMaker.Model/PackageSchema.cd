@@ -3,7 +3,7 @@
   <Class Name="PkgMaker.Model.Package">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>JAAAAIAAgAAgACAAAAAAAAQAAAAAAAAEAABAAAAAAAA=</HashCode>
+      <HashCode>IAAAAIAAgAAgACAAAAAAAgQAAAAAAAAEAABAAABAAAA=</HashCode>
       <FileName>Package.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -13,7 +13,7 @@
   <Class Name="PkgMaker.Model.PackageDirectory">
     <Position X="3.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAQAAAAQAAAUAABAAAAAAAA=</HashCode>
       <FileName>PackageDirectory.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -21,14 +21,14 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="PkgMaker.Model.ContentSourceBase" Collapsed="true">
-    <Position X="6.25" Y="0.5" Width="1.5" />
+    <Position X="7.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ContentSourceBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PkgMaker.Model.DirectorySource">
-    <Position X="5.25" Y="2" Width="1.5" />
+    <Position X="8.25" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAgAAAAAAAAIAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DirectorySource.cs</FileName>
@@ -38,46 +38,74 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="PkgMaker.Model.FileSource">
-    <Position X="7.5" Y="2" Width="1.5" />
+    <Position X="6.25" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>FileSource.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PkgMaker.Model.ExclusionBase" Collapsed="true">
-    <Position X="2.75" Y="3.5" Width="1.5" />
+    <Position X="11.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ExclusionBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PkgMaker.Model.ExtensionExclusion">
-    <Position X="0.5" Y="4.75" Width="1.75" />
+    <Position X="9.25" Y="4.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
       <FileName>ExtensionExclusion.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PkgMaker.Model.FileExclusion">
-    <Position X="3" Y="4.75" Width="1.5" />
+    <Position X="10.5" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>FileExclusion.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PkgMaker.Model.PatternExclusion">
-    <Position X="5.25" Y="4.75" Width="1.5" />
+    <Position X="14" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PatternExclusion.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PkgMaker.Model.DirectoryExclusion">
-    <Position X="7.5" Y="4.75" Width="1.5" />
+    <Position X="12.5" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DirectoryExclusion.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="PkgMaker.Model.FileSystemEntryExclusion">
+    <Position X="11.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAABAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileSystemEntryExclusion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PkgMaker.Model.IncludeDirectory">
+    <Position X="3.25" Y="4" Width="1.5" />
+    <AssociationLine Name="Directory" Type="PkgMaker.Model.PackageDirectory" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.75" Y="5" />
+        <Point X="5.125" Y="5" />
+        <Point X="5.125" Y="1.664" />
+        <Point X="4.75" Y="1.664" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.235" Y="0.066" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAgAAAAAAAAAAAAAAAAAQAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>IncludeDirectory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Directory" />
+    </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
