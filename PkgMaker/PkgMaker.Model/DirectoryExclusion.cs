@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Xml.Serialization;
 
-namespace PkgMaker.Model
+namespace PkgMaker.Core
 {
     [DebuggerDisplay("DirectoryExclusion [{Path}]")]
     public class DirectoryExclusion : FileSystemEntryExclusion

@@ -5,10 +5,8 @@ using System.Text;
 using System.Xml.Serialization;
 using System.Diagnostics;
 using System.IO;
-using Developpez.Dotnet;
-using Developpez.Dotnet.Collections;
 
-namespace PkgMaker.Model
+namespace PkgMaker.Core
 {
     [DebuggerDisplay("PackageDirectory [{Name}]")]
     public class PackageDirectory

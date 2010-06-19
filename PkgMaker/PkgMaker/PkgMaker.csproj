@@ -11,7 +11,8 @@
     <RootNamespace>PkgMaker</RootNamespace>
     <AssemblyName>PkgMaker</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -34,29 +35,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Developpez.Dotnet, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleTraceListener.cs" />
-    <Compile Include="PackageBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PkgMaker.Model\PkgMaker.Model.csproj">
+    <ProjectReference Include="..\PkgMaker.Model\PkgMaker.Core.csproj">
       <Project>{5669E692-FA2C-44F2-AF46-6346411806D1}</Project>
-      <Name>PkgMaker.Model</Name>
+      <Name>PkgMaker.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
