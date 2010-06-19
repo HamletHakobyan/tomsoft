@@ -34,9 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Developpez.Dotnet">
-      <HintPath>..\..\..\..\DVP\Dvp.NET\trunk\bin\4.0\Developpez.Dotnet.dll</HintPath>
-    </Reference>
+    <Reference Include="Developpez.Dotnet, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -49,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LogTraceListener.cs" />
+    <Compile Include="ConsoleTraceListener.cs" />
     <Compile Include="PackageBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
