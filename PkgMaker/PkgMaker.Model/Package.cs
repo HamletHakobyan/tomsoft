@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Xml.Serialization;
+using Developpez.Dotnet;
 using Developpez.Dotnet.Collections;
 using System.Diagnostics;
 
@@ -12,6 +13,9 @@ namespace PkgMaker.Model
     [DebuggerDisplay("Package [{Name}]")]
     public class Package
     {
+        [XmlIgnore]
+        public string FileName { get; set; }
+
         public string Name { get; set; }
         public string Description { get; set; }
         public string Version { get; set; }
@@ -26,11 +30,19 @@ namespace PkgMaker.Model
         {
             using (var stream = File.OpenRead(fileName))
             {
-                return FromStream(stream);
+                var pkg = FromStream(stream);
+                pkg.FileName = fileName;
+
+                string basePath = Path.GetDirectoryName(Path.GetFullPath(fileName));
+
+                if (pkg.Root != null)
+                    pkg.Root.ProcessIncludes(basePath);
+
+                return pkg;
             }
         }
 
-        public static Package FromStream(Stream stream)
+        private static Package FromStream(Stream stream)
         {
             XmlSerializer xs = new XmlSerializer(typeof(Package));
             return (Package)xs.Deserialize(stream);

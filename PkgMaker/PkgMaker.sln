@@ -5,11 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PkgMaker", "PkgMaker\PkgMak
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PkgMaker.Model", "PkgMaker.Model\PkgMaker.Model.csproj", "{5669E692-FA2C-44F2-AF46-6346411806D1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2BE65103-8C67-483B-B092-2D180E1C6AEC}"
-	ProjectSection(SolutionItems) = preProject
-		Foo.pkg.xml = Foo.pkg.xml
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
