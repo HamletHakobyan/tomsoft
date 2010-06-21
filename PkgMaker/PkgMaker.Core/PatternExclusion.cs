@@ -11,26 +11,22 @@ namespace PkgMaker.Core
         [XmlText]
         public string Pattern { get; set; }
 
-        [XmlAttribute]
-        public ExclusionTarget Target { get; set; }
+        [XmlAttribute("Target")]
+        public ExclusionTarget ActualTarget { get; set; }
+
+        public override ExclusionTarget Target
+        {
+            get { return ActualTarget; }
+        }
 
         public override bool IsMatch(FileSystemInfo item, string basePath)
         {
-            bool isDirectory = item is DirectoryInfo;
-            if (Target == ExclusionTarget.File && isDirectory)
-                return false;
-            if (Target == ExclusionTarget.Directory && !isDirectory)
-                return false;
-
-            string relativePath = PathUtil.GetRelativePath(basePath, item.FullName);
-            return Regex.IsMatch(relativePath, this.Pattern, RegexOptions.IgnoreCase);
+            if (base.IsMatch(item, basePath))
+            {
+                string relativePath = PathUtil.GetRelativePath(basePath, item.FullName);
+                return Regex.IsMatch(relativePath, this.Pattern, RegexOptions.IgnoreCase);
+            }
+            return false;
         }
-    }
-
-    public enum ExclusionTarget
-    {
-        Both,
-        File,
-        Directory
     }
 }

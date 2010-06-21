@@ -14,9 +14,14 @@ namespace PkgMaker.Core
         [XmlText]
         public string Extension { get; set; }
 
+        public override ExclusionTarget Target
+        {
+            get { return ExclusionTarget.File; }
+        }
+
         public override bool IsMatch(FileSystemInfo item, string basePath)
         {
-            if (item is FileInfo)
+            if (base.IsMatch(item, basePath))
             {
                 string thisExtension = Extension.TrimStart('.');
                 var extensions = GetPossibleExtensions(item.Name);

@@ -6,9 +6,9 @@ namespace PkgMaker.Core
     [DebuggerDisplay("DirectoryExclusion [{Path}]")]
     public class DirectoryExclusion : FileSystemEntryExclusion
     {
-        public override bool Directory
+        public override ExclusionTarget Target
         {
-            get { return true; }
+            get { return ExclusionTarget.Directory; }
         }
     }
 }
