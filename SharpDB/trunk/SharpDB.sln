@@ -5,9 +5,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDB", "SharpDB\SharpDB.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDB.ViewModel", "SharpDB.ViewModel\SharpDB.ViewModel.csproj", "{F55CB8A4-7F77-467C-A1CF-0B5E836241CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDB.View", "SharpDB.View\SharpDB.View.csproj", "{EBBDE45F-2CDE-45F2-8D52-127438F309FE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDB.Util", "SharpDB.Util\SharpDB.Util.csproj", "{232EA960-9E1C-4193-960A-E79EB6D71CFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDB.Model", "SharpDB.Model\SharpDB.Model.csproj", "{4401C5FA-92CA-4526-9107-85148912A6D9}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -43,16 +43,6 @@ Global
 		{F55CB8A4-7F77-467C-A1CF-0B5E836241CA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F55CB8A4-7F77-467C-A1CF-0B5E836241CA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F55CB8A4-7F77-467C-A1CF-0B5E836241CA}.Release|x86.ActiveCfg = Release|Any CPU
-		{EBBDE45F-2CDE-45F2-8D52-127438F309FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EBBDE45F-2CDE-45F2-8D52-127438F309FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EBBDE45F-2CDE-45F2-8D52-127438F309FE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{EBBDE45F-2CDE-45F2-8D52-127438F309FE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{EBBDE45F-2CDE-45F2-8D52-127438F309FE}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{EBBDE45F-2CDE-45F2-8D52-127438F309FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EBBDE45F-2CDE-45F2-8D52-127438F309FE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EBBDE45F-2CDE-45F2-8D52-127438F309FE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{EBBDE45F-2CDE-45F2-8D52-127438F309FE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{EBBDE45F-2CDE-45F2-8D52-127438F309FE}.Release|x86.ActiveCfg = Release|Any CPU
 		{232EA960-9E1C-4193-960A-E79EB6D71CFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{232EA960-9E1C-4193-960A-E79EB6D71CFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{232EA960-9E1C-4193-960A-E79EB6D71CFD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -63,6 +53,16 @@ Global
 		{232EA960-9E1C-4193-960A-E79EB6D71CFD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{232EA960-9E1C-4193-960A-E79EB6D71CFD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{232EA960-9E1C-4193-960A-E79EB6D71CFD}.Release|x86.ActiveCfg = Release|Any CPU
+		{4401C5FA-92CA-4526-9107-85148912A6D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4401C5FA-92CA-4526-9107-85148912A6D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4401C5FA-92CA-4526-9107-85148912A6D9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4401C5FA-92CA-4526-9107-85148912A6D9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4401C5FA-92CA-4526-9107-85148912A6D9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4401C5FA-92CA-4526-9107-85148912A6D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4401C5FA-92CA-4526-9107-85148912A6D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4401C5FA-92CA-4526-9107-85148912A6D9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4401C5FA-92CA-4526-9107-85148912A6D9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4401C5FA-92CA-4526-9107-85148912A6D9}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
