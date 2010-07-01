@@ -7,7 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <av:TextEditor Language="SQL" FontFamily="Consolas" FontSize="14">
+        <av:TextEditor FontFamily="Consolas"
+                       FontSize="14"
+                       SyntaxHighlighting="SQL"
+                       IsModified="{Binding IsModified, Mode=OneWayToSource}">
             SELECT * FROM table
         </av:TextEditor>
     </Grid>

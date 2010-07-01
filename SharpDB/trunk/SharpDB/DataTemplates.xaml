@@ -2,8 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:SharpDB.ViewModel;assembly=SharpDB.ViewModel"
                     xmlns:v="clr-namespace:SharpDB.View">
-    
-    <DataTemplate DataType="{x:Type vm:WorksheetViewModel}">
+
+    <DataTemplate x:Shared="false" DataType="{x:Type vm:WorksheetViewModel}">
         <v:WorksheetView />
     </DataTemplate>
 

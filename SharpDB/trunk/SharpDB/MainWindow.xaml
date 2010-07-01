@@ -4,10 +4,19 @@
         xmlns:vm="clr-namespace:SharpDB.ViewModel;assembly=SharpDB.ViewModel"
         xmlns:util="clr-namespace:SharpDB.Util;assembly=SharpDB.Util"
         xmlns:prop="clr-namespace:SharpDB.Properties"
-        Title="{Binding Title, FallbackValue=SharpDB}"
         util:AppSettings.Settings="{x:Static prop:Settings.Default}"
         Height="350"
-        Width="525">
+        Width="525"
+        xmlns:v="clr-namespace:SharpDB.View">
+    
+    <Window.Title>
+        <MultiBinding StringFormat="{}{0} - {1}">
+            <Binding Path="Title"
+                     FallbackValue="SharpDB" />
+            <Binding Path="CurrentWorksheet.Title"
+                     FallbackValue="(no worksheet)"/>
+        </MultiBinding>
+    </Window.Title>
 
     <Window.DataContext>
         <vm:MainWindowViewModel />
@@ -22,9 +31,22 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Button Content="Test dialog"
-                Command="{Binding TestDialogCommand}" />
-        <ContentControl Grid.Column="1" Grid.Row="1"
-                        Content="{Binding CurrentWorksheet}" />
+        <v:MainWindowToolBar Grid.Row="0"
+                             Grid.ColumnSpan="2" />
+
+        <ContentControl Grid.Row="1"
+                        Content="{Binding DatabaseManager}" />
+
+        <TabControl Grid.Column="1"
+                    Grid.Row="1"
+                    ItemsSource="{Binding Worksheets}"
+                    SelectedItem="{Binding CurrentWorksheet}">
+            <TabControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type vm:WorksheetViewModel}">
+                    <TextBlock Text="{Binding Title}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+        </TabControl>
+
     </Grid>
 </Window>

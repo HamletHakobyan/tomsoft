@@ -72,6 +72,9 @@
     <Compile Include="View\DatabaseView.xaml.cs">
       <DependentUpon>DatabaseView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MainWindowToolBar.xaml.cs">
+      <DependentUpon>MainWindowToolBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\WorksheetView.xaml.cs">
       <DependentUpon>WorksheetView.xaml</DependentUpon>
     </Compile>
@@ -102,6 +105,10 @@
     <Page Include="View\DatabaseView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\MainWindowToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\WorksheetView.xaml">
       <Generator>MSBuild:Compile</Generator>
