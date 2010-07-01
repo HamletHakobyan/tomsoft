@@ -19,8 +19,16 @@ namespace SharpDB
         {
             this.DataContext = viewModel;
             viewModel.CloseRequested += viewModel_CloseRequested;
-            viewModel.OnShow();
-            return this.ShowDialog();
+            try
+            {
+                viewModel.OnShow();
+                return this.ShowDialog();
+            }
+            finally
+            {
+                viewModel.CloseRequested -= viewModel_CloseRequested;
+            }
+
         }
 
         void viewModel_CloseRequested(object sender, CloseRequestedEventArgs e)
@@ -34,14 +42,7 @@ namespace SharpDB
             var viewModel = this.DataContext as IDialogViewModel;
             if (viewModel != null)
             {
-                try
-                {
-                    viewModel.OnClose(this.DialogResult);
-                }
-                finally
-                {
-                    viewModel.CloseRequested -= viewModel_CloseRequested;
-                }
+                viewModel.OnClose(this.DialogResult);
             }
         }
 

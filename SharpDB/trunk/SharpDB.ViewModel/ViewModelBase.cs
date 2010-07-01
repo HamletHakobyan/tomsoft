@@ -30,7 +30,7 @@ namespace SharpDB.ViewModel
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected virtual void OnPropertyChanged<T>(Expression<Func<T>> propertySelector)
+        protected void OnPropertyChanged<T>(Expression<Func<T>> propertySelector)
         {
             var handler = PropertyChanged;
             if (handler != null)

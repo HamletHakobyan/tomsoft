@@ -6,17 +6,22 @@ using Developpez.Dotnet.Windows.Input;
 using System.Windows.Input;
 using SharpDB.Util.Dialogs;
 using SharpDB.Util;
+using System.Collections.ObjectModel;
 
 namespace SharpDB.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
-
         public MainWindowViewModel()
         {
-            _title = "SharpDB - Untitled1";
+            _title = "SharpDB";
+            _databaseManager = new DatabaseManagerViewModel();
             _currentWorksheet = new WorksheetViewModel();
+            _worksheets = new ObservableCollection<WorksheetViewModel>();
+            _worksheets.Add(_currentWorksheet);
         }
+
+        #region Properties
 
         private string _title;
         public string Title
@@ -28,6 +33,20 @@ namespace SharpDB.ViewModel
                 {
                     _title = value;
                     OnPropertyChanged("Title");
+                }
+            }
+        }
+
+        private ObservableCollection<WorksheetViewModel> _worksheets;
+        public ObservableCollection<WorksheetViewModel> Worksheets
+        {
+            get { return _worksheets; }
+            set
+            {
+                if (value != _worksheets)
+                {
+                    _worksheets = value;
+                    OnPropertyChanged("Worksheets");
                 }
             }
         }
@@ -46,70 +65,74 @@ namespace SharpDB.ViewModel
             }
         }
 
-        private DelegateCommand _testDialogCommand;
-        public ICommand TestDialogCommand
+        private DatabaseManagerViewModel _databaseManager;
+        public DatabaseManagerViewModel DatabaseManager
+        {
+            get { return _databaseManager; }
+            set
+            {
+                if (value != _databaseManager)
+                {
+                    _databaseManager = value;
+                    OnPropertyChanged("DatabaseManager");
+                }
+            }
+        }
+
+        #endregion
+
+        #region Commands
+
+        private DelegateCommand _newWorksheetCommand;
+        public ICommand NewWorksheetCommand
         {
             get
             {
-                if (_testDialogCommand == null)
+                if (_newWorksheetCommand == null)
                 {
-                    _testDialogCommand = new DelegateCommand(TestDialog);
+                    _newWorksheetCommand = new DelegateCommand(NewWorksheet);
                 }
-                return _testDialogCommand;
+                return _newWorksheetCommand;
             }
         }
 
-        private void TestDialog()
+        private DelegateCommand _openWorksheetCommand;
+        public ICommand OpenWorksheetCommand
         {
-            var service = GetService<IDialogService>();
-            service.Show(new DummyViewModel());
-        }
-
-        class DummyViewModel : IDialogViewModel
-        {
-            private DialogButton[] _buttons;
-
-            public DummyViewModel()
+            get
             {
-                var sayHelloCommand = new DelegateCommand(() =>
-                    {
-                        var service = ServiceLocator.Instance.GetService<IMessageBoxService>();
-                        service.Show("Hello, world !");
-                    });
-
-                _buttons = new[]
+                if (_openWorksheetCommand == null)
                 {
-                    new DialogButton { Text = "Say hello", Command = sayHelloCommand },
-                    new DialogButton { Text = "OK", IsDefault = true, DialogResult = true },
-                    new DialogButton { Text = "Cancel", IsCancel = false, DialogResult = false }
-                };
+                    _openWorksheetCommand = new DelegateCommand(OpenWorksheet);
+                }
+                return _openWorksheetCommand;
             }
-
-            public string DialogTitle
-            {
-                get { return "Hello there !"; }
-            }
-
-            public IEnumerable<DialogButton> Buttons
-            {
-                get { return _buttons; }
-            }
-
-            public bool Resizable
-            {
-                get { return true; }
-            }
-
-            public void OnShow()
-            {
-            }
-
-            public void OnClose(bool? result)
-            {
-            }
-
-            public event CloseRequestedEventHandler CloseRequested;
         }
 
+        #endregion
+
+        #region Public methods
+
+        public void NewWorksheet()
+        {
+            var worksheet = new WorksheetViewModel();
+            _worksheets.Add(worksheet);
+            CurrentWorksheet = worksheet;
+        }
+
+        public void OpenWorksheet()
+        {
+            GetService<IMessageBoxService>().Show("Not implemented");
+        }
+
+        public void SaveCurrentWorksheet()
+        {
+            if (CurrentWorksheet == null)
+                return;
+
+            GetService<IMessageBoxService>().Show("Not implemented");
+        }
+
+        #endregion
     }
 }

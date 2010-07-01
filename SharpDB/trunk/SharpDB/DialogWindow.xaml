@@ -14,9 +14,10 @@
         Title="{Binding DialogTitle}"
         ResizeMode="{dvp:Switch Resizable, ValueIfTrue=CanResize, ValueIfFalse=NoResize}"
         ShowInTaskbar="False"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner"
         util:WindowSettings.MaximizeBox="False"
-        util:WindowSettings.MinimizeBox="False"
-        SizeToContent="WidthAndHeight">
+        util:WindowSettings.MinimizeBox="False">
     
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />

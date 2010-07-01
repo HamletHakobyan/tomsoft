@@ -11,32 +11,46 @@ namespace SharpDB.Service
     {
         public MessageBoxResult Show(string messageBoxText)
         {
-            return MessageBox.Show(messageBoxText);
+            var owner = GetActiveWindow();
+            return MessageBox.Show(owner, messageBoxText);
         }
 
         public MessageBoxResult Show(string messageBoxText, string caption)
         {
-            return MessageBox.Show(messageBoxText, caption);
+            var owner = GetActiveWindow();
+            return MessageBox.Show(owner, messageBoxText, caption);
         }
 
         public MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button)
         {
-            return MessageBox.Show(messageBoxText, caption, button);
+            var owner = GetActiveWindow();
+            return MessageBox.Show(owner, messageBoxText, caption, button);
         }
 
         public MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
         {
-            return MessageBox.Show(messageBoxText, caption, button, icon);
+            var owner = GetActiveWindow();
+            return MessageBox.Show(owner, messageBoxText, caption, button, icon);
         }
 
         public MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon, MessageBoxResult defaultResult)
         {
-            return MessageBox.Show(messageBoxText, caption, button, icon, defaultResult);
+            var owner = GetActiveWindow();
+            return MessageBox.Show(owner, messageBoxText, caption, button, icon, defaultResult);
         }
 
         public MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon, MessageBoxResult defaultResult, MessageBoxOptions options)
         {
-            return MessageBox.Show(messageBoxText, caption, button, icon, defaultResult, options);
+            var owner = GetActiveWindow();
+            return MessageBox.Show(owner, messageBoxText, caption, button, icon, defaultResult, options);
+        }
+
+        private Window GetActiveWindow()
+        {
+            if (!Application.Current.Dispatcher.CheckAccess())
+                return null;
+
+            return Application.Current.Windows.Cast<Window>().FirstOrDefault(w => w.IsActive);
         }
     }
 }
