@@ -39,6 +39,9 @@
     <Reference Include="Developpez.Dotnet.Windows">
       <HintPath>..\lib\Dvp.NET\Developpez.Dotnet.Windows.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit">
+      <HintPath>..\lib\AvalonEdit\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />

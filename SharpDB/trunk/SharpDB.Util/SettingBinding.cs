@@ -24,8 +24,13 @@ namespace SharpDB.Util
 
         public string SettingName { get; set; }
 
+        public object DesignValue { get; set; }
+
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
+            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+                return DesignValue;
+
             if (SettingName != null)
             {
                 var target = serviceProvider.GetService<IProvideValueTarget>();
