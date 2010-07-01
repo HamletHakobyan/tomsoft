@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace SharpDB.Util.Dialogs
 {
@@ -64,7 +65,7 @@ namespace SharpDB.Util.Dialogs
             }
         }
 
-        private bool _isVisible;
+        private bool _isVisible = true;
         public bool IsVisible
         {
             get { return _isVisible; }
@@ -78,7 +79,7 @@ namespace SharpDB.Util.Dialogs
             }
         }
 
-        private bool _isEnabled;
+        private bool _isEnabled = true;
         public bool IsEnabled
         {
             get { return _isEnabled; }
@@ -88,6 +89,20 @@ namespace SharpDB.Util.Dialogs
                 {
                     _isEnabled = value;
                     OnPropertyChanged("IsEnabled");
+                }
+            }
+        }
+
+        private ICommand _command;
+        public ICommand Command
+        {
+            get { return _command; }
+            set
+            {
+                if (value != _command)
+                {
+                    _command = value;
+                    OnPropertyChanged("Command");
                 }
             }
         }
