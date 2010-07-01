@@ -11,6 +11,13 @@ namespace SharpDB.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
+
+        public MainWindowViewModel()
+        {
+            _title = "SharpDB - Untitled1";
+            _currentWorksheet = new WorksheetViewModel();
+        }
+
         private string _title;
         public string Title
         {
@@ -21,6 +28,20 @@ namespace SharpDB.ViewModel
                 {
                     _title = value;
                     OnPropertyChanged("Title");
+                }
+            }
+        }
+
+        private WorksheetViewModel _currentWorksheet;
+        public WorksheetViewModel CurrentWorksheet
+        {
+            get { return _currentWorksheet; }
+            set
+            {
+                if (value != _currentWorksheet)
+                {
+                    _currentWorksheet = value;
+                    OnPropertyChanged("CurrentWorksheet");
                 }
             }
         }
