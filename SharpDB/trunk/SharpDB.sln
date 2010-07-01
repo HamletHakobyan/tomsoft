@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDB.Util", "SharpDB.Uti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDB.Model", "SharpDB.Model\SharpDB.Model.csproj", "{4401C5FA-92CA-4526-9107-85148912A6D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDB.ViewModel.Design", "SharpDB.ViewModel.Design\SharpDB.ViewModel.Design.csproj", "{C3135E77-EB46-47EB-9F32-CF527B0CA434}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -63,6 +65,16 @@ Global
 		{4401C5FA-92CA-4526-9107-85148912A6D9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{4401C5FA-92CA-4526-9107-85148912A6D9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4401C5FA-92CA-4526-9107-85148912A6D9}.Release|x86.ActiveCfg = Release|Any CPU
+		{C3135E77-EB46-47EB-9F32-CF527B0CA434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3135E77-EB46-47EB-9F32-CF527B0CA434}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3135E77-EB46-47EB-9F32-CF527B0CA434}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C3135E77-EB46-47EB-9F32-CF527B0CA434}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C3135E77-EB46-47EB-9F32-CF527B0CA434}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C3135E77-EB46-47EB-9F32-CF527B0CA434}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3135E77-EB46-47EB-9F32-CF527B0CA434}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3135E77-EB46-47EB-9F32-CF527B0CA434}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C3135E77-EB46-47EB-9F32-CF527B0CA434}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C3135E77-EB46-47EB-9F32-CF527B0CA434}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

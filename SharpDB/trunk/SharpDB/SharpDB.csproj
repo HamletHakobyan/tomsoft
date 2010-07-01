@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Developpez.Dotnet.Windows">
+      <HintPath>..\lib\Dvp.NET\Developpez.Dotnet.Windows.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -56,9 +59,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Service\BasicMessageBoxService.cs" />
-    <Compile Include="Service\DialogWindow.xaml.cs">
+    <Compile Include="DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Service\DialogService.cs" />
     <Compile Include="View\DatabaseManagerView.xaml.cs">
       <DependentUpon>DatabaseManagerView.xaml</DependentUpon>
     </Compile>
@@ -68,6 +72,10 @@
     <Compile Include="View\WorksheetView.xaml.cs">
       <DependentUpon>WorksheetView.xaml</DependentUpon>
     </Compile>
+    <Page Include="DataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -80,7 +88,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Service\DialogWindow.xaml">
+    <Page Include="DialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -115,8 +123,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
@@ -126,6 +135,14 @@
     <ProjectReference Include="..\SharpDB.Util\SharpDB.Util.csproj">
       <Project>{232EA960-9E1C-4193-960A-E79EB6D71CFD}</Project>
       <Name>SharpDB.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpDB.ViewModel.Design\SharpDB.ViewModel.Design.csproj">
+      <Project>{C3135E77-EB46-47EB-9F32-CF527B0CA434}</Project>
+      <Name>SharpDB.ViewModel.Design</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpDB.ViewModel\SharpDB.ViewModel.csproj">
+      <Project>{F55CB8A4-7F77-467C-A1CF-0B5E836241CA}</Project>
+      <Name>SharpDB.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

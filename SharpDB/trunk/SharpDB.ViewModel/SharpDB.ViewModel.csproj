@@ -32,6 +32,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Developpez.Dotnet, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Developpez.Dotnet.Windows">
+      <HintPath>..\lib\Dvp.NET\Developpez.Dotnet.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
