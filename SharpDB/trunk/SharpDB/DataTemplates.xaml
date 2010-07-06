@@ -3,7 +3,7 @@
                     xmlns:vm="clr-namespace:SharpDB.ViewModel;assembly=SharpDB.ViewModel"
                     xmlns:v="clr-namespace:SharpDB.View">
 
-    <DataTemplate x:Shared="false" DataType="{x:Type vm:WorksheetViewModel}">
+    <DataTemplate DataType="{x:Type vm:WorksheetViewModel}">
         <v:WorksheetView />
     </DataTemplate>
 
