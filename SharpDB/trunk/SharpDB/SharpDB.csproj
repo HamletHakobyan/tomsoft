@@ -139,8 +139,23 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\SQLSyntax.xshd" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\commit.png" />
+    <Resource Include="Images\database.png" />
+    <Resource Include="Images\database_add.png" />
+    <Resource Include="Images\database_close.png" />
+    <Resource Include="Images\database_error.png" />
+    <Resource Include="Images\dbconn.png" />
+    <Resource Include="Images\explain.png" />
+    <Resource Include="Images\file.png" />
+    <Resource Include="Images\file_add.png" />
+    <Resource Include="Images\rollback.png" />
+    <Resource Include="Images\run.png" />
+    <Resource Include="Images\run_script.png" />
+    <Resource Include="Images\worksheet.ico" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharpDB.Util\SharpDB.Util.csproj">
       <Project>{232EA960-9E1C-4193-960A-E79EB6D71CFD}</Project>
@@ -154,6 +169,15 @@
       <Project>{F55CB8A4-7F77-467C-A1CF-0B5E836241CA}</Project>
       <Name>SharpDB.ViewModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\copy.png" />
+    <Resource Include="Images\cut.png" />
+    <Resource Include="Images\open.png" />
+    <Resource Include="Images\paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\save.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

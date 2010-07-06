@@ -8,36 +8,45 @@
     <ToolBarTray>
         <ToolBar>
             <Button Command="{Binding NewWorksheetCommand}"
-                    Content="New worksheet"
-                    ToolTip="New worksheet" />
+                    ToolTip="New worksheet">
+                <Image Source="/Images/file.png" />
+            </Button>
             <Button Command="{Binding OpenWorksheetCommand}"
-                    Content="Open"
-                    ToolTip="Open worksheet" />
+                    ToolTip="Open worksheet">
+                <Image Source="/Images/open.png" />
+            </Button>
         </ToolBar>
         <ToolBar Name="WorksheetToolbar"
                  DataContext="{Binding CurrentWorksheet}">
             <Button Command="{Binding SaveCommand}"
-                    Content="Save"
-                    ToolTip="Save worksheet"/>
+                    ToolTip="Save worksheet">
+                <Image Source="/Images/save.png" />
+            </Button>
             <Button Command="{Binding CutCommand}"
-                    Content="Cut"
-                    ToolTip="Cut" />
+                    ToolTip="Cut">
+                <Image Source="/Images/cut.png" />
+            </Button>
             <Button Command="{Binding CopyCommand}"
-                    Content="Copy"
-                    ToolTip="Copy" />
+                    ToolTip="Copy">
+                <Image Source="/Images/copy.png" />
+            </Button>
             <Button Command="{Binding PasteCommand}"
-                    Content="Paste"
-                    ToolTip="Paste" />
+                    ToolTip="Paste">
+                <Image Source="/Images/paste.png" />
+            </Button>
             <Separator />
             <Button Command="{Binding ExecuteCurrentCommand}"
-                    Content="Execute"
-                    ToolTip="Execute current statement" />
+                    ToolTip="Execute current statement">
+                <Image Source="/Images/run.png" />
+            </Button>
             <Button Command="{Binding ExecuteScriptCommand}"
-                    Content="Execute script"
-                    ToolTip="Execute all statements as script" />
+                    ToolTip="Execute all statements as script">
+                <Image Source="/Images/run_script.png" />
+            </Button>
             <Button Command="{Binding ExplainPlanCommand}"
-                    Content="Explain"
-                    ToolTip="Explain plan" />
+                    ToolTip="Explain plan">
+                <Image Source="/Images/explain.png"/>
+            </Button>
         </ToolBar>
     </ToolBarTray>
 </UserControl>
