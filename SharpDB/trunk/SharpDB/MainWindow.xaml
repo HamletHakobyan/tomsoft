@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:SharpDB.ViewModel;assembly=SharpDB.ViewModel"
         xmlns:util="clr-namespace:SharpDB.Util;assembly=SharpDB.Util"
+        xmlns:ctl="clr-namespace:SharpDB.Controls;assembly=SharpDB.Controls"
         xmlns:prop="clr-namespace:SharpDB.Properties"
         util:AppSettings.Settings="{x:Static prop:Settings.Default}"
         Height="350"
@@ -37,7 +38,7 @@
         <ContentControl Grid.Row="1"
                         Content="{Binding DatabaseManager}" />
 
-        <TabControl Grid.Column="1"
+        <!--<TabControl Grid.Column="1"
                     Grid.Row="1"
                     ItemsSource="{Binding Worksheets}"
                     SelectedItem="{Binding CurrentWorksheet}">
@@ -46,7 +47,18 @@
                     <TextBlock Text="{Binding Title}" />
                 </DataTemplate>
             </TabControl.ItemTemplate>
-        </TabControl>
+        </TabControl>-->
 
+        <ctl:TabDocumentContainer Grid.Column="1"
+                                  Grid.Row="1"
+                                  ItemsSource="{Binding Worksheets}"
+                                  SelectedItem="{Binding CurrentWorksheet}">
+            <ctl:TabDocumentContainer.ItemTemplate>
+                <DataTemplate DataType="{x:Type vm:WorksheetViewModel}">
+                    <TextBlock Text="{Binding Title}" />
+                </DataTemplate>
+            </ctl:TabDocumentContainer.ItemTemplate>
+        </ctl:TabDocumentContainer>
+        
     </Grid>
 </Window>

@@ -54,6 +54,10 @@
     <Compile Include="WorksheetViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SharpDB.Model\SharpDB.Model.csproj">
+      <Project>{4401C5FA-92CA-4526-9107-85148912A6D9}</Project>
+      <Name>SharpDB.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SharpDB.Util\SharpDB.Util.csproj">
       <Project>{232EA960-9E1C-4193-960A-E79EB6D71CFD}</Project>
       <Name>SharpDB.Util</Name>

@@ -154,9 +154,12 @@
     <Resource Include="Images\rollback.png" />
     <Resource Include="Images\run.png" />
     <Resource Include="Images\run_script.png" />
-    <Resource Include="Images\worksheet.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SharpDB.Controls\SharpDB.Controls.csproj">
+      <Project>{338A8724-911A-476D-9BD6-C7D9DC17B00F}</Project>
+      <Name>SharpDB.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SharpDB.Util\SharpDB.Util.csproj">
       <Project>{232EA960-9E1C-4193-960A-E79EB6D71CFD}</Project>
       <Name>SharpDB.Util</Name>
