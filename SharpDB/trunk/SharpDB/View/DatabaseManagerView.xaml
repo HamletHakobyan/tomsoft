@@ -3,10 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:SharpDB.ViewModel;assembly=SharpDB.ViewModel"
+             xmlns:dvm="clr-namespace:SharpDB.ViewModel.Design;assembly=SharpDB.ViewModel.Design"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance Type=dvm:DesignDatabaseManagerViewModel, IsDesignTimeCreatable=True}">
     <Grid>
-        <TextBlock FontSize="16"
-                   Text="DatabaseManager" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="20" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ToolBar Grid.Row="0">
+            <Button Command="{Binding NewConnectionCommand}" ToolTip="New database connection">
+                <Image Source="/Images/database_add.png" />
+            </Button>
+        </ToolBar>
+        <TreeView Grid.Row="1" ItemsSource="{Binding Databases}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type vm:DatabaseViewModel}"
+                        ItemsSource="{Binding MetadataCollections}">
+                    <TextBlock Text="{Binding ConnectionName}" />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
     </Grid>
 </UserControl>

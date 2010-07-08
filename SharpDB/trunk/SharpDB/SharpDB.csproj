@@ -11,7 +11,8 @@
     <RootNamespace>SharpDB</RootNamespace>
     <AssemblyName>SharpDB</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -36,14 +37,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Developpez.Dotnet, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Developpez.Dotnet.Windows">
       <HintPath>..\lib\Dvp.NET\Developpez.Dotnet.Windows.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit">
       <HintPath>..\lib\AvalonEdit\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Data.ConnectionUI, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\DataConnectionDialog\Microsoft.Data.ConnectionUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.ConnectionUI.Dialog">
+      <HintPath>..\lib\DataConnectionDialog\Microsoft.Data.ConnectionUI.Dialog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -65,7 +75,10 @@
     <Compile Include="DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Service\DataConnectionConfiguration.cs" />
+    <Compile Include="Service\DataConnectionDialogService.cs" />
     <Compile Include="Service\DialogService.cs" />
+    <Compile Include="Service\IDataConnectionConfiguration.cs" />
     <Compile Include="View\DatabaseManagerView.xaml.cs">
       <DependentUpon>DatabaseManagerView.xaml</DependentUpon>
     </Compile>
@@ -159,6 +172,10 @@
     <ProjectReference Include="..\SharpDB.Controls\SharpDB.Controls.csproj">
       <Project>{338A8724-911A-476D-9BD6-C7D9DC17B00F}</Project>
       <Name>SharpDB.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpDB.Model\SharpDB.Model.csproj">
+      <Project>{4401C5FA-92CA-4526-9107-85148912A6D9}</Project>
+      <Name>SharpDB.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\SharpDB.Util\SharpDB.Util.csproj">
       <Project>{232EA960-9E1C-4193-960A-E79EB6D71CFD}</Project>

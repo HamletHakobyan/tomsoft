@@ -13,6 +13,25 @@ namespace SharpDB.Controls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TabDocumentContainer), new FrameworkPropertyMetadata(typeof(TabDocumentContainer)));
         }
 
+        public TabDocumentContainer()
+        {
+            ItemContainerGenerator.StatusChanged += ItemContainerGenerator_StatusChanged;
+        }
+
+        void ItemContainerGenerator_StatusChanged(object sender, System.EventArgs e)
+        {
+            if (ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
+            {
+                if (SelectedItem != null)
+                {
+                    var containerItem = ItemContainerGenerator.ContainerFromItem(SelectedItem) as TabDocumentContainerItem;
+                    if (containerItem != null)
+                        containerItem.IsSelected = true;
+                }
+                ItemContainerGenerator.StatusChanged -= ItemContainerGenerator_StatusChanged;
+            }
+        }
+
         #region Properties
 
 
@@ -53,19 +72,28 @@ namespace SharpDB.Controls
                 if (containerItem != null)
                     containerItem.IsSelected = true;
             }
-
-            base.OnSelectionChanged(e);
         }
 
         internal void CloseTab(TabDocumentContainerItem tabDocumentContainerItem)
         {
+            var index = SelectedIndex;
             var item = ItemContainerGenerator.ItemFromContainer(tabDocumentContainerItem);
             
             // TODO find a better way...
             try
             {
                 dynamic items = ItemsSource;
-                items.Remove(item);
+                dynamic it = item;
+                bool b = items.Remove(it);
+
+                if (Items.Count > 0)
+                {
+                    if (index >= Items.Count)
+                        index--;
+                    if (index < 0)
+                        index++;
+                    SelectedIndex = index;
+                }
             }
             catch(RuntimeBinderException ex)
             {

@@ -7,6 +7,8 @@ using System.Data.Common;
 using System.Data;
 using Developpez.Dotnet;
 using Developpez.Dotnet.Data;
+using System.Collections;
+using System.Collections.ObjectModel;
 
 namespace SharpDB.ViewModel
 {
@@ -64,6 +66,21 @@ namespace SharpDB.ViewModel
                     _connection.State.HasFlag(ConnectionState.Fetching));
             }
         }
+
+        private ObservableCollection<IEnumerable> _metadataCollections;
+        public ObservableCollection<IEnumerable> MetadataCollections
+        {
+            get { return _metadataCollections; }
+            set
+            {
+                if (value != _metadataCollections)
+                {
+                    _metadataCollections = value;
+                    OnPropertyChanged("MetadataCollections");
+                }
+            }
+        }
+
 
         #endregion
 

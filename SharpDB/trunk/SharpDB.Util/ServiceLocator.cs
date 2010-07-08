@@ -54,12 +54,12 @@ namespace SharpDB.Util
             RegisterService(serviceType, string.Empty, service);
         }
 
-        public void RegisterService<T>(string name, object service)
+        public void RegisterService<T>(string name, T service)
         {
             RegisterService(typeof(T), name, service);
         }
 
-        public void RegisterService<T>(object service)
+        public void RegisterService<T>(T service)
         {
             RegisterService(typeof(T), string.Empty, service);
         }

@@ -17,50 +17,58 @@
                             </Grid.RowDefinitions>
 
                             <!-- Headers -->
-                            <ItemsControl Name="TabHeaders" Grid.Row="0" ItemsSource="{TemplateBinding ItemsSource}"
-                                    ItemTemplate="{TemplateBinding ItemTemplate}"
-                                    ItemContainerStyle="{TemplateBinding ItemContainerStyle}">
+                            <ItemsPresenter Name="TabHeaders" Grid.Row="0" />
 
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Horizontal" IsItemsHost="True" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
 
-                            </ItemsControl>
-
-                            <!-- Documents -->
-                            <ItemsControl Name="Documents" Grid.Row="1" ItemsSource="{TemplateBinding ItemsSource}"
-                                    ItemTemplate="{TemplateBinding ContentTemplate}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <Grid IsItemsHost="True" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemContainerStyle>
-                                    <Style TargetType="ContentPresenter">
-                                        <Setter Property="Visibility" Value="{Binding IsSelected,
-                                                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:TabDocumentContainerItem}},
+                            <Border Grid.Row="1"
+                                    BorderBrush="WhiteSmoke"
+                                    BorderThickness="0,5,0,0">
+                                <!-- Documents -->
+                                <local:DocumentItemsControl x:Name="Documents"
+                                        ItemsSource="{TemplateBinding ItemsSource}"
+                                        ItemTemplate="{TemplateBinding ContentTemplate}"
+                                        SelectedItem="{TemplateBinding SelectedItem}">
+                                    <local:DocumentItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <Grid IsItemsHost="True" />
+                                        </ItemsPanelTemplate>
+                                    </local:DocumentItemsControl.ItemsPanel>
+                                    <local:DocumentItemsControl.ItemContainerStyle>
+                                        <Style TargetType="local:DocumentItem">
+                                            <Setter Property="Visibility" Value="{Binding IsSelected,
+                                                                RelativeSource={RelativeSource Mode=Self},
                                                                 Converter={StaticResource visibilityConverter}}" />
-                                    </Style>
-                                </ItemsControl.ItemContainerStyle>
-                            </ItemsControl>
+                                        </Style>
+                                    </local:DocumentItemsControl.ItemContainerStyle>
+                                </local:DocumentItemsControl>
+                            </Border>
 
                         </Grid>
-
                     </Border>
+                    
                 </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" IsItemsHost="True" />
+                </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
     <Style TargetType="{x:Type local:TabDocumentContainerItem}">
         <Setter Property="Background" Value="LightGray" />
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:TabDocumentContainer}">
-                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                <ControlTemplate TargetType="{x:Type local:TabDocumentContainerItem}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5,5,0,0">
 
                         <Grid>
 
@@ -69,9 +77,12 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <ContentPresenter Grid.Column="0" />
+                            <ContentPresenter Grid.Column="0"
+                                              Margin="3"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"/>
 
-                            <Button Name="PART_CloseButton" Grid.Column="2">X</Button>
+                            <Button Name="PART_CloseButton" Grid.Column="2" Margin="3" Content="X" />
 
                         </Grid>
                     </Border>
@@ -81,7 +92,8 @@
 
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="LightCyan" />
+                <Setter Property="Background" Value="WhiteSmoke" />
+                <Setter Property="BorderThickness" Value="1,1,1,0" />
             </Trigger>
         </Style.Triggers>
     </Style>
