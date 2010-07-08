@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Dialogs\CloseRequestedEvent.cs" />
     <Compile Include="Dialogs\DialogButton.cs" />
+    <Compile Include="Dialogs\IDataConnectionDialogService.cs" />
     <Compile Include="Dialogs\IDialogService.cs" />
     <Compile Include="Dialogs\IDialogViewModel.cs" />
     <Compile Include="Dialogs\IMessageBoxService.cs" />
@@ -57,6 +58,12 @@
     <Compile Include="AppSettings.cs" />
     <Compile Include="SettingBinding.cs" />
     <Compile Include="WindowSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharpDB.Model\SharpDB.Model.csproj">
+      <Project>{4401C5FA-92CA-4526-9107-85148912A6D9}</Project>
+      <Name>SharpDB.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

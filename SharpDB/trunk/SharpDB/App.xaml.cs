@@ -10,6 +10,8 @@ using SharpDB.Service;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using System.Xml;
 using ICSharpCode.AvalonEdit.Highlighting;
+using SharpDB.Model;
+using System.IO;
 
 namespace SharpDB
 {
@@ -22,10 +24,20 @@ namespace SharpDB
         {
             ServiceLocator.Instance.RegisterService<IDialogService>(new DialogService());
             ServiceLocator.Instance.RegisterService<IMessageBoxService>(new BasicMessageBoxService());
+            ServiceLocator.Instance.RegisterService(GetConfiguration());
+            ServiceLocator.Instance.RegisterService<IDataConnectionDialogService>(new DataConnectionDialogService());
 
             InitializeSyntaxHighlighting();
 
             base.OnStartup(e);
+        }
+
+        private Config GetConfiguration()
+        {
+            string configFileName = Config.GetDefaultFileName(SharpDB.Properties.Resources.ApplicationName);
+            if (File.Exists(configFileName))
+                return Config.FromFile(configFileName);
+            return new Config();
         }
 
         private void InitializeSyntaxHighlighting()

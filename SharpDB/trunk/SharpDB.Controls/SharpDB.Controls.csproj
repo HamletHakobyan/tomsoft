@@ -49,6 +49,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocumentItem.cs" />
+    <Compile Include="DocumentItemsControl.cs" />
     <Compile Include="TabDocumentContainerItem.cs" />
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
