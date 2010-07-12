@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using Developpez.Dotnet.Linq;
 using System.Diagnostics;
 using SharpDB.Util;
+using System.Resources;
 
 namespace SharpDB.ViewModel
 {
@@ -59,6 +60,18 @@ namespace SharpDB.ViewModel
         protected T GetService<T>()
         {
             return (T)GetService(typeof(T), string.Empty);
+        }
+
+        #endregion
+
+        #region GetResource methods
+
+        protected virtual ResourceManager ResourceManager
+        {
+            get
+            {
+                return GetService<ResourceManager>();
+            }
         }
 
         #endregion

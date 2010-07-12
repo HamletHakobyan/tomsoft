@@ -24,6 +24,7 @@ namespace SharpDB
         {
             ServiceLocator.Instance.RegisterService<IDialogService>(new DialogService());
             ServiceLocator.Instance.RegisterService<IMessageBoxService>(new BasicMessageBoxService());
+            ServiceLocator.Instance.RegisterService(SharpDB.Properties.Resources.ResourceManager);
             ServiceLocator.Instance.RegisterService(GetConfiguration());
             ServiceLocator.Instance.RegisterService<IDataConnectionDialogService>(new DataConnectionDialogService());
 

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectionDialogViewModel.cs" />
     <Compile Include="DatabaseManagerViewModel.cs" />
     <Compile Include="DatabaseViewModel.cs" />
     <Compile Include="MainWindowViewModel.cs" />
