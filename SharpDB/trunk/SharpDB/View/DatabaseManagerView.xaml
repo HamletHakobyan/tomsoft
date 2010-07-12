@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:SharpDB.ViewModel;assembly=SharpDB.ViewModel"
              xmlns:dvm="clr-namespace:SharpDB.ViewModel.Design;assembly=SharpDB.ViewModel.Design"
+             xmlns:util="clr-namespace:SharpDB.Util;assembly=SharpDB.Util"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance Type=dvm:DesignDatabaseManagerViewModel, IsDesignTimeCreatable=True}">
@@ -14,15 +15,35 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <ToolBar Grid.Row="0">
-            <Button Command="{Binding NewConnectionCommand}" ToolTip="New database connection">
+            <Button Command="{Binding NewConnectionCommand}" ToolTip="{Binding Resources[new_database_connection]}">
                 <Image Source="/Images/database_add.png" />
             </Button>
+            <Button Command="{Binding EditConnectionCommand}" ToolTip="{Binding Resources[edit_database_connection]}">
+                <Image Source="/Images/edit.png" />
+            </Button>
+            <Button Command="{Binding DeleteConnectionCommand}" ToolTip="{Binding Resources[delete_database_connection]}">
+                <Image Source="/Images/delete.png" />
+            </Button>
+            <Separator />
+            <Button Command="{Binding ConnectCommand}" ToolTip="{Binding Resources[connect_database]}">
+                <Image Source="/Images/database.png" />
+            </Button>
+            <Button Command="{Binding DisconnectCommand}" ToolTip="{Binding Resources[disconnect_database]}">
+                <Image Source="/Images/database_close.png" />
+            </Button>
         </ToolBar>
-        <TreeView Grid.Row="1" ItemsSource="{Binding Databases}">
+        <TreeView Grid.Row="1" ItemsSource="{Binding Databases}"
+                  util:TreeViewHelper.TrackSelection="True"
+                  util:TreeViewHelper.SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type vm:DatabaseViewModel}"
                         ItemsSource="{Binding MetadataCollections}">
-                    <TextBlock Text="{Binding ConnectionName}" />
+                    <TextBlock Name="dbName" Text="{Binding ConnectionName}" />
+                    <HierarchicalDataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                            <Setter TargetName="dbName" Property="FontWeight" Value="Bold" />
+                        </DataTrigger>
+                    </HierarchicalDataTemplate.Triggers>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>

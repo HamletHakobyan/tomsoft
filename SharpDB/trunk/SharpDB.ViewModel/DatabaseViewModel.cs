@@ -13,7 +13,7 @@ using SharpDB.Util.Dialogs;
 
 namespace SharpDB.ViewModel
 {
-    public class DatabaseViewModel : ViewModelBase, IDialogViewModel
+    public class DatabaseViewModel : ViewModelBase
     {
         #region Private data
 
@@ -77,7 +77,7 @@ namespace SharpDB.ViewModel
                 if (value != _metadataCollections)
                 {
                     _metadataCollections = value;
-                    OnPropertyChanged("MetadataCollections");
+                    OnPropertyChanged(() => MetadataCollections);
                 }
             }
         }
@@ -140,52 +140,10 @@ namespace SharpDB.ViewModel
                 throw new InvalidOperationException("Not connected");
         }
 
-        #endregion
-
-        #region IDialogViewModel implementation
-
-        string IDialogViewModel.DialogTitle
+        public void Refresh()
         {
-            get { return ResourceManager.GetString("connection_dialog_title"); }
+            OnPropertyChanged();
         }
-
-        private DialogButton[] _buttons;
-        IEnumerable<DialogButton> IDialogViewModel.Buttons
-        {
-            get { return _buttons; }
-        }
-
-        bool IDialogViewModel.Resizable
-        {
-            get { return true; }
-        }
-
-        void IDialogViewModel.OnShow()
-        {
-            _saveConnectionName = _databaseConnection.Name;
-            _saveProviderName = _databaseConnection.ProviderName;
-            _saveConnectionString = _databaseConnection.ConnectionString;
-        }
-
-        void IDialogViewModel.OnClose(bool? result)
-        {
-            if (result != true)
-            {
-                _databaseConnection.Name = _saveConnectionName;
-                _databaseConnection.ProviderName = _saveProviderName;
-                _databaseConnection.ConnectionString = _saveConnectionString;
-            }
-        }
-
-        event CloseRequestedEventHandler IDialogViewModel.CloseRequested
-        {
-            add { }
-            remove { }
-        }
-
-        private string _saveConnectionName;
-        private string _saveProviderName;
-        private string _saveConnectionString;
 
         #endregion
     }

@@ -120,4 +120,34 @@
   <data name="ApplicationName" xml:space="preserve">
     <value>SharpDB</value>
   </data>
+  <data name="confirm_delete_connection" xml:space="preserve">
+    <value>Do you really want to delete this database connection ?</value>
+  </data>
+  <data name="confirm_delete_connection_title" xml:space="preserve">
+    <value>Really delete ?</value>
+  </data>
+  <data name="connection_default_name" xml:space="preserve">
+    <value>New database connection</value>
+  </data>
+  <data name="connect_database" xml:space="preserve">
+    <value>Connect to database</value>
+  </data>
+  <data name="delete_database_connection" xml:space="preserve">
+    <value>Delete database connection</value>
+  </data>
+  <data name="dialog_cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="dialog_ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="disconnect_database" xml:space="preserve">
+    <value>Disconnect from database</value>
+  </data>
+  <data name="edit_database_connection" xml:space="preserve">
+    <value>Edit database connection</value>
+  </data>
+  <data name="new_database_connection" xml:space="preserve">
+    <value>New database connection</value>
+  </data>
 </root>

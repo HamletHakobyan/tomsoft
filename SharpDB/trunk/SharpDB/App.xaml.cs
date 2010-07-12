@@ -26,7 +26,6 @@ namespace SharpDB
             ServiceLocator.Instance.RegisterService<IMessageBoxService>(new BasicMessageBoxService());
             ServiceLocator.Instance.RegisterService(SharpDB.Properties.Resources.ResourceManager);
             ServiceLocator.Instance.RegisterService(GetConfiguration());
-            ServiceLocator.Instance.RegisterService<IDataConnectionDialogService>(new DataConnectionDialogService());
 
             InitializeSyntaxHighlighting();
 
@@ -38,7 +37,7 @@ namespace SharpDB
             string configFileName = Config.GetDefaultFileName(SharpDB.Properties.Resources.ApplicationName);
             if (File.Exists(configFileName))
                 return Config.FromFile(configFileName);
-            return new Config();
+            return new Config(configFileName);
         }
 
         private void InitializeSyntaxHighlighting()
