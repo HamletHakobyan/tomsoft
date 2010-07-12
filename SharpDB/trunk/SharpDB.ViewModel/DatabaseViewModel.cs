@@ -9,10 +9,11 @@ using Developpez.Dotnet;
 using Developpez.Dotnet.Data;
 using System.Collections;
 using System.Collections.ObjectModel;
+using SharpDB.Util.Dialogs;
 
 namespace SharpDB.ViewModel
 {
-    public class DatabaseViewModel : ViewModelBase
+    public class DatabaseViewModel : ViewModelBase, IDialogViewModel
     {
         #region Private data
 
@@ -138,6 +139,53 @@ namespace SharpDB.ViewModel
                 // LOCALIZE
                 throw new InvalidOperationException("Not connected");
         }
+
+        #endregion
+
+        #region IDialogViewModel implementation
+
+        string IDialogViewModel.DialogTitle
+        {
+            get { return ResourceManager.GetString("connection_dialog_title"); }
+        }
+
+        private DialogButton[] _buttons;
+        IEnumerable<DialogButton> IDialogViewModel.Buttons
+        {
+            get { return _buttons; }
+        }
+
+        bool IDialogViewModel.Resizable
+        {
+            get { return true; }
+        }
+
+        void IDialogViewModel.OnShow()
+        {
+            _saveConnectionName = _databaseConnection.Name;
+            _saveProviderName = _databaseConnection.ProviderName;
+            _saveConnectionString = _databaseConnection.ConnectionString;
+        }
+
+        void IDialogViewModel.OnClose(bool? result)
+        {
+            if (result != true)
+            {
+                _databaseConnection.Name = _saveConnectionName;
+                _databaseConnection.ProviderName = _saveProviderName;
+                _databaseConnection.ConnectionString = _saveConnectionString;
+            }
+        }
+
+        event CloseRequestedEventHandler IDialogViewModel.CloseRequested
+        {
+            add { }
+            remove { }
+        }
+
+        private string _saveConnectionName;
+        private string _saveProviderName;
+        private string _saveConnectionString;
 
         #endregion
     }
