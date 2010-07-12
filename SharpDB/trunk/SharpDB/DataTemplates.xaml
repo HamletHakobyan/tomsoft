@@ -14,5 +14,9 @@
     <DataTemplate DataType="{x:Type vm:DatabaseManagerViewModel}">
         <v:DatabaseManagerView />
     </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type vm:ConnectionDialogViewModel}">
+        <v:ConnectionDialogView />
+    </DataTemplate>
 
 </ResourceDictionary>

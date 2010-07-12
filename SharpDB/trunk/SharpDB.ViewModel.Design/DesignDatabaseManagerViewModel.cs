@@ -12,7 +12,7 @@ namespace SharpDB.ViewModel.Design
         {
             Databases = new ObservableCollection<DesignDatabaseViewModel>
             {
-                new DesignDatabaseViewModel { ConnectionName = "Foo" },
+                new DesignDatabaseViewModel { ConnectionName = "Foo", IsConnected = true },
                 new DesignDatabaseViewModel { ConnectionName = "Bar" }
             };
         }

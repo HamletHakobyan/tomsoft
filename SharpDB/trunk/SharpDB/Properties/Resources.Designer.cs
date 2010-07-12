@@ -68,5 +68,95 @@ namespace SharpDB.Properties {
                 return ResourceManager.GetString("ApplicationName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete this database connection ?.
+        /// </summary>
+        internal static string confirm_delete_connection {
+            get {
+                return ResourceManager.GetString("confirm_delete_connection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Really delete ?.
+        /// </summary>
+        internal static string confirm_delete_connection_title {
+            get {
+                return ResourceManager.GetString("confirm_delete_connection_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect to database.
+        /// </summary>
+        internal static string connect_database {
+            get {
+                return ResourceManager.GetString("connect_database", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New database connection.
+        /// </summary>
+        internal static string connection_default_name {
+            get {
+                return ResourceManager.GetString("connection_default_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete database connection.
+        /// </summary>
+        internal static string delete_database_connection {
+            get {
+                return ResourceManager.GetString("delete_database_connection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string dialog_cancel {
+            get {
+                return ResourceManager.GetString("dialog_cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string dialog_ok {
+            get {
+                return ResourceManager.GetString("dialog_ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disconnect from database.
+        /// </summary>
+        internal static string disconnect_database {
+            get {
+                return ResourceManager.GetString("disconnect_database", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit database connection.
+        /// </summary>
+        internal static string edit_database_connection {
+            get {
+                return ResourceManager.GetString("edit_database_connection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New database connection.
+        /// </summary>
+        internal static string new_database_connection {
+            get {
+                return ResourceManager.GetString("new_database_connection", resourceCulture);
+            }
+        }
     }
 }

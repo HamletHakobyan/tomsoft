@@ -38,6 +38,11 @@ namespace SharpDB.ViewModel
                 handler(this, new PropertyChangedEventArgs(LinqHelper.GetPropertyName(propertySelector)));
         }
 
+        protected void OnPropertyChanged()
+        {
+            OnPropertyChanged(string.Empty);
+        }
+
         #endregion
 
         #region GetService methods
@@ -64,13 +69,33 @@ namespace SharpDB.ViewModel
 
         #endregion
 
-        #region GetResource methods
+        #region Resource related members
 
         protected virtual ResourceManager ResourceManager
         {
             get
             {
                 return GetService<ResourceManager>();
+            }
+        }
+
+        private static ResourceIndexer _resources = new ResourceIndexer();
+        public ResourceIndexer Resources
+        {
+            get { return _resources; }
+        }
+
+        public class ResourceIndexer
+        {
+            public object this[string resourceKey]
+            {
+                get
+                {
+                    var resourceManager = ServiceLocator.Instance.GetService<ResourceManager>();
+                    if (resourceManager != null)
+                        return resourceManager.GetObject(resourceKey);
+                    return null;
+                }
             }
         }
 

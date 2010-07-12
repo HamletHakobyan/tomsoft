@@ -8,6 +8,7 @@ using SharpDB.Model;
 using Developpez.Dotnet.Windows.Input;
 using System.Windows.Input;
 using SharpDB.Util.Dialogs;
+using System.Windows;
 
 namespace SharpDB.ViewModel
 {
@@ -37,6 +38,37 @@ namespace SharpDB.ViewModel
             }
         }
 
+        private object _selectedItem;
+        public object SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                if (value != _selectedItem)
+                {
+                    _selectedItem = value;
+                    SelectedDatabase = _selectedItem as DatabaseViewModel;
+                    OnPropertyChanged("SelectedItem");
+                }
+            }
+        }
+
+
+        private DatabaseViewModel _selectedDatabase;
+        public DatabaseViewModel SelectedDatabase
+        {
+            get { return _selectedDatabase; }
+            set
+            {
+                if (value != _selectedDatabase)
+                {
+                    _selectedDatabase = value;
+                    OnPropertyChanged("SelectedDatabase");
+                }
+            }
+        }
+
+
         #endregion
 
         #region Commands
@@ -54,17 +86,135 @@ namespace SharpDB.ViewModel
             }
         }
 
-        private void NewConnection()
+        private DelegateCommand _editConnectionCommand;
+        public ICommand EditConnectionCommand
         {
-            var service = GetService<IDataConnectionDialogService>();
-            var databaseConnection = new DatabaseConnection { Name = "New database connection" };
-            if (service.Show(databaseConnection) == true)
+            get
             {
-                Databases.Add(new DatabaseViewModel(databaseConnection));
+                if (_editConnectionCommand == null)
+                {
+                    _editConnectionCommand =
+                        new DelegateCommand(
+                            EditConnection,
+                            () => SelectedDatabase != null);
+                }
+                return _editConnectionCommand;
+            }
+        }
+
+        private DelegateCommand _deleteConnectionCommand;
+        public ICommand DeleteConnectionCommand
+        {
+            get
+            {
+                if (_deleteConnectionCommand == null)
+                {
+                    _deleteConnectionCommand =
+                        new DelegateCommand(
+                            DeleteConnection,
+                            () => SelectedDatabase != null);
+                }
+                return _deleteConnectionCommand;
+            }
+        }
+
+        private DelegateCommand _connectCommand;
+        public ICommand ConnectCommand
+        {
+            get
+            {
+                if (_connectCommand == null)
+                {
+                    _connectCommand =
+                        new DelegateCommand(
+                            Connect,
+                            () => SelectedDatabase != null && !SelectedDatabase.IsConnected);
+                }
+                return _connectCommand;
+            }
+        }
+
+        private DelegateCommand _disconnectCommand;
+        public ICommand DisconnectCommand
+        {
+            get
+            {
+                if (_disconnectCommand == null)
+                {
+                    _disconnectCommand =
+                        new DelegateCommand(
+                            Disconnect,
+                            () => SelectedDatabase != null && SelectedDatabase.IsConnected);
+                }
+                return _disconnectCommand;
             }
         }
 
 
         #endregion
+
+        private void NewConnection()
+        {
+            var service = GetService<IDialogService>();
+            var connectionVM = new ConnectionDialogViewModel();
+            if (service.Show(connectionVM) == true)
+            {
+                var config = GetService<Config>();
+                config.Connections.Add(connectionVM.DatabaseConnection);
+                config.Save();
+                Databases.Add(new DatabaseViewModel(connectionVM.DatabaseConnection));
+            }
+        }
+
+        private void EditConnection()
+        {
+            if (SelectedDatabase == null)
+                return;
+
+            var service = GetService<IDialogService>();
+            var connectionVM = new ConnectionDialogViewModel(SelectedDatabase.DatabaseConnection);
+            if (service.Show(connectionVM) == true)
+            {
+                var config = GetService<Config>();
+                config.Save();
+                SelectedDatabase.Refresh();
+            }
+        }
+
+        private void DeleteConnection()
+        {
+            if (SelectedDatabase == null)
+                return;
+
+            var text = ResourceManager.GetString("confirm_delete_connection");
+            var title = ResourceManager.GetString("confirm_delete_connection_title");
+            var mboxService = GetService<IMessageBoxService>();
+            if (mboxService.Show(text, title, MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                if (SelectedDatabase.IsConnected)
+                    SelectedDatabase.Disconnect();
+                var config = GetService<Config>();
+                config.Connections.Remove(SelectedDatabase.DatabaseConnection);
+                config.Save();
+                Databases.Remove(SelectedDatabase);
+            }
+        }
+
+        private void Connect()
+        {
+            if (SelectedDatabase == null || SelectedDatabase.IsConnected)
+                return;
+
+            SelectedDatabase.Connect();
+        }
+
+        private void Disconnect()
+        {
+            if (SelectedDatabase == null || !SelectedDatabase.IsConnected)
+                return;
+
+            SelectedDatabase.Disconnect();
+        }
+
     }
 }

@@ -4,18 +4,71 @@ using System.Linq;
 using System.Text;
 using SharpDB.Util.Dialogs;
 using SharpDB.Model;
+using System.Data;
+using System.Data.Common;
 
 namespace SharpDB.ViewModel
 {
     public class ConnectionDialogViewModel : ViewModelBase, IDialogViewModel
     {
         private DialogButton[] _buttons;
-
         private DatabaseConnection _connection;
+
+        #region Constructors
+
+        public ConnectionDialogViewModel(DatabaseConnection connection)
+        {
+            _connection = connection ?? new DatabaseConnection { Name = ResourceManager.GetString("connection_default_name") };
+
+            this.DialogTitle = connection == null
+                                ? ResourceManager.GetString("new_database_connection")
+                                : ResourceManager.GetString("edit_database_connection");
+
+            _buttons = new[]
+            {
+                new DialogButton
+                {
+                    Text = ResourceManager.GetString("dialog_ok"),
+                    DialogResult = true,
+                    IsDefault = true
+                },
+                new DialogButton
+                {
+                    Text = ResourceManager.GetString("dialog_cancel"),
+                    DialogResult = false,
+                    IsCancel = true
+                }
+            };
+
+            _dbProviders = DbProviderFactories.GetFactoryClasses();
+        }
+
+        public ConnectionDialogViewModel()
+            : this(null)
+        {
+        }
+
+        #endregion
+
+        #region Properties
 
         public DatabaseConnection DatabaseConnection
         {
             get { return _connection; }
+        }
+
+        private DataTable _dbProviders;
+        public DataTable DbProviders
+        {
+            get { return _dbProviders; }
+            set
+            {
+                if (value != _dbProviders)
+                {
+                    _dbProviders = value;
+                    OnPropertyChanged("DbProviders");
+                }
+            }
         }
 
         private string _name;
@@ -51,36 +104,11 @@ namespace SharpDB.ViewModel
             }
         }
 
-        public ConnectionDialogViewModel(DatabaseConnection connection)
-        {
-            // LOCALIZE
-            _connection = connection ?? new DatabaseConnection { Name = "New database connection" };
-            _buttons = new[]
-            {
-                new DialogButton
-                {
-                    Text = ResourceManager.GetString("dialog_ok"),
-                    DialogResult = true,
-                    IsDefault = true
-                },
-                new DialogButton
-                {
-                    Text = ResourceManager.GetString("dialog_cancel"),
-                    DialogResult = false,
-                    IsCancel = true
-                }
-            };
-        }
+        #endregion
 
-        public ConnectionDialogViewModel()
-            : this(null)
-        {
-        }
+        #region IDialogViewModel implementation
 
-        public string DialogTitle
-        {
-            get { return ResourceManager.GetString("connection_dialog_title"); }
-        }
+        public string DialogTitle { get; private set; }
 
         public IEnumerable<DialogButton> Buttons
         {
@@ -123,5 +151,7 @@ namespace SharpDB.ViewModel
             add { }
             remove { }
         }
+
+        #endregion
     }
 }
