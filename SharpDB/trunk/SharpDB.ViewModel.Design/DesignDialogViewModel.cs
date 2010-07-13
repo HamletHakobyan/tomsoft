@@ -42,6 +42,10 @@ namespace SharpDB.ViewModel.Design
         {
         }
 
-        public event CloseRequestedEventHandler CloseRequested;
+        public event CloseRequestedEventHandler CloseRequested
+        {
+            add { }
+            remove { }
+        }
     }
 }

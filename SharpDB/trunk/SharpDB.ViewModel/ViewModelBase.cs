@@ -79,26 +79,6 @@ namespace SharpDB.ViewModel
             }
         }
 
-        private static ResourceIndexer _resources = new ResourceIndexer();
-        public ResourceIndexer Resources
-        {
-            get { return _resources; }
-        }
-
-        public class ResourceIndexer
-        {
-            public object this[string resourceKey]
-            {
-                get
-                {
-                    var resourceManager = ServiceLocator.Instance.GetService<ResourceManager>();
-                    if (resourceManager != null)
-                        return resourceManager.GetObject(resourceKey);
-                    return null;
-                }
-            }
-        }
-
         #endregion
     }
 }

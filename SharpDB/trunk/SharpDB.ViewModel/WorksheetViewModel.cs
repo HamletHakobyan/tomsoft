@@ -14,7 +14,7 @@ namespace SharpDB.ViewModel
 
         public WorksheetViewModel()
         {
-            _title = string.Format("Untitled{0}", ++_worksheetNum);
+            _title = string.Format(ResourceManager.GetString("new_worksheet_name_format"), ++_worksheetNum);
         }
 
         #region Properties

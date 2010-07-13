@@ -2,49 +2,50 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:prop="clr-namespace:SharpDB.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="600">
     <ToolBarTray>
         <ToolBar>
             <Button Command="{Binding NewWorksheetCommand}"
-                    ToolTip="New worksheet">
+                    ToolTip="{x:Static prop:Resources.new_worksheet}">
                 <Image Source="/Images/file.png" />
             </Button>
             <Button Command="{Binding OpenWorksheetCommand}"
-                    ToolTip="Open worksheet">
+                    ToolTip="{x:Static prop:Resources.open_worksheet}">
                 <Image Source="/Images/open.png" />
             </Button>
         </ToolBar>
         <ToolBar Name="WorksheetToolbar"
                  DataContext="{Binding CurrentWorksheet}">
             <Button Command="{Binding SaveCommand}"
-                    ToolTip="Save worksheet">
+                    ToolTip="{x:Static prop:Resources.save_worksheet}">
                 <Image Source="/Images/save.png" />
             </Button>
             <Button Command="{Binding CutCommand}"
-                    ToolTip="Cut">
+                    ToolTip="{x:Static prop:Resources.cut}">
                 <Image Source="/Images/cut.png" />
             </Button>
             <Button Command="{Binding CopyCommand}"
-                    ToolTip="Copy">
+                    ToolTip="{x:Static prop:Resources.copy}">
                 <Image Source="/Images/copy.png" />
             </Button>
             <Button Command="{Binding PasteCommand}"
-                    ToolTip="Paste">
+                    ToolTip="{x:Static prop:Resources.paste}">
                 <Image Source="/Images/paste.png" />
             </Button>
             <Separator />
             <Button Command="{Binding ExecuteCurrentCommand}"
-                    ToolTip="Execute current statement">
+                    ToolTip="{x:Static prop:Resources.execute_current}">
                 <Image Source="/Images/run.png" />
             </Button>
             <Button Command="{Binding ExecuteScriptCommand}"
-                    ToolTip="Execute all statements as script">
+                    ToolTip="{x:Static prop:Resources.execute_as_script}">
                 <Image Source="/Images/run_script.png" />
             </Button>
             <Button Command="{Binding ExplainPlanCommand}"
-                    ToolTip="Explain plan">
+                    ToolTip="{x:Static prop:Resources.explain_plan}">
                 <Image Source="/Images/explain.png"/>
             </Button>
         </ToolBar>
