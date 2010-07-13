@@ -6,6 +6,7 @@
              xmlns:vm="clr-namespace:SharpDB.ViewModel;assembly=SharpDB.ViewModel"
              xmlns:dvm="clr-namespace:SharpDB.ViewModel.Design;assembly=SharpDB.ViewModel.Design"
              xmlns:util="clr-namespace:SharpDB.Util;assembly=SharpDB.Util"
+             xmlns:prop="clr-namespace:SharpDB.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance Type=dvm:DesignDatabaseManagerViewModel, IsDesignTimeCreatable=True}">
@@ -15,20 +16,20 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <ToolBar Grid.Row="0">
-            <Button Command="{Binding NewConnectionCommand}" ToolTip="{Binding Resources[new_database_connection]}">
+            <Button Command="{Binding NewConnectionCommand}" ToolTip="{x:Static prop:Resources.new_database_connection}">
                 <Image Source="/Images/database_add.png" />
             </Button>
-            <Button Command="{Binding EditConnectionCommand}" ToolTip="{Binding Resources[edit_database_connection]}">
+            <Button Command="{Binding EditConnectionCommand}" ToolTip="{x:Static prop:Resources.edit_database_connection}">
                 <Image Source="/Images/edit.png" />
             </Button>
-            <Button Command="{Binding DeleteConnectionCommand}" ToolTip="{Binding Resources[delete_database_connection]}">
+            <Button Command="{Binding DeleteConnectionCommand}" ToolTip="{x:Static prop:Resources.delete_database_connection}">
                 <Image Source="/Images/delete.png" />
             </Button>
             <Separator />
-            <Button Command="{Binding ConnectCommand}" ToolTip="{Binding Resources[connect_database]}">
+            <Button Command="{Binding ConnectCommand}" ToolTip="{x:Static prop:Resources.connect_database}">
                 <Image Source="/Images/database.png" />
             </Button>
-            <Button Command="{Binding DisconnectCommand}" ToolTip="{Binding Resources[disconnect_database]}">
+            <Button Command="{Binding DisconnectCommand}" ToolTip="{x:Static prop:Resources.disconnect_database}">
                 <Image Source="/Images/database_close.png" />
             </Button>
         </ToolBar>

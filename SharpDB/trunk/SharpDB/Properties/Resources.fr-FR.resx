@@ -121,72 +121,72 @@
     <value>SharpDB</value>
   </data>
   <data name="confirm_delete_connection" xml:space="preserve">
-    <value>Do you really want to delete this database connection ?</value>
+    <value>Voulez-vous vraiment supprimer cette connexion ?</value>
   </data>
   <data name="confirm_delete_connection_title" xml:space="preserve">
-    <value>Really delete ?</value>
+    <value>Confirmer la suppression</value>
   </data>
   <data name="connection_default_name" xml:space="preserve">
-    <value>New database connection</value>
+    <value>Nouvelle connexion</value>
   </data>
   <data name="connect_database" xml:space="preserve">
-    <value>Connect to database</value>
+    <value>Se connecter à la base de données</value>
   </data>
   <data name="delete_database_connection" xml:space="preserve">
-    <value>Delete database connection</value>
+    <value>Supprimer la connexion</value>
   </data>
   <data name="dialog_cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Annuler</value>
   </data>
   <data name="dialog_ok" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="disconnect_database" xml:space="preserve">
-    <value>Disconnect from database</value>
+    <value>Se déconnecter de la base de données</value>
   </data>
   <data name="edit_database_connection" xml:space="preserve">
-    <value>Edit database connection</value>
+    <value>Modifier la connexion</value>
   </data>
   <data name="new_database_connection" xml:space="preserve">
-    <value>New database connection</value>
+    <value>Nouvelle connexion</value>
   </data>
   <data name="connection_name" xml:space="preserve">
-    <value>Connection name</value>
+    <value>Nom de la connexion</value>
   </data>
   <data name="connection_string" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Chaine de connexion</value>
   </data>
   <data name="copy" xml:space="preserve">
-    <value>Copy</value>
+    <value>Copier</value>
   </data>
   <data name="cut" xml:space="preserve">
-    <value>Cut</value>
+    <value>Couper</value>
   </data>
   <data name="data_provider" xml:space="preserve">
-    <value>Data provider</value>
+    <value>Fournisseur de données</value>
   </data>
   <data name="execute_as_script" xml:space="preserve">
-    <value>Execute all statements as a script</value>
+    <value>Exécuter toutes les instructions en tant que script</value>
   </data>
   <data name="execute_current" xml:space="preserve">
-    <value>Execute current statement</value>
+    <value>Exécuter l'instruction courante</value>
   </data>
   <data name="explain_plan" xml:space="preserve">
-    <value>Explain plan</value>
+    <value>Plan d'exécution</value>
   </data>
   <data name="new_worksheet" xml:space="preserve">
-    <value>New worksheet</value>
+    <value>Nouvelle feuille SQL</value>
   </data>
   <data name="new_worksheet_name_format" xml:space="preserve">
-    <value>Untitled{0}</value>
+    <value>Sans titre {0}</value>
   </data>
   <data name="open_worksheet" xml:space="preserve">
-    <value>Open worksheet</value>
+    <value>Ouvrir une feuille SQL</value>
   </data>
   <data name="paste" xml:space="preserve">
-    <value>Paste</value>
+    <value>Coller</value>
   </data>
   <data name="save_worksheet" xml:space="preserve">
-    <value>Save worksheet</value>
+    <value>Enregistrer la feuille SQL</value>
   </data>
 </root>

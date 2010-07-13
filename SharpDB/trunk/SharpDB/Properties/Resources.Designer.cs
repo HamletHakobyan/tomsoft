@@ -22,7 +22,7 @@ namespace SharpDB.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace SharpDB.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SharpDB.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace SharpDB.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace SharpDB.Properties {
         /// <summary>
         ///   Looks up a localized string similar to SharpDB.
         /// </summary>
-        internal static string ApplicationName {
+        public static string ApplicationName {
             get {
                 return ResourceManager.GetString("ApplicationName", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace SharpDB.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Do you really want to delete this database connection ?.
         /// </summary>
-        internal static string confirm_delete_connection {
+        public static string confirm_delete_connection {
             get {
                 return ResourceManager.GetString("confirm_delete_connection", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace SharpDB.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Really delete ?.
         /// </summary>
-        internal static string confirm_delete_connection_title {
+        public static string confirm_delete_connection_title {
             get {
                 return ResourceManager.GetString("confirm_delete_connection_title", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace SharpDB.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Connect to database.
         /// </summary>
-        internal static string connect_database {
+        public static string connect_database {
             get {
                 return ResourceManager.GetString("connect_database", resourceCulture);
             }
@@ -99,16 +99,61 @@ namespace SharpDB.Properties {
         /// <summary>
         ///   Looks up a localized string similar to New database connection.
         /// </summary>
-        internal static string connection_default_name {
+        public static string connection_default_name {
             get {
                 return ResourceManager.GetString("connection_default_name", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection name.
+        /// </summary>
+        public static string connection_name {
+            get {
+                return ResourceManager.GetString("connection_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection string.
+        /// </summary>
+        public static string connection_string {
+            get {
+                return ResourceManager.GetString("connection_string", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string copy {
+            get {
+                return ResourceManager.GetString("copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cut.
+        /// </summary>
+        public static string cut {
+            get {
+                return ResourceManager.GetString("cut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data provider.
+        /// </summary>
+        public static string data_provider {
+            get {
+                return ResourceManager.GetString("data_provider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete database connection.
         /// </summary>
-        internal static string delete_database_connection {
+        public static string delete_database_connection {
             get {
                 return ResourceManager.GetString("delete_database_connection", resourceCulture);
             }
@@ -117,7 +162,7 @@ namespace SharpDB.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string dialog_cancel {
+        public static string dialog_cancel {
             get {
                 return ResourceManager.GetString("dialog_cancel", resourceCulture);
             }
@@ -126,7 +171,7 @@ namespace SharpDB.Properties {
         /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
-        internal static string dialog_ok {
+        public static string dialog_ok {
             get {
                 return ResourceManager.GetString("dialog_ok", resourceCulture);
             }
@@ -135,7 +180,7 @@ namespace SharpDB.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Disconnect from database.
         /// </summary>
-        internal static string disconnect_database {
+        public static string disconnect_database {
             get {
                 return ResourceManager.GetString("disconnect_database", resourceCulture);
             }
@@ -144,18 +189,90 @@ namespace SharpDB.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Edit database connection.
         /// </summary>
-        internal static string edit_database_connection {
+        public static string edit_database_connection {
             get {
                 return ResourceManager.GetString("edit_database_connection", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Execute all statements as a script.
+        /// </summary>
+        public static string execute_as_script {
+            get {
+                return ResourceManager.GetString("execute_as_script", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execute current statement.
+        /// </summary>
+        public static string execute_current {
+            get {
+                return ResourceManager.GetString("execute_current", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explain plan.
+        /// </summary>
+        public static string explain_plan {
+            get {
+                return ResourceManager.GetString("explain_plan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New database connection.
         /// </summary>
-        internal static string new_database_connection {
+        public static string new_database_connection {
             get {
                 return ResourceManager.GetString("new_database_connection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New worksheet.
+        /// </summary>
+        public static string new_worksheet {
+            get {
+                return ResourceManager.GetString("new_worksheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Untitled{0}.
+        /// </summary>
+        public static string new_worksheet_name_format {
+            get {
+                return ResourceManager.GetString("new_worksheet_name_format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open worksheet.
+        /// </summary>
+        public static string open_worksheet {
+            get {
+                return ResourceManager.GetString("open_worksheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paste.
+        /// </summary>
+        public static string paste {
+            get {
+                return ResourceManager.GetString("paste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save worksheet.
+        /// </summary>
+        public static string save_worksheet {
+            get {
+                return ResourceManager.GetString("save_worksheet", resourceCulture);
             }
         }
     }

@@ -49,8 +49,10 @@
   <ItemGroup>
     <Compile Include="Dialogs\CloseRequestedEvent.cs" />
     <Compile Include="Dialogs\DialogButton.cs" />
+    <Compile Include="Dialogs\FileDialogOptions.cs" />
     <Compile Include="Dialogs\IDialogService.cs" />
     <Compile Include="Dialogs\IDialogViewModel.cs" />
+    <Compile Include="Dialogs\IFileDialogService.cs" />
     <Compile Include="Dialogs\IMessageBoxService.cs" />
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
