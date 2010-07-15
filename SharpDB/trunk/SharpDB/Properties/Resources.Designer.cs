@@ -250,6 +250,24 @@ namespace SharpDB.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total {0} rows.
+        /// </summary>
+        public static string fetched_rows_complete_format {
+            get {
+                return ResourceManager.GetString("fetched_rows_complete_format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fetched {0} rows (scroll down for more).
+        /// </summary>
+        public static string fetched_rows_incomplete_format {
+            get {
+                return ResourceManager.GetString("fetched_rows_incomplete_format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New database connection.
         /// </summary>
         public static string new_database_connection {

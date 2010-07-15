@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:av="http://icsharpcode.net/sharpdevelop/avalonedit"
              xmlns:bhv="clr-namespace:SharpDB.Behaviors"
+             xmlns:prop="clr-namespace:SharpDB.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -15,6 +16,7 @@
             <RowDefinition MinHeight="50" />
             <RowDefinition Height="Auto" />
             <RowDefinition MinHeight="50" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <av:TextEditor Name="editor" Grid.Row="0"
                        FontFamily="Consolas" FontSize="14"
@@ -27,6 +29,9 @@
             <av:TextEditor.InputBindings>
                 <KeyBinding Key="Enter" Modifiers="Control" Command="{Binding ExecuteCurrentCommand}" />
                 <KeyBinding Key="F9" Command="{Binding ExecuteCurrentCommand}" />
+                <KeyBinding Key="F5" Command="{Binding ExecuteScriptCommand}" />
+                <KeyBinding Key="F6" Command="{Binding ExplainPlanCommand}" />
+                <KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveCommand}" />
             </av:TextEditor.InputBindings>
         </av:TextEditor>
 
@@ -37,7 +42,18 @@
         <DataGrid Name="results" Grid.Row="2"
                   ItemsSource="{Binding Results}"
                   IsReadOnly="True"
+                  SelectionMode="Extended"
+                  SelectionUnit="Cell"
                   Visibility="{Binding ShowResults, Converter={StaticResource visibilityConverter}}"
                   bhv:ScrollBehavior.VerticalScrollCommand="{Binding ResultsVerticalScrollCommand}" />
+        
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label Visibility="{Binding HasMoreRows, Converter={StaticResource visibilityConverter}}">
+                <TextBlock Text="{Binding FetchedRows, StringFormat={x:Static prop:Resources.fetched_rows_incomplete_format}}" />
+            </Label>
+            <Label Visibility="{Binding FetchComplete, Converter={StaticResource visibilityConverter}}">
+                <TextBlock Text="{Binding FetchedRows, StringFormat={x:Static prop:Resources.fetched_rows_complete_format}}" />
+            </Label>
+        </StackPanel>
     </Grid>
 </UserControl>

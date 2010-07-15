@@ -207,4 +207,10 @@
   <data name="query_error" xml:space="preserve">
     <value>Une erreur s'est produite lors de l'exécution de la requête :</value>
   </data>
+  <data name="fetched_rows_complete_format" xml:space="preserve">
+    <value>{0} lignes au total</value>
+  </data>
+  <data name="fetched_rows_incomplete_format" xml:space="preserve">
+    <value>{0} lignes récupérées (défiler vers le bas pour récupérer les suivantes)</value>
+  </data>
 </root>

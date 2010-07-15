@@ -135,6 +135,7 @@ namespace SharpDB.ViewModel
                 string title = Path.GetFileName(filename);
                 var worksheet = new WorksheetViewModel(_databaseManager)
                 {
+                    FileName = filename,
                     Title = title,
                     Text = text,
                     IsModified = false
