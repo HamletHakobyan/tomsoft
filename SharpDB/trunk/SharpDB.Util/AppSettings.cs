@@ -27,6 +27,23 @@ namespace SharpDB.Util
                 typeof(AppSettings),
                 new FrameworkPropertyMetadata(
                     null,
-                    FrameworkPropertyMetadataOptions.Inherits));
+                    FrameworkPropertyMetadataOptions.Inherits,
+                    SettingsChanged));
+
+        private static void SettingsChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+            var uiElement = o as UIElement;
+            if (uiElement == null)
+                return;
+            uiElement.RaiseEvent(new RoutedEventArgs(SettingsChangedEvent));
+        }
+
+        public static RoutedEvent SettingsChangedEvent =
+            EventManager.RegisterRoutedEvent(
+                "SettingsChanged",
+                RoutingStrategy.Direct,
+                typeof(RoutedEventHandler),
+                typeof(AppSettings));
+
     }
 }
