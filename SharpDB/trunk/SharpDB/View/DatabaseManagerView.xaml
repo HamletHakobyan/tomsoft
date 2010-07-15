@@ -16,20 +16,30 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <ToolBar Grid.Row="0">
-            <Button Command="{Binding NewConnectionCommand}" ToolTip="{x:Static prop:Resources.new_database_connection}">
+            <Button Command="{Binding NewConnectionCommand}"
+                    ToolTip="{x:Static prop:Resources.new_database_connection}"
+                    Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/database_add.png" />
             </Button>
-            <Button Command="{Binding EditConnectionCommand}" ToolTip="{x:Static prop:Resources.edit_database_connection}">
+            <Button Command="{Binding EditConnectionCommand}"
+                    ToolTip="{x:Static prop:Resources.edit_database_connection}"
+                    Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/edit.png" />
             </Button>
-            <Button Command="{Binding DeleteConnectionCommand}" ToolTip="{x:Static prop:Resources.delete_database_connection}">
+            <Button Command="{Binding DeleteConnectionCommand}"
+                    ToolTip="{x:Static prop:Resources.delete_database_connection}"
+                    Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/delete.png" />
             </Button>
             <Separator />
-            <Button Command="{Binding ConnectCommand}" ToolTip="{x:Static prop:Resources.connect_database}">
+            <Button Command="{Binding ConnectCommand}"
+                    ToolTip="{x:Static prop:Resources.connect_database}"
+                    Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/database.png" />
             </Button>
-            <Button Command="{Binding DisconnectCommand}" ToolTip="{x:Static prop:Resources.disconnect_database}">
+            <Button Command="{Binding DisconnectCommand}"
+                    ToolTip="{x:Static prop:Resources.disconnect_database}"
+                    Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/database_close.png" />
             </Button>
         </ToolBar>

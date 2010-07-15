@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:dvp="http://www.developpez.com/xaml"
-        xmlns:dlg="clr-namespace:SharpDB.Util.Dialogs;assembly=SharpDB.Util"
+        xmlns:dlg="clr-namespace:SharpDB.Util.Service;assembly=SharpDB.Util"
         xmlns:dvm="clr-namespace:SharpDB.ViewModel.Design;assembly=SharpDB.ViewModel.Design"
         xmlns:util="clr-namespace:SharpDB.Util;assembly=SharpDB.Util"
         mc:Ignorable="d"

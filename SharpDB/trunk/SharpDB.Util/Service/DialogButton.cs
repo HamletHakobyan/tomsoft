@@ -5,7 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Windows.Input;
 
-namespace SharpDB.Util.Dialogs
+namespace SharpDB.Util.Service
 {
     public class DialogButton : INotifyPropertyChanged
     {

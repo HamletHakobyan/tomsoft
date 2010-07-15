@@ -7,7 +7,7 @@ using SharpDB.Util;
 using SharpDB.Model;
 using Developpez.Dotnet.Windows.Input;
 using System.Windows.Input;
-using SharpDB.Util.Dialogs;
+using SharpDB.Util.Service;
 using System.Windows;
 
 namespace SharpDB.ViewModel

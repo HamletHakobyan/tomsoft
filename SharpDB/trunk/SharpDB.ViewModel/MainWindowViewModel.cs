@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Developpez.Dotnet.Windows.Input;
 using System.Windows.Input;
-using SharpDB.Util.Dialogs;
+using SharpDB.Util.Service;
 using SharpDB.Util;
 using System.Collections.ObjectModel;
 using System.IO;
