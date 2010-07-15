@@ -7,11 +7,11 @@
         xmlns:util="clr-namespace:SharpDB.Util;assembly=SharpDB.Util"
         xmlns:ctl="clr-namespace:SharpDB.Controls;assembly=SharpDB.Controls"
         xmlns:prop="clr-namespace:SharpDB.Properties"
+        xmlns:v="clr-namespace:SharpDB.View"
         mc:Ignorable="d"
         util:AppSettings.Settings="{x:Static prop:Settings.Default}"
         Height="{util:SettingBinding Height}"
-        Width="{util:SettingBinding Width}"
-        xmlns:v="clr-namespace:SharpDB.View">
+        Width="{util:SettingBinding Width}">
     
     <Window.Title>
         <MultiBinding StringFormat="{}{0} - {1}">
@@ -28,7 +28,7 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150" MinWidth="80" />
+            <ColumnDefinition Width="200" MinWidth="100" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -38,7 +38,7 @@
         </Grid.RowDefinitions>
 
         <v:MainWindowToolBar Grid.Row="0"
-                             Grid.ColumnSpan="2" />
+                             Grid.ColumnSpan="3" />
 
         <ContentControl Grid.Row="1" Grid.Column="0"
                         Content="{Binding DatabaseManager}" />

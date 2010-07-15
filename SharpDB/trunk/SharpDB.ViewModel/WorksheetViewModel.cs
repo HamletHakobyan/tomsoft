@@ -47,6 +47,21 @@ namespace SharpDB.ViewModel
             }
         }
 
+        private string _fileName;
+        public string FileName
+        {
+            get { return _fileName; }
+            set
+            {
+                if (value != _fileName)
+                {
+                    _fileName = value;
+                    OnPropertyChanged("FileName");
+                }
+            }
+        }
+
+
         private bool _isModified;
         public bool IsModified
         {
@@ -159,6 +174,50 @@ namespace SharpDB.ViewModel
             }
         }
 
+        private bool _fetchComplete;
+        public bool FetchComplete
+        {
+            get { return _fetchComplete; }
+            set
+            {
+                if (value != _fetchComplete)
+                {
+                    _fetchComplete = value;
+                    OnPropertyChanged("FetchComplete");
+                }
+            }
+        }
+
+        private bool _hasMoreRows;
+        public bool HasMoreRows
+        {
+            get { return _hasMoreRows; }
+            set
+            {
+                if (value != _hasMoreRows)
+                {
+                    _hasMoreRows = value;
+                    OnPropertyChanged("HasMoreRows");
+                }
+            }
+        }
+
+
+        private int _fetchedRows;
+        public int FetchedRows
+        {
+            get { return _fetchedRows; }
+            set
+            {
+                if (value != _fetchedRows)
+                {
+                    _fetchedRows = value;
+                    OnPropertyChanged("FetchedRows");
+                }
+            }
+        }
+
+
         private bool _showResults = true;
         public bool ShowResults
         {
@@ -231,7 +290,7 @@ namespace SharpDB.ViewModel
                 {
                     _pasteCommand = new DelegateCommand(
                         Paste,
-                        () => GetService<IClipboardService>().ContainsText());
+                        () => ClipboardContainsText());
                 }
                 return _pasteCommand;
             }
@@ -282,19 +341,6 @@ namespace SharpDB.ViewModel
             }
         }
 
-        private DelegateCommand<ScrollValueChangedEventArgs> _resultsHorizontalScrollCommand;
-        public ICommand ResultsHorizontalScrollCommand
-        {
-            get
-            {
-                if (_resultsHorizontalScrollCommand == null)
-                {
-                    _resultsHorizontalScrollCommand = new DelegateCommand<ScrollValueChangedEventArgs>(ResultsHorizontalScroll);
-                }
-                return _resultsHorizontalScrollCommand;
-            }
-        }
-
         private DelegateCommand<ScrollValueChangedEventArgs> _resultsVerticalScrollCommand;
         public ICommand ResultsVerticalScrollCommand
         {
@@ -315,18 +361,24 @@ namespace SharpDB.ViewModel
 
         public void Save()
         {
-            string filename = _title;
-            var options = new SaveFileDialogOptions
+            string filename = _fileName;
+            if (_fileName.IsNullOrEmpty())
             {
-                Filter = ResourceManager.GetString("sql_file_filter_name") + "|*.sql",
-            };
-            var service = GetService<IFileDialogService>();
-            if (service.ShowSave(ref filename, options) == true)
-            {
-                File.WriteAllText(filename, Text);
-                Title = Path.GetFileName(filename);
-                IsModified = false;
+                filename = _title;
+                var options = new SaveFileDialogOptions
+                {
+                    Filter = ResourceManager.GetString("sql_file_filter_name") + "|*.sql",
+                };
+                var service = GetService<IFileDialogService>();
+                if (service.ShowSave(ref filename, options) != true)
+                {
+                    return;
+                }
             }
+            File.WriteAllText(filename, Text);
+            Title = Path.GetFileName(filename);
+            FileName = filename;
+            IsModified = false;
         }
 
         public void Cut()
@@ -357,11 +409,19 @@ namespace SharpDB.ViewModel
 
         public void ExecuteCurrent()
         {
+            if (_reader != null && !_reader.IsClosed)
+                _reader.Dispose();
+            
+            Results = null;
+            HasMoreRows = false;
+            FetchComplete = false;
+            FetchedRows = 0;
+
             if (!CheckDatabaseConnected())
                 return;
 
             string sql = GetCurrentStatement();
-            if (sql == null)
+            if (sql.IsNullOrEmpty())
                 return;
 
             try
@@ -416,15 +476,23 @@ namespace SharpDB.ViewModel
             {
                 int n = 0;
                 object[] values = new object[reader.FieldCount];
-                bool hasMoreRows;
-                while ((hasMoreRows = reader.Read()) && n < 50)
+                bool hasMoreRows = false;
+                while (n < 50 && (hasMoreRows = reader.Read()))
                 {
                     reader.GetValues(values);
                     var r = table.LoadDataRow(values, LoadOption.PreserveChanges);
                     n++;
                 }
-                if (!hasMoreRows)
+                FetchedRows += n;
+                if (hasMoreRows)
                 {
+                    FetchComplete = false;
+                    HasMoreRows = true;
+                }
+                else
+                {
+                    HasMoreRows = false;
+                    FetchComplete = true;
                     reader.Dispose();
                 }
             }
@@ -440,11 +508,13 @@ namespace SharpDB.ViewModel
             }
         }
 
-        private void ResultsHorizontalScroll(ScrollValueChangedEventArgs e)
+        private bool ClipboardContainsText()
         {
-            
+            if (IsInDesignMode)
+                return true;
+            return GetService<IClipboardService>().ContainsText();
         }
-        
+
         private bool CheckDatabaseConnected()
         {
             if (_currentDatabase == null)
@@ -483,7 +553,7 @@ namespace SharpDB.ViewModel
         {
             if (position >= text.Length)
                 position = text.Length - 1;
-            while (text[position].In('\r', '\n') && position >= 0)
+            while (text[position].In('\r', '\n') && position > 0)
                 position--;
 
             start = 0;
@@ -491,11 +561,14 @@ namespace SharpDB.ViewModel
 
             // Find start
             int curPos = position;
-            int charPos = curPos;
-            bool nonWhiteSpaceOnLine = true;
+            int charPos = -1;
+            bool nonWhiteSpaceOnLine = false;
             while (curPos >= 0)
             {
                 char c = text[curPos];
+
+                if (!char.IsWhiteSpace(c))
+                    nonWhiteSpaceOnLine = true;
 
                 // Ignore CR
                 if (c == '\r')
@@ -510,24 +583,24 @@ namespace SharpDB.ViewModel
                 {
                     if (nonWhiteSpaceOnLine)
                         nonWhiteSpaceOnLine = false;
-                    else
+                    else if (charPos > -1)
                         break;
                 }
 
-                if (!char.IsWhiteSpace(c))
-                    nonWhiteSpaceOnLine = true;
-
                 curPos--;
             }
-            start = charPos;
+            start = Math.Max(charPos, 0);
 
             // Find end
             curPos = position;
-            charPos = curPos;
-            nonWhiteSpaceOnLine = true;
+            charPos = -1;
+            nonWhiteSpaceOnLine = false;
             while (curPos < text.Length)
             {
                 char c = text[curPos];
+
+                if (!char.IsWhiteSpace(c))
+                    nonWhiteSpaceOnLine = true;
 
                 // Ignore CR
                 if (c == '\r')
@@ -542,16 +615,13 @@ namespace SharpDB.ViewModel
                 {
                     if (nonWhiteSpaceOnLine)
                         nonWhiteSpaceOnLine = false;
-                    else
+                    else if (charPos > -1)
                         break;
                 }
 
-                if (!char.IsWhiteSpace(c))
-                    nonWhiteSpaceOnLine = true;
-
                 curPos++;
             }
-            length = charPos - start + 1;
+            length = Math.Max(charPos, 0) - start + 1;
 
             return text.Substring(start, length);
         }

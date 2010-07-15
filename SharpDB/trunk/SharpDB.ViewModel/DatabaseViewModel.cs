@@ -10,6 +10,7 @@ using Developpez.Dotnet.Data;
 using System.Collections;
 using System.Collections.ObjectModel;
 using SharpDB.Util.Service;
+using SharpDB.Model.Data;
 
 namespace SharpDB.ViewModel
 {
@@ -120,7 +121,18 @@ namespace SharpDB.ViewModel
             CheckConnected();
             using (var command = _connection.CreateCommand(commandText))
             {
-                return command.ExecuteReader();
+                try
+                {
+                    return command.ExecuteReader();
+                }
+                catch (Exception ex)
+                {
+                    if (ex is DbException)
+                        throw;
+                    else
+                        throw new DbExceptionWrapper(ex);
+                }
+
             }
         }
 
@@ -129,7 +141,17 @@ namespace SharpDB.ViewModel
             CheckConnected();
             using (var command = _connection.CreateCommand(commandText))
             {
-                return command.ExecuteNonQuery();
+                try
+                {
+                    return command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    if (ex is DbException)
+                        throw;
+                    else
+                        throw new DbExceptionWrapper(ex);
+                }
             }
         }
 
