@@ -24,12 +24,19 @@ namespace SharpDB
         {
             ServiceLocator.Instance.RegisterService<IDialogService>(new DialogService());
             ServiceLocator.Instance.RegisterService<IMessageBoxService>(new BasicMessageBoxService());
+            ServiceLocator.Instance.RegisterService<IFileDialogService>(new FileDialogService());
             ServiceLocator.Instance.RegisterService(SharpDB.Properties.Resources.ResourceManager);
             ServiceLocator.Instance.RegisterService(GetConfiguration());
 
             InitializeSyntaxHighlighting();
 
             base.OnStartup(e);
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            SharpDB.Properties.Settings.Default.Save();
+            base.OnExit(e);
         }
 
         private Config GetConfiguration()

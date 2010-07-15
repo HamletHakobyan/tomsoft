@@ -36,8 +36,8 @@
                                     <local:DocumentItemsControl.ItemContainerStyle>
                                         <Style TargetType="local:DocumentItem">
                                             <Setter Property="Visibility" Value="{Binding IsSelected,
-                                                                RelativeSource={RelativeSource Mode=Self},
-                                                                Converter={StaticResource visibilityConverter}}" />
+                                                                            RelativeSource={RelativeSource Mode=Self},
+                                                                            Converter={StaticResource visibilityConverter}}" />
                                         </Style>
                                     </local:DocumentItemsControl.ItemContainerStyle>
                                 </local:DocumentItemsControl>

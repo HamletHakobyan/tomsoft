@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 
 namespace SharpDB.Controls
 {
@@ -50,12 +51,22 @@ namespace SharpDB.Controls
         public static readonly DependencyProperty IsSelectedProperty =
             DependencyProperty.Register("IsSelected", typeof(bool), typeof(TabDocumentContainerItem), new UIPropertyMetadata(false));
 
-        protected override void OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
+        protected override void OnMouseDown(System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (e.Source == this || !this.IsSelected)
+            switch (e.ChangedButton)
             {
-                _parent.SetCurrentValue(Selector.SelectedItemProperty, this.DataContext ?? this);
-                e.Handled = true;
+                case MouseButton.Left:
+                    if (e.Source == this || !this.IsSelected)
+                    {
+                        _parent.SetCurrentValue(Selector.SelectedItemProperty, this.DataContext ?? this);
+                        e.Handled = true;
+                    }
+                    break;
+                case MouseButton.Middle:
+                    _parent.CloseTab(this);
+                    break;
+                default:
+                    break;
             }
             base.OnMouseLeftButtonDown(e);
         }

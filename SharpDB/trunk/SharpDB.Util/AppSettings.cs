@@ -25,7 +25,8 @@ namespace SharpDB.Util
                 "Settings",
                 typeof(ApplicationSettingsBase),
                 typeof(AppSettings),
-                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
-
+                new FrameworkPropertyMetadata(
+                    null,
+                    FrameworkPropertyMetadataOptions.Inherits));
     }
 }

@@ -7,6 +7,7 @@ using System.Windows.Input;
 using SharpDB.Util.Dialogs;
 using SharpDB.Util;
 using System.Collections.ObjectModel;
+using System.IO;
 
 namespace SharpDB.ViewModel
 {
@@ -16,7 +17,7 @@ namespace SharpDB.ViewModel
         {
             _title = "SharpDB";
             _databaseManager = new DatabaseManagerViewModel();
-            _currentWorksheet = new WorksheetViewModel();
+            _currentWorksheet = new WorksheetViewModel(_databaseManager);
             _worksheets = new ObservableCollection<WorksheetViewModel>();
             _worksheets.Add(_currentWorksheet);
         }
@@ -115,14 +116,32 @@ namespace SharpDB.ViewModel
 
         public void NewWorksheet()
         {
-            var worksheet = new WorksheetViewModel();
+            var worksheet = new WorksheetViewModel(_databaseManager);
             _worksheets.Add(worksheet);
             CurrentWorksheet = worksheet;
         }
 
         public void OpenWorksheet()
         {
-            GetService<IMessageBoxService>().Show("Not implemented");
+            string filename = string.Empty;
+            var options = new OpenFileDialogOptions
+            {
+                Filter = ResourceManager.GetString("sql_file_filter_name") + "|*.sql",
+            };
+            var service = GetService<IFileDialogService>();
+            if (service.ShowOpen(ref filename, options) == true)
+            {
+                string text = File.ReadAllText(filename);
+                string title = Path.GetFileName(filename);
+                var worksheet = new WorksheetViewModel(_databaseManager)
+                {
+                    Title = title,
+                    Text = text,
+                    IsModified = false
+                };
+                Worksheets.Add(worksheet);
+                CurrentWorksheet = worksheet;
+            }
         }
 
         public void SaveCurrentWorksheet()

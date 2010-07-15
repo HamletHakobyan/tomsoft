@@ -189,4 +189,22 @@
   <data name="save_worksheet" xml:space="preserve">
     <value>Enregistrer la feuille SQL</value>
   </data>
+  <data name="sql_file_filter_name" xml:space="preserve">
+    <value>Fichiers SQL</value>
+  </data>
+  <data name="current_database" xml:space="preserve">
+    <value>Base de données courante</value>
+  </data>
+  <data name="database_not_connected" xml:space="preserve">
+    <value>Non connecté à la base de données</value>
+  </data>
+  <data name="no_database_selected" xml:space="preserve">
+    <value>Aucune base de données n'est sélectionnée</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="query_error" xml:space="preserve">
+    <value>Une erreur s'est produite lors de l'exécution de la requête :</value>
+  </data>
 </root>

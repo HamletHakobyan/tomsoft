@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:SharpDB.ViewModel;assembly=SharpDB.ViewModel"
              xmlns:prop="clr-namespace:SharpDB.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="600">
@@ -35,6 +36,22 @@
                     ToolTip="{x:Static prop:Resources.paste}">
                 <Image Source="/Images/paste.png" />
             </Button>
+            <Separator />
+            <Image Source="/Images/database.png" ToolTip="{x:Static prop:Resources.current_database}"/>
+            <ComboBox ItemsSource="{Binding Databases}"
+                      SelectedItem="{Binding CurrentDatabase}"
+                      Width="100">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type vm:DatabaseViewModel}">
+                        <TextBlock Text="{Binding ConnectionName}"/>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                                <Setter Property="TextBlock.FontWeight" Value="Bold" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <Separator />
             <Button Command="{Binding ExecuteCurrentCommand}"
                     ToolTip="{x:Static prop:Resources.execute_current}">

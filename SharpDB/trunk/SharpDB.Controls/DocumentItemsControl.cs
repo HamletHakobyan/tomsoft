@@ -8,6 +8,25 @@ namespace SharpDB.Controls
 {
     class DocumentItemsControl : Selector
     {
+        public DocumentItemsControl()
+        {
+            ItemContainerGenerator.StatusChanged += ItemContainerGenerator_StatusChanged;
+        }
+
+        void ItemContainerGenerator_StatusChanged(object sender, EventArgs e)
+        {
+            if (ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
+            {
+                if (SelectedItem != null)
+                {
+                    var containerItem = ItemContainerGenerator.ContainerFromItem(SelectedItem) as DocumentItem;
+                    if (containerItem != null)
+                        containerItem.IsSelected = true;
+                }
+                ItemContainerGenerator.StatusChanged -= ItemContainerGenerator_StatusChanged;
+            }
+        }
+
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
             return item is DocumentItem;

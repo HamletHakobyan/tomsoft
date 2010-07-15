@@ -22,8 +22,6 @@ namespace SharpDB.View
         public WorksheetView()
         {
             InitializeComponent();
-
-            
         }
     }
 }

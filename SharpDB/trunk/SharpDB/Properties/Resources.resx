@@ -189,4 +189,22 @@
   <data name="save_worksheet" xml:space="preserve">
     <value>Save worksheet</value>
   </data>
+  <data name="sql_file_filter_name" xml:space="preserve">
+    <value>SQL files</value>
+  </data>
+  <data name="no_database_selected" xml:space="preserve">
+    <value>No database is selected</value>
+  </data>
+  <data name="current_database" xml:space="preserve">
+    <value>Current database</value>
+  </data>
+  <data name="database_not_connected" xml:space="preserve">
+    <value>Not connected to the database</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="query_error" xml:space="preserve">
+    <value>An error occured while executing the query:</value>
+  </data>
 </root>

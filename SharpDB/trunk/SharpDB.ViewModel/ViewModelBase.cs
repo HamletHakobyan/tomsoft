@@ -9,6 +9,8 @@ using Developpez.Dotnet.Linq;
 using System.Diagnostics;
 using SharpDB.Util;
 using System.Resources;
+using System.Windows;
+using Developpez.Dotnet.Reflection;
 
 namespace SharpDB.ViewModel
 {
@@ -45,6 +47,19 @@ namespace SharpDB.ViewModel
 
         #endregion
 
+        #region Design mode
+
+        private static readonly DependencyObject _dummyDependencyObject = new DependencyObject();
+        protected bool IsInDesignMode
+        {
+            get
+            {
+                return DesignerProperties.GetIsInDesignMode(_dummyDependencyObject);
+            }
+        }
+
+        #endregion
+
         #region GetService methods
 
         protected virtual object GetService(Type serviceType, string name)
@@ -75,7 +90,9 @@ namespace SharpDB.ViewModel
         {
             get
             {
-                return GetService<ResourceManager>();
+                if (!IsInDesignMode)
+                    return GetService<ResourceManager>();
+                return new DummyResourceManager();
             }
         }
 
