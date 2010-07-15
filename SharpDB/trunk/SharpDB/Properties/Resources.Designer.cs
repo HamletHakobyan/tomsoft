@@ -133,6 +133,15 @@ namespace SharpDB.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current database.
+        /// </summary>
+        public static string current_database {
+            get {
+                return ResourceManager.GetString("current_database", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cut.
         /// </summary>
         public static string cut {
@@ -147,6 +156,15 @@ namespace SharpDB.Properties {
         public static string data_provider {
             get {
                 return ResourceManager.GetString("data_provider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not connected to the database.
+        /// </summary>
+        public static string database_not_connected {
+            get {
+                return ResourceManager.GetString("database_not_connected", resourceCulture);
             }
         }
         
@@ -192,6 +210,15 @@ namespace SharpDB.Properties {
         public static string edit_database_connection {
             get {
                 return ResourceManager.GetString("edit_database_connection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string error {
+            get {
+                return ResourceManager.GetString("error", resourceCulture);
             }
         }
         
@@ -250,6 +277,15 @@ namespace SharpDB.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No database is selected.
+        /// </summary>
+        public static string no_database_selected {
+            get {
+                return ResourceManager.GetString("no_database_selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open worksheet.
         /// </summary>
         public static string open_worksheet {
@@ -268,11 +304,29 @@ namespace SharpDB.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occured while executing the query:.
+        /// </summary>
+        public static string query_error {
+            get {
+                return ResourceManager.GetString("query_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save worksheet.
         /// </summary>
         public static string save_worksheet {
             get {
                 return ResourceManager.GetString("save_worksheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SQL files.
+        /// </summary>
+        public static string sql_file_filter_name {
+            get {
+                return ResourceManager.GetString("sql_file_filter_name", resourceCulture);
             }
         }
     }

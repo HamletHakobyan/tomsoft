@@ -16,10 +16,13 @@ namespace SharpDB.ViewModel
     {
         public DatabaseManagerViewModel()
         {
-            var config = GetService<Config>();
-            _databases = new ObservableCollection<DatabaseViewModel>(
-                config.Connections.Select(c => new DatabaseViewModel(c))
-            );
+            if (!IsInDesignMode)
+            {
+                var config = GetService<Config>();
+                _databases = new ObservableCollection<DatabaseViewModel>(
+                    config.Connections.Select(c => new DatabaseViewModel(c))
+                );
+            }
         }
 
         #region Properties

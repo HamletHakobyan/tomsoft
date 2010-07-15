@@ -37,7 +37,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Developpez.Dotnet, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Developpez.Dotnet, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\lib\Dvp.NET\Developpez.Dotnet.dll</HintPath>
+    </Reference>
     <Reference Include="Developpez.Dotnet.Windows">
       <HintPath>..\lib\Dvp.NET\Developpez.Dotnet.Windows.dll</HintPath>
     </Reference>
@@ -53,7 +55,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -71,11 +72,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\TextEditorBehavior.cs" />
     <Compile Include="Service\BasicMessageBoxService.cs" />
     <Compile Include="DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Service\DialogService.cs" />
+    <Compile Include="Service\DialogServiceBase.cs" />
+    <Compile Include="Service\FileDialogService.cs" />
     <Compile Include="View\ConnectionDialogView.xaml.cs">
       <DependentUpon>ConnectionDialogView.xaml</DependentUpon>
     </Compile>

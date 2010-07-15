@@ -4,16 +4,35 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:av="http://icsharpcode.net/sharpdevelop/avalonedit"
+             xmlns:bhv="clr-namespace:SharpDB.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="visibilityConverter" />
+    </UserControl.Resources>
     <Grid>
-        <av:TextEditor x:Shared="False"
-                       Name="editor"
-                       FontFamily="Consolas"
-                       FontSize="14"
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="50" />
+            <RowDefinition MinHeight="50" />
+        </Grid.RowDefinitions>
+        <av:TextEditor Name="editor" Grid.Row="0"
+                       FontFamily="Consolas" FontSize="14"
                        SyntaxHighlighting="SQL"
-                       IsModified="{Binding IsModified, Mode=OneWayToSource}">
-            SELECT * FROM table
+                       bhv:TextEditorBehavior.Enabled="True"
+                       bhv:TextEditorBehavior.Text="{Binding Text}"
+                       bhv:TextEditorBehavior.Selection="{Binding Selection}"
+                       bhv:TextEditorBehavior.CaretPosition="{Binding CaretPosition}"
+                       bhv:TextEditorBehavior.SelectedText="{Binding SelectedText}">
+            <av:TextEditor.InputBindings>
+                <KeyBinding Key="Enter" Modifiers="Control" Command="{Binding ExecuteCurrentCommand}" />
+                <KeyBinding Key="F9" Command="{Binding ExecuteCurrentCommand}" />
+            </av:TextEditor.InputBindings>
         </av:TextEditor>
+
+        <GridSplitter Grid.Row="0" VerticalAlignment="Bottom" />
+        
+        <DataGrid Name="results" Grid.Row="1"
+                  ItemsSource="{Binding Results}"
+                  Visibility="{Binding ShowResults, Converter={StaticResource visibilityConverter}}"/>
     </Grid>
 </UserControl>
