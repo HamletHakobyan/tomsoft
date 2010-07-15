@@ -66,31 +66,37 @@ namespace SharpDB.Util
 
         private object GetSettingValue(DependencyObject obj, DependencyProperty prop, System.Configuration.ApplicationSettingsBase settings)
         {
-            var descriptor = DependencyPropertyDescriptor.FromProperty(prop, prop.OwnerType);
-            EventHandler handler = (o, e) =>
+            if (!DesignerProperties.GetIsInDesignMode(obj))
             {
-                settings[SettingName] = obj.GetValue(prop);
-            };
-            descriptor.AddValueChanged(obj, handler);
+                var descriptor = DependencyPropertyDescriptor.FromProperty(prop, prop.OwnerType);
+                EventHandler handler = (o, e) =>
+                {
+                    settings[SettingName] = obj.GetValue(prop);
+                };
+                descriptor.AddValueChanged(obj, handler);
+            }
             return settings[SettingName];
         }
 
         private void RegisterForSettingsChanged(DependencyObject obj, DependencyProperty prop)
         {
-            var descriptor = DependencyPropertyDescriptor.FromProperty(AppSettings.SettingsProperty, obj.GetType());
-            
-            EventHandler handler = null;
+            var uiElement = obj as UIElement;
+            if (uiElement == null)
+                return;
+
+            RoutedEventHandler handler = null;
             handler = (o, e) =>
                 {
                     var settings = AppSettings.GetSettings(obj);
                     if (settings != null)
                     {
+                        var descriptor = DependencyPropertyDescriptor.FromProperty(AppSettings.SettingsProperty, obj.GetType());
                         var value = GetSettingValue(obj, prop, settings);
                         obj.SetValue(prop, value);
-                        descriptor.RemoveValueChanged(obj, handler);
+                        uiElement.RemoveHandler(AppSettings.SettingsChangedEvent, handler);
                     }
                 };
-            descriptor.AddValueChanged(obj, handler);
+            uiElement.AddHandler(AppSettings.SettingsChangedEvent, handler);
         }
     }
 }

@@ -8,8 +8,6 @@
         xmlns:ctl="clr-namespace:SharpDB.Controls;assembly=SharpDB.Controls"
         xmlns:prop="clr-namespace:SharpDB.Properties"
         mc:Ignorable="d"
-        d:DesignWidth="525"
-        d:DesignHeight="350"
         util:AppSettings.Settings="{x:Static prop:Settings.Default}"
         Height="{util:SettingBinding Height}"
         Width="{util:SettingBinding Width}"
@@ -23,10 +21,11 @@
                      FallbackValue="(no worksheet)"/>
         </MultiBinding>
     </Window.Title>
-
+    
     <Window.DataContext>
         <vm:MainWindowViewModel />
     </Window.DataContext>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150" MinWidth="80" />
