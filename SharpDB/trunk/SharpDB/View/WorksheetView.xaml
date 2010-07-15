@@ -13,6 +13,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition MinHeight="50" />
+            <RowDefinition Height="Auto" />
             <RowDefinition MinHeight="50" />
         </Grid.RowDefinitions>
         <av:TextEditor Name="editor" Grid.Row="0"
@@ -29,10 +30,14 @@
             </av:TextEditor.InputBindings>
         </av:TextEditor>
 
-        <GridSplitter Grid.Row="0" VerticalAlignment="Bottom" />
+        <GridSplitter Grid.Row="1"
+                      VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                      Height="3" ResizeBehavior="PreviousAndNext" />
         
-        <DataGrid Name="results" Grid.Row="1"
+        <DataGrid Name="results" Grid.Row="2"
                   ItemsSource="{Binding Results}"
-                  Visibility="{Binding ShowResults, Converter={StaticResource visibilityConverter}}"/>
+                  IsReadOnly="True"
+                  Visibility="{Binding ShowResults, Converter={StaticResource visibilityConverter}}"
+                  bhv:ScrollBehavior.VerticalScrollCommand="{Binding ResultsVerticalScrollCommand}" />
     </Grid>
 </UserControl>

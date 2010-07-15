@@ -20,10 +20,12 @@ namespace SharpDB.Model.Data
         }
 
         public int PageSize { get; set; }
+        public bool IsAtEnd { get; private set; }
 
         public void Close()
         {
-            _reader.Close();
+            if (IsAtEnd)
+                _reader.Close();
         }
 
         public int Depth
@@ -51,7 +53,9 @@ namespace SharpDB.Model.Data
             if (_count < PageSize)
             {
                 _count++;
-                return _reader.Read();
+                bool r = _reader.Read();
+                IsAtEnd = !r;
+                return r;
             }
             else
             {

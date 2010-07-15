@@ -13,6 +13,8 @@ using System.Data;
 using SharpDB.Model.Data;
 using System.Windows;
 using System.Data.Common;
+using System.Windows.Controls.Primitives;
+using System.Windows.Controls;
 
 namespace SharpDB.ViewModel
 {
@@ -21,12 +23,12 @@ namespace SharpDB.ViewModel
         private static int _worksheetNum = 0;
 
         private readonly DatabaseManagerViewModel _manager;
+        private IDataReader _reader;
 
         public WorksheetViewModel(DatabaseManagerViewModel manager)
         {
             _manager = manager;
             _title = string.Format(ResourceManager.GetString("new_worksheet_name_format"), ++_worksheetNum);
-            _text = "SELECT * FROM foo";
         }
 
         #region Properties
@@ -280,6 +282,33 @@ namespace SharpDB.ViewModel
             }
         }
 
+        private DelegateCommand<ScrollValueChangedEventArgs> _resultsHorizontalScrollCommand;
+        public ICommand ResultsHorizontalScrollCommand
+        {
+            get
+            {
+                if (_resultsHorizontalScrollCommand == null)
+                {
+                    _resultsHorizontalScrollCommand = new DelegateCommand<ScrollValueChangedEventArgs>(ResultsHorizontalScroll);
+                }
+                return _resultsHorizontalScrollCommand;
+            }
+        }
+
+        private DelegateCommand<ScrollValueChangedEventArgs> _resultsVerticalScrollCommand;
+        public ICommand ResultsVerticalScrollCommand
+        {
+            get
+            {
+                if (_resultsVerticalScrollCommand == null)
+                {
+                    _resultsVerticalScrollCommand = new DelegateCommand<ScrollValueChangedEventArgs>(ResultsVerticalScroll);
+                }
+                return _resultsVerticalScrollCommand;
+            }
+        }
+
+
         #endregion
 
         #region Public methods
@@ -339,9 +368,14 @@ namespace SharpDB.ViewModel
             {
                 if (sql.StartsWith("select ", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    var reader = new PagingDataReader(_currentDatabase.ExecuteReader(sql));
+                    var reader = _currentDatabase.ExecuteReader(sql);
                     DataTable table = new DataTable();
-                    table.Load(reader);
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        table.Columns.Add(reader.GetName(i), reader.GetFieldType(i));
+                    }
+                    FetchRecords(table, reader);
+                    _reader = reader;
                     Results = table;
                 }
                 else
@@ -376,6 +410,41 @@ namespace SharpDB.ViewModel
 
         #endregion
 
+        private void FetchRecords(DataTable table, IDataReader reader)
+        {
+            if (reader != null && !reader.IsClosed)
+            {
+                int n = 0;
+                object[] values = new object[reader.FieldCount];
+                bool hasMoreRows;
+                while ((hasMoreRows = reader.Read()) && n < 50)
+                {
+                    reader.GetValues(values);
+                    var r = table.LoadDataRow(values, LoadOption.PreserveChanges);
+                    n++;
+                }
+                if (!hasMoreRows)
+                {
+                    reader.Dispose();
+                }
+            }
+        }
+
+        private void ResultsVerticalScroll(ScrollValueChangedEventArgs e)
+        {
+            if (e.Orientation == Orientation.Vertical)
+            {
+                var threshold = e.Maximum - (e.Maximum - e.Minimum) / 20; // 5% from the bottom
+                if (e.NewValue > threshold)
+                    FetchRecords(_results, _reader);
+            }
+        }
+
+        private void ResultsHorizontalScroll(ScrollValueChangedEventArgs e)
+        {
+            
+        }
+        
         private bool CheckDatabaseConnected()
         {
             if (_currentDatabase == null)
@@ -412,6 +481,8 @@ namespace SharpDB.ViewModel
 
         private string GetCurrentStatement(string text, int position, out int start, out int length)
         {
+            if (position >= text.Length)
+                position = text.Length - 1;
             while (text[position].In('\r', '\n') && position >= 0)
                 position--;
 
