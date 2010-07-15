@@ -29,6 +29,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150" MinWidth="80" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -42,9 +43,11 @@
         <ContentControl Grid.Row="1" Grid.Column="0"
                         Content="{Binding DatabaseManager}" />
 
-        <GridSplitter Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" />
+        <GridSplitter Grid.Row="1" Grid.Column="1"
+                      HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                      Width="3" ResizeBehavior="PreviousAndNext" />
 
-        <ctl:TabDocumentContainer Grid.Column="1"
+        <ctl:TabDocumentContainer Grid.Column="2"
                                   Grid.Row="1"
                                   ItemsSource="{Binding Worksheets}"
                                   SelectedItem="{Binding CurrentWorksheet}">
