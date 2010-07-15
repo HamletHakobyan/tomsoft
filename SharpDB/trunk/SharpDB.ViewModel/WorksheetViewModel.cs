@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Developpez.Dotnet.Windows.Input;
 using System.Windows.Input;
-using SharpDB.Util.Dialogs;
+using SharpDB.Util.Service;
 using System.IO;
 using System.Collections.ObjectModel;
 using SharpDB.Util;
@@ -197,7 +197,9 @@ namespace SharpDB.ViewModel
             {
                 if (_cutCommand == null)
                 {
-                    _cutCommand = new DelegateCommand(Cut);
+                    _cutCommand = new DelegateCommand(
+                        Cut,
+                        () => !SelectedText.IsNullOrEmpty());
                 }
                 return _cutCommand;
             }
@@ -210,7 +212,9 @@ namespace SharpDB.ViewModel
             {
                 if (_copyCommand == null)
                 {
-                    _copyCommand = new DelegateCommand(Copy);
+                    _copyCommand = new DelegateCommand(
+                        Copy,
+                        () => !SelectedText.IsNullOrEmpty());
                 }
                 return _copyCommand;
             }
@@ -223,7 +227,9 @@ namespace SharpDB.ViewModel
             {
                 if (_pasteCommand == null)
                 {
-                    _pasteCommand = new DelegateCommand(Paste);
+                    _pasteCommand = new DelegateCommand(
+                        Paste,
+                        () => GetService<IClipboardService>().ContainsText());
                 }
                 return _pasteCommand;
             }
@@ -236,7 +242,9 @@ namespace SharpDB.ViewModel
             {
                 if (_executeCurrentCommand == null)
                 {
-                    _executeCurrentCommand = new DelegateCommand(ExecuteCurrent);
+                    _executeCurrentCommand = new DelegateCommand(
+                        ExecuteCurrent,
+                        () => _currentDatabase != null && _currentDatabase.IsConnected);
                 }
                 return _executeCurrentCommand;
             }
@@ -249,7 +257,9 @@ namespace SharpDB.ViewModel
             {
                 if (_executeScriptCommand == null)
                 {
-                    _executeScriptCommand = new DelegateCommand(ExecuteScript);
+                    _executeScriptCommand = new DelegateCommand(
+                        ExecuteScript,
+                        () => _currentDatabase != null && _currentDatabase.IsConnected);
                 }
                 return _executeScriptCommand;
             }
@@ -262,7 +272,9 @@ namespace SharpDB.ViewModel
             {
                 if (_explainPlanCommand == null)
                 {
-                    _explainPlanCommand = new DelegateCommand(ExplainPlan);
+                    _explainPlanCommand = new DelegateCommand(
+                        ExplainPlan,
+                        () => _currentDatabase != null && _currentDatabase.IsConnected);
                 }
                 return _explainPlanCommand;
             }
@@ -290,17 +302,28 @@ namespace SharpDB.ViewModel
 
         public void Cut()
         {
-            GetService<IMessageBoxService>().Show("Not implemented");
+            if (!SelectedText.IsNullOrEmpty())
+            {
+                GetService<IClipboardService>().SetText(SelectedText);
+                SelectedText = string.Empty;
+            }
         }
 
         public void Copy()
         {
-            GetService<IMessageBoxService>().Show("Not implemented");
+            if (!SelectedText.IsNullOrEmpty())
+            {
+                GetService<IClipboardService>().SetText(SelectedText);
+            }
         }
 
         public void Paste()
         {
-            GetService<IMessageBoxService>().Show("Not implemented");
+            var service = GetService<IClipboardService>();
+            if (service.ContainsText())
+            {
+                SelectedText = service.GetText();
+            }
         }
 
         public void ExecuteCurrent()

@@ -7,33 +7,53 @@
              xmlns:prop="clr-namespace:SharpDB.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="600">
+    
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="visibilibyConverter"/>
+    </UserControl.Resources>
+    
     <ToolBarTray>
         <ToolBar>
             <Button Command="{Binding NewWorksheetCommand}"
-                    ToolTip="{x:Static prop:Resources.new_worksheet}">
+                    ToolTip="{x:Static prop:Resources.new_worksheet}"
+                    Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/file.png" />
             </Button>
             <Button Command="{Binding OpenWorksheetCommand}"
-                    ToolTip="{x:Static prop:Resources.open_worksheet}">
+                    ToolTip="{x:Static prop:Resources.open_worksheet}"
+                    Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/open.png" />
             </Button>
         </ToolBar>
         <ToolBar Name="WorksheetToolbar"
                  DataContext="{Binding CurrentWorksheet}">
+            <ToolBar.Style>
+                <Style TargetType="ToolBar">
+                    <Style.Triggers>
+                        <Trigger Property="DataContext" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ToolBar.Style>
             <Button Command="{Binding SaveCommand}"
-                    ToolTip="{x:Static prop:Resources.save_worksheet}">
+                    ToolTip="{x:Static prop:Resources.save_worksheet}"
+                    Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/save.png" />
             </Button>
             <Button Command="{Binding CutCommand}"
-                    ToolTip="{x:Static prop:Resources.cut}">
+                    ToolTip="{x:Static prop:Resources.cut}"
+                    Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/cut.png" />
             </Button>
             <Button Command="{Binding CopyCommand}"
-                    ToolTip="{x:Static prop:Resources.copy}">
+                    ToolTip="{x:Static prop:Resources.copy}"
+                    Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/copy.png" />
             </Button>
             <Button Command="{Binding PasteCommand}"
-                    ToolTip="{x:Static prop:Resources.paste}">
+                    ToolTip="{x:Static prop:Resources.paste}"
+                    Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/paste.png" />
             </Button>
             <Separator />
@@ -54,15 +74,18 @@
             </ComboBox>
             <Separator />
             <Button Command="{Binding ExecuteCurrentCommand}"
-                    ToolTip="{x:Static prop:Resources.execute_current}">
+                    ToolTip="{x:Static prop:Resources.execute_current}"
+                    Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/run.png" />
             </Button>
             <Button Command="{Binding ExecuteScriptCommand}"
-                    ToolTip="{x:Static prop:Resources.execute_as_script}">
+                    ToolTip="{x:Static prop:Resources.execute_as_script}"
+                    Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/run_script.png" />
             </Button>
             <Button Command="{Binding ExplainPlanCommand}"
-                    ToolTip="{x:Static prop:Resources.explain_plan}">
+                    ToolTip="{x:Static prop:Resources.explain_plan}"
+                    Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/explain.png"/>
             </Button>
         </ToolBar>

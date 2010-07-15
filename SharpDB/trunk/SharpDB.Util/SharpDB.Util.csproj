@@ -48,16 +48,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CaretPosition.cs" />
-    <Compile Include="Dialogs\CloseRequestedEvent.cs" />
-    <Compile Include="Dialogs\DialogButton.cs" />
-    <Compile Include="Dialogs\FileDialogOptions.cs" />
-    <Compile Include="Dialogs\IDialogService.cs" />
-    <Compile Include="Dialogs\IDialogViewModel.cs" />
-    <Compile Include="Dialogs\IFileDialogService.cs" />
-    <Compile Include="Dialogs\IMessageBoxService.cs" />
-    <Compile Include="Dialogs\OpenFileDialogOptions.cs" />
-    <Compile Include="Dialogs\SaveFileDialogOptions.cs" />
+    <Compile Include="Service\CloseRequestedEvent.cs" />
+    <Compile Include="Service\DialogButton.cs" />
+    <Compile Include="Service\FileDialogOptions.cs" />
+    <Compile Include="Service\IClipboardService.cs" />
+    <Compile Include="Service\IDialogService.cs" />
+    <Compile Include="Service\IDialogViewModel.cs" />
+    <Compile Include="Service\IFileDialogService.cs" />
+    <Compile Include="Service\IMessageBoxService.cs" />
+    <Compile Include="Service\OpenFileDialogOptions.cs" />
+    <Compile Include="Service\SaveFileDialogOptions.cs" />
     <Compile Include="DummyResourceManager.cs" />
+    <Compile Include="NullCommand.cs" />
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AppSettings.cs" />

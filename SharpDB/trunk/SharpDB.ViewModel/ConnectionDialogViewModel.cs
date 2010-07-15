@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SharpDB.Util.Dialogs;
+using SharpDB.Util.Service;
 using SharpDB.Model;
 using System.Data;
 using System.Data.Common;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 
-namespace SharpDB.Util.Dialogs
+namespace SharpDB.Util.Service
 {
     public abstract class FileDialogOptions
     {

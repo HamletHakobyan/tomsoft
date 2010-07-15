@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SharpDB.Util.Dialogs
+namespace SharpDB.Util.Service
 {
     public delegate void CloseRequestedEventHandler(object sender, CloseRequestedEventArgs e);
 

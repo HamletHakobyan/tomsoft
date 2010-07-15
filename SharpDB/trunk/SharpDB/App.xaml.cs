@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 using SharpDB.Util;
-using SharpDB.Util.Dialogs;
+using SharpDB.Util.Service;
 using SharpDB.Service;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using System.Xml;
@@ -25,6 +25,7 @@ namespace SharpDB
             ServiceLocator.Instance.RegisterService<IDialogService>(new DialogService());
             ServiceLocator.Instance.RegisterService<IMessageBoxService>(new BasicMessageBoxService());
             ServiceLocator.Instance.RegisterService<IFileDialogService>(new FileDialogService());
+            ServiceLocator.Instance.RegisterService<IClipboardService>(new ClipboardService());
             ServiceLocator.Instance.RegisterService(SharpDB.Properties.Resources.ResourceManager);
             ServiceLocator.Instance.RegisterService(GetConfiguration());
 

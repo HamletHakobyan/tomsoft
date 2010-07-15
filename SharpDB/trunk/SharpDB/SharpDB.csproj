@@ -77,6 +77,7 @@
     <Compile Include="DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Service\ClipboardService.cs" />
     <Compile Include="Service\DialogService.cs" />
     <Compile Include="Service\DialogServiceBase.cs" />
     <Compile Include="Service\FileDialogService.cs" />
@@ -112,6 +113,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="DialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using SharpDB.Util.Dialogs;
+using SharpDB.Util.Service;
 
 namespace SharpDB
 {

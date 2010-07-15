@@ -9,7 +9,7 @@ using Developpez.Dotnet;
 using Developpez.Dotnet.Data;
 using System.Collections;
 using System.Collections.ObjectModel;
-using SharpDB.Util.Dialogs;
+using SharpDB.Util.Service;
 
 namespace SharpDB.ViewModel
 {
