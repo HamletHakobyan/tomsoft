@@ -155,11 +155,16 @@ namespace SharpDB.ViewModel
             }
         }
 
-        private void CheckConnected()
+        private bool CheckConnected()
         {
             if (!IsConnected)
-                // LOCALIZE
-                throw new InvalidOperationException("Not connected");
+            {
+                var service = GetService<IMessageBoxService>();
+                string message = GetResource<string>("database_not_connected");
+                service.Show(message);
+                return false;
+            }
+            return true;
         }
 
         public void Refresh()

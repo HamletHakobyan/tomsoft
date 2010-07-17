@@ -97,6 +97,15 @@ namespace SharpDB.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirmation.
+        /// </summary>
+        public static string confirmation {
+            get {
+                return ResourceManager.GetString("confirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connect to database.
         /// </summary>
         public static string connect_database {
@@ -363,6 +372,15 @@ namespace SharpDB.Properties {
         public static string query_success {
             get {
                 return ResourceManager.GetString("query_success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This document has unsaved changes. Do you want to save before closing ?.
+        /// </summary>
+        public static string save_changes_before_close {
+            get {
+                return ResourceManager.GetString("save_changes_before_close", resourceCulture);
             }
         }
         

@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CaretPosition.cs" />
+    <Compile Include="EventArgs.cs" />
     <Compile Include="ScrollValueChangedEventArgs.cs" />
     <Compile Include="Service\CloseRequestedEvent.cs" />
     <Compile Include="Service\DialogButton.cs" />
