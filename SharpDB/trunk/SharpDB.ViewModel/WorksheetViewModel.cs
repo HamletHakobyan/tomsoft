@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Developpez.Dotnet.Windows.Input;
-using System.Windows.Input;
-using SharpDB.Util.Service;
-using System.IO;
 using System.Collections.ObjectModel;
-using SharpDB.Util;
-using Developpez.Dotnet;
 using System.Data;
-using SharpDB.Model.Data;
-using System.Windows;
 using System.Data.Common;
-using System.Windows.Controls.Primitives;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
+using Developpez.Dotnet;
+using Developpez.Dotnet.Windows.Input;
+using SharpDB.Util;
+using SharpDB.Util.Service;
+using System.Windows.Media;
 
 namespace SharpDB.ViewModel
 {
@@ -28,7 +25,7 @@ namespace SharpDB.ViewModel
         public WorksheetViewModel(DatabaseManagerViewModel manager)
         {
             _manager = manager;
-            _title = string.Format(ResourceManager.GetString("new_worksheet_name_format"), ++_worksheetNum);
+            _title = string.Format(GetResource<string>("new_worksheet_name_format"), ++_worksheetNum);
         }
 
         #region Properties
@@ -91,8 +88,8 @@ namespace SharpDB.ViewModel
             }
         }
 
-        private TextSelection _selection;
-        public TextSelection Selection
+        private TextEditorSelection _selection;
+        public TextEditorSelection Selection
         {
             get { return _selection; }
             set
@@ -217,6 +214,19 @@ namespace SharpDB.ViewModel
             }
         }
 
+        private FlowDocument _output;
+        public FlowDocument Output
+        {
+            get { return _output; }
+            set
+            {
+                if (value != _output)
+                {
+                    _output = value;
+                    OnPropertyChanged("Output");
+                }
+            }
+        }
 
         private bool _showResults = true;
         public bool ShowResults
@@ -228,6 +238,22 @@ namespace SharpDB.ViewModel
                 {
                     _showResults = value;
                     OnPropertyChanged("ShowResults");
+                    ShowOutput = !value;
+                }
+            }
+        }
+
+        private bool _showOutput;
+        public bool ShowOutput
+        {
+            get { return _showOutput; }
+            set
+            {
+                if (value != _showOutput)
+                {
+                    _showOutput = value;
+                    OnPropertyChanged("ShowOutput");
+                    ShowResults = !value;
                 }
             }
         }
@@ -354,6 +380,45 @@ namespace SharpDB.ViewModel
             }
         }
 
+        private DelegateCommand<MouseWheelEventArgs> _worksheetZoomCommand;
+        public ICommand WorksheetZoomCommand
+        {
+            get
+            {
+                if (_worksheetZoomCommand == null)
+                {
+                    _worksheetZoomCommand = new DelegateCommand<MouseWheelEventArgs>(WorksheetZoom);
+                }
+                return _worksheetZoomCommand;
+            }
+        }
+
+        private DelegateCommand<MouseWheelEventArgs> _outputZoomCommand;
+        public ICommand OutputZoomCommand
+        {
+            get
+            {
+                if (_outputZoomCommand == null)
+                {
+                    _outputZoomCommand = new DelegateCommand<MouseWheelEventArgs>(OutputZoom);
+                }
+                return _outputZoomCommand;
+            }
+        }
+
+        private DelegateCommand<MouseWheelEventArgs> _resultsZoomCommand;
+        public ICommand ResultsZoomCommand
+        {
+            get
+            {
+                if (_resultsZoomCommand == null)
+                {
+                    _resultsZoomCommand = new DelegateCommand<MouseWheelEventArgs>(ResultsZoom);
+                }
+                return _resultsZoomCommand;
+            }
+        }
+
 
         #endregion
 
@@ -367,7 +432,7 @@ namespace SharpDB.ViewModel
                 filename = _title;
                 var options = new SaveFileDialogOptions
                 {
-                    Filter = ResourceManager.GetString("sql_file_filter_name") + "|*.sql",
+                    Filter = GetResource<string>("sql_file_filter_name") + "|*.sql",
                 };
                 var service = GetService<IFileDialogService>();
                 if (service.ShowSave(ref filename, options) != true)
@@ -409,19 +474,20 @@ namespace SharpDB.ViewModel
 
         public void ExecuteCurrent()
         {
+
+            string sql = GetCurrentStatement();
+            if (sql.IsNullOrEmpty())
+                return;
+
             if (_reader != null && !_reader.IsClosed)
                 _reader.Dispose();
-            
+
             Results = null;
             HasMoreRows = false;
             FetchComplete = false;
             FetchedRows = 0;
 
             if (!CheckDatabaseConnected())
-                return;
-
-            string sql = GetCurrentStatement();
-            if (sql.IsNullOrEmpty())
                 return;
 
             try
@@ -437,18 +503,28 @@ namespace SharpDB.ViewModel
                     FetchRecords(table, reader);
                     _reader = reader;
                     Results = table;
+                    ShowResults = true;
                 }
                 else
                 {
-                    _currentDatabase.ExecuteNonQuery(sql);
+                    int affectedRows = _currentDatabase.ExecuteNonQuery(sql);
+                    string affectedRowsText = string.Format(GetResource<string>("affected_rows_format"), affectedRows);
+                    string text =
+                        GetResource<string>("query_success")
+                        + Environment.NewLine
+                        + affectedRowsText;
+                    AppendOutput(text, OutputType.Info);
+                    ShowOutput = true;
                 }
             }
             catch(DbException ex)
             {
                 var mbox = GetService<IMessageBoxService>();
-                string text = string.Format("{0}\n{1}", ResourceManager.GetString("query_error"), ex.Message);
-                string title = ResourceManager.GetString("error");
+                string text = string.Format("{0}\n{1}", GetResource<string>("query_error"), ex.Message);
+                string title = GetResource<string>("error");
                 mbox.Show(text, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                AppendOutput(text, OutputType.Error);
+                ShowOutput = true;
             }
         }
 
@@ -469,6 +545,38 @@ namespace SharpDB.ViewModel
         }
 
         #endregion
+
+        private enum OutputType
+        {
+            Text,
+            Info,
+            Error
+        }
+
+        private void AppendOutput(string text, OutputType outputType)
+        {
+            if (_output == null)
+            {
+                Output = new FlowDocument();
+            }
+
+            var run = new Run(text);
+            switch (outputType)
+            {
+                case OutputType.Info:
+                    run.Foreground = Brushes.Blue;
+                    break;
+                case OutputType.Error:
+                    run.Foreground = Brushes.Red;
+                    break;
+                case OutputType.Text:
+                default:
+                    run.Foreground = Brushes.Black;
+                    break;
+            }
+            var paragraph = new Paragraph(run);
+            _output.Blocks.Add(paragraph);
+        }
 
         private void FetchRecords(DataTable table, IDataReader reader)
         {
@@ -520,7 +628,7 @@ namespace SharpDB.ViewModel
             if (_currentDatabase == null)
             {
                 var service = GetService<IMessageBoxService>();
-                string message = ResourceManager.GetString("no_database_selected");
+                string message = GetResource<string>("no_database_selected");
                 service.Show(message);
                 return false;
             }
@@ -528,7 +636,7 @@ namespace SharpDB.ViewModel
             if (!_currentDatabase.IsConnected)
             {
                 var service = GetService<IMessageBoxService>();
-                string message = ResourceManager.GetString("database_not_connected");
+                string message = GetResource<string>("database_not_connected");
                 service.Show(message);
                 return false;
             }
@@ -544,86 +652,123 @@ namespace SharpDB.ViewModel
                 int start;
                 int length;
                 stmt = GetCurrentStatement(Text, CaretPosition.Offset, out start, out length);
-                Selection = new TextSelection(start, length);
+                if (length > 0)
+                    Selection = new TextEditorSelection(start, length);
             }
             return stmt.Trim('\r', '\n', ' ', '\t', ';');
         }
 
         private string GetCurrentStatement(string text, int position, out int start, out int length)
         {
+            start = position;
+            length = 0;
+
             if (position >= text.Length)
                 position = text.Length - 1;
-            while (text[position].In('\r', '\n') && position > 0)
-                position--;
 
-            start = 0;
-            length = text.Length;
+            int first;
+            int last;
+            string currentLine = GetLine(text, position, out first, out last);
 
-            // Find start
-            int curPos = position;
-            int charPos = -1;
-            bool nonWhiteSpaceOnLine = false;
-            while (curPos >= 0)
+            if (currentLine.Trim().IsNullOrEmpty())
+                return string.Empty;
+
+            int startOfFirstLine = first;
+            int endOfLastLine = last;
+
+            // Check previous lines
+            int i = startOfFirstLine - 1;
+            while (i >= 0)
             {
-                char c = text[curPos];
-
-                if (!char.IsWhiteSpace(c))
-                    nonWhiteSpaceOnLine = true;
-
-                // Ignore CR
-                if (c == '\r')
-                {
-                    curPos--;
-                    continue;
-                }
-
-                if (c != '\n' && nonWhiteSpaceOnLine)
-                    charPos = curPos;
-                else
-                {
-                    if (nonWhiteSpaceOnLine)
-                        nonWhiteSpaceOnLine = false;
-                    else if (charPos > -1)
-                        break;
-                }
-
-                curPos--;
+                currentLine = GetLine(text, i, out first, out last);
+                if (currentLine.Trim().IsNullOrEmpty())
+                    break;
+                startOfFirstLine = first;
+                i = first - 1;
             }
-            start = Math.Max(charPos, 0);
 
-            // Find end
-            curPos = position;
-            charPos = -1;
-            nonWhiteSpaceOnLine = false;
-            while (curPos < text.Length)
+            // Check next lines
+            i = text.IndexOf('\n', endOfLastLine) + 1;
+            while (i > 0 && i < text.Length)
             {
-                char c = text[curPos];
-
-                if (!char.IsWhiteSpace(c))
-                    nonWhiteSpaceOnLine = true;
-
-                // Ignore CR
-                if (c == '\r')
-                {
-                    curPos++;
-                    continue;
-                }
-
-                if (c != '\n' && nonWhiteSpaceOnLine)
-                    charPos = curPos;
-                else
-                {
-                    if (nonWhiteSpaceOnLine)
-                        nonWhiteSpaceOnLine = false;
-                    else if (charPos > -1)
-                        break;
-                }
-
-                curPos++;
+                currentLine = GetLine(text, i, out first, out last);
+                if (currentLine.Trim().IsNullOrEmpty())
+                    break;
+                endOfLastLine = last;
+                i = text.IndexOf('\n', last) + 1;
             }
-            length = Math.Max(charPos, 0) - start + 1;
 
+            start = startOfFirstLine;
+            length = endOfLastLine - startOfFirstLine + 1;
             return text.Substring(start, length);
+        }
+
+        private string GetLine(string text, int position, out int startOfLine, out int endOfLine)
+        {
+            startOfLine = GetStartOfLine(text, position);
+            endOfLine = GetEndOfLine(text, position);
+            return text.Substring(startOfLine, endOfLine - startOfLine + 1);
+        }
+
+        private int GetStartOfLine(string text, int position)
+        {
+            int n = position - 1;
+            while (n >= 0 && text[n] != '\n')
+            {
+                n--;
+            }
+            return n + 1;
+        }
+
+        private int GetEndOfLine(string text, int position)
+        {
+            int n = position;
+            while (n < text.Length && text[n] != '\n')
+            {
+                n++;
+            }
+            if (text[n - 1] == '\r')
+                n--;
+            return n - 1;
+        }
+
+        private void WorksheetZoom(MouseWheelEventArgs e)
+        {
+            ChangeFontSize("WorksheetFontSize", e.Delta);
+        }
+
+        private void ResultsZoom(MouseWheelEventArgs e)
+        {
+            ChangeFontSize("ResultsFontSize", e.Delta);
+        }
+
+        private void OutputZoom(MouseWheelEventArgs e)
+        {
+            ChangeFontSize("OutputFontSize", e.Delta);
+        }
+
+        private static double _minFontSize = 8;
+        private static double _maxFontSize = 32;
+
+        private void ChangeFontSize(string settingName, int delta)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                double fontSize = GetSetting<double>(settingName);
+                if (delta > 0 && fontSize < _maxFontSize)
+                {
+                    fontSize++;
+                }
+                else if (delta < 0 && fontSize > _minFontSize)
+                {
+                    fontSize--;
+                }
+                else
+                {
+                    return;
+                }
+                Settings[settingName] = fontSize;
+            }
         }
 
     }

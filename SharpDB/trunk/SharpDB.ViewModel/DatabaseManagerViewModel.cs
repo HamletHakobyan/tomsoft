@@ -189,8 +189,8 @@ namespace SharpDB.ViewModel
             if (SelectedDatabase == null)
                 return;
 
-            var text = ResourceManager.GetString("confirm_delete_connection");
-            var title = ResourceManager.GetString("confirm_delete_connection_title");
+            var text = GetResource<string>("confirm_delete_connection");
+            var title = GetResource<string>("confirm_delete_connection_title");
             var mboxService = GetService<IMessageBoxService>();
             if (mboxService.Show(text, title, MessageBoxButton.OKCancel) == MessageBoxResult.OK)
             {

@@ -5,12 +5,12 @@ using System.Text;
 
 namespace SharpDB.Util
 {
-    public struct TextSelection
+    public struct TextEditorSelection
     {
         private readonly int _start;
         private readonly int _length;
 
-        public TextSelection(int start, int length)
+        public TextEditorSelection(int start, int length)
         {
             _start = start;
             _length = length;

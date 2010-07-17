@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Developpez.Dotnet;
 
 namespace SharpDB
 {
@@ -22,6 +23,18 @@ namespace SharpDB
         public MainWindow()
         {
             InitializeComponent();
+            Properties.Settings.Default.SettingChanging += SettingChanging;
+        }
+
+        void SettingChanging(object sender, System.Configuration.SettingChangingEventArgs e)
+        {
+            if (e.SettingName == "WindowState")
+            {
+                if (WindowState == WindowState.Minimized)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }

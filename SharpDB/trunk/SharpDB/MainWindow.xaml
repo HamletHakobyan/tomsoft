@@ -10,8 +10,11 @@
         xmlns:v="clr-namespace:SharpDB.View"
         mc:Ignorable="d"
         util:AppSettings.Settings="{x:Static prop:Settings.Default}"
-        Height="{util:SettingBinding Height}"
-        Width="{util:SettingBinding Width}">
+        Width="{util:SettingBinding Width, FallbackValue=525}"
+        Height="{util:SettingBinding Height, FallbackValue=350}"
+        Left="{util:SettingBinding Left, FallbackValue=100}"
+        Top="{util:SettingBinding Top, FallbackValue=100}"
+        WindowState="{util:SettingBinding WindowState, FallbackValue=Normal}">
     
     <Window.Title>
         <MultiBinding StringFormat="{}{0} - {1}">

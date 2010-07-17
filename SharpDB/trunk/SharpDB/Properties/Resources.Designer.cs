@@ -61,6 +61,15 @@ namespace SharpDB.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} rows affected.
+        /// </summary>
+        public static string affected_rows_format {
+            get {
+                return ResourceManager.GetString("affected_rows_format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SharpDB.
         /// </summary>
         public static string ApplicationName {
@@ -327,6 +336,33 @@ namespace SharpDB.Properties {
         public static string query_error {
             get {
                 return ResourceManager.GetString("query_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        public static string query_output {
+            get {
+                return ResourceManager.GetString("query_output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results.
+        /// </summary>
+        public static string query_results {
+            get {
+                return ResourceManager.GetString("query_results", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Query successfully executed.
+        /// </summary>
+        public static string query_success {
+            get {
+                return ResourceManager.GetString("query_success", resourceCulture);
             }
         }
         

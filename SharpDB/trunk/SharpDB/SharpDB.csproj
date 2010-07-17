@@ -72,6 +72,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\MouseBehavior.cs" />
+    <Compile Include="Behaviors\RichTextBoxBehavior.cs" />
     <Compile Include="Behaviors\ScrollBehavior.cs" />
     <Compile Include="Behaviors\TextEditorBehavior.cs" />
     <Compile Include="Service\BasicMessageBoxService.cs" />
@@ -219,6 +221,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

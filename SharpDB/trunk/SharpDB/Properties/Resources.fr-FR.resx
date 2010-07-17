@@ -213,4 +213,16 @@
   <data name="fetched_rows_incomplete_format" xml:space="preserve">
     <value>{0} lignes récupérées (défiler vers le bas pour récupérer les suivantes)</value>
   </data>
+  <data name="query_output" xml:space="preserve">
+    <value>Sortie</value>
+  </data>
+  <data name="query_results" xml:space="preserve">
+    <value>Résultats</value>
+  </data>
+  <data name="affected_rows_format" xml:space="preserve">
+    <value>{0} lignes affectées</value>
+  </data>
+  <data name="query_success" xml:space="preserve">
+    <value>Requête exécutée avec succès</value>
+  </data>
 </root>

@@ -11,6 +11,7 @@ using SharpDB.Util;
 using System.Resources;
 using System.Windows;
 using Developpez.Dotnet.Reflection;
+using System.Configuration;
 
 namespace SharpDB.ViewModel
 {
@@ -84,7 +85,7 @@ namespace SharpDB.ViewModel
 
         #endregion
 
-        #region Resource related members
+        #region Resources related members
 
         protected virtual ResourceManager ResourceManager
         {
@@ -94,6 +95,38 @@ namespace SharpDB.ViewModel
                     return GetService<ResourceManager>();
                 return new DummyResourceManager();
             }
+        }
+
+        protected virtual T GetResource<T>(string name)
+        {
+            object resource = ResourceManager.GetObject(name);
+            if (resource != null)
+                return (T)resource;
+            if (typeof(T) == typeof(string))
+                return (T)(object)name;
+            return default(T);
+        }
+
+        #endregion
+
+        #region Settings related members
+
+        protected virtual ApplicationSettingsBase Settings
+        {
+            get
+            {
+                return GetService<ApplicationSettingsBase>();
+            }
+        }
+
+        protected virtual T GetSetting<T>(string name)
+        {
+            object settingValue = Settings[name];
+            if (settingValue != null)
+                return (T)settingValue;
+            if (typeof(T) == typeof(string))
+                return (T)(object)name;
+            return default(T);
         }
 
         #endregion

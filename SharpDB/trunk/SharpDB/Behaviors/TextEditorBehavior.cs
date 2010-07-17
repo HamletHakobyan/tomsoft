@@ -42,10 +42,10 @@ namespace SharpDB.Behaviors
         public static readonly DependencyProperty SelectionProperty =
             DependencyProperty.RegisterAttached(
               "Selection",
-              typeof(TextSelection),
+              typeof(TextEditorSelection),
               typeof(TextEditorBehavior),
               new FrameworkPropertyMetadata(
-                default(TextSelection),
+                default(TextEditorSelection),
                 FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                 SelectionChanged));
 
@@ -93,12 +93,12 @@ namespace SharpDB.Behaviors
             obj.SetValue(TextProperty, value);
         }
 
-        public static TextSelection GetSelection(DependencyObject obj)
+        public static TextEditorSelection GetSelection(DependencyObject obj)
         {
-            return (TextSelection)obj.GetValue(SelectionProperty);
+            return (TextEditorSelection)obj.GetValue(SelectionProperty);
         }
 
-        public static void SetSelection(DependencyObject obj, TextSelection value)
+        public static void SetSelection(DependencyObject obj, TextEditorSelection value)
         {
             obj.SetValue(SelectionProperty, value);
         }
@@ -166,8 +166,8 @@ namespace SharpDB.Behaviors
             if (textEditor == null)
                 return;
 
-            var oldValue = (TextSelection)e.OldValue;
-            var newValue = (TextSelection)e.NewValue;
+            var oldValue = (TextEditorSelection)e.OldValue;
+            var newValue = (TextEditorSelection)e.NewValue;
 
             var actualSelection = GetTextEditorSelection(textEditor);
             if (!actualSelection.Equals(newValue))
@@ -218,7 +218,7 @@ namespace SharpDB.Behaviors
             textEditor.TextArea.Caret.PositionChanged -= TextArea_CaretPositionChanged;
         }
 
-        private static TextSelection GetTextEditorSelection(TextEditor textEditor)
+        private static TextEditorSelection GetTextEditorSelection(TextEditor textEditor)
         {
             int start;
             int length;
@@ -234,7 +234,7 @@ namespace SharpDB.Behaviors
                 start = textEditor.TextArea.Caret.Offset;
                 length = 0;
             }
-            return new TextSelection(start, length);
+            return new TextEditorSelection(start, length);
         }
 
         #endregion
