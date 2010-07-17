@@ -110,6 +110,20 @@ namespace SharpDB.ViewModel
             }
         }
 
+        private DelegateCommand<WorksheetViewModel> _closeWorksheetCommand;
+        public ICommand CloseWorksheetCommand
+        {
+            get
+            {
+                if (_closeWorksheetCommand == null)
+                {
+                    _closeWorksheetCommand = new DelegateCommand<WorksheetViewModel>(CloseWorksheet);
+                }
+                return _closeWorksheetCommand;
+            }
+        }
+
+
         #endregion
 
         #region Public methods
@@ -145,12 +159,15 @@ namespace SharpDB.ViewModel
             }
         }
 
-        public void SaveCurrentWorksheet()
+        public void CloseWorksheet(WorksheetViewModel worksheet)
         {
-            if (CurrentWorksheet == null)
-                return;
-
-            GetService<IMessageBoxService>().Show("Not implemented");
+            if (worksheet != null)
+            {
+                if (worksheet.ConfirmClose())
+                {
+                    Worksheets.Remove(worksheet);
+                }
+            }
         }
 
         #endregion

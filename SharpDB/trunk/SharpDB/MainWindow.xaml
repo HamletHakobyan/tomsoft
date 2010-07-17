@@ -53,7 +53,8 @@
         <ctl:TabDocumentContainer Grid.Column="2"
                                   Grid.Row="1"
                                   ItemsSource="{Binding Worksheets}"
-                                  SelectedItem="{Binding CurrentWorksheet}">
+                                  SelectedItem="{Binding CurrentWorksheet}"
+                                  CloseTabCommand="{Binding CloseWorksheetCommand}">
             <ctl:TabDocumentContainer.ItemTemplate>
                 <DataTemplate DataType="{x:Type vm:WorksheetViewModel}">
                     <TextBlock Text="{Binding Title}" />

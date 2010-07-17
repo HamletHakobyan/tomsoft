@@ -270,7 +270,7 @@ namespace SharpDB.ViewModel
                 if (_saveCommand == null)
                 {
                     _saveCommand = new DelegateCommand(
-                            Save,
+                            DoSave,
                             () => IsModified);
                 }
                 return _saveCommand;
@@ -419,12 +419,16 @@ namespace SharpDB.ViewModel
             }
         }
 
+        private void DoSave()
+        {
+            Save();
+        }
 
         #endregion
 
         #region Public methods
 
-        public void Save()
+        public bool Save()
         {
             string filename = _fileName;
             if (_fileName.IsNullOrEmpty())
@@ -437,13 +441,14 @@ namespace SharpDB.ViewModel
                 var service = GetService<IFileDialogService>();
                 if (service.ShowSave(ref filename, options) != true)
                 {
-                    return;
+                    return false;
                 }
             }
             File.WriteAllText(filename, Text);
             Title = Path.GetFileName(filename);
             FileName = filename;
             IsModified = false;
+            return true;
         }
 
         public void Cut()
@@ -544,7 +549,29 @@ namespace SharpDB.ViewModel
             GetService<IMessageBoxService>().Show("Not implemented");
         }
 
+        public bool ConfirmClose()
+        {
+            if (!IsModified)
+                return true;
+
+            string title = GetResource<string>("confirmation");
+            string text = GetResource<string>("save_changes_before_close");
+            var service = GetService<IMessageBoxService>();
+            var r = service.Show(text, title, MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            if (r == MessageBoxResult.Yes)
+            {
+                return Save();
+            }
+            else if (r == MessageBoxResult.No)
+            {
+                return true;
+            }
+            return false;
+        }
+
         #endregion
+
+        #region Private methods
 
         private enum OutputType
         {
@@ -771,5 +798,6 @@ namespace SharpDB.ViewModel
             }
         }
 
+        #endregion
     }
 }

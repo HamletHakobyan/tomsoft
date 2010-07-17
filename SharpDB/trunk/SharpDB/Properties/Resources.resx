@@ -225,4 +225,10 @@
   <data name="query_success" xml:space="preserve">
     <value>Query successfully executed</value>
   </data>
+  <data name="confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="save_changes_before_close" xml:space="preserve">
+    <value>This document has unsaved changes. Do you want to save before closing ?</value>
+  </data>
 </root>
