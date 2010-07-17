@@ -68,12 +68,26 @@ namespace SharpDB.Util
         {
             if (!DesignerProperties.GetIsInDesignMode(obj))
             {
+                // Track property value to update settings
                 var descriptor = DependencyPropertyDescriptor.FromProperty(prop, prop.OwnerType);
                 EventHandler handler = (o, e) =>
                 {
-                    settings[SettingName] = obj.GetValue(prop);
+                    var value = obj.GetValue(prop);
+                    if (!object.Equals(settings[SettingName], value))
+                        settings[SettingName] = value;
                 };
                 descriptor.AddValueChanged(obj, handler);
+
+                // Track setting value to update property
+                settings.PropertyChanged += (o, e) =>
+                {
+                    if (string.Equals(e.PropertyName, SettingName, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        var settingValue = settings[SettingName];
+                        if (!object.Equals(obj.GetValue(prop), settingValue))
+                            obj.SetValue(prop, settingValue);
+                    }
+                };
             }
             return settings[SettingName];
         }

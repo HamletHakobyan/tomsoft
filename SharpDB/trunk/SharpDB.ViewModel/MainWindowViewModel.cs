@@ -126,7 +126,7 @@ namespace SharpDB.ViewModel
             string filename = string.Empty;
             var options = new OpenFileDialogOptions
             {
-                Filter = ResourceManager.GetString("sql_file_filter_name") + "|*.sql",
+                Filter = GetResource<string>("sql_file_filter_name") + "|*.sql",
             };
             var service = GetService<IFileDialogService>();
             if (service.ShowOpen(ref filename, options) == true)

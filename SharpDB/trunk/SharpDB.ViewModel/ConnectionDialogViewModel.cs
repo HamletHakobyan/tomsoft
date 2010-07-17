@@ -18,23 +18,23 @@ namespace SharpDB.ViewModel
 
         public ConnectionDialogViewModel(DatabaseConnection connection)
         {
-            _connection = connection ?? new DatabaseConnection { Name = ResourceManager.GetString("connection_default_name") };
+            _connection = connection ?? new DatabaseConnection { Name = GetResource<string>("connection_default_name") };
 
             this.DialogTitle = connection == null
-                                ? ResourceManager.GetString("new_database_connection")
-                                : ResourceManager.GetString("edit_database_connection");
+                                ? GetResource<string>("new_database_connection")
+                                : GetResource<string>("edit_database_connection");
 
             _buttons = new[]
             {
                 new DialogButton
                 {
-                    Text = ResourceManager.GetString("dialog_ok"),
+                    Text = GetResource<string>("dialog_ok"),
                     DialogResult = true,
                     IsDefault = true
                 },
                 new DialogButton
                 {
-                    Text = ResourceManager.GetString("dialog_cancel"),
+                    Text = GetResource<string>("dialog_cancel"),
                     DialogResult = false,
                     IsCancel = true
                 }

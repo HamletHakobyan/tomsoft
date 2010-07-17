@@ -27,6 +27,7 @@ namespace SharpDB
             ServiceLocator.Instance.RegisterService<IFileDialogService>(new FileDialogService());
             ServiceLocator.Instance.RegisterService<IClipboardService>(new ClipboardService());
             ServiceLocator.Instance.RegisterService(SharpDB.Properties.Resources.ResourceManager);
+            ServiceLocator.Instance.RegisterService<ApplicationSettingsBase>(SharpDB.Properties.Settings.Default);
             ServiceLocator.Instance.RegisterService(GetConfiguration());
 
             InitializeSyntaxHighlighting();
