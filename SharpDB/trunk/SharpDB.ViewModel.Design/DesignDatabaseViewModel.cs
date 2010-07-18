@@ -10,7 +10,7 @@ namespace SharpDB.ViewModel.Design
     {
         public DesignDatabaseViewModel()
         {
-            MetadataCollections = new ObservableCollection<object>
+            SchemaItems = new ObservableCollection<object>
             {
                 "Tables",
                 "Indexes"
@@ -21,6 +21,6 @@ namespace SharpDB.ViewModel.Design
         public bool IsConnected { get; set; }
         public bool IsBusy { get; set; }
 
-        public ObservableCollection<object> MetadataCollections { get; set; }
+        public ObservableCollection<object> SchemaItems { get; set; }
     }
 }
