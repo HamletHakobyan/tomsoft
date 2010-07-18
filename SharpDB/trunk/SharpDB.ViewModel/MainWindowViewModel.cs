@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Developpez.Dotnet.Windows.Input;
-using System.Windows.Input;
-using SharpDB.Util.Service;
-using SharpDB.Util;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows.Input;
+using Developpez.Dotnet.Windows.Input;
+using SharpDB.Util.Service;
 
 namespace SharpDB.ViewModel
 {
@@ -17,7 +13,7 @@ namespace SharpDB.ViewModel
         {
             _title = "SharpDB";
             _databaseManager = new DatabaseManagerViewModel();
-            _currentWorksheet = new WorksheetViewModel(_databaseManager);
+            _currentWorksheet = new WorksheetViewModel(this);
             _worksheets = new ObservableCollection<WorksheetViewModel>();
             _worksheets.Add(_currentWorksheet);
         }
@@ -130,7 +126,7 @@ namespace SharpDB.ViewModel
 
         public void NewWorksheet()
         {
-            var worksheet = new WorksheetViewModel(_databaseManager);
+            var worksheet = new WorksheetViewModel(this);
             _worksheets.Add(worksheet);
             CurrentWorksheet = worksheet;
         }
@@ -145,19 +141,26 @@ namespace SharpDB.ViewModel
             var service = GetService<IFileDialogService>();
             if (service.ShowOpen(ref filename, options) == true)
             {
-                string text = File.ReadAllText(filename);
-                string title = Path.GetFileName(filename);
-                var worksheet = new WorksheetViewModel(_databaseManager)
-                {
-                    FileName = filename,
-                    Title = title,
-                    Text = text,
-                    IsModified = false
-                };
-                Worksheets.Add(worksheet);
-                CurrentWorksheet = worksheet;
+                OpenWorksheet(filename);
             }
         }
+
+        public void OpenWorksheet(string fileName)
+        {
+            string text = File.ReadAllText(fileName);
+            string title = Path.GetFileName(fileName);
+            var worksheet = new WorksheetViewModel(this)
+            {
+                FileName = fileName,
+                Title = title,
+                Text = text,
+                IsModified = false
+            };
+            Worksheets.Add(worksheet);
+            CurrentWorksheet = worksheet;
+            GetService<IJumpListService>().AddRecent(fileName);
+        }
+
 
         public void CloseWorksheet(WorksheetViewModel worksheet)
         {
@@ -166,6 +169,29 @@ namespace SharpDB.ViewModel
                 if (worksheet.ConfirmClose())
                 {
                     Worksheets.Remove(worksheet);
+                }
+            }
+        }
+
+        public void ProcessCommandLineArgs(IList<string> args)
+        {
+            bool expectDatabaseName = false;
+
+            for (int i = 0; i < args.Count; i++)
+            {
+                if (expectDatabaseName)
+                {
+                    string databaseName = args[i];
+                    _databaseManager.ConnectByName(databaseName);
+                    expectDatabaseName = false;
+                }
+                else if (args[i] == "/connect")
+                {
+                    expectDatabaseName = true;
+                }
+                else
+                {
+                    OpenWorksheet(args[i]);
                 }
             }
         }

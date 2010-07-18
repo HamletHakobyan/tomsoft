@@ -229,6 +229,12 @@
     <value>Confirmation</value>
   </data>
   <data name="save_changes_before_close" xml:space="preserve">
-    <value>This document has unsaved changes. Do you want to save before closing ?</value>
+    <value>This document has unsaved changes. Do you want to save them now ?</value>
+  </data>
+  <data name="jumplist_recent_databases" xml:space="preserve">
+    <value>Recent databases</value>
+  </data>
+  <data name="jumplist_recent_files" xml:space="preserve">
+    <value>Recent files</value>
   </data>
 </root>

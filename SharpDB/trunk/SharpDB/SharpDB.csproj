@@ -36,6 +36,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>database.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>SharpDB.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Developpez.Dotnet, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\lib\Dvp.NET\Developpez.Dotnet.dll</HintPath>
@@ -68,10 +74,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    </Page>
     <Compile Include="Behaviors\MouseBehavior.cs" />
     <Compile Include="Behaviors\RichTextBoxBehavior.cs" />
     <Compile Include="Behaviors\ScrollBehavior.cs" />
@@ -84,6 +90,7 @@
     <Compile Include="Service\DialogService.cs" />
     <Compile Include="Service\DialogServiceBase.cs" />
     <Compile Include="Service\FileDialogService.cs" />
+    <Compile Include="Service\JumpListService.cs" />
     <Compile Include="View\ConnectionDialogView.xaml.cs">
       <DependentUpon>ConnectionDialogView.xaml</DependentUpon>
     </Compile>
@@ -224,6 +231,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="database.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\app.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -12,6 +12,9 @@ using Developpez.Dotnet.Windows.Input;
 using SharpDB.Util;
 using SharpDB.Util.Service;
 using System.Windows.Media;
+using System.Text.RegularExpressions;
+using System.Linq;
+using Developpez.Dotnet.Windows.Util;
 
 namespace SharpDB.ViewModel
 {
@@ -19,13 +22,17 @@ namespace SharpDB.ViewModel
     {
         private static int _worksheetNum = 0;
 
+        private readonly MainWindowViewModel _mainWindow;
         private readonly DatabaseManagerViewModel _manager;
         private IDataReader _reader;
 
-        public WorksheetViewModel(DatabaseManagerViewModel manager)
+        public WorksheetViewModel(MainWindowViewModel mainWindow)
         {
-            _manager = manager;
+            _mainWindow = mainWindow;
+            _manager = mainWindow.DatabaseManager;
             _title = string.Format(GetResource<string>("new_worksheet_name_format"), ++_worksheetNum);
+            Mediator.Instance.Subscribe<ConnectionStateChangedMessage>(OnConnectionStateChanged);
+            Mediator.Instance.Subscribe<DatabaseRemovedMessage>(OnDatabaseRemoved);
         }
 
         #region Properties
@@ -448,6 +455,7 @@ namespace SharpDB.ViewModel
             Title = Path.GetFileName(filename);
             FileName = filename;
             IsModified = false;
+            GetService<IJumpListService>().AddRecent(filename);
             return true;
         }
 
@@ -477,59 +485,33 @@ namespace SharpDB.ViewModel
             }
         }
 
+        private static Regex _queryRegex = new Regex(@"^(select|explain)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
         public void ExecuteCurrent()
         {
+            if (!CheckDatabaseConnected())
+                return;
 
             string sql = GetCurrentStatement();
             if (sql.IsNullOrEmpty())
                 return;
 
-            if (_reader != null && !_reader.IsClosed)
-                _reader.Dispose();
+            CleanupPreviousResults();
 
-            Results = null;
-            HasMoreRows = false;
-            FetchComplete = false;
-            FetchedRows = 0;
-
-            if (!CheckDatabaseConnected())
-                return;
-
-            try
+           try
             {
-                if (sql.StartsWith("select ", StringComparison.InvariantCultureIgnoreCase))
+                if (_queryRegex.IsMatch(sql))
                 {
-                    var reader = _currentDatabase.ExecuteReader(sql);
-                    DataTable table = new DataTable();
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        table.Columns.Add(reader.GetName(i), reader.GetFieldType(i));
-                    }
-                    FetchRecords(table, reader);
-                    _reader = reader;
-                    Results = table;
-                    ShowResults = true;
+                    ExecuteQuery(sql);
                 }
                 else
                 {
-                    int affectedRows = _currentDatabase.ExecuteNonQuery(sql);
-                    string affectedRowsText = string.Format(GetResource<string>("affected_rows_format"), affectedRows);
-                    string text =
-                        GetResource<string>("query_success")
-                        + Environment.NewLine
-                        + affectedRowsText;
-                    AppendOutput(text, OutputType.Info);
-                    ShowOutput = true;
+                    ExecuteNonQuery(sql);
                 }
             }
             catch(DbException ex)
             {
-                var mbox = GetService<IMessageBoxService>();
-                string text = string.Format("{0}\n{1}", GetResource<string>("query_error"), ex.Message);
-                string title = GetResource<string>("error");
-                mbox.Show(text, title, MessageBoxButton.OK, MessageBoxImage.Error);
-                AppendOutput(text, OutputType.Error);
-                ShowOutput = true;
+                ReportSqlError(ex);
             }
         }
 
@@ -538,7 +520,36 @@ namespace SharpDB.ViewModel
             if (!CheckDatabaseConnected())
                 return;
 
-            GetService<IMessageBoxService>().Show("Not implemented");
+            string script = SelectedText;
+            if (script.IsNullOrEmpty())
+                script = Text;
+
+            script = StripComments(script);
+            if (script.IsNullOrEmpty())
+                return;
+
+            string[] statements = script.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
+                                        .Select(s => s.Trim())
+                                        .Where(s => !s.IsNullOrEmpty())
+                                        .ToArray();
+
+            if (statements.Length == 0)
+                return;
+
+            CleanupPreviousResults();
+
+            foreach (var stmt in statements)
+            {
+                try
+                {
+                    ExecuteNonQuery(stmt);
+                }
+                catch (DbException ex)
+                {
+                    ReportSqlError(ex);
+                    break;
+                }
+            }
         }
 
         public void ExplainPlan()
@@ -572,6 +583,90 @@ namespace SharpDB.ViewModel
         #endregion
 
         #region Private methods
+
+        private void CleanupPreviousResults()
+        {
+            if (_reader != null && !_reader.IsClosed)
+                _reader.Dispose();
+
+            Results = null;
+            HasMoreRows = false;
+            FetchComplete = false;
+            FetchedRows = 0;
+        }
+
+        private const string blockCommentStart = "/*";
+        private const string blockCommentEnd = "*/";
+        private const string lineCommentStart = "--";
+
+        private string StripComments(string sql)
+        {
+            // Remove line comments
+            int i = sql.IndexOf(lineCommentStart);
+            while (i > -1)
+            {
+                int j = sql.IndexOfAny(new[] { '\r', '\n' }, i + lineCommentStart.Length);
+                if (j > -1)
+                {
+                    sql = sql.Remove(i, j - i);
+                }
+                i = sql.IndexOf(lineCommentStart);
+            }
+
+            // Remove block comments
+            i = sql.IndexOf(blockCommentStart);
+            while (i > -1)
+            {
+                int j = sql.IndexOf(blockCommentEnd, i + blockCommentStart.Length);
+                if (j > -1)
+                {
+                    sql = sql.Remove(i, j - i + blockCommentEnd.Length);
+                }
+                i = sql.IndexOf("/*");
+            }
+
+            return sql;
+        }
+
+        private void ReportSqlError(DbException ex)
+        {
+            string text = string.Format("{0}\n{1}", GetResource<string>("query_error"), ex.Message);
+
+            //string title = GetResource<string>("error");
+            //var mbox = GetService<IMessageBoxService>();
+            //mbox.Show(text, title, MessageBoxButton.OK, MessageBoxImage.Error);
+
+            AppendOutput(text, OutputType.Error);
+            ShowOutput = true;
+        }
+
+        private void ExecuteNonQuery(string sql)
+        {
+            int affectedRows = _currentDatabase.ExecuteNonQuery(sql);
+            string affectedRowsText = string.Format(GetResource<string>("affected_rows_format"), affectedRows);
+            string text =
+                GetResource<string>("query_success")
+                + Environment.NewLine
+                + affectedRowsText;
+            AppendOutput(text, OutputType.Info);
+            ShowOutput = true;
+        }
+
+        private void ExecuteQuery(string sql)
+        {
+            var reader = _currentDatabase.ExecuteReader(sql);
+            DataTable table = new DataTable();
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                table.Columns.Add(reader.GetName(i), reader.GetFieldType(i));
+            }
+            FetchRecords(table, reader);
+            _reader = reader;
+            Results = table;
+            ShowResults = true;
+        }
+
+
 
         private enum OutputType
         {
@@ -795,6 +890,33 @@ namespace SharpDB.ViewModel
                     return;
                 }
                 Settings[settingName] = fontSize;
+            }
+        }
+
+        #endregion
+
+        #region Mediator message handlers
+
+        private void OnConnectionStateChanged(object sender, ConnectionStateChangedMessage message)
+        {
+            if (message.Database == CurrentDatabase && !message.IsConnected)
+            {
+                CurrentDatabase = null;
+            }
+            else if (CurrentDatabase == null && message.IsConnected)
+            {
+                if (_mainWindow.CurrentWorksheet == this)
+                {
+                    CurrentDatabase = message.Database;
+                }
+            }
+        }
+
+        private void OnDatabaseRemoved(object sender, DatabaseRemovedMessage message)
+        {
+            if (message.Database == CurrentDatabase)
+            {
+                CurrentDatabase = null;
             }
         }
 

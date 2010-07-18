@@ -286,6 +286,24 @@ namespace SharpDB.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recent databases.
+        /// </summary>
+        public static string jumplist_recent_databases {
+            get {
+                return ResourceManager.GetString("jumplist_recent_databases", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recent files.
+        /// </summary>
+        public static string jumplist_recent_files {
+            get {
+                return ResourceManager.GetString("jumplist_recent_files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New database connection.
         /// </summary>
         public static string new_database_connection {
@@ -376,7 +394,7 @@ namespace SharpDB.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This document has unsaved changes. Do you want to save before closing ?.
+        ///   Looks up a localized string similar to This document has unsaved changes. Do you want to save them now ?.
         /// </summary>
         public static string save_changes_before_close {
             get {

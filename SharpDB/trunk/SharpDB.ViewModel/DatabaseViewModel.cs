@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using SharpDB.Util.Service;
 using SharpDB.Model.Data;
+using Developpez.Dotnet.Windows.Util;
 
 namespace SharpDB.ViewModel
 {
@@ -69,21 +70,6 @@ namespace SharpDB.ViewModel
             }
         }
 
-        private ObservableCollection<IEnumerable> _metadataCollections;
-        public ObservableCollection<IEnumerable> MetadataCollections
-        {
-            get { return _metadataCollections; }
-            set
-            {
-                if (value != _metadataCollections)
-                {
-                    _metadataCollections = value;
-                    OnPropertyChanged(() => MetadataCollections);
-                }
-            }
-        }
-
-
         #endregion
 
         #region Commands
@@ -100,9 +86,22 @@ namespace SharpDB.ViewModel
                 _connection = factory.CreateConnection();
                 _connection.ConnectionString = _databaseConnection.ConnectionString;
                 _connection.Open();
+                //var schema = new DbSchema(_connection);
 
                 OnPropertyChanged(() => IsConnected);
                 OnPropertyChanged(() => IsBusy);
+
+                Mediator.Instance.Post(this, new ConnectionStateChangedMessage
+                {
+                    Database = this,
+                    IsConnected = true
+                });
+
+                string arguments = string.Format("/connect \"{0}\"", ConnectionName);
+                GetService<IJumpListService>().AddTask(
+                    ConnectionName,
+                    GetResource<string>("jumplist_recent_databases"),
+                    args: arguments);
             }
         }
 
@@ -113,6 +112,12 @@ namespace SharpDB.ViewModel
                 _connection.Close();
                 OnPropertyChanged(() => IsConnected);
                 OnPropertyChanged(() => IsBusy);
+
+                Mediator.Instance.Post(this, new ConnectionStateChangedMessage
+                {
+                    Database = this,
+                    IsConnected = false
+                });
             }
         }
 

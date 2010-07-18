@@ -52,6 +52,7 @@
     <Compile Include="DatabaseManagerViewModel.cs" />
     <Compile Include="DatabaseViewModel.cs" />
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="MediatorMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="WorksheetViewModel.cs" />

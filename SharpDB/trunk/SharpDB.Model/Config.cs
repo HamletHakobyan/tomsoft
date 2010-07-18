@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 using System.IO;
 using Developpez.Dotnet;
 using System.ComponentModel;
+using System.Windows.Shell;
 
 namespace SharpDB.Model
 {
@@ -26,6 +27,8 @@ namespace SharpDB.Model
         public IList<DatabaseConnection> Connections { get; private set; }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
+        [XmlArray("Connections")]
+        [XmlArrayItem("Connection")]
         public List<DatabaseConnection> ConnectionsXML
         {
             get
@@ -40,6 +43,12 @@ namespace SharpDB.Model
                 Connections = value;
             }
         }
+
+        [XmlArrayItem(typeof(JumpTask))]
+        [XmlArrayItem(typeof(JumpPath))]
+        public List<JumpItem> JumpListItems { get; set; }
+
+        #region Load and save
 
         [XmlIgnore]
         public string FileName { get; private set; }
@@ -74,10 +83,31 @@ namespace SharpDB.Model
             var path = Path.GetDirectoryName(filename);
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
-            using (var writer = new StreamWriter(filename))
+
+            string backupCopy = filename + ".bak";
+            if (File.Exists(filename))
             {
-                xs.Serialize(writer, this);
+                if (File.Exists(backupCopy))
+                    File.Delete(backupCopy);
+                File.Move(filename, backupCopy);
+            }
+            try
+            {
+                using (var writer = new StreamWriter(filename))
+                {
+                    xs.Serialize(writer, this);
+                }
+            }
+            catch
+            {
+                if (File.Exists(filename))
+                    File.Delete(filename);
+                if (File.Exists(backupCopy))
+                    File.Move(backupCopy, filename);
+                throw;
             }
         }
+
+        #endregion
     }
 }
