@@ -12,6 +12,8 @@ using System.Collections.ObjectModel;
 using SharpDB.Util.Service;
 using SharpDB.Model.Data;
 using Developpez.Dotnet.Windows.Util;
+using System.Windows.Input;
+using Developpez.Dotnet.Windows.Input;
 
 namespace SharpDB.ViewModel
 {
@@ -30,6 +32,7 @@ namespace SharpDB.ViewModel
         {
             databaseConnection.CheckArgumentNull("databaseConnection");
             _databaseConnection = databaseConnection;
+            _schemaItems = new ObservableCollection<object>();
         }
 
         #endregion
@@ -70,9 +73,29 @@ namespace SharpDB.ViewModel
             }
         }
 
+        private ObservableCollection<object> _schemaItems;
+        public ObservableCollection<object> SchemaItems
+        {
+            get { return _schemaItems; }
+        }
+
+
         #endregion
 
         #region Commands
+
+        private DelegateCommand<MouseButtonEventArgs> _databaseDoubleClickCommand;
+        public ICommand DatabaseDoubleClickCommand
+        {
+            get
+            {
+                if (_databaseDoubleClickCommand == null)
+                {
+                    _databaseDoubleClickCommand = new DelegateCommand<MouseButtonEventArgs>(DatabaseDoubleClick);
+                }
+                return _databaseDoubleClickCommand;
+            }
+        }
 
         #endregion
 
@@ -178,5 +201,13 @@ namespace SharpDB.ViewModel
         }
 
         #endregion
+
+        private void DatabaseDoubleClick(MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                Connect();
+            }
+        }
     }
 }
