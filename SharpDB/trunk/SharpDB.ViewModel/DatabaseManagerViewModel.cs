@@ -9,6 +9,7 @@ using Developpez.Dotnet.Windows.Input;
 using System.Windows.Input;
 using SharpDB.Util.Service;
 using System.Windows;
+using Developpez.Dotnet.Windows.Util;
 
 namespace SharpDB.ViewModel
 {
@@ -165,28 +166,41 @@ namespace SharpDB.ViewModel
                 var config = GetService<Config>();
                 config.Connections.Add(connectionVM.DatabaseConnection);
                 config.Save();
-                Databases.Add(new DatabaseViewModel(connectionVM.DatabaseConnection));
+                var database = new DatabaseViewModel(connectionVM.DatabaseConnection);
+                Databases.Add(database);
+
+                Mediator.Instance.Post(this, new DatabaseAddedMessage
+                {
+                    Database = database
+                });
             }
         }
 
         private void EditConnection()
         {
-            if (SelectedDatabase == null)
+            var database = SelectedDatabase;
+            if (database == null)
                 return;
 
             var service = GetService<IDialogService>();
-            var connectionVM = new ConnectionDialogViewModel(SelectedDatabase.DatabaseConnection);
+            var connectionVM = new ConnectionDialogViewModel(database.DatabaseConnection);
             if (service.Show(connectionVM) == true)
             {
                 var config = GetService<Config>();
                 config.Save();
-                SelectedDatabase.Refresh();
+                database.Refresh();
+
+                Mediator.Instance.Post(this, new DatabaseChangedMessage
+                {
+                    Database = database
+                });
             }
         }
 
         private void DeleteConnection()
         {
-            if (SelectedDatabase == null)
+            var database = SelectedDatabase;
+            if (database == null)
                 return;
 
             var text = GetResource<string>("confirm_delete_connection");
@@ -194,12 +208,17 @@ namespace SharpDB.ViewModel
             var mboxService = GetService<IMessageBoxService>();
             if (mboxService.Show(text, title, MessageBoxButton.OKCancel) == MessageBoxResult.OK)
             {
-                if (SelectedDatabase.IsConnected)
-                    SelectedDatabase.Disconnect();
+                if (database.IsConnected)
+                    database.Disconnect();
                 var config = GetService<Config>();
-                config.Connections.Remove(SelectedDatabase.DatabaseConnection);
+                config.Connections.Remove(database.DatabaseConnection);
                 config.Save();
-                Databases.Remove(SelectedDatabase);
+                Databases.Remove(database);
+
+                Mediator.Instance.Post(this, new DatabaseRemovedMessage
+                {
+                    Database = database
+                });
             }
         }
 
@@ -219,5 +238,19 @@ namespace SharpDB.ViewModel
             SelectedDatabase.Disconnect();
         }
 
+
+        public bool ConnectByName(string databaseName)
+        {
+            var database = _databases.FirstOrDefault(db => db.ConnectionName == databaseName);
+            if (database != null)
+            {
+                if (!database.IsConnected)
+                {
+                    database.Connect();
+                }
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -34,6 +34,7 @@
     <Reference Include="Developpez.Dotnet">
       <HintPath>..\lib\Dvp.NET\Developpez.Dotnet.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,6 +47,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="DatabaseConnection.cs" />
     <Compile Include="Data\DbExceptionWrapper.cs" />
+    <Compile Include="Data\DbSchema.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

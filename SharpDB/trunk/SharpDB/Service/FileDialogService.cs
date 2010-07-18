@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SharpDB.Util.Service;
-using Microsoft.Win32;
-using System.IO;
+﻿using System.IO;
 using Developpez.Dotnet;
+using Microsoft.Win32;
+using SharpDB.Util.Service;
 
 namespace SharpDB.Service
 {

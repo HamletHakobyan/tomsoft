@@ -22,6 +22,7 @@
         <Key word="set" />
         <Key word="as" />
         <Key word="is" />
+        <Key word="not" />
         <Key word="null" />
         <Key word="union" />
         <Key word="intersect" />
@@ -32,6 +33,16 @@
         <Key word="full" />
         <Key word="order" />
         <Key word="by" />
+        <Key word="drop" />
+        <Key word="create" />
+        <Key word="alter" />
+        <Key word="table" />
+        <Key word="view" />
+        <Key word="index" />
+        <Key word="into" />
+        <Key word="values" />
+        <Key word="primary key" />
+        <Key word="unique" />
       </KeyWords>
     </RuleSet>
   </RuleSets>

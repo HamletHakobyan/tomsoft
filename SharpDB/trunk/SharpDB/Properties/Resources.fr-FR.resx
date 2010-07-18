@@ -225,4 +225,16 @@
   <data name="query_success" xml:space="preserve">
     <value>Requête exécutée avec succès</value>
   </data>
+  <data name="confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="save_changes_before_close" xml:space="preserve">
+    <value>Ce document a des modifications non enregistrées.  Voulez-vous les enregistrer maintenant ?</value>
+  </data>
+  <data name="jumplist_recent_databases" xml:space="preserve">
+    <value>Bases de données récentes</value>
+  </data>
+  <data name="jumplist_recent_files" xml:space="preserve">
+    <value>Fichiers récents</value>
+  </data>
 </root>
