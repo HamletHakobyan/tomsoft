@@ -18,15 +18,30 @@ namespace SharpDB.Model.Data
 
         private DataSet BuildSchemaDataSet(DbConnection connection)
         {
-            DataSet ds = new DataSet();
-            DataTable metadataCollections = connection.GetSchema();
-            foreach (DataRow row in metadataCollections.Rows)
-            {
-                string collectionName = (string)row["CollectionName"];
-                DataTable dt = connection.GetSchema(collectionName);
-                dt.TableName = collectionName;
-                ds.Tables.Add(dt);
-            }
+            var ds = new DataSet();
+            
+            var catalogs = connection.GetSchema("Catalogs");
+            var tables = connection.GetSchema("Tables");
+            var columns = connection.GetSchema("Columns");
+            var indexes = connection.GetSchema("Indexes");
+            var indexColumns = connection.GetSchema("IndexColumns");
+            var views = connection.GetSchema("Views");
+            var viewColumns = connection.GetSchema("ViewColumns");
+            var foreignKeys = connection.GetSchema("ForeignKeys");
+            var triggers = connection.GetSchema("Triggers");
+
+            ds.Tables.Add(catalogs);
+            ds.Tables.Add(tables);
+            ds.Tables.Add(columns);
+            ds.Tables.Add(indexes);
+            ds.Tables.Add(indexColumns);
+            ds.Tables.Add(views);
+            ds.Tables.Add(viewColumns);
+            ds.Tables.Add(foreignKeys);
+            ds.Tables.Add(triggers);
+
+
+
             return ds;
         }
     }
