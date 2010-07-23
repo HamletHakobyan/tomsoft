@@ -71,6 +71,7 @@
     <Compile Include="SingleInstance.cs" />
     <Compile Include="TextEditorSelection.cs" />
     <Compile Include="TreeViewHelper.cs" />
+    <Compile Include="ViewModelRepository.cs" />
     <Compile Include="WindowSettings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

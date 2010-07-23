@@ -47,8 +47,56 @@
     <Compile Include="Config.cs" />
     <Compile Include="DatabaseConnection.cs" />
     <Compile Include="Data\DbExceptionWrapper.cs" />
+    <Compile Include="Data\DbModelHelper.cs" />
+    <Compile Include="Data\DbProviderNameAttribute.cs" />
     <Compile Include="Data\DbSchema.cs" />
+    <Compile Include="Data\IDbIndexColumnItem.cs" />
+    <Compile Include="Data\IDbModel.cs" />
+    <Compile Include="Data\IDbColumnItem.cs" />
+    <Compile Include="Data\IDbIndexItem.cs" />
+    <Compile Include="Data\IDbItemGroup.cs" />
+    <Compile Include="Data\IDbModelItem.cs" />
+    <Compile Include="Data\IDbTableItem.cs" />
+    <Compile Include="Data\SQLite\SQLiteColumnItem.cs" />
+    <Compile Include="Data\SQLite\SQLiteColumnsItemGroup.cs" />
+    <Compile Include="Data\SQLite\SQLiteDbModel.cs">
+      <DependentUpon>SQLiteDbModel.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Data\SQLite\SQLiteDbModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SQLiteDbModel.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\SQLite\SQLiteIndexesItemGroup.cs" />
+    <Compile Include="Data\SQLite\SQLiteIndexItem.cs" />
+    <Compile Include="Data\SQLite\SQLiteResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SQLiteResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\SQLite\SQLiteTablesItemGroup.cs" />
+    <Compile Include="Data\SQLite\SQLiteTableItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\SQLite\SQLiteDbModel.xsc">
+      <DependentUpon>SQLiteDbModel.xsd</DependentUpon>
+    </None>
+    <None Include="Data\SQLite\SQLiteDbModel.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SQLiteDbModel.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Data\SQLite\SQLiteDbModel.xss">
+      <DependentUpon>SQLiteDbModel.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\SQLite\SQLiteResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SQLiteResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
