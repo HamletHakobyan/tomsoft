@@ -20,7 +20,7 @@ namespace SharpDB.Model.Data.SQLite {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("SQLiteDbSchema")]
+    [global::System.Xml.Serialization.XmlRootAttribute("SQLiteDbModel")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
     internal partial class SQLiteDbModel : global::System.Data.DataSet {
         
@@ -415,7 +415,7 @@ namespace SharpDB.Model.Data.SQLite {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "SQLiteDbSchema";
+            this.DataSetName = "SQLiteDbModel";
             this.Prefix = "";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
@@ -1083,10 +1083,9 @@ namespace SharpDB.Model.Data.SQLite {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TablesRow FindByTABLE_CATALOGTABLE_SCHEMATABLE_NAME(string TABLE_CATALOG, string TABLE_SCHEMA, string TABLE_NAME) {
+            public TablesRow FindByTABLE_CATALOGTABLE_NAME(string TABLE_CATALOG, string TABLE_NAME) {
                 return ((TablesRow)(this.Rows.Find(new object[] {
                             TABLE_CATALOG,
-                            TABLE_SCHEMA,
                             TABLE_NAME})));
             }
             
@@ -1135,10 +1134,8 @@ namespace SharpDB.Model.Data.SQLite {
                 base.Columns.Add(this.columnTABLE_DEFINITION);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnTABLE_CATALOG,
-                                this.columnTABLE_SCHEMA,
                                 this.columnTABLE_NAME}, true));
                 this.columnTABLE_CATALOG.AllowDBNull = false;
-                this.columnTABLE_SCHEMA.AllowDBNull = false;
                 this.columnTABLE_NAME.AllowDBNull = false;
                 this.Locale = new global::System.Globalization.CultureInfo("");
                 this.ExtendedProperties.Add("Generator_TablePropName", "_Tables");
@@ -1728,10 +1725,9 @@ namespace SharpDB.Model.Data.SQLite {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ColumnsRow FindByTABLE_CATALOGTABLE_SCHEMATABLE_NAMECOLUMN_NAME(string TABLE_CATALOG, string TABLE_SCHEMA, string TABLE_NAME, string COLUMN_NAME) {
+            public ColumnsRow FindByTABLE_CATALOGTABLE_NAMECOLUMN_NAME(string TABLE_CATALOG, string TABLE_NAME, string COLUMN_NAME) {
                 return ((ColumnsRow)(this.Rows.Find(new object[] {
                             TABLE_CATALOG,
-                            TABLE_SCHEMA,
                             TABLE_NAME,
                             COLUMN_NAME})));
             }
@@ -1853,11 +1849,9 @@ namespace SharpDB.Model.Data.SQLite {
                 base.Columns.Add(this.columnUNIQUE);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnTABLE_CATALOG,
-                                this.columnTABLE_SCHEMA,
                                 this.columnTABLE_NAME,
                                 this.columnCOLUMN_NAME}, true));
                 this.columnTABLE_CATALOG.AllowDBNull = false;
-                this.columnTABLE_SCHEMA.AllowDBNull = false;
                 this.columnTABLE_NAME.AllowDBNull = false;
                 this.columnCOLUMN_NAME.AllowDBNull = false;
                 this.Locale = new global::System.Globalization.CultureInfo("");
@@ -2389,10 +2383,9 @@ namespace SharpDB.Model.Data.SQLite {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public IndexesRow FindByINDEX_CATALOGINDEX_SCHEMAINDEX_NAME(string INDEX_CATALOG, string INDEX_SCHEMA, string INDEX_NAME) {
+            public IndexesRow FindByINDEX_CATALOGINDEX_NAME(string INDEX_CATALOG, string INDEX_NAME) {
                 return ((IndexesRow)(this.Rows.Find(new object[] {
                             INDEX_CATALOG,
-                            INDEX_SCHEMA,
                             INDEX_NAME})));
             }
             
@@ -2498,10 +2491,8 @@ namespace SharpDB.Model.Data.SQLite {
                 base.Columns.Add(this.columnINDEX_DEFINITION);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnINDEX_CATALOG,
-                                this.columnINDEX_SCHEMA,
                                 this.columnINDEX_NAME}, true));
                 this.columnINDEX_CATALOG.AllowDBNull = false;
-                this.columnINDEX_SCHEMA.AllowDBNull = false;
                 this.columnINDEX_NAME.AllowDBNull = false;
                 this.Locale = new global::System.Globalization.CultureInfo("");
             }
@@ -2849,10 +2840,9 @@ namespace SharpDB.Model.Data.SQLite {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public IndexColumnsRow FindByCONSTRAINT_CATALOGCONSTRAINT_SCHEMACOLUMN_NAMEINDEX_NAME(string CONSTRAINT_CATALOG, string CONSTRAINT_SCHEMA, string COLUMN_NAME, string INDEX_NAME) {
+            public IndexColumnsRow FindByCONSTRAINT_CATALOGCOLUMN_NAMEINDEX_NAME(string CONSTRAINT_CATALOG, string COLUMN_NAME, string INDEX_NAME) {
                 return ((IndexColumnsRow)(this.Rows.Find(new object[] {
                             CONSTRAINT_CATALOG,
-                            CONSTRAINT_SCHEMA,
                             COLUMN_NAME,
                             INDEX_NAME})));
             }
@@ -2917,11 +2907,9 @@ namespace SharpDB.Model.Data.SQLite {
                 base.Columns.Add(this.columnCONFLICT_OPTION);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnCONSTRAINT_CATALOG,
-                                this.columnCONSTRAINT_SCHEMA,
                                 this.columnCOLUMN_NAME,
                                 this.columnINDEX_NAME}, true));
                 this.columnCONSTRAINT_CATALOG.AllowDBNull = false;
-                this.columnCONSTRAINT_SCHEMA.AllowDBNull = false;
                 this.columnCONSTRAINT_NAME.AllowDBNull = false;
                 this.columnCOLUMN_NAME.AllowDBNull = false;
                 this.columnORDINAL_POSITION.AllowDBNull = false;
@@ -3242,11 +3230,10 @@ namespace SharpDB.Model.Data.SQLite {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ViewsRow FindByTABLE_CATALOGTABLE_NAMETABLE_SCHEMA(string TABLE_CATALOG, string TABLE_NAME, string TABLE_SCHEMA) {
+            public ViewsRow FindByTABLE_CATALOGTABLE_NAME(string TABLE_CATALOG, string TABLE_NAME) {
                 return ((ViewsRow)(this.Rows.Find(new object[] {
                             TABLE_CATALOG,
-                            TABLE_NAME,
-                            TABLE_SCHEMA})));
+                            TABLE_NAME})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3300,10 +3287,8 @@ namespace SharpDB.Model.Data.SQLite {
                 base.Columns.Add(this.columnDATE_MODIFIED);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnTABLE_CATALOG,
-                                this.columnTABLE_NAME,
-                                this.columnTABLE_SCHEMA}, true));
+                                this.columnTABLE_NAME}, true));
                 this.columnTABLE_CATALOG.AllowDBNull = false;
-                this.columnTABLE_SCHEMA.AllowDBNull = false;
                 this.columnTABLE_NAME.AllowDBNull = false;
                 this.Locale = new global::System.Globalization.CultureInfo("");
             }
@@ -3855,12 +3840,11 @@ namespace SharpDB.Model.Data.SQLite {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ViewColumnsRow FindByVIEW_CATALOGVIEW_COLUMN_NAMEVIEW_NAMEVIEW_SCHEMA(string VIEW_CATALOG, string VIEW_COLUMN_NAME, string VIEW_NAME, string VIEW_SCHEMA) {
+            public ViewColumnsRow FindByVIEW_CATALOGVIEW_NAMEVIEW_COLUMN_NAME(string VIEW_CATALOG, string VIEW_NAME, string VIEW_COLUMN_NAME) {
                 return ((ViewColumnsRow)(this.Rows.Find(new object[] {
                             VIEW_CATALOG,
-                            VIEW_COLUMN_NAME,
                             VIEW_NAME,
-                            VIEW_SCHEMA})));
+                            VIEW_COLUMN_NAME})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3971,11 +3955,9 @@ namespace SharpDB.Model.Data.SQLite {
                 base.Columns.Add(this.columnUNIQUE);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnVIEW_CATALOG,
-                                this.columnVIEW_COLUMN_NAME,
                                 this.columnVIEW_NAME,
-                                this.columnVIEW_SCHEMA}, true));
+                                this.columnVIEW_COLUMN_NAME}, true));
                 this.columnVIEW_CATALOG.AllowDBNull = false;
-                this.columnVIEW_SCHEMA.AllowDBNull = false;
                 this.columnVIEW_NAME.AllowDBNull = false;
                 this.columnVIEW_COLUMN_NAME.AllowDBNull = false;
                 this.Locale = new global::System.Globalization.CultureInfo("");
@@ -4997,7 +4979,12 @@ namespace SharpDB.Model.Data.SQLite {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string TABLE_SCHEMA {
                 get {
-                    return ((string)(this[this.tableTables.TABLE_SCHEMAColumn]));
+                    try {
+                        return ((string)(this[this.tableTables.TABLE_SCHEMAColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TABLE_SCHEMA\' in table \'Tables\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableTables.TABLE_SCHEMAColumn] = value;
@@ -5088,6 +5075,18 @@ namespace SharpDB.Model.Data.SQLite {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["Catalogs_Tables"]);
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTABLE_SCHEMANull() {
+                return this.IsNull(this.tableTables.TABLE_SCHEMAColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTABLE_SCHEMANull() {
+                this[this.tableTables.TABLE_SCHEMAColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5190,7 +5189,12 @@ namespace SharpDB.Model.Data.SQLite {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string TABLE_SCHEMA {
                 get {
-                    return ((string)(this[this.tableColumns.TABLE_SCHEMAColumn]));
+                    try {
+                        return ((string)(this[this.tableColumns.TABLE_SCHEMAColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TABLE_SCHEMA\' in table \'Columns\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableColumns.TABLE_SCHEMAColumn] = value;
@@ -5664,6 +5668,18 @@ namespace SharpDB.Model.Data.SQLite {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTABLE_SCHEMANull() {
+                return this.IsNull(this.tableColumns.TABLE_SCHEMAColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTABLE_SCHEMANull() {
+                this[this.tableColumns.TABLE_SCHEMAColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsCOLUMN_GUIDNull() {
                 return this.IsNull(this.tableColumns.COLUMN_GUIDColumn);
             }
@@ -6075,7 +6091,12 @@ namespace SharpDB.Model.Data.SQLite {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string INDEX_SCHEMA {
                 get {
-                    return ((string)(this[this.tableIndexes.INDEX_SCHEMAColumn]));
+                    try {
+                        return ((string)(this[this.tableIndexes.INDEX_SCHEMAColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'INDEX_SCHEMA\' in table \'Indexes\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableIndexes.INDEX_SCHEMAColumn] = value;
@@ -6473,6 +6494,18 @@ namespace SharpDB.Model.Data.SQLite {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsINDEX_SCHEMANull() {
+                return this.IsNull(this.tableIndexes.INDEX_SCHEMAColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetINDEX_SCHEMANull() {
+                this[this.tableIndexes.INDEX_SCHEMAColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPRIMARY_KEYNull() {
                 return this.IsNull(this.tableIndexes.PRIMARY_KEYColumn);
             }
@@ -6752,7 +6785,12 @@ namespace SharpDB.Model.Data.SQLite {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string CONSTRAINT_SCHEMA {
                 get {
-                    return ((string)(this[this.tableIndexColumns.CONSTRAINT_SCHEMAColumn]));
+                    try {
+                        return ((string)(this[this.tableIndexColumns.CONSTRAINT_SCHEMAColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CONSTRAINT_SCHEMA\' in table \'IndexColumns\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableIndexColumns.CONSTRAINT_SCHEMAColumn] = value;
@@ -6923,6 +6961,18 @@ namespace SharpDB.Model.Data.SQLite {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCONSTRAINT_SCHEMANull() {
+                return this.IsNull(this.tableIndexColumns.CONSTRAINT_SCHEMAColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCONSTRAINT_SCHEMANull() {
+                this[this.tableIndexColumns.CONSTRAINT_SCHEMAColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsTABLE_CATALOGNull() {
                 return this.IsNull(this.tableIndexColumns.TABLE_CATALOGColumn);
             }
@@ -7023,7 +7073,12 @@ namespace SharpDB.Model.Data.SQLite {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string TABLE_SCHEMA {
                 get {
-                    return ((string)(this[this.tableViews.TABLE_SCHEMAColumn]));
+                    try {
+                        return ((string)(this[this.tableViews.TABLE_SCHEMAColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TABLE_SCHEMA\' in table \'Views\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableViews.TABLE_SCHEMAColumn] = value;
@@ -7150,6 +7205,18 @@ namespace SharpDB.Model.Data.SQLite {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTABLE_SCHEMANull() {
+                return this.IsNull(this.tableViews.TABLE_SCHEMAColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTABLE_SCHEMANull() {
+                this[this.tableViews.TABLE_SCHEMAColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsVIEW_DEFINITIONNull() {
                 return this.IsNull(this.tableViews.VIEW_DEFINITIONColumn);
             }
@@ -7261,7 +7328,12 @@ namespace SharpDB.Model.Data.SQLite {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string VIEW_SCHEMA {
                 get {
-                    return ((string)(this[this.tableViewColumns.VIEW_SCHEMAColumn]));
+                    try {
+                        return ((string)(this[this.tableViewColumns.VIEW_SCHEMAColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'VIEW_SCHEMA\' in table \'ViewColumns\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableViewColumns.VIEW_SCHEMAColumn] = value;
@@ -7684,6 +7756,18 @@ namespace SharpDB.Model.Data.SQLite {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["Views_ViewColumns"]);
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsVIEW_SCHEMANull() {
+                return this.IsNull(this.tableViewColumns.VIEW_SCHEMAColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetVIEW_SCHEMANull() {
+                this[this.tableViewColumns.VIEW_SCHEMAColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

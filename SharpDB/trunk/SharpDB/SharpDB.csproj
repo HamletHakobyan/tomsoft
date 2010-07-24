@@ -82,6 +82,7 @@
     <Compile Include="Behaviors\RichTextBoxBehavior.cs" />
     <Compile Include="Behaviors\ScrollBehavior.cs" />
     <Compile Include="Behaviors\TextEditorBehavior.cs" />
+    <Compile Include="Converters\DbItemImageConverter.cs" />
     <Compile Include="Service\BasicMessageBoxService.cs" />
     <Compile Include="DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
@@ -141,6 +142,10 @@
     <Page Include="View\DatabaseView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\DbModelTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainWindowToolBar.xaml">
       <SubType>Designer</SubType>
@@ -237,6 +242,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\app.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder.png" />
+    <Resource Include="Images\primary_key.png" />
+    <Resource Include="Images\table.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

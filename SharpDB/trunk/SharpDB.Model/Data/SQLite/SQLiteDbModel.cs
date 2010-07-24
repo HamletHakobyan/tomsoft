@@ -2,6 +2,10 @@
 using System.Data;
 namespace SharpDB.Model.Data.SQLite
 {
+}
+
+namespace SharpDB.Model.Data.SQLite
+{
     [DbProviderName("System.Data.SQLite")]
     partial class SQLiteDbModel : IDbModel
     {
@@ -17,13 +21,29 @@ namespace SharpDB.Model.Data.SQLite
 
             foreach (DataTable table in this.Tables)
             {
-                table.Merge(connection.GetSchema(table.TableName));
+                var schemaTable = connection.GetSchema(table.TableName);
+                table.Merge(schemaTable);
             }
+
+            _itemGroups = new IDbItemGroup[]
+            {
+                new SQLiteTablesItemGroup(this._Tables)
+            };
+
+            _schemaInitialized = true;
         }
 
         IDbItemGroup[] IDbModel.ItemGroups
         {
             get { return _itemGroups; }
         }
+    }
+}
+
+namespace SharpDB.Model.Data.SQLite {
+
+
+    internal partial class SQLiteDbModel
+    {
     }
 }

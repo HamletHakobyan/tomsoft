@@ -47,18 +47,9 @@
         <TreeView Grid.Row="1" ItemsSource="{Binding Databases}"
                   util:TreeViewHelper.TrackSelection="True"
                   util:TreeViewHelper.SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type vm:DatabaseViewModel}"
-                        ItemsSource="{Binding SchemaItems}">
-                    <ContentControl Name="dbName" Content="{Binding ConnectionName}"
-                                    bhv:MouseBehavior.MouseDoubleClick="{Binding DatabaseDoubleClickCommand}"/>
-                    <HierarchicalDataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding IsConnected}" Value="True">
-                            <Setter TargetName="dbName" Property="FontWeight" Value="Bold" />
-                        </DataTrigger>
-                    </HierarchicalDataTemplate.Triggers>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
+            <TreeView.Resources>
+                <ResourceDictionary Source="/View/DbModelTemplates.xaml"/>
+            </TreeView.Resources>
         </TreeView>
     </Grid>
 </UserControl>

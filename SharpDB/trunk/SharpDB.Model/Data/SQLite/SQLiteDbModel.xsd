@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="SQLiteDbSchema" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+<xs:schema id="SQLiteDbModel" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="NotPublic" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
@@ -9,7 +9,7 @@
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="SQLiteDbSchema" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="SQLiteDbSchema" msprop:Generator_UserDSName="SQLiteDbSchema">
+  <xs:element name="SQLiteDbModel" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="SQLiteDbModel" msprop:Generator_UserDSName="SQLiteDbModel">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element name="Catalogs" msdata:Locale="" msprop:Generator_TableClassName="CatalogsDataTable" msprop:Generator_TableVarName="tableCatalogs" msprop:Generator_TablePropName="Catalogs" msprop:Generator_RowDeletingName="CatalogsRowDeleting" msprop:Generator_UserTableName="Catalogs" msprop:Generator_RowChangingName="CatalogsRowChanging" msprop:Generator_RowEvHandlerName="CatalogsRowChangeEventHandler" msprop:Generator_RowDeletedName="CatalogsRowDeleted" msprop:Generator_RowEvArgName="CatalogsRowChangeEvent" msprop:Generator_RowChangedName="CatalogsRowChanged" msprop:Generator_RowClassName="CatalogsRow">
@@ -25,7 +25,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="TABLE_CATALOG" msprop:Generator_ColumnVarNameInTable="columnTABLE_CATALOG" msprop:Generator_ColumnPropNameInRow="TABLE_CATALOG" msprop:Generator_ColumnPropNameInTable="TABLE_CATALOGColumn" msprop:Generator_UserColumnName="TABLE_CATALOG" type="xs:string" />
-              <xs:element name="TABLE_SCHEMA" msprop:Generator_ColumnVarNameInTable="columnTABLE_SCHEMA" msprop:Generator_ColumnPropNameInRow="TABLE_SCHEMA" msprop:Generator_ColumnPropNameInTable="TABLE_SCHEMAColumn" msprop:Generator_UserColumnName="TABLE_SCHEMA" type="xs:string" />
+              <xs:element name="TABLE_SCHEMA" msprop:Generator_ColumnVarNameInTable="columnTABLE_SCHEMA" msprop:Generator_ColumnPropNameInRow="TABLE_SCHEMA" msprop:Generator_ColumnPropNameInTable="TABLE_SCHEMAColumn" msprop:Generator_UserColumnName="TABLE_SCHEMA" type="xs:string" minOccurs="0" />
               <xs:element name="TABLE_NAME" msprop:Generator_ColumnVarNameInTable="columnTABLE_NAME" msprop:Generator_ColumnPropNameInRow="TABLE_NAME" msprop:Generator_ColumnPropNameInTable="TABLE_NAMEColumn" msprop:Generator_UserColumnName="TABLE_NAME" type="xs:string" />
               <xs:element name="TABLE_TYPE" msprop:Generator_ColumnVarNameInTable="columnTABLE_TYPE" msprop:Generator_ColumnPropNameInRow="TABLE_TYPE" msprop:Generator_ColumnPropNameInTable="TABLE_TYPEColumn" msprop:Generator_UserColumnName="TABLE_TYPE" type="xs:string" minOccurs="0" />
               <xs:element name="TABLE_ID" msprop:Generator_ColumnVarNameInTable="columnTABLE_ID" msprop:Generator_ColumnPropNameInRow="TABLE_ID" msprop:Generator_ColumnPropNameInTable="TABLE_IDColumn" msprop:Generator_UserColumnName="TABLE_ID" type="xs:long" minOccurs="0" />
@@ -38,7 +38,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="TABLE_CATALOG" msprop:Generator_ColumnVarNameInTable="columnTABLE_CATALOG" msprop:Generator_ColumnPropNameInRow="TABLE_CATALOG" msprop:Generator_ColumnPropNameInTable="TABLE_CATALOGColumn" msprop:Generator_UserColumnName="TABLE_CATALOG" type="xs:string" />
-              <xs:element name="TABLE_SCHEMA" msprop:Generator_ColumnVarNameInTable="columnTABLE_SCHEMA" msprop:Generator_ColumnPropNameInRow="TABLE_SCHEMA" msprop:Generator_ColumnPropNameInTable="TABLE_SCHEMAColumn" msprop:Generator_UserColumnName="TABLE_SCHEMA" type="xs:string" />
+              <xs:element name="TABLE_SCHEMA" msprop:Generator_ColumnVarNameInTable="columnTABLE_SCHEMA" msprop:Generator_ColumnPropNameInRow="TABLE_SCHEMA" msprop:Generator_ColumnPropNameInTable="TABLE_SCHEMAColumn" msprop:Generator_UserColumnName="TABLE_SCHEMA" type="xs:string" minOccurs="0" />
               <xs:element name="TABLE_NAME" msprop:Generator_ColumnVarNameInTable="columnTABLE_NAME" msprop:Generator_ColumnPropNameInRow="TABLE_NAME" msprop:Generator_ColumnPropNameInTable="TABLE_NAMEColumn" msprop:Generator_UserColumnName="TABLE_NAME" type="xs:string" />
               <xs:element name="COLUMN_NAME" msprop:Generator_ColumnVarNameInTable="columnCOLUMN_NAME" msprop:Generator_ColumnPropNameInRow="COLUMN_NAME" msprop:Generator_ColumnPropNameInTable="COLUMN_NAMEColumn" msprop:Generator_UserColumnName="COLUMN_NAME" type="xs:string" />
               <xs:element name="COLUMN_GUID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnCOLUMN_GUID" msprop:Generator_ColumnPropNameInRow="COLUMN_GUID" msprop:Generator_ColumnPropNameInTable="COLUMN_GUIDColumn" msprop:Generator_UserColumnName="COLUMN_GUID" type="xs:string" minOccurs="0" />
@@ -78,7 +78,7 @@
               <xs:element name="TABLE_SCHEMA" msprop:Generator_ColumnVarNameInTable="columnTABLE_SCHEMA" msprop:Generator_ColumnPropNameInRow="TABLE_SCHEMA" msprop:Generator_ColumnPropNameInTable="TABLE_SCHEMAColumn" msprop:Generator_UserColumnName="TABLE_SCHEMA" type="xs:string" minOccurs="0" />
               <xs:element name="TABLE_NAME" msprop:Generator_ColumnVarNameInTable="columnTABLE_NAME" msprop:Generator_ColumnPropNameInRow="TABLE_NAME" msprop:Generator_ColumnPropNameInTable="TABLE_NAMEColumn" msprop:Generator_UserColumnName="TABLE_NAME" type="xs:string" minOccurs="0" />
               <xs:element name="INDEX_CATALOG" msprop:Generator_ColumnVarNameInTable="columnINDEX_CATALOG" msprop:Generator_ColumnPropNameInRow="INDEX_CATALOG" msprop:Generator_ColumnPropNameInTable="INDEX_CATALOGColumn" msprop:Generator_UserColumnName="INDEX_CATALOG" type="xs:string" />
-              <xs:element name="INDEX_SCHEMA" msprop:Generator_ColumnVarNameInTable="columnINDEX_SCHEMA" msprop:Generator_ColumnPropNameInRow="INDEX_SCHEMA" msprop:Generator_ColumnPropNameInTable="INDEX_SCHEMAColumn" msprop:Generator_UserColumnName="INDEX_SCHEMA" type="xs:string" />
+              <xs:element name="INDEX_SCHEMA" msprop:Generator_ColumnVarNameInTable="columnINDEX_SCHEMA" msprop:Generator_ColumnPropNameInRow="INDEX_SCHEMA" msprop:Generator_ColumnPropNameInTable="INDEX_SCHEMAColumn" msprop:Generator_UserColumnName="INDEX_SCHEMA" type="xs:string" minOccurs="0" />
               <xs:element name="INDEX_NAME" msprop:Generator_ColumnVarNameInTable="columnINDEX_NAME" msprop:Generator_ColumnPropNameInRow="INDEX_NAME" msprop:Generator_ColumnPropNameInTable="INDEX_NAMEColumn" msprop:Generator_UserColumnName="INDEX_NAME" type="xs:string" />
               <xs:element name="PRIMARY_KEY" msprop:Generator_ColumnVarNameInTable="columnPRIMARY_KEY" msprop:Generator_ColumnPropNameInRow="PRIMARY_KEY" msprop:Generator_ColumnPropNameInTable="PRIMARY_KEYColumn" msprop:Generator_UserColumnName="PRIMARY_KEY" type="xs:boolean" minOccurs="0" />
               <xs:element name="UNIQUE" msprop:Generator_ColumnVarNameInTable="columnUNIQUE" msprop:Generator_ColumnPropNameInRow="UNIQUE" msprop:Generator_ColumnPropNameInTable="UNIQUEColumn" msprop:Generator_UserColumnName="UNIQUE" type="xs:boolean" minOccurs="0" />
@@ -107,7 +107,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="CONSTRAINT_CATALOG" msprop:Generator_ColumnVarNameInTable="columnCONSTRAINT_CATALOG" msprop:Generator_ColumnPropNameInRow="CONSTRAINT_CATALOG" msprop:Generator_ColumnPropNameInTable="CONSTRAINT_CATALOGColumn" msprop:Generator_UserColumnName="CONSTRAINT_CATALOG" type="xs:string" />
-              <xs:element name="CONSTRAINT_SCHEMA" msprop:Generator_ColumnVarNameInTable="columnCONSTRAINT_SCHEMA" msprop:Generator_ColumnPropNameInRow="CONSTRAINT_SCHEMA" msprop:Generator_ColumnPropNameInTable="CONSTRAINT_SCHEMAColumn" msprop:Generator_UserColumnName="CONSTRAINT_SCHEMA" type="xs:string" />
+              <xs:element name="CONSTRAINT_SCHEMA" msprop:Generator_ColumnVarNameInTable="columnCONSTRAINT_SCHEMA" msprop:Generator_ColumnPropNameInRow="CONSTRAINT_SCHEMA" msprop:Generator_ColumnPropNameInTable="CONSTRAINT_SCHEMAColumn" msprop:Generator_UserColumnName="CONSTRAINT_SCHEMA" type="xs:string" minOccurs="0" />
               <xs:element name="CONSTRAINT_NAME" msprop:Generator_ColumnVarNameInTable="columnCONSTRAINT_NAME" msprop:Generator_ColumnPropNameInRow="CONSTRAINT_NAME" msprop:Generator_ColumnPropNameInTable="CONSTRAINT_NAMEColumn" msprop:Generator_UserColumnName="CONSTRAINT_NAME" type="xs:string" />
               <xs:element name="TABLE_CATALOG" msprop:Generator_ColumnVarNameInTable="columnTABLE_CATALOG" msprop:Generator_ColumnPropNameInRow="TABLE_CATALOG" msprop:Generator_ColumnPropNameInTable="TABLE_CATALOGColumn" msprop:Generator_UserColumnName="TABLE_CATALOG" type="xs:string" minOccurs="0" />
               <xs:element name="TABLE_SCHEMA" msprop:Generator_ColumnVarNameInTable="columnTABLE_SCHEMA" msprop:Generator_ColumnPropNameInRow="TABLE_SCHEMA" msprop:Generator_ColumnPropNameInTable="TABLE_SCHEMAColumn" msprop:Generator_UserColumnName="TABLE_SCHEMA" type="xs:string" minOccurs="0" />
@@ -125,7 +125,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="TABLE_CATALOG" msprop:Generator_ColumnVarNameInTable="columnTABLE_CATALOG" msprop:Generator_ColumnPropNameInRow="TABLE_CATALOG" msprop:Generator_ColumnPropNameInTable="TABLE_CATALOGColumn" msprop:Generator_UserColumnName="TABLE_CATALOG" type="xs:string" />
-              <xs:element name="TABLE_SCHEMA" msprop:Generator_ColumnVarNameInTable="columnTABLE_SCHEMA" msprop:Generator_ColumnPropNameInRow="TABLE_SCHEMA" msprop:Generator_ColumnPropNameInTable="TABLE_SCHEMAColumn" msprop:Generator_UserColumnName="TABLE_SCHEMA" type="xs:string" />
+              <xs:element name="TABLE_SCHEMA" msprop:Generator_ColumnVarNameInTable="columnTABLE_SCHEMA" msprop:Generator_ColumnPropNameInRow="TABLE_SCHEMA" msprop:Generator_ColumnPropNameInTable="TABLE_SCHEMAColumn" msprop:Generator_UserColumnName="TABLE_SCHEMA" type="xs:string" minOccurs="0" />
               <xs:element name="TABLE_NAME" msprop:Generator_ColumnVarNameInTable="columnTABLE_NAME" msprop:Generator_ColumnPropNameInRow="TABLE_NAME" msprop:Generator_ColumnPropNameInTable="TABLE_NAMEColumn" msprop:Generator_UserColumnName="TABLE_NAME" type="xs:string" />
               <xs:element name="VIEW_DEFINITION" msprop:Generator_ColumnVarNameInTable="columnVIEW_DEFINITION" msprop:Generator_ColumnPropNameInRow="VIEW_DEFINITION" msprop:Generator_ColumnPropNameInTable="VIEW_DEFINITIONColumn" msprop:Generator_UserColumnName="VIEW_DEFINITION" type="xs:string" minOccurs="0" />
               <xs:element name="CHECK_OPTION" msprop:Generator_ColumnVarNameInTable="columnCHECK_OPTION" msprop:Generator_ColumnPropNameInRow="CHECK_OPTION" msprop:Generator_ColumnPropNameInTable="CHECK_OPTIONColumn" msprop:Generator_UserColumnName="CHECK_OPTION" type="xs:boolean" minOccurs="0" />
@@ -140,7 +140,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="VIEW_CATALOG" msprop:Generator_ColumnVarNameInTable="columnVIEW_CATALOG" msprop:Generator_ColumnPropNameInRow="VIEW_CATALOG" msprop:Generator_ColumnPropNameInTable="VIEW_CATALOGColumn" msprop:Generator_UserColumnName="VIEW_CATALOG" type="xs:string" />
-              <xs:element name="VIEW_SCHEMA" msprop:Generator_ColumnVarNameInTable="columnVIEW_SCHEMA" msprop:Generator_ColumnPropNameInRow="VIEW_SCHEMA" msprop:Generator_ColumnPropNameInTable="VIEW_SCHEMAColumn" msprop:Generator_UserColumnName="VIEW_SCHEMA" type="xs:string" />
+              <xs:element name="VIEW_SCHEMA" msprop:Generator_ColumnVarNameInTable="columnVIEW_SCHEMA" msprop:Generator_ColumnPropNameInRow="VIEW_SCHEMA" msprop:Generator_ColumnPropNameInTable="VIEW_SCHEMAColumn" msprop:Generator_UserColumnName="VIEW_SCHEMA" type="xs:string" minOccurs="0" />
               <xs:element name="VIEW_NAME" msprop:Generator_ColumnVarNameInTable="columnVIEW_NAME" msprop:Generator_ColumnPropNameInRow="VIEW_NAME" msprop:Generator_ColumnPropNameInTable="VIEW_NAMEColumn" msprop:Generator_UserColumnName="VIEW_NAME" type="xs:string" />
               <xs:element name="VIEW_COLUMN_NAME" msprop:Generator_ColumnVarNameInTable="columnVIEW_COLUMN_NAME" msprop:Generator_ColumnPropNameInRow="VIEW_COLUMN_NAME" msprop:Generator_ColumnPropNameInTable="VIEW_COLUMN_NAMEColumn" msprop:Generator_UserColumnName="VIEW_COLUMN_NAME" type="xs:string" />
               <xs:element name="TABLE_CATALOG" msprop:Generator_ColumnVarNameInTable="columnTABLE_CATALOG" msprop:Generator_ColumnPropNameInRow="TABLE_CATALOG" msprop:Generator_ColumnPropNameInTable="TABLE_CATALOGColumn" msprop:Generator_UserColumnName="TABLE_CATALOG" type="xs:string" minOccurs="0" />
@@ -211,26 +211,22 @@
     <xs:unique name="Tables_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//Tables" />
       <xs:field xpath="TABLE_CATALOG" />
-      <xs:field xpath="TABLE_SCHEMA" />
       <xs:field xpath="TABLE_NAME" />
     </xs:unique>
     <xs:unique name="Columns_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//Columns" />
       <xs:field xpath="TABLE_CATALOG" />
-      <xs:field xpath="TABLE_SCHEMA" />
       <xs:field xpath="TABLE_NAME" />
       <xs:field xpath="COLUMN_NAME" />
     </xs:unique>
     <xs:unique name="Indexes_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//Indexes" />
       <xs:field xpath="INDEX_CATALOG" />
-      <xs:field xpath="INDEX_SCHEMA" />
       <xs:field xpath="INDEX_NAME" />
     </xs:unique>
     <xs:unique name="IndexColumns_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//IndexColumns" />
       <xs:field xpath="CONSTRAINT_CATALOG" />
-      <xs:field xpath="CONSTRAINT_SCHEMA" />
       <xs:field xpath="COLUMN_NAME" />
       <xs:field xpath="INDEX_NAME" />
     </xs:unique>
@@ -238,14 +234,12 @@
       <xs:selector xpath=".//Views" />
       <xs:field xpath="TABLE_CATALOG" />
       <xs:field xpath="TABLE_NAME" />
-      <xs:field xpath="TABLE_SCHEMA" />
     </xs:unique>
     <xs:unique name="ViewColumns_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//ViewColumns" />
       <xs:field xpath="VIEW_CATALOG" />
-      <xs:field xpath="VIEW_COLUMN_NAME" />
       <xs:field xpath="VIEW_NAME" />
-      <xs:field xpath="VIEW_SCHEMA" />
+      <xs:field xpath="VIEW_COLUMN_NAME" />
     </xs:unique>
   </xs:element>
   <xs:annotation>

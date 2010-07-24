@@ -9,6 +9,8 @@ namespace SharpDB.Model.Data
     {
         IDbItemGroup Group { get; }
         string Name { get; }
+        DbItemType ItemType { get; }
+        string CustomImageKey { get; }
         IDbItemGroup[] ItemGroups { get; }
     }
 }

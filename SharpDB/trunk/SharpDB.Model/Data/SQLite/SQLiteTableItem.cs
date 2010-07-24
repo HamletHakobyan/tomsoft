@@ -42,5 +42,16 @@ namespace SharpDB.Model.Data.SQLite
             get { return _dataRow; }
         }
 
+
+
+        public DbItemType ItemType
+        {
+            get { return DbItemType.Table; }
+        }
+
+        public string CustomImageKey
+        {
+            get { return null; }
+        }
     }
 }
