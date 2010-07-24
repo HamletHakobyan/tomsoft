@@ -10,7 +10,7 @@ namespace SharpDB.ViewModel.Design
     {
         public DesignDatabaseViewModel()
         {
-            SchemaItems = new ObservableCollection<object>
+            ModelGroups = new ObservableCollection<object>
             {
                 "Tables",
                 "Indexes"
@@ -21,6 +21,6 @@ namespace SharpDB.ViewModel.Design
         public bool IsConnected { get; set; }
         public bool IsBusy { get; set; }
 
-        public ObservableCollection<object> SchemaItems { get; set; }
+        public ObservableCollection<object> ModelGroups { get; set; }
     }
 }

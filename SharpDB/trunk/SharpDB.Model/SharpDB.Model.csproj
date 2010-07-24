@@ -57,6 +57,7 @@
     <Compile Include="Data\IDbItemGroup.cs" />
     <Compile Include="Data\IDbModelItem.cs" />
     <Compile Include="Data\IDbTableItem.cs" />
+    <Compile Include="Data\DbItemType.cs" />
     <Compile Include="Data\SQLite\SQLiteColumnItem.cs" />
     <Compile Include="Data\SQLite\SQLiteColumnsItemGroup.cs" />
     <Compile Include="Data\SQLite\SQLiteDbModel.cs">

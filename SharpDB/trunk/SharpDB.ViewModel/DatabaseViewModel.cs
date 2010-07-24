@@ -23,6 +23,7 @@ namespace SharpDB.ViewModel
 
         private DatabaseConnection _databaseConnection;
         private DbConnection _connection;
+        private IDbModel _model;
 
         #endregion
 
@@ -32,7 +33,6 @@ namespace SharpDB.ViewModel
         {
             databaseConnection.CheckArgumentNull("databaseConnection");
             _databaseConnection = databaseConnection;
-            _schemaItems = new ObservableCollection<object>();
         }
 
         #endregion
@@ -73,10 +73,20 @@ namespace SharpDB.ViewModel
             }
         }
 
-        private ObservableCollection<object> _schemaItems;
-        public ObservableCollection<object> SchemaItems
+        private ObservableCollection<DbModelItemGroupViewModel> _modelGroups;
+        public ObservableCollection<DbModelItemGroupViewModel> ModelGroups
         {
-            get { return _schemaItems; }
+            get
+            {
+                if (_modelGroups == null && IsConnected)
+                {
+                    _model = DbModelHelper.GetModel(_databaseConnection.ProviderName);
+                    _model.InitModel(_connection);
+                    var groups = _model.ItemGroups.Select(g => new DbModelItemGroupViewModel(g));
+                    _modelGroups = new ObservableCollection<DbModelItemGroupViewModel>(groups);
+                }
+                return _modelGroups;
+            }
         }
 
 
@@ -113,6 +123,7 @@ namespace SharpDB.ViewModel
 
                 OnPropertyChanged(() => IsConnected);
                 OnPropertyChanged(() => IsBusy);
+                OnPropertyChanged(() => ModelGroups);
 
                 Mediator.Instance.Post(this, new ConnectionStateChangedMessage
                 {
@@ -133,8 +144,11 @@ namespace SharpDB.ViewModel
             if (IsConnected)
             {
                 _connection.Close();
+                _model = null;
+                _modelGroups = null;
                 OnPropertyChanged(() => IsConnected);
                 OnPropertyChanged(() => IsBusy);
+                OnPropertyChanged(() => ModelGroups);
 
                 Mediator.Instance.Post(this, new ConnectionStateChangedMessage
                 {
