@@ -7,15 +7,27 @@ using System.Windows.Shell;
 using System.Windows;
 using Developpez.Dotnet;
 using System.IO;
+using SharpDB.Model;
 
 namespace SharpDB.Service
 {
     class JumpListService : IJumpListService
     {
-        public JumpListService(List<JumpItem> jumpItems)
+        public JumpListService(Config config)
         {
-            var jumpList = new JumpList(jumpItems, false, true);
+            var jumpList = new JumpList(new List<JumpItem>(), false, true);
             JumpList.SetJumpList(App.Current, jumpList);
+
+            foreach (var connection in config.RecentConnections)
+            {
+                string arguments = string.Format("/connect \"{0}\"", connection);
+                AddTask(connection, Properties.Resources.jumplist_recent_databases, args: arguments);
+            }
+
+            foreach (var filename in config.RecentFiles)
+            {
+                AddRecent(filename);
+            }
         }
 
         public void AddRecent(string path)

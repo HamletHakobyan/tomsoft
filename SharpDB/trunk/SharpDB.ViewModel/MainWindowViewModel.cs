@@ -25,11 +25,7 @@ namespace SharpDB.ViewModel
             if (!IsInDesignMode)
             {
                 var config = GetService<Config>();
-                var recent = config.JumpListItems
-                    .OfType<System.Windows.Shell.JumpTask>()
-                    .Where(jt => !jt.Arguments.IsNullOrEmpty() && !jt.Arguments.StartsWith("/connect", StringComparison.InvariantCultureIgnoreCase))
-                    .Select(jt => jt.Arguments.Trim('"'));
-                _recentFiles = new ObservableCollection<string>(recent);
+                _recentFiles = new ObservableCollection<string>(config.RecentFiles);
             }
         }
 
@@ -246,10 +242,13 @@ namespace SharpDB.ViewModel
         {
             var service = GetService<IJumpListService>();
             service.AddRecent(filename);
+            
             _recentFiles.Remove(filename);
             _recentFiles.Insert(0, filename);
-            if (_recentFiles.Count > service.MaxCountPerCategory)
+            while (_recentFiles.Count > service.MaxCountPerCategory)
                 _recentFiles.RemoveAt(_recentFiles.Count - 1);
+
+            GetService<Config>().RecentFiles = _recentFiles.ToList();
         }
 
         #endregion

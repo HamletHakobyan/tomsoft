@@ -6,7 +6,6 @@ using System.Xml.Serialization;
 using System.IO;
 using Developpez.Dotnet;
 using System.ComponentModel;
-using System.Windows.Shell;
 
 namespace SharpDB.Model
 {
@@ -44,9 +43,13 @@ namespace SharpDB.Model
             }
         }
 
-        [XmlArrayItem(typeof(JumpTask))]
-        [XmlArrayItem(typeof(JumpPath))]
-        public List<JumpItem> JumpListItems { get; set; }
+        [XmlArray("RecentFiles")]
+        [XmlArrayItem("FileName")]
+        public List<string> RecentFiles { get; set; }
+
+        [XmlArray("RecentConnections")]
+        [XmlArrayItem("ConnectionName")]
+        public List<string> RecentConnections { get; set; }
 
         #region Load and save
 
