@@ -237,8 +237,8 @@
   <data name="jumplist_recent_files" xml:space="preserve">
     <value>Recent files</value>
   </data>
-  <data name="column_datatype" xml:space="preserve">
-    <value>Type</value>
+  <data name="column_datatype_format" xml:space="preserve">
+    <value>Type: {0}</value>
   </data>
   <data name="ItemType_Column" xml:space="preserve">
     <value>Column</value>
@@ -251,5 +251,8 @@
   </data>
   <data name="refresh_model" xml:space="preserve">
     <value>Refresh database structure</value>
+  </data>
+  <data name="column_default_value_format" xml:space="preserve">
+    <value>Default value: {0}</value>
   </data>
 </root>

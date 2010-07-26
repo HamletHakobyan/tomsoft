@@ -13,26 +13,41 @@ namespace SharpDB.Service
 {
     class JumpListService : IJumpListService
     {
+        private Config _config;
+
         public JumpListService(Config config)
         {
+            _config = config;
+
             var jumpList = new JumpList(new List<JumpItem>(), false, true);
             JumpList.SetJumpList(App.Current, jumpList);
 
             foreach (var connection in config.RecentConnections)
             {
                 string arguments = string.Format("/connect \"{0}\"", connection);
-                AddTask(connection, Properties.Resources.jumplist_recent_databases, args: arguments);
+                AddTask(jumpList, false, connection, Properties.Resources.jumplist_recent_databases, args: arguments);
             }
 
             foreach (var filename in config.RecentFiles)
             {
-                AddRecent(filename);
+                AddRecent(jumpList, false, filename);
             }
+
+            jumpList.Apply();
         }
 
         public void AddRecent(string path)
         {
-            AddToCategory(path, Properties.Resources.jumplist_recent_files);
+            var jumpList = JumpList.GetJumpList(Application.Current);
+            if (jumpList == null)
+                return;
+
+            AddToCategory(jumpList, true, path, Properties.Resources.jumplist_recent_files);
+        }
+
+        private void AddRecent(JumpList jumpList, bool apply, string path)
+        {
+            AddToCategory(jumpList, apply, path, Properties.Resources.jumplist_recent_files);
         }
 
         public void RemoveRecent(string path)
@@ -42,7 +57,16 @@ namespace SharpDB.Service
 
         public void AddToCategory(string path, string category)
         {
-            AddTask(Path.GetFileName(path), category, args: ProtectPath(path));
+            var jumpList = JumpList.GetJumpList(Application.Current);
+            if (jumpList == null)
+                return;
+
+            AddToCategory(jumpList, true, path, category);
+        }
+
+        private void AddToCategory(JumpList jumpList, bool apply, string path, string category)
+        {
+            AddTask(jumpList, apply, Path.GetFileName(path), category, args: ProtectPath(path));
         }
 
         public void RemoveFromCategory(string path, string category)
@@ -56,6 +80,11 @@ namespace SharpDB.Service
             if (jumpList == null)
                 return;
 
+            AddTask(jumpList, true, title, category, appPath, args, workingDirectory, description, iconResourcePath, iconResourceIndex);
+        }
+
+        private void AddTask(JumpList jumpList, bool apply, string title, string category, string appPath = null, string args = null, string workingDirectory = null, string description = null, string iconResourcePath = null, int iconResourceIndex = 0)
+        {
             var item = FindTask(title, category) ?? new JumpTask
             {
                 Title = title,
@@ -72,7 +101,8 @@ namespace SharpDB.Service
             jumpList.JumpItems.Remove(item);
             jumpList.JumpItems.Insert(0, item);
             TrimMaxItems(jumpList);
-            jumpList.Apply();
+            if (apply)
+                jumpList.Apply();
         }
 
         public void RemoveTask(string title, string category)
@@ -116,31 +146,17 @@ namespace SharpDB.Service
             return jumpList.JumpItems;
         }
 
-        private int _maxCountPerCategory = 6;
-        public int MaxCountPerCategory
-        {
-            get { return _maxCountPerCategory; }
-            set
-            {
-                _maxCountPerCategory = Math.Max(0, value);
-                var jumpList = JumpList.GetJumpList(App.Current);
-                if (jumpList == null)
-                    return;
-                TrimMaxItems(jumpList);
-            }
-        }
-
         private void TrimMaxItems(JumpList jumpList)
         {
+            // Clear oldest items in each category
             var toRemove = jumpList.JumpItems.GroupBy(j => j.CustomCategory)
-                                    .Select(g => g.Skip(_maxCountPerCategory))
+                                    .Select(g => g.Skip(_config.MaxRecentItems))
                                     .SelectMany(j => j)
                                     .ToArray();
             foreach (var item in toRemove)
             {
                 jumpList.JumpItems.Remove(item);
             }
-            jumpList.Apply();
         }
 
         private JumpTask FindTask(string title, string category)

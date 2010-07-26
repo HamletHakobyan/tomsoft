@@ -79,11 +79,20 @@ namespace SharpDB.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type.
+        ///   Looks up a localized string similar to Type: {0}.
         /// </summary>
-        public static string column_datatype {
+        public static string column_datatype_format {
             get {
-                return ResourceManager.GetString("column_datatype", resourceCulture);
+                return ResourceManager.GetString("column_datatype_format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default value: {0}.
+        /// </summary>
+        public static string column_default_value_format {
+            get {
+                return ResourceManager.GetString("column_default_value_format", resourceCulture);
             }
         }
         

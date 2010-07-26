@@ -243,12 +243,12 @@ namespace SharpDB.ViewModel
             var service = GetService<IJumpListService>();
             service.AddRecent(filename);
             
+            var config = GetService<Config>();
             _recentFiles.Remove(filename);
             _recentFiles.Insert(0, filename);
-            while (_recentFiles.Count > service.MaxCountPerCategory)
+            while (_recentFiles.Count > config.MaxRecentItems)
                 _recentFiles.RemoveAt(_recentFiles.Count - 1);
-
-            GetService<Config>().RecentFiles = _recentFiles.ToList();
+            config.RecentFiles = _recentFiles.ToList();
         }
 
         #endregion
