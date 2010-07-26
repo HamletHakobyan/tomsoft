@@ -9,6 +9,7 @@ namespace SharpDB.Model.Data
     public interface IDbModel
     {
         void InitModel(DbConnection connection);
+        bool IsInitialized { get; }
         IDbItemGroup[] ItemGroups { get; }
     }
 }

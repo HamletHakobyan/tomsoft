@@ -25,11 +25,6 @@
                     Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/file.png" />
             </Button>
-            <!--<Button Command="{Binding OpenWorksheetCommand}"
-                    ToolTip="{x:Static prop:Resources.open_worksheet}"
-                    Style="{StaticResource ToolBarButton}">
-                <Image Source="/Images/open.png" />
-            </Button>-->
             <ctl:SplitButton Command="{Binding OpenWorksheetCommand}"
                              ItemsSource="{Binding RecentFiles}"
                              ToolTip="{x:Static prop:Resources.open_worksheet}"
