@@ -83,7 +83,6 @@
     <Compile Include="Behaviors\ScrollBehavior.cs" />
     <Compile Include="Behaviors\TextEditorBehavior.cs" />
     <Compile Include="Behaviors\WindowBehavior.cs" />
-    <Compile Include="Converters\DbItemImageConverter.cs" />
     <Compile Include="Service\BasicMessageBoxService.cs" />
     <Compile Include="DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
