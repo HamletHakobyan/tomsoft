@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SharpDB.Model.Data;
+using System.Globalization;
 
 namespace SharpDB.ViewModel.DbModel
 {
@@ -27,7 +28,7 @@ namespace SharpDB.ViewModel.DbModel
             {
                 var sb = new StringBuilder();
                 sb.AppendLine(base.SummaryText);
-                sb.AppendLine(GetFormattedDataType());
+                sb.AppendFormat(GetResource<string>("column_datatype_format"), GetFormattedDataType()).AppendLine();
                 
                 if (!_columnItem.IsNullable)
                     sb.AppendLine("NOT NULL");
@@ -39,11 +40,42 @@ namespace SharpDB.ViewModel.DbModel
 
                 if (_columnItem.IsAutoIncrement)
                     sb.AppendLine("AUTOINCREMENT");
+
+                if (_columnItem.DefaultValue != null)
+                    sb.AppendFormat(GetResource<string>("column_default_value_format"), GetFormattedDefaultValue());
+
                 return sb.ToString();
             }
         }
 
-        protected string GetFormattedDataType()
+        protected string GetFormattedDefaultValue()
+        {
+            Type dataType = _columnItem.DataType;
+            object defaultValue = _columnItem.DefaultValue;
+
+            return GetFormattedValue(dataType, defaultValue);
+        }
+
+        protected virtual string GetFormattedValue(Type dataType, object defaultValue)
+        {
+            if (defaultValue == null)
+                return "NULL";
+
+            if (dataType == typeof(string))
+            {
+                return string.Format("'{0}'", ((string)defaultValue).Replace("'", "''"));
+            }
+            else if (dataType == typeof(byte[]))
+            {
+                return "BLOB";
+            }
+            else
+            {
+                return Convert.ToString(defaultValue, CultureInfo.InvariantCulture);
+            }
+        }
+
+        protected virtual string GetFormattedDataType()
         {
             string dataTypeName = _columnItem.DataTypeName;
             int? precision = _columnItem.NumericPrecision;

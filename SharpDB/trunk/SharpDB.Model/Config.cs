@@ -19,7 +19,10 @@ namespace SharpDB.Model
 
         public Config()
         {
+            this.MaxRecentItems = 6;
             this.Connections = new List<DatabaseConnection>();
+            this.RecentFiles = new List<string>();
+            this.RecentConnections = new List<string>();
         }
 
         [XmlIgnore]
@@ -50,6 +53,13 @@ namespace SharpDB.Model
         [XmlArray("RecentConnections")]
         [XmlArrayItem("ConnectionName")]
         public List<string> RecentConnections { get; set; }
+
+        public int MaxRecentItems { get; set; }
+
+        public bool ShouldSerializeMaxRecentItems()
+        {
+            return (MaxRecentItems > 0);
+        }
 
         #region Load and save
 

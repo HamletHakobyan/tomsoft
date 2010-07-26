@@ -17,6 +17,5 @@ namespace SharpDB.Util.Service
         void ClearCategory(string category);
         void Clear();
         IEnumerable<JumpItem> GetJumpItems();
-        int MaxCountPerCategory { get; set; }
     }
 }

@@ -141,7 +141,10 @@ namespace SharpDB.ViewModel
                     GetResource<string>("jumplist_recent_databases"),
                     args: arguments);
 
-                GetService<Config>().RecentConnections.Add(ConnectionName);
+                var config = GetService<Config>();
+                config.RecentConnections.Add(ConnectionName);
+                while (config.RecentConnections.Count > config.MaxRecentItems)
+                    config.RecentConnections.RemoveAt(config.RecentConnections.Count - 1);
             }
         }
 

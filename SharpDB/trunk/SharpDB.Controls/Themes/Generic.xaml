@@ -82,8 +82,28 @@
                                               VerticalAlignment="Center"
                                               HorizontalAlignment="Left"/>
 
-                            <Button Name="PART_CloseButton" Grid.Column="2" Margin="3" Content="X" />
-
+                            <Button Name="PART_CloseButton"
+                                    Grid.Column="2" Margin="3"
+                                    Width="16" Height="16"
+                                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                <Button.ContentTemplate>
+                                    <DataTemplate>
+                                        <Border>
+                                            <Path Name="cross"
+                                                  Stroke="Gray"
+                                                  StrokeThickness="2"
+                                                  Stretch="Uniform"
+                                                  Data="M0,0 1,1 M0,1 1,0">
+                                            </Path>
+                                        </Border>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}}" Value="True">
+                                                <Setter TargetName="cross" Property="Stroke" Value="Black" />
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </Button.ContentTemplate>
+                            </Button>
                         </Grid>
                     </Border>
                 </ControlTemplate>
@@ -103,32 +123,20 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:SplitButton}">
-                    <Border Background="{TemplateBinding Background}"
+                    <Border Name="root"
+                            Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <DockPanel>
-
-                            <Popup Name="PART_DropDown"
-                                   Placement="Bottom"
-                                   PlacementTarget="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
-                                   StaysOpen="False">
-                                <Menu ItemsSource="{TemplateBinding ItemsSource}"
-                                      ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
-                                      ItemTemplate="{TemplateBinding ItemTemplate}">
-                                    <Menu.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <StackPanel Orientation="Vertical"
-                                                        IsItemsHost="True"
-                                                        Margin="3"/>
-                                        </ItemsPanelTemplate>
-                                    </Menu.ItemsPanel>
-                                </Menu>
-                            </Popup>
-
                             <Button Name="PART_DropDownButton"
                                     DockPanel.Dock="Right"
                                     Height="{Binding ActualHeight, ElementName=ActualButton}"
                                     Style="{TemplateBinding ButtonStyle}">
+                                <Button.ContextMenu>
+                                    <ContextMenu ItemsSource="{TemplateBinding ItemsSource}"
+                                                 ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
+                                                 ItemTemplate="{TemplateBinding ItemTemplate}" />
+                                </Button.ContextMenu>
                                 <Path Fill="Black" Data="M1,3 7,3 4,7"/>
                             </Button>
                             

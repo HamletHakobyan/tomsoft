@@ -237,4 +237,22 @@
   <data name="jumplist_recent_files" xml:space="preserve">
     <value>Fichiers récents</value>
   </data>
+  <data name="column_datatype_format" xml:space="preserve">
+    <value>Type : {0}</value>
+  </data>
+  <data name="ItemType_Column" xml:space="preserve">
+    <value>Colonne</value>
+  </data>
+  <data name="ItemType_Index" xml:space="preserve">
+    <value>Index</value>
+  </data>
+  <data name="ItemType_Table" xml:space="preserve">
+    <value>Table</value>
+  </data>
+  <data name="refresh_model" xml:space="preserve">
+    <value>Rafraichir la structure de la base</value>
+  </data>
+  <data name="column_default_value_format" xml:space="preserve">
+    <value>Valeur par défaut : {0}</value>
+  </data>
 </root>

@@ -16,7 +16,6 @@ using System.Windows.Controls.Primitives;
 namespace SharpDB.Controls
 {
     [TemplatePart(Name = "PART_DropDownButton", Type = typeof(ButtonBase))]
-    [TemplatePart(Name = "PART_DropDown", Type = typeof(Popup))]
     public class SplitButton : Button
     {
         static SplitButton()
@@ -88,27 +87,37 @@ namespace SharpDB.Controls
         #endregion
 
         private ButtonBase _dropDownButton;
-        private Popup _dropDown;
+        private ContextMenu _contextMenu;
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
 
             _dropDownButton = Template.FindName("PART_DropDownButton", this) as ButtonBase;
-            _dropDown = Template.FindName("PART_DropDown", this) as Popup;
-
             _dropDownButton.Click += dropDownButton_Click;
-            _dropDown.AddHandler(MenuItem.ClickEvent, (RoutedEventHandler)MenuItem_Click);
+            _contextMenu = _dropDownButton.ContextMenu as ContextMenu;
+            if (_contextMenu != null)
+            {
+                _contextMenu.PlacementTarget = this;
+                _contextMenu.Placement = PlacementMode.Bottom;
+                _contextMenu.AddHandler(MenuItem.ClickEvent, (RoutedEventHandler)MenuItem_Click);
+            }
         }
 
         void dropDownButton_Click(object sender, RoutedEventArgs e)
         {
-            _dropDown.IsOpen = true;
+            if (_contextMenu != null)
+            {
+                _contextMenu.IsOpen = true;
+            }
         }
 
         void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            _dropDown.IsOpen = false;
+            if (_contextMenu != null)
+            {
+                _contextMenu.IsOpen = false;
+            }
 
             var menuItem = e.OriginalSource as MenuItem;
             if (menuItem == null)
