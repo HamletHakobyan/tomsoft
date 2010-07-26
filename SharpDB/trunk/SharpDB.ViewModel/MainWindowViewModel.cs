@@ -4,6 +4,12 @@ using System.IO;
 using System.Windows.Input;
 using Developpez.Dotnet.Windows.Input;
 using SharpDB.Util.Service;
+using SharpDB.Model;
+using System.Linq;
+using Developpez.Dotnet;
+using System;
+using System.Windows;
+using System.ComponentModel;
 
 namespace SharpDB.ViewModel
 {
@@ -16,6 +22,15 @@ namespace SharpDB.ViewModel
             _currentWorksheet = new WorksheetViewModel(this);
             _worksheets = new ObservableCollection<WorksheetViewModel>();
             _worksheets.Add(_currentWorksheet);
+            if (!IsInDesignMode)
+            {
+                var config = GetService<Config>();
+                var recent = config.JumpListItems
+                    .OfType<System.Windows.Shell.JumpTask>()
+                    .Where(jt => !jt.Arguments.IsNullOrEmpty() && !jt.Arguments.StartsWith("/connect", StringComparison.InvariantCultureIgnoreCase))
+                    .Select(jt => jt.Arguments.Trim('"'));
+                _recentFiles = new ObservableCollection<string>(recent);
+            }
         }
 
         #region Properties
@@ -76,6 +91,21 @@ namespace SharpDB.ViewModel
             }
         }
 
+        private ObservableCollection<string> _recentFiles;
+        public ObservableCollection<string> RecentFiles
+        {
+            get { return _recentFiles; }
+            set
+            {
+                if (value != _recentFiles)
+                {
+                    _recentFiles = value;
+                    OnPropertyChanged("RecentFiles");
+                }
+            }
+        }
+
+
         #endregion
 
         #region Commands
@@ -93,14 +123,14 @@ namespace SharpDB.ViewModel
             }
         }
 
-        private DelegateCommand _openWorksheetCommand;
+        private DelegateCommand<string> _openWorksheetCommand;
         public ICommand OpenWorksheetCommand
         {
             get
             {
                 if (_openWorksheetCommand == null)
                 {
-                    _openWorksheetCommand = new DelegateCommand(OpenWorksheet);
+                    _openWorksheetCommand = new DelegateCommand<string>(OpenWorksheet);
                 }
                 return _openWorksheetCommand;
             }
@@ -119,6 +149,19 @@ namespace SharpDB.ViewModel
             }
         }
 
+        private DelegateCommand<CancelEventArgs> _closingCommand;
+        public ICommand ClosingCommand
+        {
+            get
+            {
+                if (_closingCommand == null)
+                {
+                    _closingCommand = new DelegateCommand<CancelEventArgs>(WindowClosing);
+                }
+                return _closingCommand;
+            }
+        }
+
 
         #endregion
 
@@ -133,20 +176,24 @@ namespace SharpDB.ViewModel
 
         public void OpenWorksheet()
         {
-            string filename = string.Empty;
-            var options = new OpenFileDialogOptions
-            {
-                Filter = GetResource<string>("sql_file_filter_name") + "|*.sql",
-            };
-            var service = GetService<IFileDialogService>();
-            if (service.ShowOpen(ref filename, options) == true)
-            {
-                OpenWorksheet(filename);
-            }
+            OpenWorksheet(null);
         }
 
         public void OpenWorksheet(string fileName)
         {
+            if (fileName.IsNullOrEmpty())
+            {
+                var options = new OpenFileDialogOptions
+                {
+                    Filter = GetResource<string>("sql_file_filter_name") + "|*.sql",
+                };
+                var service = GetService<IFileDialogService>();
+                if (service.ShowOpen(ref fileName, options) != true)
+                {
+                    return;
+                }
+            }
+
             string text = File.ReadAllText(fileName);
             string title = Path.GetFileName(fileName);
             var worksheet = new WorksheetViewModel(this)
@@ -158,9 +205,8 @@ namespace SharpDB.ViewModel
             };
             Worksheets.Add(worksheet);
             CurrentWorksheet = worksheet;
-            GetService<IJumpListService>().AddRecent(fileName);
+            AddRecentFile(fileName);
         }
-
 
         public void CloseWorksheet(WorksheetViewModel worksheet)
         {
@@ -196,6 +242,28 @@ namespace SharpDB.ViewModel
             }
         }
 
+        public void AddRecentFile(string filename)
+        {
+            var service = GetService<IJumpListService>();
+            service.AddRecent(filename);
+            _recentFiles.Remove(filename);
+            _recentFiles.Insert(0, filename);
+            if (_recentFiles.Count > service.MaxCountPerCategory)
+                _recentFiles.RemoveAt(_recentFiles.Count - 1);
+        }
+
         #endregion
+
+        private void WindowClosing(CancelEventArgs e)
+        {
+            foreach (var worksheet in _worksheets)
+            {
+                if (!worksheet.ConfirmClose())
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+        }
     }
 }

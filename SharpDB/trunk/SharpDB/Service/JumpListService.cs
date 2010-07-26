@@ -59,6 +59,7 @@ namespace SharpDB.Service
 
             jumpList.JumpItems.Remove(item);
             jumpList.JumpItems.Insert(0, item);
+            TrimMaxItems(jumpList);
             jumpList.Apply();
         }
 
@@ -103,6 +104,33 @@ namespace SharpDB.Service
             return jumpList.JumpItems;
         }
 
+        private int _maxCountPerCategory = 6;
+        public int MaxCountPerCategory
+        {
+            get { return _maxCountPerCategory; }
+            set
+            {
+                _maxCountPerCategory = Math.Max(0, value);
+                var jumpList = JumpList.GetJumpList(App.Current);
+                if (jumpList == null)
+                    return;
+                TrimMaxItems(jumpList);
+            }
+        }
+
+        private void TrimMaxItems(JumpList jumpList)
+        {
+            var toRemove = jumpList.JumpItems.GroupBy(j => j.CustomCategory)
+                                    .Select(g => g.Skip(_maxCountPerCategory))
+                                    .SelectMany(j => j)
+                                    .ToArray();
+            foreach (var item in toRemove)
+            {
+                jumpList.JumpItems.Remove(item);
+            }
+            jumpList.Apply();
+        }
+
         private JumpTask FindTask(string title, string category)
         {
             var jumpList = JumpList.GetJumpList(Application.Current);
@@ -120,5 +148,6 @@ namespace SharpDB.Service
         {
             return string.Format("\"{0}\"", path);
         }
+
     }
 }

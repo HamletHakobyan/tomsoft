@@ -5,11 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:SharpDB.ViewModel;assembly=SharpDB.ViewModel"
              xmlns:prop="clr-namespace:SharpDB.Properties"
+             xmlns:ctl="clr-namespace:SharpDB.Controls;assembly=SharpDB.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="600">
     
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="visibilibyConverter"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="visibilibyConverter"/>
+        </ResourceDictionary>
     </UserControl.Resources>
     
     <ToolBarTray>
@@ -19,11 +25,18 @@
                     Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/file.png" />
             </Button>
-            <Button Command="{Binding OpenWorksheetCommand}"
+            <!--<Button Command="{Binding OpenWorksheetCommand}"
                     ToolTip="{x:Static prop:Resources.open_worksheet}"
                     Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/open.png" />
-            </Button>
+            </Button>-->
+            <ctl:SplitButton Command="{Binding OpenWorksheetCommand}"
+                             ItemsSource="{Binding RecentFiles}"
+                             ToolTip="{x:Static prop:Resources.open_worksheet}"
+                             Style="{StaticResource ToolBarButton}"
+                             ButtonStyle="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <Image Source="/Images/open.png" />
+            </ctl:SplitButton>
         </ToolBar>
         <ToolBar Name="WorksheetToolbar"
                  DataContext="{Binding CurrentWorksheet}">

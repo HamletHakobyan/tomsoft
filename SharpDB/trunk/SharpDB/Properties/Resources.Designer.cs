@@ -79,6 +79,15 @@ namespace SharpDB.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string column_datatype {
+            get {
+                return ResourceManager.GetString("column_datatype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you really want to delete this database connection ?.
         /// </summary>
         public static string confirm_delete_connection {
@@ -286,6 +295,33 @@ namespace SharpDB.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Column.
+        /// </summary>
+        public static string ItemType_Column {
+            get {
+                return ResourceManager.GetString("ItemType_Column", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Index.
+        /// </summary>
+        public static string ItemType_Index {
+            get {
+                return ResourceManager.GetString("ItemType_Index", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Table.
+        /// </summary>
+        public static string ItemType_Table {
+            get {
+                return ResourceManager.GetString("ItemType_Table", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recent databases.
         /// </summary>
         public static string jumplist_recent_databases {
@@ -390,6 +426,15 @@ namespace SharpDB.Properties {
         public static string query_success {
             get {
                 return ResourceManager.GetString("query_success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh database structure.
+        /// </summary>
+        public static string refresh_model {
+            get {
+                return ResourceManager.GetString("refresh_model", resourceCulture);
             }
         }
         

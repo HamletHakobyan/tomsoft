@@ -15,8 +15,10 @@ namespace SharpDB.Model.Data.SQLite
         {
             _group = group;
             _dataRow = indexRow;
-            // TODO : add index columns
-            _itemGroups = new IDbItemGroup[0];
+            _itemGroups = new IDbItemGroup[]
+            {
+                new SQLiteIndexColumnItemGroup(this)
+            };
         }
 
         public IDbItemGroup Group
@@ -34,7 +36,10 @@ namespace SharpDB.Model.Data.SQLite
             get { return _itemGroups; }
         }
 
-
+        public SQLiteDbModel.IndexesRow DataRow
+        {
+            get { return _dataRow; }
+        }
 
         public DbItemType ItemType
         {
@@ -44,6 +49,21 @@ namespace SharpDB.Model.Data.SQLite
         public string CustomImageKey
         {
             get { return null; }
+        }
+
+        public string Description
+        {
+            get { return null; }
+        }
+
+        public bool IsPrimaryKey
+        {
+            get { return _dataRow.PRIMARY_KEY; }
+        }
+
+        public bool IsUnique
+        {
+            get { return _dataRow.UNIQUE; }
         }
     }
 }

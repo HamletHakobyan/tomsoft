@@ -51,10 +51,15 @@
     <Compile Include="ConnectionDialogViewModel.cs" />
     <Compile Include="DatabaseManagerViewModel.cs" />
     <Compile Include="DatabaseViewModel.cs" />
+    <Compile Include="DbModel\DbModelColumnViewModel.cs" />
+    <Compile Include="DbModel\DbModelIndexColumnViewModel.cs" />
+    <Compile Include="DbModel\DbModelIndexViewModel.cs" />
+    <Compile Include="DbModel\DbModelTableViewModel.cs" />
+    <Compile Include="IDatabaseChildItem.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="MediatorMessages.cs" />
-    <Compile Include="DbModelItemGroupViewModel.cs" />
-    <Compile Include="DbModelItemViewModel.cs" />
+    <Compile Include="DbModel\DbModelItemGroupViewModel.cs" />
+    <Compile Include="DbModel\DbModelItemViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="WorksheetViewModel.cs" />
