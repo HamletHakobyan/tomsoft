@@ -52,7 +52,7 @@ namespace SharpDB
             ServiceLocator.Instance.RegisterService<IMessageBoxService>(new BasicMessageBoxService());
             ServiceLocator.Instance.RegisterService<IFileDialogService>(new FileDialogService());
             ServiceLocator.Instance.RegisterService<IClipboardService>(new ClipboardService());
-            ServiceLocator.Instance.RegisterService<IJumpListService>(new JumpListService(config.JumpListItems));
+            ServiceLocator.Instance.RegisterService<IJumpListService>(new JumpListService(config));
 
             InitializeSyntaxHighlighting();
 
@@ -65,8 +65,8 @@ namespace SharpDB
         protected override void OnExit(ExitEventArgs e)
         {
             var config = ServiceLocator.Instance.GetService<Config>();
-            var jumpListService = ServiceLocator.Instance.GetService<IJumpListService>();
-            config.JumpListItems = jumpListService.GetJumpItems().ToList();
+            //var jumpListService = ServiceLocator.Instance.GetService<IJumpListService>();
+            //config.JumpListItems = jumpListService.GetJumpItems().ToList();
             config.Save();
             SharpDB.Properties.Settings.Default.Save();
             base.OnExit(e);
