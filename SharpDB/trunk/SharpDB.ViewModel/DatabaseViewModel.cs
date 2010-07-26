@@ -14,6 +14,7 @@ using SharpDB.Model.Data;
 using Developpez.Dotnet.Windows.Util;
 using System.Windows.Input;
 using Developpez.Dotnet.Windows.Input;
+using SharpDB.ViewModel.DbModel;
 
 namespace SharpDB.ViewModel
 {
@@ -81,9 +82,12 @@ namespace SharpDB.ViewModel
                 if (_modelGroups == null && IsConnected)
                 {
                     _model = DbModelHelper.GetModel(_databaseConnection.ProviderName);
-                    _model.InitModel(_connection);
-                    var groups = _model.ItemGroups.Select(g => new DbModelItemGroupViewModel(g));
-                    _modelGroups = new ObservableCollection<DbModelItemGroupViewModel>(groups);
+                    if (_model != null)
+                    {
+                        _model.InitModel(_connection);
+                        var groups = _model.ItemGroups.Select(g => new DbModelItemGroupViewModel(this, g));
+                        _modelGroups = new ObservableCollection<DbModelItemGroupViewModel>(groups);
+                    }
                 }
                 return _modelGroups;
             }
@@ -197,6 +201,20 @@ namespace SharpDB.ViewModel
             }
         }
 
+        public void RefreshModel()
+        {
+            _model = null;
+            _modelGroups = null;
+            OnPropertyChanged(() => ModelGroups);
+        }
+
+        public void Refresh()
+        {
+            OnPropertyChanged();
+        }
+
+        #endregion
+
         private bool CheckConnected()
         {
             if (!IsConnected)
@@ -208,13 +226,6 @@ namespace SharpDB.ViewModel
             }
             return true;
         }
-
-        public void Refresh()
-        {
-            OnPropertyChanged();
-        }
-
-        #endregion
 
         private void DatabaseDoubleClick(MouseButtonEventArgs e)
         {

@@ -43,6 +43,10 @@
                     Style="{StaticResource ToolBarButton}">
                 <Image Source="/Images/database_close.png" />
             </Button>
+            <Button Command="{Binding RefreshModelCommand}"
+                    ToolTip="{x:Static prop:Resources.refresh_model}">
+                <Image Source="/Images/refresh.png" />
+            </Button>
         </ToolBar>
         <TreeView Grid.Row="1" ItemsSource="{Binding Databases}"
                   util:TreeViewHelper.TrackSelection="True"

@@ -82,6 +82,7 @@
     <Compile Include="Behaviors\RichTextBoxBehavior.cs" />
     <Compile Include="Behaviors\ScrollBehavior.cs" />
     <Compile Include="Behaviors\TextEditorBehavior.cs" />
+    <Compile Include="Behaviors\WindowBehavior.cs" />
     <Compile Include="Converters\DbItemImageConverter.cs" />
     <Compile Include="Service\BasicMessageBoxService.cs" />
     <Compile Include="DialogWindow.xaml.cs">
@@ -247,6 +248,16 @@
     <Resource Include="Images\folder.png" />
     <Resource Include="Images\primary_key.png" />
     <Resource Include="Images\table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\column.png" />
+    <Resource Include="Images\index.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\unique.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,16 +5,17 @@ using System.Text;
 using SharpDB.Model.Data;
 using System.Collections.ObjectModel;
 
-namespace SharpDB.ViewModel
+namespace SharpDB.ViewModel.DbModel
 {
-    public class DbModelItemGroupViewModel : ViewModelBase
+    public class DbModelItemGroupViewModel : ViewModelBase, IDatabaseChildItem
     {
         private IDbItemGroup _group;
+        private DatabaseViewModel _database;
 
-        public DbModelItemGroupViewModel(IDbItemGroup group)
+        public DbModelItemGroupViewModel(DatabaseViewModel database, IDbItemGroup group)
         {
+            _database = database;
             _group = group;
-            _name = _group.Name;
         }
 
         private ObservableCollection<DbModelItemViewModel> _items;
@@ -24,27 +25,21 @@ namespace SharpDB.ViewModel
             {
                 if (_items == null)
                 {
-                    var items = _group.Items.Select(item => new DbModelItemViewModel(item));
+                    var items = _group.Items.Select(item => DbModelItemViewModel.FromItem(_database, item));
                     _items = new ObservableCollection<DbModelItemViewModel>(items);
                 }
                 return _items;
             }
         }
 
-        private string _name;
         public string Name
         {
-            get { return _name; }
-            set
-            {
-                if (value != _name)
-                {
-                    _name = value;
-                    OnPropertyChanged("Name");
-                }
-            }
+            get { return _group.Name; }
         }
 
-
+        public DatabaseViewModel Database
+        {
+            get { return _database; }
+        }
     }
 }

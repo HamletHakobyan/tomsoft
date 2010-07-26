@@ -455,7 +455,7 @@ namespace SharpDB.ViewModel
             Title = Path.GetFileName(filename);
             FileName = filename;
             IsModified = false;
-            GetService<IJumpListService>().AddRecent(filename);
+            _mainWindow.AddRecentFile(filename);
             return true;
         }
 

@@ -7,5 +7,7 @@ namespace SharpDB.Model.Data
 {
     public interface IDbIndexItem : IDbModelItem
     {
+        bool IsPrimaryKey { get; }
+        bool IsUnique { get; }
     }
 }

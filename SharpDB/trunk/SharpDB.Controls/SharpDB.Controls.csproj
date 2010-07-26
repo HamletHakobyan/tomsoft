@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="DocumentItem.cs" />
     <Compile Include="DocumentItemsControl.cs" />
+    <Compile Include="SplitButton.cs" />
     <Compile Include="TabDocumentContainerItem.cs" />
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>

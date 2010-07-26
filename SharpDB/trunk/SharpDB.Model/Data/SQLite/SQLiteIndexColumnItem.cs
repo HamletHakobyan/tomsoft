@@ -5,21 +5,17 @@ using System.Text;
 
 namespace SharpDB.Model.Data.SQLite
 {
-    class SQLiteTableItem : IDbTableItem
+    class SQLiteIndexColumnItem : IDbIndexColumnItem
     {
-        private SQLiteDbModel.TablesRow _dataRow;
-        private IDbItemGroup _group;
+        private SQLiteIndexColumnItemGroup _group;
+        private SQLiteDbModel.IndexColumnsRow _dataRow;
         private IDbItemGroup[] _itemGroups;
 
-        public SQLiteTableItem(IDbItemGroup group, SQLiteDbModel.TablesRow tableRow)
+        public SQLiteIndexColumnItem(SQLiteIndexColumnItemGroup group, SQLiteDbModel.IndexColumnsRow indexColumnRow)
         {
-            this._group = group;
-            this._dataRow = tableRow;
-            _itemGroups = new IDbItemGroup[]
-            {
-                new SQLiteColumnsItemGroup(this),
-                new SQLiteIndexesItemGroup(this)
-            };
+            _group = group;
+            _dataRow = indexColumnRow;
+            _itemGroups = new IDbItemGroup[0];
         }
 
         public IDbItemGroup Group
@@ -29,7 +25,7 @@ namespace SharpDB.Model.Data.SQLite
 
         public string Name
         {
-            get { return _dataRow.TABLE_NAME; }
+            get { return _dataRow.COLUMN_NAME; }
         }
 
         public IDbItemGroup[] ItemGroups
@@ -37,23 +33,15 @@ namespace SharpDB.Model.Data.SQLite
             get { return _itemGroups; }
         }
 
-        public SQLiteDbModel.TablesRow DataRow
-        {
-            get { return _dataRow; }
-        }
-
-
-
         public DbItemType ItemType
         {
-            get { return DbItemType.Table; }
+            get { return DbItemType.Column; }
         }
 
         public string CustomImageKey
         {
             get { return null; }
         }
-
 
         public string Description
         {

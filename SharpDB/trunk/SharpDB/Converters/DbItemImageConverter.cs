@@ -6,6 +6,7 @@ using System.Windows.Data;
 using SharpDB.ViewModel;
 using SharpDB.Model.Data;
 using System.Windows.Media.Imaging;
+using SharpDB.ViewModel.DbModel;
 
 namespace SharpDB.Converters
 {

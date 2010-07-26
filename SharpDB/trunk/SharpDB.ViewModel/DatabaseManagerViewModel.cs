@@ -51,7 +51,14 @@ namespace SharpDB.ViewModel
                 if (value != _selectedItem)
                 {
                     _selectedItem = value;
-                    SelectedDatabase = _selectedItem as DatabaseViewModel;
+                    var db = value as DatabaseViewModel;
+                    if (db == null)
+                    {
+                        var dbChild = value as IDatabaseChildItem;
+                        if (dbChild != null)
+                            db = dbChild.Database;
+                    }
+                    SelectedDatabase = db;
                     OnPropertyChanged("SelectedItem");
                 }
             }
@@ -154,6 +161,22 @@ namespace SharpDB.ViewModel
             }
         }
 
+        private DelegateCommand _refreshModelCommand;
+        public ICommand RefreshModelCommand
+        {
+            get
+            {
+                if (_refreshModelCommand == null)
+                {
+                    _refreshModelCommand =
+                        new DelegateCommand(
+                            RefreshModel,
+                            () => SelectedDatabase != null && SelectedDatabase.IsConnected);
+                }
+                return _refreshModelCommand;
+            }
+        }
+
 
         #endregion
 
@@ -238,6 +261,12 @@ namespace SharpDB.ViewModel
             SelectedDatabase.Disconnect();
         }
 
+        private void RefreshModel()
+        {
+            if (SelectedDatabase == null || !SelectedDatabase.IsConnected)
+                return;
+            SelectedDatabase.RefreshModel();
+        }
 
         public bool ConnectByName(string databaseName)
         {

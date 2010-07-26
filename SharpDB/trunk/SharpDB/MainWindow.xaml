@@ -8,7 +8,9 @@
         xmlns:ctl="clr-namespace:SharpDB.Controls;assembly=SharpDB.Controls"
         xmlns:prop="clr-namespace:SharpDB.Properties"
         xmlns:v="clr-namespace:SharpDB.View"
+        xmlns:bhv="clr-namespace:SharpDB.Behaviors"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type={x:Type vm:MainWindowViewModel}, IsDesignTimeCreatable=True}"
         Icon="/Images/app.ico"
         util:AppSettings.Settings="{x:Static prop:Settings.Default}"
         Width="{util:SettingBinding Width, FallbackValue=525}"
@@ -16,7 +18,7 @@
         Left="{util:SettingBinding Left, FallbackValue=100}"
         Top="{util:SettingBinding Top, FallbackValue=100}"
         WindowState="{util:SettingBinding WindowState, FallbackValue=Normal}"
-        d:DataContext="{d:DesignInstance Type={x:Type vm:MainWindowViewModel}, IsDesignTimeCreatable=True}">
+        bhv:WindowBehavior.Closing="{Binding ClosingCommand}">
 
     <Window.Title>
         <MultiBinding StringFormat="{}{0} - {1}">

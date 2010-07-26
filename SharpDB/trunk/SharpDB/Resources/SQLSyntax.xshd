@@ -3,7 +3,17 @@
   <Digits name="Digits" bold="false" italic="false" color="Black"/>
   <RuleSets>
     <RuleSet ignorecase="true">
+
       <Delimiters>&amp;&lt;&gt;~!%^*()-+=|\#/{}[]:;"' , .?</Delimiters>
+
+      <Span name="Comment" stopateol="true" color="Gray">
+        <Begin>--</Begin>
+      </Span>
+      <Span name="Comment" stopateol="false" color="Gray">
+        <Begin>/*</Begin>
+        <End>*/</End>
+      </Span>
+
       <Span name="String" bold="false" italic="false" color="Green" stopateol="true">
         <Begin>'</Begin>
         <End>'</End>

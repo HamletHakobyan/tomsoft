@@ -69,6 +69,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SQLiteDbModel.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Data\SQLite\SQLiteIndexColumnItem.cs" />
+    <Compile Include="Data\SQLite\SQLiteIndexColumnItemGroup.cs" />
     <Compile Include="Data\SQLite\SQLiteIndexesItemGroup.cs" />
     <Compile Include="Data\SQLite\SQLiteIndexItem.cs" />
     <Compile Include="Data\SQLite\SQLiteResources.Designer.cs">
