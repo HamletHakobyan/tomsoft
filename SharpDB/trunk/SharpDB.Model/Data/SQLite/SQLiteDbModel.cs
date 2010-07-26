@@ -33,7 +33,13 @@ namespace SharpDB.Model.Data.SQLite
             _schemaInitialized = true;
         }
 
-        IDbItemGroup[] IDbModel.ItemGroups
+        bool IDbModel.IsInitialized
+        {
+            get { return _schemaInitialized; }
+        }
+
+
+        public IDbItemGroup[] ItemGroups
         {
             get { return _itemGroups; }
         }
