@@ -25,7 +25,7 @@ namespace SharpDB.ViewModel.DbModel
             {
                 if (_items == null)
                 {
-                    var items = _group.Items.Select(item => DbModelItemViewModel.FromItem(_database, item));
+                    var items = _group.Items.Select(item => DbModelItemViewModel.FromItem(_database, item)).OrderBy(item => item.Name);
                     _items = new ObservableCollection<DbModelItemViewModel>(items);
                 }
                 return _items;
