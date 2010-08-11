@@ -25,6 +25,52 @@ namespace ProjectEuler
             return InfiniteSequence(0);
         }
 
+        public static bool IsPrime(int n)
+        {
+            if (n == 2 || n == 3)
+                return true;
+            if (n < 2 || n % 2 == 0)
+                return false;
+            if (n < 9)
+                return true;
+            if (n % 3 == 0)
+                return false;
+            double sqrt = Math.Sqrt(n);
+            int f = 5;
+            while (f <= sqrt)
+            {
+                if (n % f == 0)
+                    return false;
+                if (n % (f + 2) == 0)
+                    return false;
+                f += 6;
+            }
+            return true;
+        }
+
+        public static bool IsPrime(long n)
+        {
+            if (n == 2 || n == 3)
+                return true;
+            if (n < 2 || n % 2 == 0)
+                return false;
+            if (n < 9)
+                return true;
+            if (n % 3 == 0)
+                return false;
+            double sqrt = Math.Sqrt(n);
+            long f = 5;
+            while (f <= sqrt)
+            {
+                if (n % f == 0)
+                    return false;
+                if (n % (f + 2) == 0)
+                    return false;
+                f += 6;
+            }
+            return true;
+        }
+
         public static IEnumerable<long> PrimeNumbers()
         {
             List<long> primes = new List<long>();

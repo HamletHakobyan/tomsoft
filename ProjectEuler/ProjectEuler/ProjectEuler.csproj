@@ -121,6 +121,8 @@
     <Compile Include="Problem5.cs" />
     <Compile Include="Problem50.cs" />
     <Compile Include="Problem52.cs" />
+    <Compile Include="Problem58.cs" />
+    <Compile Include="Problem59.cs" />
     <Compile Include="Problem6.cs" />
     <Compile Include="Problem67.cs" />
     <Compile Include="Problem7.cs" />
@@ -157,6 +159,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\p42_words.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\p59_cipher1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\p67_triangle.txt">
