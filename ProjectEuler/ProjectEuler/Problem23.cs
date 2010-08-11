@@ -13,6 +13,7 @@ namespace ProjectEuler
         public object GetSolution()
         {
             return Util.InfiniteSequence(1)
+                        //.AsParallel()
                         .Take(28123)
                         .Where(n => !CanBeWrittenAsSumOfAbundants(n))
                         .Sum();
