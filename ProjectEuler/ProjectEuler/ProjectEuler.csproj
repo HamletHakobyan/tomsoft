@@ -54,9 +54,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Developpez.Dotnet, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Developpez.Dotnet, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\Developpez.Dotnet.dll</HintPath>
+      <HintPath>lib\Dvp.NET\Developpez.Dotnet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -124,6 +124,7 @@
     <Compile Include="Problem58.cs" />
     <Compile Include="Problem59.cs" />
     <Compile Include="Problem6.cs" />
+    <Compile Include="Problem63.cs" />
     <Compile Include="Problem67.cs" />
     <Compile Include="Problem7.cs" />
     <Compile Include="Problem8.cs" />
@@ -155,6 +156,9 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\most_frequent_english_words.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\p22_names.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
