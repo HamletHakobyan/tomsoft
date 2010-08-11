@@ -196,6 +196,23 @@ namespace ProjectEuler
             return lcm;
         }
 
+        public static BigInteger GCD(BigInteger a, BigInteger b)
+        {
+            BigInteger remainder = a % b;
+            while (remainder != 0)
+            {
+                a = b;
+                b = remainder;
+                remainder = a % b;
+            }
+            return b;
+        }
+
+        public static BigInteger LCM(BigInteger a, BigInteger b)
+        {
+            return a * b / GCD(a, b);
+        }
+
         public static bool IsTerminatingDecimal(long numerator, long denominator)
         {
             if (denominator == 0)
@@ -284,16 +301,51 @@ namespace ProjectEuler
 
         public static IEnumerable<int> GetDigits(this int n)
         {
-            return GetDigitsFromEnd(n).Reverse();
+            return n.GetDigitsFromEnd().Reverse();
         }
 
-        private static IEnumerable<int> GetDigitsFromEnd(this int n)
+        public static IEnumerable<int> GetDigits(this int n, int inBase)
+        {
+            return n.GetDigitsFromEnd(inBase).Reverse();
+        }
+
+        public static IEnumerable<int> GetDigitsFromEnd(this int n)
+        {
+            return n.GetDigitsFromEnd(10);
+        }
+
+        public static IEnumerable<int> GetDigitsFromEnd(this int n, int inBase)
         {
             do
             {
                 int rem;
-                n = Math.DivRem(n, 10, out rem);
+                n = Math.DivRem(n, inBase, out rem);
                 yield return rem;
+            } while (n != 0);
+        }
+
+        public static IEnumerable<int> GetDigits(this long n)
+        {
+            return n.GetDigitsFromEnd().Reverse();
+        }
+
+        public static IEnumerable<int> GetDigits(this long n, int inBase)
+        {
+            return n.GetDigitsFromEnd(inBase).Reverse();
+        }
+
+        public static IEnumerable<int> GetDigitsFromEnd(this long n)
+        {
+            return n.GetDigitsFromEnd(10);
+        }
+
+        public static IEnumerable<int> GetDigitsFromEnd(this long n, int inBase)
+        {
+            do
+            {
+                long rem;
+                n = Math.DivRem(n, inBase, out rem);
+                yield return (int)rem;
             } while (n != 0);
         }
 
@@ -369,12 +421,15 @@ namespace ProjectEuler
             return (argument) =>
             {
                 TResult result;
-                if (!cachedResults.TryGetValue(argument, out result))
+                lock (cachedResults)
                 {
-                    result = function(argument);
-                    cachedResults.Add(argument, result);
-                    if (cachedResults.Count > maxCache)
-                        cachedResults.RemoveAt(0);
+                    if (!cachedResults.TryGetValue(argument, out result))
+                    {
+                        result = function(argument);
+                        cachedResults.Add(argument, result);
+                        if (cachedResults.Count > maxCache)
+                            cachedResults.RemoveAt(0);
+                    }
                 }
                 return result;
             };
@@ -393,6 +448,56 @@ namespace ProjectEuler
                 previous = item;
                 hasPrevious = true;
             }
+        }
+
+        public static bool IsPalindromic(this int n)
+        {
+            return n.IsPalindromic(10);
+        }
+
+        public static bool IsPalindromic(this int n, int inBase)
+        {
+            return n.GetDigitsFromEnd(inBase).SequenceEqual(n.GetDigits(inBase));
+        }
+
+        public static int SumDigits(this int n)
+        {
+            return n.GetDigitsFromEnd().Sum();
+        }
+
+        public static int Reverse(this int n)
+        {
+            return n.GetDigitsFromEnd().MakeInt32();
+        }
+
+        public static BigInteger Reverse(this BigInteger n)
+        {
+            return BigInteger.Parse(n.ToString().Reverse());
+        }
+
+        public static bool IsPalindromic(this BigInteger n)
+        {
+            return n.ToString() == n.ToString().Reverse();
+        }
+
+        public static int SumDigits(this BigInteger n)
+        {
+            return n.GetDigitsFromEnd().Sum();
+        }
+
+        public static IEnumerable<int> GetDigitsFromEnd(this BigInteger n)
+        {
+            do
+            {
+                BigInteger rem;
+                n = BigInteger.DivRem(n, 10, out rem);
+                yield return (int)rem;
+            } while (n != 0);
+        }
+
+        public static IEnumerable<int> GetDigits(this BigInteger n)
+        {
+            return n.GetDigitsFromEnd().Reverse();
         }
     }
 }

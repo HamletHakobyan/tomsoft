@@ -13,19 +13,10 @@ namespace ProjectEuler
         public object GetSolution()
         {
             return Enumerable.Range(1, 999999)
-                    .Where(IsPalindromic)
+                    .Where(i => i.IsPalindromic(10) && i.IsPalindromic(2))
                     .Sum();
         }
 
         #endregion
-
-        bool IsPalindromic(int n)
-        {
-            string dec = Convert.ToString(n, 10);
-            if (dec != dec.Reverse()) return false;
-            string bin = Convert.ToString(n, 2);
-            if (bin != bin.Reverse()) return false;
-            return true;
-        }
     }
 }

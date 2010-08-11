@@ -14,6 +14,7 @@ namespace ProjectEuler
         {
             return Enumerable.Range(0, 10)
                     .GetPermutations()
+                    //.AsParallel()
                     .Select(p => p.MakeInt64())
                     .Where(n => AreSubStringsDivisible(n))
                     .Sum();
