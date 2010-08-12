@@ -196,6 +196,11 @@ namespace ProjectEuler
             return lcm;
         }
 
+        public static bool AreCoPrime(long a, long b)
+        {
+            return GCD(a, b) == 1;
+        }
+
         public static BigInteger GCD(BigInteger a, BigInteger b)
         {
             BigInteger remainder = a % b;

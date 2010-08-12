@@ -131,7 +131,9 @@
     <Compile Include="Problem6.cs" />
     <Compile Include="Problem63.cs" />
     <Compile Include="Problem67.cs" />
+    <Compile Include="Problem69.cs" />
     <Compile Include="Problem7.cs" />
+    <Compile Include="Problem79.cs" />
     <Compile Include="Problem8.cs" />
     <Compile Include="Problem9.cs" />
     <Compile Include="Program.cs" />
@@ -180,6 +182,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\p67_triangle.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\p79_keylog.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
