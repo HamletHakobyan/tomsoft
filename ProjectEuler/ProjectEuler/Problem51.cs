@@ -12,46 +12,70 @@ namespace ProjectEuler
         public object GetSolution()
         {
             PrimeSieve sieve = new PrimeSieve();
-            Func<long, bool> predicate = n => IsPartOfPrimesFamily(n, sieve, 8);
-            return sieve.GetPrimes(1000000)
-                .Where(predicate)
-                .First();
+            Func<long, bool> predicate = n => PrimesFamilyCount(n, sieve) == 8;
+            var q =
+                from families in sieve.GetPrimes(1000000).Select(p => GenerateFamilies(p))
+                from f in families
+                let np = f.Count(p => sieve.IsPrime(p))
+                where np == 8
+                select f.Min();
+
+            return q.First();
         }
 
         #endregion
 
-        private bool IsPartOfPrimesFamily(long n, PrimeSieve sieve, int count)
+        private int PrimesFamilyCount(long n, PrimeSieve sieve)
         {
-            return GetSubstitutions(n)
-                    .Where(s => sieve.IsPrime(s))
-                    .Count() >= count;
+            return GenerateFamilies(n)
+                    .Select(f => f.Count(p => sieve.IsPrime(p)))
+                    .DefaultIfEmpty()
+                    .Max();
         }
 
-        private IEnumerable<long> GetSubstitutions(long n)
+        IEnumerable<IEnumerable<long>> GenerateFamilies(long n)
         {
-            // TODO
-
-            var digits = n.GetDigits().ToArray();
-            for (int nd = 1; nd <= digits.Length; nd++)
+            int[] digits = n.GetDigits().ToArray();
+            for (int digitsToChange = 1; digitsToChange < digits.Length; digitsToChange++)
             {
-                for (int d = 0; d < 10; d++)
+                foreach (var positionsToChange in GetCombinations(digits.Length, digitsToChange))
                 {
-                    for (int p = 0; p <= digits.Length - nd; p++)
-                    {
-                        int prev = p;
-
-                    }
+                    yield return GenerateFamily(digits, positionsToChange).Select(p => p.MakeInt64());
                 }
             }
-
-            yield break;
         }
 
-        private T[] CopyArray<T>(T[] source)
+        IEnumerable<int[]> GenerateFamily(int[] digits, IEnumerable<int> positionsToChange)
         {
-            T[] copy = new T[source.Length];
-            Array.Copy(source, 0, copy, 0, source.Length);
-            return copy;
+            for (int d = 0; d < 10; d++)
+            {
+                var copy = digits.ToArray();
+                foreach (var pos in positionsToChange)
+                {
+                    if (pos == 0 && d == 0)
+                    {
+                        copy = null;
+                        break;
+                    }
+                    copy[pos] = d;
+                }
+                if (copy != null)
+                    yield return copy;
+            }
+        }
+
+        public IEnumerable<IEnumerable<int>> GetCombinations(int n, int k)
+        {
+            var tmp = (new[] { Enumerable.Empty<int>() }).AsEnumerable();
+            for (int i = 0; i < k; i++)
+            {
+                tmp =
+                    from t in tmp
+                    let m = t.Any() ? t.Max() : -1
+                    from d in Enumerable.Range(m + 1, n - (m + 1))
+                    select t.Concat(new[] { d });
+            }
+            return tmp;
         }
     }
 }
