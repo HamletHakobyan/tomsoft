@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Problem60.cs" />
     <Compile Include="UnsolvedAttribute.cs" />
     <Compile Include="PrimeSieve.cs" />
     <Compile Include="Problem1.cs" />
