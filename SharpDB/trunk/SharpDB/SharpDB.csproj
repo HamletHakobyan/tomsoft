@@ -83,6 +83,7 @@
     <Compile Include="Behaviors\ScrollBehavior.cs" />
     <Compile Include="Behaviors\TextEditorBehavior.cs" />
     <Compile Include="Behaviors\WindowBehavior.cs" />
+    <Compile Include="CustomEffects\GreyscaleEffect.cs" />
     <Compile Include="Service\BasicMessageBoxService.cs" />
     <Compile Include="DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
@@ -177,6 +178,8 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
+    <Resource Include="CustomEffects\ByteCode\Greyscale.ps" />
+    <None Include="CustomEffects\Source\Greyscale.fx" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:SharpDB.ViewModel;assembly=SharpDB.ViewModel"
                     xmlns:dbm="clr-namespace:SharpDB.ViewModel.DbModel;assembly=SharpDB.ViewModel"
-                    xmlns:bhv="clr-namespace:SharpDB.Behaviors">
+                    xmlns:bhv="clr-namespace:SharpDB.Behaviors"
+                    xmlns:fx="clr-namespace:SharpDB.CustomEffects">
 
     <Style x:Key="itemImage" TargetType="Image">
         <Setter Property="Margin" Value="0,0,5,0" />
@@ -21,7 +22,7 @@
                                Source="/Images/database.png"
                                Style="{StaticResource itemImage}">
                             <Image.Effect>
-                                <BlurEffect />
+                                <fx:GreyscaleEffect />
                             </Image.Effect>
                         </Image>
                         <TextBlock Name="dbName"

@@ -1,12 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:fx="clr-namespace:SharpDB.CustomEffects">
     
     <Style x:Key="ToolBarButton" TargetType="Button">
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Effect">
                     <Setter.Value>
-                        <BlurEffect />
+                        <fx:GreyscaleEffect />
                     </Setter.Value>
                 </Setter>
             </Trigger>
