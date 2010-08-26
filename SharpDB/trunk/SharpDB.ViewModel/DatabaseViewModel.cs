@@ -15,6 +15,7 @@ using Developpez.Dotnet.Windows.Util;
 using System.Windows.Input;
 using Developpez.Dotnet.Windows.Input;
 using SharpDB.ViewModel.DbModel;
+using System.Windows;
 
 namespace SharpDB.ViewModel
 {
@@ -119,11 +120,23 @@ namespace SharpDB.ViewModel
         {
             if (!IsConnected)
             {
-                var factory = DbProviderFactories.GetFactory(_databaseConnection.ProviderName);
-                _connection = factory.CreateConnection();
-                _connection.ConnectionString = _databaseConnection.ConnectionString;
-                _connection.Open();
-                //var schema = new DbSchema(_connection);
+                try
+                {
+                    WrapExceptionForDbAction(() =>
+                    {
+
+                        var factory = DbProviderFactories.GetFactory(_databaseConnection.ProviderName);
+                        _connection = factory.CreateConnection();
+                        _connection.ConnectionString = _databaseConnection.ConnectionString;
+                        _connection.Open();
+                    });
+                }
+                catch (DbException ex)
+                {
+                    var service = GetService<IMessageBoxService>();
+                    service.Show(ex.Message, GetResource<string>("error"), MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
                 OnPropertyChanged(() => IsConnected);
                 OnPropertyChanged(() => IsBusy);
@@ -170,40 +183,39 @@ namespace SharpDB.ViewModel
         public DbDataReader ExecuteReader(string commandText)
         {
             CheckConnected();
-            using (var command = _connection.CreateCommand(commandText))
+            DbDataReader reader = null;
+            WrapExceptionForDbAction(() =>
             {
-                try
+                using (var command = _connection.CreateCommand(commandText))
                 {
-                    return command.ExecuteReader();
+                    reader = command.ExecuteReader();
                 }
-                catch (Exception ex)
-                {
-                    if (ex is DbException)
-                        throw;
-                    else
-                        throw new DbExceptionWrapper(ex);
-                }
-
-            }
+            });
+            return reader;
         }
 
         public int ExecuteNonQuery(string commandText)
         {
             CheckConnected();
-            using (var command = _connection.CreateCommand(commandText))
-            {
-                try
+            int result = 0;
+            WrapExceptionForDbAction(() =>
                 {
-                    return command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    if (ex is DbException)
-                        throw;
-                    else
-                        throw new DbExceptionWrapper(ex);
-                }
-            }
+                    using (var command = _connection.CreateCommand(commandText))
+                    {
+                        try
+                        {
+                            result = command.ExecuteNonQuery();
+                        }
+                        catch (Exception ex)
+                        {
+                            if (ex is DbException)
+                                throw;
+                            else
+                                throw new DbExceptionWrapper(ex);
+                        }
+                    }
+                });
+            return result;
         }
 
         public void RefreshModel()
@@ -237,6 +249,21 @@ namespace SharpDB.ViewModel
             if (e.ChangedButton == MouseButton.Left)
             {
                 Connect();
+            }
+        }
+
+        private void WrapExceptionForDbAction(Action action)
+        {
+            try
+            {
+                action();
+            }
+            catch (Exception ex)
+            {
+                if (ex is DbException)
+                    throw;
+                else
+                    throw new DbExceptionWrapper(ex);
             }
         }
     }
