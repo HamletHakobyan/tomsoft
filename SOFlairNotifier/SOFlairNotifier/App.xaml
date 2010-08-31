@@ -3,6 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+        <SolidColorBrush x:Key="GoldBadgeFill" Color="#FFCC00" />
+        <SolidColorBrush x:Key="GoldBadgeStroke" Color="#FFCC00" />
+        <SolidColorBrush x:Key="SilverBadgeFill" Color="#C0C0C0" />
+        <SolidColorBrush x:Key="SilverBadgeStroke" Color="#C0C0C0" />
+        <SolidColorBrush x:Key="BronzeBadgeFill" Color="#CC9966" />
+        <SolidColorBrush x:Key="BronzeBadgeStroke" Color="#CC9966" />
+        
     </Application.Resources>
 </Application>
