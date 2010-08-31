@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="UserId" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)">98713</Value>
     </Setting>
     <Setting Name="CheckFrequency" Type="System.TimeSpan" Scope="User">
       <Value Profile="(Default)">00:10:00</Value>

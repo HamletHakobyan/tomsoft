@@ -25,7 +25,7 @@ namespace SOFlairNotifier.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("98713")]
         public int UserId {
             get {
                 return ((int)(this["UserId"]));

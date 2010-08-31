@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="SOFlairNotifier.View.FlairView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:SOFlairNotifier.ViewModel"
+             xmlns:bhv="clr-namespace:SOFlairNotifier.Behaviors"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type={x:Type vm:FlairViewModel}, IsDesignTimeCreatable=True}">
+    <Border Style="{DynamicResource FlairStyle}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0">
+                <Hyperlink NavigateUri="{Binding ProfileUrl}"
+                           Style="{DynamicResource GravatarLinkStyle}"
+                           bhv:HyperlinkBehavior.OpenInBrowser="True">
+                    <Image Style="{DynamicResource GravatarStyle}"
+                           Source="{Binding Path=GravatarUrl, IsAsync=True}" />
+                </Hyperlink>
+            </TextBlock>
+
+            <StackPanel Orientation="Vertical" Grid.Column="1"
+                        Style="{DynamicResource UserInfoStyle}">
+                <TextBlock Grid.Column="1" Grid.Row="0"
+                           HorizontalAlignment="Right">
+                    <Image Source="/Images/favicon.ico" Stretch="None" Margin="0px, 0px, 3px, 0px" />
+                    <Hyperlink NavigateUri="{Binding ProfileUrl}"
+                               Style="{DynamicResource UserNameLinkStyle}">
+                        <TextBlock Text="{Binding Path=DisplayName}"
+                                   Style="{DynamicResource UserNameStyle}"/>
+                    </Hyperlink>
+                </TextBlock>
+
+                <TextBlock Grid.Column="1" Grid.Row="1"
+                           Style="{DynamicResource ReputationScoreStyle}"
+                           HorizontalAlignment="Right"
+                           Text="{Binding Path=Reputation, ConverterCulture=en-US, StringFormat=N0}" />
+
+                <TextBlock HorizontalAlignment="Right">
+                    <TextBlock Style="{DynamicResource GoldBadgeStyle}">&#9679;</TextBlock>
+                    <TextBlock Style="{DynamicResource BadgeCountStyle}" Text="{Binding GoldBadges}" />
+                    <TextBlock Style="{DynamicResource SilverBadgeStyle}">&#9679;</TextBlock>
+                    <TextBlock Style="{DynamicResource BadgeCountStyle}" Text="{Binding SilverBadges}" />
+                    <TextBlock Style="{DynamicResource BronzeBadgeStyle}">&#9679;</TextBlock>
+                    <TextBlock Style="{DynamicResource BadgeCountStyle}" Text="{Binding BronzeBadges}" />
+                </TextBlock>
+
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>
