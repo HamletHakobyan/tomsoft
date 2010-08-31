@@ -1,0 +1,71 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:bhv="clr-namespace:SOFlairNotifier.Behaviors">
+
+    <Style x:Key="BaseLinkStyle" TargetType="Hyperlink">
+        <Setter Property="TextDecorations" Value="None" />
+        <Setter Property="bhv:HyperlinkBehavior.OpenInBrowser" Value="True" />
+    </Style>
+    
+    <Style x:Key="FlairStyle" TargetType="Border">
+        <Setter Property="Background" Value="#EEEEEE" />
+        <Setter Property="BorderBrush" Value="#CCCCCC" />
+        <Setter Property="BorderThickness" Value="1px" />
+        <Setter Property="TextElement.FontFamily" Value="Arial" />
+        <Setter Property="TextElement.FontSize" Value="12px" />
+        <Setter Property="Width" Value="200px" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Padding" Value="3px" />
+    </Style>
+
+    <Style x:Key="GravatarLinkStyle" TargetType="Hyperlink" BasedOn="{StaticResource BaseLinkStyle}">
+    </Style>
+    
+    <Style x:Key="GravatarStyle" TargetType="Image">
+        <Setter Property="Width" Value="50" />
+        <Setter Property="Stretch" Value="Uniform" />
+    </Style>
+    
+    <Style x:Key="UserInfoStyle" TargetType="StackPanel">
+        <Setter Property="TextBlock.TextAlignment" Value="Right" />
+    </Style>
+
+    <Style x:Key="UserNameLinkStyle" TargetType="Hyperlink" BasedOn="{StaticResource BaseLinkStyle}">
+    </Style>
+
+    <Style x:Key="UserNameStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#0077CC" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+    
+    <Style x:Key="BaseBadgeStyle" TargetType="TextBlock">
+        <Setter Property="Margin" Value="3px, 0px, 0px, 0px" />
+        <Setter Property="FontSize" Value="14px" />
+    </Style>
+
+    <Style x:Key="GoldBadgeStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseBadgeStyle}">
+        <Setter Property="Foreground" Value="#FFCC00" />
+    </Style>
+
+    <Style x:Key="SilverBadgeStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseBadgeStyle}">
+        <Setter Property="Foreground" Value="#C0C0C0" />
+    </Style>
+
+    <Style x:Key="BronzeBadgeStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseBadgeStyle}">
+        <Setter Property="Foreground" Value="#CC9966" />
+    </Style>
+
+    <Style x:Key="ReputationScoreStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#444444" />
+        <Setter Property="FontSize" Value="14px" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Margin" Value="0px, 0px, 2px, 0px" />
+    </Style>
+    
+    <Style x:Key="BadgeCountStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#808185" />
+        <Setter Property="Margin" Value="1px, 0px, 0px, 0px" />
+        <Setter Property="FontSize" Value="14px" />
+    </Style>
+    
+</ResourceDictionary>

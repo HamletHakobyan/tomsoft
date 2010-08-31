@@ -7,6 +7,7 @@ using SOFlairNotifier.Model;
 using Developpez.Dotnet.Windows.Input;
 using System.Windows.Input;
 using System.Threading.Tasks;
+using SOFlairNotifier.Util;
 
 namespace SOFlairNotifier.ViewModel
 {
@@ -14,7 +15,25 @@ namespace SOFlairNotifier.ViewModel
     {
         public FlairViewModel()
         {
-            Refresh();
+            if (DesignHelper.DesignMode)
+            {
+                _flair = new SOFlair
+                {
+                    Id = 42,
+                    DisplayName = "John Doe",
+                    ProfileUrl = new Uri("http://stackoverflow.com/users/42/john-doe"),
+                    GoldBadges = 2,
+                    SilverBadges = 7,
+                    BronzeBadges = 19,
+                    Reputation = 12345,
+                    GravatarUrl = new Uri("http://www.gravatar.com/avatar/f4acdb91aba11ddf8f03d4b12453f3d5?s=128&d=identicon&r=PG")
+                };
+            }
+            else
+            {
+                _flair = new SOFlair();
+                Refresh();
+            }
         }
 
         #region Private data
@@ -25,7 +44,7 @@ namespace SOFlairNotifier.ViewModel
 
         #region Properties
 
-        public string DisplayName
+        public new string DisplayName
         {
             get { return _flair.DisplayName; }
         }
@@ -37,7 +56,7 @@ namespace SOFlairNotifier.ViewModel
 
         public int GoldBadges
         {
-            get { return GoldBadges; }
+            get { return _flair.GoldBadges; }
         }
 
         public int SilverBadges
@@ -133,13 +152,15 @@ namespace SOFlairNotifier.ViewModel
                 var flair = SOFlair.GetFlair(Properties.Settings.Default.UserId);
                 _flair = flair;
                 Status = true;
-                OnPropertyChanged(null);
                 StatusText = "OK";
+                OnPropertyChanged(null);
             }
             catch (Exception ex)
             {
+                _flair = new SOFlair();
                 Status = false;
                 StatusText = "Error: " + ex.Message;
+                OnPropertyChanged(null);
             }
             IsRefreshing = false;
         }
