@@ -13,15 +13,16 @@ namespace Mediatek.Web.Controllers
 {
     public class MovieController : Controller
     {
+        private Mediatek.Data.IEntityRepository _repository;
+
         // GET: /Movie/
         public ActionResult Index()
         {
-            var repository = MvcApplication.GetRepository();
-            var movies = repository.Medias.OfType<Movie>();
-
+            _repository = MvcApplication.GetRepository();
+            var movies = _repository.Medias.OfType<Movie>();
             movies = AddCriteriaToQuery(movies);
             ViewData["criteria"] = MakeCriteriaRouteValues();
-            return View(movies);
+            return View(movies.ToList());
         }
 
         private RouteValueDictionary MakeCriteriaRouteValues()
@@ -49,6 +50,13 @@ namespace Mediatek.Web.Controllers
                 movies = movies.Where(m => m.Contributions.Any(c => c.PersonId == contributor));
 
             return movies;
+        }
+
+        protected override void OnResultExecuted(ResultExecutedContext filterContext)
+        {
+            if (_repository != null)
+                _repository.Dispose();
+            base.OnResultExecuted(filterContext);
         }
     }
 }

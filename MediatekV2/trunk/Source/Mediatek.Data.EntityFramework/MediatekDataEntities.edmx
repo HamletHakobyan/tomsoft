@@ -11,6 +11,7 @@
           <EntitySet Name="Contribution" EntityType="Mediatek.Data.Store.Contribution" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Mediatek.Data.Store.Country" store:Type="Tables" />
           <EntitySet Name="CountryLanguage" EntityType="Mediatek.Data.Store.CountryLanguage" store:Type="Tables" />
+          <EntitySet Name="DbProperties" EntityType="Mediatek.Data.Store.DbProperties" store:Type="Tables" />
           <EntitySet Name="Image" EntityType="Mediatek.Data.Store.Image" store:Type="Tables" />
           <EntitySet Name="ImageData" EntityType="Mediatek.Data.Store.ImageData" store:Type="Tables" />
           <EntitySet Name="Language" EntityType="Mediatek.Data.Store.Language" store:Type="Tables" />
@@ -136,6 +137,15 @@
           </Key>
           <Property Name="CountryId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="LanguageId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DbProperties">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" />
+          <Property Name="Culture" Type="nvarchar" Nullable="false" MaxLength="20" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -517,6 +527,7 @@
             <End Role="Image" EntitySet="Images" />
             <End Role="Role" EntitySet="Roles" />
           </AssociationSet>
+          <EntitySet Name="DbProperties" EntityType="Mediatek.Data.EntityFramework.DbProperties" />
           </EntityContainer>
         <EntityType Name="Contribution">
           <Key>
@@ -768,6 +779,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DbProperties">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int16" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Culture" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -890,6 +910,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DbProperties">
+            <EntityTypeMapping TypeName="Mediatek.Data.EntityFramework.DbProperties">
+              <MappingFragment StoreEntitySet="DbProperties">
+                <ScalarProperty Name="Culture" ColumnName="Culture" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -911,7 +941,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="MediatekDataEntities" ZoomLevel="117">
+      <Diagram Name="MediatekDataEntities" ZoomLevel="97">
         <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.Contribution" Width="1.5" PointX="9.75" PointY="14" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.Country" Width="1.5" PointX="5.25" PointY="8.25" Height="2.5571907552083317" />
         <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.Language" Width="1.5" PointX="5.25" PointY="12.25" Height="2.5571907552083335" />
@@ -1034,6 +1064,7 @@
           <ConnectorPoint PointX="1.2460921874999995" PointY="17.807444661458334" />
           <ConnectorPoint PointX="3.375" PointY="17.807444661458334" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.DbProperties" Width="1.5" PointX="7.625" PointY="5.5" Height="1.7879850260416674" />
         </Diagram></Diagrams>
   </Designer>
 </edmx:Edmx>
