@@ -12,11 +12,13 @@ namespace Mediatek.Web.Controllers
     {
         public ActionResult Index()
         {
-            var repository = MvcApplication.GetRepository();
-            var movies = repository.Medias.OfType<Movie>();
-            ViewData["Message"] = "Welcome to Mediatek Web!";
-            ViewData["MovieCount"] = movies.Count();
-            return View();
+            using (var repository = MvcApplication.GetRepository())
+            {
+                var movies = repository.Medias.OfType<Movie>();
+                ViewData["Message"] = "Welcome to Mediatek Web!";
+                ViewData["MovieCount"] = movies.Count();
+                return View();
+            }
         }
 
         public ActionResult About()

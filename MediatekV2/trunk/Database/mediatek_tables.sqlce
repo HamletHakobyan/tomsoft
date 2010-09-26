@@ -1,3 +1,4 @@
+DROP TABLE [DbProperties];
 DROP TABLE [CountryLanguage];
 DROP TABLE [PersonCountry];
 DROP TABLE [MediaCountry];
@@ -123,4 +124,11 @@ CREATE TABLE [CountryLanguage] (
 [CountryId] UNIQUEIDENTIFIER  NOT NULL REFERENCES Country(Id),
 [LanguageId] UNIQUEIDENTIFIER  NOT NULL REFERENCES Language(Id),
 PRIMARY KEY ([CountryId],[LanguageId])
+);
+
+CREATE TABLE [DbProperties] (
+[Id] SMALLINT PRIMARY KEY NOT NULL DEFAULT 1,
+[Name] NVARCHAR(50) NOT NULL,
+[Description] NVARCHAR(4000),
+[Culture] NVARCHAR(20) NOT NULL DEFAULT 'en-US'
 );

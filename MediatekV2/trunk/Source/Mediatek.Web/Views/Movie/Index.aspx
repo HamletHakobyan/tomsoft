@@ -11,6 +11,7 @@
     <table>
         <thead>
             <tr>
+                <th>Cover</th>
                 <th>Title</th>
                 <th>Released</th>
                 <th>Contributors</th>
@@ -22,6 +23,7 @@
         <% foreach (var m in movies) { %>
         
             <tr>
+                <td><img src="<%= m.Picture.GetPath(true) %>" alt="<%= m.Picture.Name %>" title="<%= m.Picture.Name %>" /></td>
                 <td><%= Html.Encode(m.Title) %></td>
                 <td><%= Html.CriteriaLink(m.Year.ToString(), new { year = m.Year }) %></td>
                 <td><%= Html.BulletedList(

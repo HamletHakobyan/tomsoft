@@ -1,0 +1,25 @@
+﻿
+
+            <Path Grid.Row="0"
+                  Grid.RowSpan="2"
+                  Fill="White"
+                  Stroke="LightGray">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure IsClosed="True"
+                                    IsFilled="True"
+                                    StartPoint="0,50">
+                            <PathFigure.Segments>
+                                <LineSegment Point="0,10" />
+                                <ArcSegment Point="10,0"
+                                            Size="10,10"
+                                            SweepDirection="Clockwise" />
+                                <LineSegment Point="75,0" />
+                                <BezierSegment Point1="120,5"
+                                               Point2="120,45"
+                                               Point3="150,50" />
+                            </PathFigure.Segments>
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>

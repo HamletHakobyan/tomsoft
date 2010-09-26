@@ -5,6 +5,7 @@ using System.Text;
 using Mediatek.Entities;
 using Mediatek.Data.EntityFramework;
 using System.Data.Objects;
+using System.Threading;
 
 namespace Tests
 {
@@ -16,9 +17,24 @@ namespace Tests
             string connectionString = Properties.Settings.Default.ConnectionString;
             using (var context = MediatekContext.GetContext(providerName, connectionString))
             {
-                Test2(context);
+                TestMultiThreadLazyLoading(context);
             }
             Console.ReadLine();
+        }
+
+        private static void TestMultiThreadLazyLoading(MediatekContext context)
+        {
+            foreach (var m in context.Medias)
+            {
+                Console.WriteLine(m.Title);
+                Console.WriteLine("{0} : {1}", m.Title, m.Picture.Data.Bytes.Length);
+/*                var copy = m;
+                ThreadPool.QueueUserWorkItem(
+                    state =>
+                    {
+                        Console.WriteLine("{0} : {1}", copy.Title, copy.Picture.Data.Bytes.Length);
+                    });*/
+            }
         }
 
         private static void Test2(MediatekContext context)
