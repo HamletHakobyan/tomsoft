@@ -33,26 +33,13 @@ namespace Mediatek.ViewModel
             }
         }
 
-        private string[] _directorNames;
         public IEnumerable<string> DirectorNames
         {
             get
             {
-                if (_directorNames == null)
-                {
-                    Application.Current.Dispatcher.BeginInvoke(
-                        () =>
-                            {
-                                var query = from c in MovieModel.Contributions
-                                            where c.RoleId == Role.DirectorRoleId
-                                            select c.LoadProperty(cc => cc.Person).Person.DisplayName;
-                                _directorNames = query.ToArray();
-                                OnPropertyChanged("DirectorNames");
-                            },
-                        DispatcherPriority.Background);
-                }
-
-                return _directorNames;
+                return MovieModel.Contributions
+                    .Where(r => r.RoleId == Role.DirectorRoleId)
+                    .Select(r => r.Person.DisplayName);
             }
         }
     }

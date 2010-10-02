@@ -17,39 +17,34 @@ namespace Mediatek.Data.EntityFramework
         public MediatekContext(string connectionString, string defaultContainerName)
             : base(connectionString, defaultContainerName)
         {
-            this.ContextOptions.ProxyCreationEnabled = false;
+            this.ContextOptions.ProxyCreationEnabled = true;
             this.ContextOptions.LazyLoadingEnabled = true;
 
             _languages = CreateObjectSet<Language>()
-                            .Include("Countries")
-                            .Include("Medias")
-                            .Include("Flag");
+                            .Include(l => l.Flag);
             _countries = CreateObjectSet<Country>()
-                             .Include("Language")
-                             .Include("Persons")
-                             .Include("Medias")
-                             .Include("Flag");
+                             .Include(c => c.Flag);
             _roles = CreateObjectSet<Role>()
-                         .Include("Contributions")
-                         .Include("Symbol");
+                         .Include(r => r.Symbol);
             _persons = CreateObjectSet<Person>()
-                           .Include("Countries")
-                           .Include("Contributions")
-                           .Include("Loans")
-                           .Include("Picture");
+                           .Include(p => p.Countries.Select(c => c.Flag))
+                           .Include(p => p.Contributions.Select(c => c.Media))
+                           .Include(p => p.Loans.Select(l => l.Media))
+                           .Include(p => p.Picture);
             _medias = CreateObjectSet<Media>()
-                          .Include("Language")
-                          .Include("Countries")
-                          .Include("Contributions")
-                          .Include("Loans")
-                          .Include("Picture");
+                          .Include(m => m.Language.Flag)
+                          .Include(m => m.Countries.Select(c => c.Flag))
+                          .Include(m => m.Contributions.Select(c => c.Person))
+                          .Include(m => m.Contributions.Select(c => c.Role))
+                          .Include(m => m.Loans.Select(l => l.Person))
+                          .Include(m => m.Picture);
             _contributions = CreateObjectSet<Contribution>()
-                                 .Include("Media")
-                                 .Include("Person")
-                                 .Include("Role");
+                                 .Include(c => c.Person)
+                                 .Include(c => c.Media)
+                                 .Include(c => c.Role.Symbol);
             _loans = CreateObjectSet<Loan>()
-                         .Include("Media")
-                         .Include("Person");
+                         .Include(l => l.Media)
+                         .Include(l => l.Person);
             _images = CreateObjectSet<Image>();
             _imageData = CreateObjectSet<ImageData>();
             _dbProperties = CreateObjectSet<DbProperties>();
