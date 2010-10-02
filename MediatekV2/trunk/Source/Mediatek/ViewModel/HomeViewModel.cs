@@ -1,19 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using Developpez.Dotnet.Windows.ViewModel;
-using Mediatek.Entities;
-using Developpez.Dotnet.Windows.Input;
 using System.Windows.Input;
+using Developpez.Dotnet.Windows.Input;
+using Developpez.Dotnet.Windows.Service;
+using Developpez.Dotnet.Windows.ViewModel;
+using Mediatek.Helpers;
 using Mediatek.Messaging;
 using Mediatek.Service;
-using Developpez.Dotnet.Windows.Service;
 
 namespace Mediatek.ViewModel
 {
-    public class HomeViewModel : ViewModelBase
+    public class HomeViewModel : MediatekViewModelBase
     {
+        public HomeViewModel()
+        {
+            Mediator.Instance.Subscribe<EntityMessage<MediaViewModel>>(MediaMessageHandler);
+        }
+
+        private void MediaMessageHandler(object sender, EntityMessage<MediaViewModel> message)
+        {
+            if (message.Entity is MovieViewModel)
+                OnPropertyChanged("MovieCount");
+            else if (message.Entity is AlbumViewModel)
+                OnPropertyChanged("AlbumCount");
+            else if (message.Entity is BookViewModel)
+                OnPropertyChanged("BookCount");
+            
+            _recentlyAdded = null;
+            OnPropertyChanged("RecentlyAdded");
+        }
+
         #region Properties
 
         public string DbName
@@ -46,7 +63,7 @@ namespace Mediatek.ViewModel
         {
             get
             {
-                var rep = App.GetService<IViewModelRepository>();
+                var rep = GetService<IViewModelRepository>();
                 return rep.Medias.OfType<MovieViewModel>().Count();
             }
         }
@@ -55,7 +72,7 @@ namespace Mediatek.ViewModel
         {
             get
             {
-                var rep = App.GetService<IViewModelRepository>();
+                var rep = GetService<IViewModelRepository>();
                 return rep.Medias.OfType<AlbumViewModel>().Count();
             }
         }
@@ -64,8 +81,44 @@ namespace Mediatek.ViewModel
         {
             get
             {
-                var rep = App.GetService<IViewModelRepository>();
+                var rep = GetService<IViewModelRepository>();
                 return rep.Medias.OfType<BookViewModel>().Count();
+            }
+        }
+
+        private ObservableCollection<MediaViewModel> _recentlyAdded;
+        public ObservableCollection<MediaViewModel> RecentlyAdded
+        {
+            get
+            {
+                if (_recentlyAdded == null)
+                {
+                    var rep = GetService<IViewModelRepository>();
+                    _recentlyAdded =
+                        rep.Medias
+                            .OrderByDescending(m => m.DateAdded)
+                            .Take(6)
+                            .ToObservableCollection();
+                }
+                return _recentlyAdded;
+            }
+        }
+
+        private ObservableCollection<LoanViewModel> _loans;
+        public ObservableCollection<LoanViewModel> Loans
+        {
+            get
+            {
+                if (_loans == null)
+                {
+                    var rep = GetService<IViewModelRepository>();
+                    _loans =
+                        rep.Loans
+                            .Where(loan => !loan.ReturnDate.HasValue)
+                            .OrderBy(loan => loan.LoanDate)
+                            .ToObservableCollection();
+                }
+                return _loans;
             }
         }
 
@@ -73,48 +126,25 @@ namespace Mediatek.ViewModel
 
         #region Commands
 
-        private DelegateCommand _showMoviesCommand;
-        public ICommand ShowMoviesCommand
+        private DelegateCommand<string> _navigateCommand;
+        public ICommand NavigateCommand
         {
             get
             {
-                if (_showMoviesCommand == null)
+                if (_navigateCommand == null)
                 {
-                    _showMoviesCommand = new DelegateCommand(
-                        () => Mediator.Instance.Post(this, new NavigationMessage(NavigationDestination.Movies))
-                    );
+                    _navigateCommand = new DelegateCommand<string>(Navigate);
                 }
-                return _showMoviesCommand;
+                return _navigateCommand;
             }
         }
 
-        private DelegateCommand _showAlbumsCommand;
-        public ICommand ShowAlbumsCommand
+        private void Navigate(string destination)
         {
-            get
+            NavigationDestination dest;
+            if (Enum.TryParse(destination, out dest))
             {
-                if (_showAlbumsCommand == null)
-                {
-                    _showAlbumsCommand = new DelegateCommand(
-                        () => Mediator.Instance.Post(this, new NavigationMessage(NavigationDestination.Albums))
-                    );
-                }
-                return _showAlbumsCommand;
-            }
-        }
-
-        private DelegateCommand _showBooksCommand;
-        public ICommand ShowBooksCommand
-        {
-            get
-            {
-                if (_showBooksCommand == null)
-                {
-                    _showBooksCommand = new DelegateCommand(
-                        () => Mediator.Instance.Post(this, new NavigationMessage(NavigationDestination.Books))
-                    );
-                }
-                return _showBooksCommand;
+                Mediator.Instance.Post(this, new NavigationMessage(dest));
             }
         }
 

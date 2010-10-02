@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Mediatek.Entities
 {
-    public class Person
+    public class Person : IEntity
     {
         public virtual Guid Id { get; set; }
         public virtual bool IsGroup { get; set; }

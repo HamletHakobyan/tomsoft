@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Mediatek.Entities
 {
-    public class Image
+    public class Image : IEntity
     {
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }

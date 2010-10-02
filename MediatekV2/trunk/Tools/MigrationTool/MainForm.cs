@@ -110,8 +110,8 @@ namespace MigrationTool
                                 Image = image,
                                 Bytes = row[tbl.ImageField] as byte[]
                             };
-                            destContext.Images.AddObject(image);
-                            destContext.ImageData.AddObject(imageData);
+                            destContext.AddImage(image);
+                            destContext.AddImageData(imageData);
                         }
                         destContext.SaveChanges();
                     }
@@ -130,7 +130,7 @@ namespace MigrationTool
                             Code = row.code,
                             Flag = destContext.Images.FirstOrDefault(img => img.Id == row.flagid)
                         };
-                        destContext.Languages.AddObject(language);
+                        destContext.AddLanguage(language);
                     }
                     destContext.SaveChanges();
 
@@ -153,7 +153,7 @@ namespace MigrationTool
                                                             : row.languageRow.guid))
                                         .ToList()
                         };
-                        destContext.Countries.AddObject(country);
+                        destContext.AddCountry(country);
                     }
                     destContext.SaveChanges();
 
@@ -176,7 +176,7 @@ namespace MigrationTool
                                                             : row.countryRow.guid))
                                         .ToList()
                         };
-                        destContext.Persons.AddObject(director);
+                        destContext.AddPerson(director);
                     }
                     destContext.SaveChanges();
 
@@ -197,7 +197,7 @@ namespace MigrationTool
                             Id = kvp.Value,
                             DisplayName = kvp.Key
                         };
-                        destContext.Persons.AddObject(borrower);
+                        destContext.AddPerson(borrower);
                     }
                     destContext.SaveChanges();
 
@@ -217,7 +217,7 @@ namespace MigrationTool
                             Year = row.IsyearNull() ? (int?)null : int.Parse(row.year),
                             Picture = destContext.Images.FirstOrDefault(img => img.Id == row.pictureid)
                         };
-                        destContext.Medias.AddObject(movie);
+                        destContext.AddMedia(movie);
 
                         if (!row.Isdirector_idNull())
                         {
@@ -231,7 +231,7 @@ namespace MigrationTool
                             if (!row.directorRow.Iscountry_idNull())
                                 movie.Countries = destContext.Countries.Where(c => c.Id == row.directorRow.countryRow.guid).ToList();
 
-                            destContext.Contributions.AddObject(contrib);
+                            destContext.AddContribution(contrib);
                         }
                     }
                     destContext.SaveChanges();
@@ -251,7 +251,7 @@ namespace MigrationTool
                             ReturnDate = row.Isreturn_dateNull() ? (DateTime?)null : row.return_date,
                             MediaId = row.movieRow.guid
                         };
-                        destContext.Loans.AddObject(loan);
+                        destContext.AddLoan(loan);
                     }
                     destContext.SaveChanges();
 

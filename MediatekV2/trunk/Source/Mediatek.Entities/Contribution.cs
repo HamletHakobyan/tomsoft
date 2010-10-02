@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Mediatek.Entities
 {
-    public class Contribution
+    public class Contribution : IEntity
     {
         public virtual Guid MediaId { get; set; }
         public virtual Guid PersonId { get; set; }

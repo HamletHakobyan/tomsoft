@@ -196,6 +196,7 @@
           <Property Name="Comment" Type="nvarchar" />
           <Property Name="PictureId" Type="uniqueidentifier" />
           <Property Name="Rating" Type="tinyint" />
+          <Property Name="DateAdded" Type="datetime" />
         </EntityType>
         <EntityType Name="MediaCountry">
           <Key>
@@ -593,6 +594,7 @@
           <Property Type="String" Name="OriginalTitle" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Type="Guid" Name="PictureId" />
           <NavigationProperty Name="Picture" Relationship="Mediatek.Data.EntityFramework.FK__Media__0000000000000531" FromRole="Media" ToRole="Image" />
+          <Property Type="DateTime" Name="DateAdded" />
           </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -829,6 +831,7 @@
           <EntitySetMapping Name="Medias">
             <EntityTypeMapping TypeName="IsTypeOf(Mediatek.Data.EntityFramework.Media)">
               <MappingFragment StoreEntitySet="Media">
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
                 <ScalarProperty Name="PictureId" ColumnName="PictureId" />
                 <ScalarProperty Name="OriginalTitle" ColumnName="OriginalTitle" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -941,7 +944,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="MediatekDataEntities" ZoomLevel="97">
+      <Diagram Name="MediatekDataEntities" ZoomLevel="101">
         <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.Contribution" Width="1.5" PointX="9.75" PointY="14" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.Country" Width="1.5" PointX="5.25" PointY="8.25" Height="2.5571907552083317" />
         <EntityTypeShape EntityType="Mediatek.Data.EntityFramework.Language" Width="1.5" PointX="5.25" PointY="12.25" Height="2.5571907552083335" />

@@ -7,10 +7,12 @@ using Mediatek.Entities;
 using System.Windows.Media;
 using Mediatek.Helpers;
 using System.Windows.Media.Imaging;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace Mediatek.ViewModel
 {
-    public abstract class MediaViewModel : ViewModelBase<Media>
+    public abstract class MediaViewModel : MediatekViewModelBase<Media>
     {
         protected MediaViewModel(Media media)
         {
@@ -22,6 +24,16 @@ namespace Mediatek.ViewModel
             get { return Model.Id; }
         }
 
+        public DateTime? DateAdded
+        {
+            get { return Model.DateAdded; }
+            set
+            {
+                Model.DateAdded = value;
+                OnPropertyChanged("DateAdded");
+            }
+        }
+
         private BitmapSource _picture;
         public BitmapSource Picture
         {
@@ -29,12 +41,13 @@ namespace Mediatek.ViewModel
             {
                 if (_picture == null && Model.PictureId.HasValue)
                 {
-                    Model.Picture.GetBitmapSourceAsync(
-                        bmp =>
-                        {
-                            _picture = bmp;
-                            OnPropertyChanged("Picture");
-                        });
+                    Application.Current.Dispatcher.BeginInvoke(
+                        () =>
+                            {
+                                _picture = Model.Picture.GetBitmapSource();
+                                OnPropertyChanged("Picture");
+                            },
+                        DispatcherPriority.Background);
                     return null;
                 }
                 return _picture;
@@ -49,6 +62,20 @@ namespace Mediatek.ViewModel
                 }
             }
         }
+
+        public string Title
+        {
+            get { return Model.Title; }
+            set
+            {
+                if (value != Model.Title)
+                {
+                    Model.Title = value;
+                    OnPropertyChanged("Title");
+                }
+            }
+        }
+
 
     }
 }

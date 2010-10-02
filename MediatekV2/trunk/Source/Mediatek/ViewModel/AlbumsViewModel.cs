@@ -9,11 +9,11 @@ using Mediatek.Service;
 
 namespace Mediatek.ViewModel
 {
-    public class AlbumsViewModel : ViewModelBase
+    public class AlbumsViewModel : MediatekViewModelBase
     {
         public AlbumsViewModel()
         {
-            var rep = App.GetService<IViewModelRepository>();
+            var rep = GetService<IViewModelRepository>();
             this.Albums = new CollectionView(rep.Medias)
                               {
                                   Filter = o => o is AlbumViewModel

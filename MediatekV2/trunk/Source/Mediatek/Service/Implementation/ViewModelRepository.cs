@@ -21,14 +21,15 @@ namespace Mediatek.Service.Implementation
         #region Medias
 
         private ObservableCollection<MediaViewModel> _medias;
-
         public IList<MediaViewModel> Medias
         {
             get
             {
                 if (_medias == null)
                 {
-                    _medias = App.Repository.Medias
+                    _medias =
+                        App.Repository.Medias
+                            .AsEnumerable()
                             .Select(CreateViewModel)
                             .ToObservableCollection();
                 }
@@ -63,6 +64,48 @@ namespace Mediatek.Service.Implementation
                 case EntityAction.Deleted:
                     _medias.Remove(message.Entity);
                     break;
+            }
+        }
+
+        #endregion
+
+        #region Persons
+
+        private ObservableCollection<PersonViewModel> _persons;
+        public IList<PersonViewModel> Persons
+        {
+            get
+            {
+                if (_persons == null)
+                {
+                    _persons =
+                        App.Repository.Persons
+                            .AsEnumerable()
+                            .Select(p => new PersonViewModel(p))
+                            .ToObservableCollection();
+                }
+                return _persons;
+            }
+        }
+
+        #endregion
+
+        #region Loans
+
+        private ObservableCollection<LoanViewModel> _loans;
+        public IList<LoanViewModel> Loans
+        {
+            get
+            {
+                if (_loans == null)
+                {
+                    _loans =
+                        App.Repository.Loans
+                            .AsEnumerable()
+                            .Select(loan => new LoanViewModel(loan))
+                            .ToObservableCollection();
+                }
+                return _loans;
             }
         }
 

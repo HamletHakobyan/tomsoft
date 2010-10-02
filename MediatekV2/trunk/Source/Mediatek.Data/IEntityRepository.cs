@@ -24,5 +24,15 @@ namespace Mediatek.Data
         void LoadProperty(object entity, string navigationProperty);
         void LoadProperty<TEntity>(TEntity entity, Expression<Func<TEntity, object>> selector);
         int SaveChanges();
+
+        void AddContribution(Contribution contribution);
+        void AddCountry(Country country);
+        void AddLanguage(Language language);
+        void AddLoan(Loan loan);
+        void AddMedia(Media media);
+        void AddPerson(Person person);
+        void AddRole(Role role);
+        void AddImage(Image image);
+        void AddImageData(ImageData imageData);
     }
 }

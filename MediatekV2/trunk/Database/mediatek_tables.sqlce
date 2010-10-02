@@ -72,7 +72,8 @@ CREATE TABLE [Media] (
 [Description] NVARCHAR(4000),
 [Comment] NVARCHAR(4000),
 [PictureId] UNIQUEIDENTIFIER REFERENCES [Image]([Id]),
-[Rating] TINYINT
+[Rating] TINYINT,
+[DateAdded] DATETIME
 );
 
 CREATE TABLE [Album] (

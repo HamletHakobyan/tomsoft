@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Developpez.Dotnet.Windows.ViewModel;
 using Mediatek.Entities;
 using System.Windows.Threading;
+using Mediatek.Helpers;
+using System.Windows;
 
 namespace Mediatek.ViewModel
 {
@@ -54,15 +53,16 @@ namespace Mediatek.ViewModel
             {
                 if (_directorNames == null)
                 {
-                    App.Current.Dispatcher.BeginInvoke(
+                    Application.Current.Dispatcher.BeginInvoke(
                         () =>
                             {
                                 var query = from c in MovieModel.Contributions
                                             where c.RoleId == Role.DirectorRoleId
-                                            select c.Person.DisplayName;
+                                            select c.LoadProperty(cc => cc.Person).Person.DisplayName;
                                 _directorNames = query.ToArray();
                                 OnPropertyChanged("DirectorNames");
-                            });
+                            },
+                        DispatcherPriority.Background);
                 }
 
                 return _directorNames;

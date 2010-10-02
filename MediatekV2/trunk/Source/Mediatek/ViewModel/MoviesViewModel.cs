@@ -10,11 +10,11 @@ using Mediatek.Service;
 
 namespace Mediatek.ViewModel
 {
-    public class MoviesViewModel : ViewModelBase
+    public class MoviesViewModel : MediatekViewModelBase
     {
         public MoviesViewModel()
         {
-            var rep = App.GetService<IViewModelRepository>();
+            var rep = GetService<IViewModelRepository>();
             this.Movies = new CollectionView(rep.Medias)
                               {
                                   Filter = o => o is MovieViewModel

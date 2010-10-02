@@ -36,11 +36,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Developpez.Dotnet">
-      <HintPath>..\..\Lib\Developpez.Dotnet.dll</HintPath>
+    <Reference Include="Developpez.Dotnet, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>D:\Docs\Visual Studio 2010\Projects\Mediatek\Lib\Developpez.Dotnet.dll</HintPath>
     </Reference>
-    <Reference Include="Developpez.Dotnet.Windows">
-      <HintPath>..\..\Lib\Developpez.Dotnet.Windows.dll</HintPath>
+    <Reference Include="Developpez.Dotnet.Windows, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>D:\Docs\Visual Studio 2010\Projects\Mediatek\Lib\Developpez.Dotnet.Windows.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ObjectBuilder2">
       <HintPath>..\..\Lib\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
@@ -76,13 +76,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\ThemeProperties.cs" />
     <Compile Include="Behaviors\ButtonStateBehavior.cs" />
     <Compile Include="Controls\AnimatedGifImage.cs" />
     <Compile Include="Controls\TileView.cs" />
     <Compile Include="Converters\CsvConverter.cs" />
+    <Compile Include="CustomEffects\GreyscaleEffect.cs" />
     <Compile Include="Design\DesignHomeViewModel.cs" />
+    <Compile Include="Helpers\EntityExtensions.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\PackUri.cs" />
     <Compile Include="Messaging\EntityMessage.cs" />
     <Compile Include="Messaging\NavigationMessage.cs" />
     <Compile Include="Service\IViewModelRepository.cs" />
@@ -96,10 +100,13 @@
     <Compile Include="ViewModel\BooksViewModel.cs" />
     <Compile Include="ViewModel\BookViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\LoanViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MediaViewModel.cs" />
     <Compile Include="ViewModel\MoviesViewModel.cs" />
     <Compile Include="ViewModel\MovieViewModel.cs" />
+    <Compile Include="ViewModel\PersonViewModel.cs" />
+    <Compile Include="ViewModel\MediatekViewModelBase.cs" />
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -171,6 +178,8 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
+    <Resource Include="CustomEffects\ByteCode\Greyscale.ps" />
+    <None Include="CustomEffects\Source\Greyscale.fx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
