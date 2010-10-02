@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Data.EntityClient;
 using System.Data.Objects;
+using System.Linq;
 using Mediatek.Entities;
-using System.Data.EntityClient;
 
 namespace Mediatek.Data.EntityFramework
 {
@@ -62,7 +59,7 @@ namespace Mediatek.Data.EntityFramework
 
         #region Private data
 
-        private static readonly string _defaultContainerName = "MediatekDataEntities";
+        private const string _defaultContainerName = "MediatekDataEntities";
 
         private readonly ObjectQuery<Country> _countries;
         private readonly ObjectQuery<Language> _languages;

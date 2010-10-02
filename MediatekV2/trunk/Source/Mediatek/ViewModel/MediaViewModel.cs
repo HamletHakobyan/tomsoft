@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Developpez.Dotnet.Windows.ViewModel;
 using Mediatek.Entities;
-using System.Windows.Media;
 using Mediatek.Helpers;
 using System.Windows.Media.Imaging;
 using System.Windows;

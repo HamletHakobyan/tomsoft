@@ -4,9 +4,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Mediatek.Web;
 using Mediatek.Web.Controllers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.Mediatek.Web.Controllers
 {
@@ -409,14 +408,7 @@ namespace Tests.Mediatek.Web.Controllers
 
             public IIdentity Identity
             {
-                get
-                {
-                    if (_identity == null)
-                    {
-                        _identity = new MockIdentity();
-                    }
-                    return _identity;
-                }
+                get { return _identity ?? (_identity = new MockIdentity()); }
             }
 
             public bool IsInRole(string role)
@@ -439,14 +431,7 @@ namespace Tests.Mediatek.Web.Controllers
 
             public override IPrincipal User
             {
-                get
-                {
-                    if (_user == null)
-                    {
-                        _user = new MockPrincipal();
-                    }
-                    return _user;
-                }
+                get { return _user ?? (_user = new MockPrincipal()); }
                 set
                 {
                     _user = value;
@@ -456,19 +441,7 @@ namespace Tests.Mediatek.Web.Controllers
 
         public class MockMembershipProvider : MembershipProvider
         {
-            string _applicationName;
-
-            public override string ApplicationName
-            {
-                get
-                {
-                    return _applicationName;
-                }
-                set
-                {
-                    _applicationName = value;
-                }
-            }
+            public override string ApplicationName { get; set; }
 
             public override bool EnablePasswordReset
             {

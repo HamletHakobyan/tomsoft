@@ -1,5 +1,4 @@
 ﻿using System;
-using Developpez.Dotnet.Windows.ViewModel;
 using Mediatek.Entities;
 using Developpez.Dotnet;
 

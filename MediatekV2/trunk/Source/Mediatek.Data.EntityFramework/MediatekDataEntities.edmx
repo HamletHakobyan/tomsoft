@@ -687,7 +687,7 @@
           <Property Type="Int32" Name="Duration" />
           </EntityType>
         <EntityType Name="Book" BaseType="Mediatek.Data.EntityFramework.Media">
-          <Property Type="String" Name="ISBN" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Isbn" MaxLength="20" FixedLength="false" Unicode="true" />
           </EntityType>
         <EntityType Name="Movie" BaseType="Mediatek.Data.EntityFramework.Media">
           <Property Type="Int32" Name="Duration" />
@@ -844,7 +844,7 @@
             <EntityTypeMapping TypeName="IsTypeOf(Mediatek.Data.EntityFramework.Book)">
               <MappingFragment StoreEntitySet="Book">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="Isbn" ColumnName="ISBN" />
                 </MappingFragment>
               </EntityTypeMapping>
             <EntityTypeMapping TypeName="IsTypeOf(Mediatek.Data.EntityFramework.Movie)">

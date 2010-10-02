@@ -137,7 +137,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Ellipse Width="8" Height="8" Fill="Black" VerticalAlignment="Center" />
+                                <Control Style="{StaticResource stlBullet}" />
                                 <TextBlock VerticalAlignment="Center"
                                            Margin="5"
                                            Text="{Binding Title}" />
@@ -156,7 +156,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Ellipse Width="8" Height="8" Fill="Black" VerticalAlignment="Center" />
+                                <Control Style="{StaticResource stlBullet}" />
                                 <TextBlock VerticalAlignment="Center"
                                            Margin="5">
                                     <TextBlock.Text>

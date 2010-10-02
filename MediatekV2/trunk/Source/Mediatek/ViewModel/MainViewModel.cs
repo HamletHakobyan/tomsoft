@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Developpez.Dotnet.Windows.ViewModel;
-using Mediatek.Service;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Developpez.Dotnet.Windows.Input;
-using System.Collections.ObjectModel;
-using Mediatek.Entities;
-using Mediatek.Helpers;
 using Developpez.Dotnet.Windows.Service;
 using Mediatek.Messaging;
+using Mediatek.Service;
 
 namespace Mediatek.ViewModel
 {
@@ -64,9 +57,16 @@ namespace Mediatek.ViewModel
 
         public bool Navigate(object dest)
         {
-            while (_currentNode != null && _currentNode.Next != null)
-                _history.RemoveLast();
-            _currentNode = _history.AddLast(dest);
+            if (_currentNode == null)
+            {
+                _currentNode = _history.AddLast(dest);
+            }
+            else if (dest != _currentNode.Value)
+            {
+                while (_currentNode.Next != null)
+                    _history.RemoveLast();
+                _currentNode = _history.AddLast(dest);
+            }
             OnNavigationPropertiesChanged();
             return true;
         }
@@ -205,7 +205,7 @@ namespace Mediatek.ViewModel
 
         #region Private methods
 
-        private void ExitApp()
+        private static void ExitApp()
         {
             App.Current.Shutdown();
         }

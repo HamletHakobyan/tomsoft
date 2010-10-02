@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Mediatek.Web;
+﻿using System.Web.Mvc;
 using Mediatek.Web.Controllers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.Mediatek.Web.Controllers
 {
@@ -22,6 +17,7 @@ namespace Tests.Mediatek.Web.Controllers
             ViewResult result = controller.Index() as ViewResult;
 
             // Assert
+            Assert.IsNotNull(result);
             ViewDataDictionary viewData = result.ViewData;
             Assert.AreEqual("Welcome to ASP.NET MVC!", viewData["Message"]);
         }

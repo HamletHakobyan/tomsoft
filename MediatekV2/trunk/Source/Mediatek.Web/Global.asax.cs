@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Microsoft.Practices.Unity;
 using Mediatek.Data;
-using System.Configuration;
+using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 
 namespace Mediatek.Web
@@ -14,7 +12,7 @@ namespace Mediatek.Web
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
@@ -41,7 +39,7 @@ namespace Mediatek.Web
                 if (container == null)
                 {
                     container = new UnityContainer();
-                    var unitySection = HttpContext.Current.GetSection("unity") as UnityConfigurationSection;
+                    var unitySection = (UnityConfigurationSection)HttpContext.Current.GetSection("unity");
                     var containerElement = unitySection.Containers.Default;
                     containerElement.Configure(container);
 

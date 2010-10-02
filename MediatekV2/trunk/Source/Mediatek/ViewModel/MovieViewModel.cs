@@ -20,19 +20,6 @@ namespace Mediatek.ViewModel
             set { Model = value; }
         }
 
-        public string Title
-        {
-            get { return MovieModel.Title; }
-            set
-            {
-                if (value != MovieModel.Title)
-                {
-                    MovieModel.Title = value;
-                    OnPropertyChanged("Title");
-                }
-            }
-        }
-
         public int? Year
         {
             get { return MovieModel.Year; }

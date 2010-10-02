@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Ajax;
+using Mediatek.Data;
 using Mediatek.Entities;
 using Mediatek.Web.Helpers;
-using System.Dynamic;
 using System.Web.Routing;
 
 namespace Mediatek.Web.Controllers
 {
     public class MovieController : Controller
     {
-        private Mediatek.Data.IEntityRepository _repository;
+        private IEntityRepository _repository;
 
         // GET: /Movie/
         public ActionResult Index()

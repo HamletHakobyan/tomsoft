@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Mediatek.Entities;
+using Mediatek.Web.Properties;
 
 namespace Mediatek.Web.Controllers
 {
@@ -15,7 +13,7 @@ namespace Mediatek.Web.Controllers
             using (var repository = MvcApplication.GetRepository())
             {
                 var movies = repository.Medias.OfType<Movie>();
-                ViewData["Message"] = "Welcome to Mediatek Web!";
+                ViewData["Message"] = Resources.Welcome_to_Mediatek_Web_;
                 ViewData["MovieCount"] = movies.Count();
                 return View();
             }

@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Mediatek.Entities;
 using System.Diagnostics;
+using System.Linq;
 using Mediatek.Data.EntityFramework;
+using Mediatek.Entities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.Mediatek.Data.EntityFramework
 {
     [TestClass]
     public class Tests
     {
-        private string _storeConnectionString = @"Data Source=D:\Docs\Visual Studio 2010\Projects\Mediatek\Database\Mediatek.sdf";
-        private string _storeProviderName = "System.Data.SqlServerCe.3.5";
+        private const string _storeConnectionString = @"Data Source=D:\Docs\Visual Studio 2010\Projects\Mediatek\Database\Mediatek.sdf";
+        private const string _storeProviderName = "System.Data.SqlServerCe.3.5";
 
         [TestMethod]
         public void Test_OpenConnection()
@@ -81,8 +79,8 @@ namespace Tests.Mediatek.Data.EntityFramework
         {
             using (MediatekContext context = MediatekContext.GetContext(_storeProviderName, _storeConnectionString))
             {
-                int count1 = context.Medias.Count();
-                int count2 = (from m in context.Medias select m).Count();
+                int count = context.Medias.Count();
+                Assert.IsTrue(count > 0);
             }
         }
     }

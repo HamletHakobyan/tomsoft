@@ -4,7 +4,6 @@ using System.Linq;
 using System.Windows.Input;
 using Developpez.Dotnet.Windows.Input;
 using Developpez.Dotnet.Windows.Service;
-using Developpez.Dotnet.Windows.ViewModel;
 using Mediatek.Helpers;
 using Mediatek.Messaging;
 using Mediatek.Service;

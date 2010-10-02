@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Security.Principal;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using System.Web.UI;
+using Mediatek.Web.Properties;
 
 namespace Mediatek.Web.Controllers
 {
@@ -66,10 +63,7 @@ namespace Mediatek.Web.Controllers
             {
                 return Redirect(returnUrl);
             }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult LogOff()
@@ -104,10 +98,7 @@ namespace Mediatek.Web.Controllers
                     FormsAuth.SignIn(userName, false /* createPersistentCookie */);
                     return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    ModelState.AddModelError("_FORM", ErrorCodeToString(createStatus));
-                }
+                ModelState.AddModelError("_FORM", ErrorCodeToString(createStatus));
             }
 
             // If we got this far, something failed, redisplay form
@@ -143,15 +134,12 @@ namespace Mediatek.Web.Controllers
                 {
                     return RedirectToAction("ChangePasswordSuccess");
                 }
-                else
-                {
-                    ModelState.AddModelError("_FORM", "The current password is incorrect or the new password is invalid.");
-                    return View();
-                }
+                ModelState.AddModelError("_FORM", Resources.The_current_password_is_incorrect_or_the_new_password_is_invalid_);
+                return View();
             }
             catch
             {
-                ModelState.AddModelError("_FORM", "The current password is incorrect or the new password is invalid.");
+                ModelState.AddModelError("_FORM", Resources.The_current_password_is_incorrect_or_the_new_password_is_invalid_);
                 return View();
             }
         }
@@ -176,7 +164,7 @@ namespace Mediatek.Web.Controllers
         {
             if (String.IsNullOrEmpty(currentPassword))
             {
-                ModelState.AddModelError("currentPassword", "You must specify a current password.");
+                ModelState.AddModelError("currentPassword", Resources.You_must_specify_a_current_password_);
             }
             if (newPassword == null || newPassword.Length < MembershipService.MinPasswordLength)
             {
@@ -188,7 +176,7 @@ namespace Mediatek.Web.Controllers
 
             if (!String.Equals(newPassword, confirmPassword, StringComparison.Ordinal))
             {
-                ModelState.AddModelError("_FORM", "The new password and confirmation password do not match.");
+                ModelState.AddModelError("_FORM", Resources.The_new_password_and_confirmation_password_do_not_match_);
             }
 
             return ModelState.IsValid;
@@ -198,15 +186,15 @@ namespace Mediatek.Web.Controllers
         {
             if (String.IsNullOrEmpty(userName))
             {
-                ModelState.AddModelError("username", "You must specify a username.");
+                ModelState.AddModelError("username", Resources.You_must_specify_a_username_);
             }
             if (String.IsNullOrEmpty(password))
             {
-                ModelState.AddModelError("password", "You must specify a password.");
+                ModelState.AddModelError("password", Resources.You_must_specify_a_password_);
             }
             if (!MembershipService.ValidateUser(userName, password))
             {
-                ModelState.AddModelError("_FORM", "The username or password provided is incorrect.");
+                ModelState.AddModelError("_FORM", Resources.The_username_or_password_provided_is_incorrect_);
             }
 
             return ModelState.IsValid;
@@ -216,22 +204,22 @@ namespace Mediatek.Web.Controllers
         {
             if (String.IsNullOrEmpty(userName))
             {
-                ModelState.AddModelError("username", "You must specify a username.");
+                ModelState.AddModelError("username", Resources.You_must_specify_a_username_);
             }
             if (String.IsNullOrEmpty(email))
             {
-                ModelState.AddModelError("email", "You must specify an email address.");
+                ModelState.AddModelError("email", Resources.You_must_specify_an_email_address_);
             }
             if (password == null || password.Length < MembershipService.MinPasswordLength)
             {
                 ModelState.AddModelError("password",
                     String.Format(CultureInfo.CurrentCulture,
-                         "You must specify a password of {0} or more characters.",
+                         Resources.You_must_specify_a_password_of__0__or_more_characters_,
                          MembershipService.MinPasswordLength));
             }
             if (!String.Equals(password, confirmPassword, StringComparison.Ordinal))
             {
-                ModelState.AddModelError("_FORM", "The new password and confirmation password do not match.");
+                ModelState.AddModelError("_FORM", Resources.The_new_password_and_confirmation_password_do_not_match_);
             }
             return ModelState.IsValid;
         }
@@ -310,7 +298,7 @@ namespace Mediatek.Web.Controllers
 
     public class AccountMembershipService : IMembershipService
     {
-        private MembershipProvider _provider;
+        private readonly MembershipProvider _provider;
 
         public AccountMembershipService()
             : this(null)
@@ -345,7 +333,7 @@ namespace Mediatek.Web.Controllers
         public bool ChangePassword(string userName, string oldPassword, string newPassword)
         {
             MembershipUser currentUser = _provider.GetUser(userName, true /* userIsOnline */);
-            return currentUser.ChangePassword(oldPassword, newPassword);
+            return currentUser != null && currentUser.ChangePassword(oldPassword, newPassword);
         }
     }
 }

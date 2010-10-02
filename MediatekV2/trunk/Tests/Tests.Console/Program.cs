@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Mediatek.Entities;
-using Mediatek.Data.EntityFramework;
 using System.Data.Objects;
-using System.Threading;
+using System.Linq;
+using Mediatek.Data;
+using Mediatek.Data.EntityFramework;
+using Mediatek.Entities;
 
 namespace Tests
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            string providerName = "System.Data.SqlServerCe.3.5";
+            const string providerName = "System.Data.SqlServerCe.3.5";
             string connectionString = Properties.Settings.Default.ConnectionString;
             using (var context = MediatekContext.GetContext(providerName, connectionString))
             {
@@ -22,7 +20,7 @@ namespace Tests
             Console.ReadLine();
         }
 
-        private static void TestMultiThreadLazyLoading(MediatekContext context)
+        private static void TestMultiThreadLazyLoading(IEntityRepository context)
         {
             foreach (var m in context.Medias)
             {
@@ -37,7 +35,9 @@ namespace Tests
             }
         }
 
-        private static void Test2(MediatekContext context)
+// ReSharper disable UnusedMember.Local
+        private static void Test2(IEntityRepository context)
+// ReSharper restore UnusedMember.Local
         {
             var query = from m in context.Medias.OfType<Movie>()
                         where m.Year.HasValue && m.Year > 2005
@@ -52,7 +52,9 @@ namespace Tests
             Console.WriteLine(oq.ToTraceString());
         }
 
-        private static void Test1(MediatekContext context)
+// ReSharper disable UnusedMember.Local
+        private static void Test1(IEntityRepository context)
+// ReSharper restore UnusedMember.Local
         {
             var movies = context.Medias
                                 .OfType<Movie>();
