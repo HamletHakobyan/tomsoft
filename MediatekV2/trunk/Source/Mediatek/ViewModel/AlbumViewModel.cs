@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Developpez.Dotnet.Windows.ViewModel;
-using Mediatek.Entities;
+﻿using Mediatek.Entities;
 
 namespace Mediatek.ViewModel
 {
     public class AlbumViewModel : MediaViewModel
     {
-        public AlbumViewModel(Album album)
+        public AlbumViewModel(Media album)
             : base(album)
         {
         }

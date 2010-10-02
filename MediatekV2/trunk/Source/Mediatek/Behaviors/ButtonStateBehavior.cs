@@ -65,7 +65,7 @@ namespace Mediatek.Behaviors
             if (button == null)
                 return;
 
-            button.SetValue(ButtonStateBehavior.IsMouseOverPropertyKey, button.IsMouseOver);
+            button.SetValue(IsMouseOverPropertyKey, button.IsMouseOver);
         }
 
         private static void button_IsPressedChanged(object sender, EventArgs e)
@@ -74,10 +74,12 @@ namespace Mediatek.Behaviors
             if (button == null)
                 return;
 
-            button.SetValue(ButtonStateBehavior.IsPressedPropertyKey, button.IsPressed);
+            button.SetValue(IsPressedPropertyKey, button.IsPressed);
         }
 
+// ReSharper disable InconsistentNaming
         private static readonly DependencyPropertyKey IsMouseOverPropertyKey =
+// ReSharper restore InconsistentNaming
             DependencyProperty.RegisterAttachedReadOnly(
                 "IsMouseOver",
                 typeof(bool),
@@ -88,7 +90,9 @@ namespace Mediatek.Behaviors
 
         public static readonly DependencyProperty IsMouseOverProperty = IsMouseOverPropertyKey.DependencyProperty;
 
+// ReSharper disable InconsistentNaming
         private static readonly DependencyPropertyKey IsPressedPropertyKey =
+// ReSharper restore InconsistentNaming
             DependencyProperty.RegisterAttachedReadOnly(
                 "IsPressed",
                 typeof(bool),

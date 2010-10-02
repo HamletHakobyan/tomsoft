@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Windows;
+using Mediatek.Data;
 using Mediatek.Service;
 using Mediatek.Service.Implementation;
 using Mediatek.ViewModel;
-using Mediatek.Data;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using Mediatek.Helpers;
 
 namespace Mediatek
 {
@@ -56,7 +50,7 @@ namespace Mediatek
         private static IUnityContainer SetupUnityContainerFromConfig()
         {
             var unityContainer = new UnityContainer();
-            var unitySection = ConfigurationManager.GetSection("unity") as UnityConfigurationSection;
+            var unitySection = (UnityConfigurationSection)ConfigurationManager.GetSection("unity");
             var containerElement = unitySection.Containers.Default;
             containerElement.Configure(unityContainer);
             return unityContainer;

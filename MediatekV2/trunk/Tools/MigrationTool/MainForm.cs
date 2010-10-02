@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.Data.SQLite;
+using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Mediatek.Data.EntityFramework;
-using System.Data.SQLite;
 using Mediatek.Entities;
-using System.IO;
+using MigrationTool.Properties;
 
+// ReSharper disable AccessToModifiedClosure
 namespace MigrationTool
 {
     public partial class MainForm : Form
@@ -22,12 +21,11 @@ namespace MigrationTool
 
         private void btnBrowseSource_Click(object sender, EventArgs e)
         {
-            try
+            if (!string.IsNullOrEmpty(txtSource.Text))
             {
-                dlgSource.InitialDirectory = Path.GetFullPath(txtSource.Text);
+                dlgSource.InitialDirectory = Path.GetDirectoryName(txtSource.Text);
                 dlgSource.FileName = Path.GetFileName(txtSource.Text);
             }
-            catch { }
             if (dlgSource.ShowDialog() == DialogResult.OK)
             {
                 txtSource.Text = dlgSource.FileName;
@@ -36,12 +34,8 @@ namespace MigrationTool
 
         private void btnBrowseDestination_Click(object sender, EventArgs e)
         {
-            try
-            {
-                dlgDestination.InitialDirectory = Path.GetFullPath(txtDestination.Text);
-                dlgDestination.FileName = Path.GetFileName(txtDestination.Text);
-            }
-            catch { }
+            dlgDestination.InitialDirectory = Path.GetDirectoryName(txtDestination.Text);
+            dlgDestination.FileName = Path.GetFileName(txtDestination.Text);
             if (dlgDestination.ShowDialog() == DialogResult.OK)
             {
                 txtDestination.Text = dlgDestination.FileName;
@@ -62,7 +56,7 @@ namespace MigrationTool
             string sourceConnectionString = string.Format("Data source={0}", txtSource.Text);
             string destConnectionString = string.Format("Data source={0}", txtDestination.Text);
 
-            int stepCount = 6;
+            const int stepCount = 6;
             int iStep = 0;
 
             using (var sourceConnection = new SQLiteConnection(sourceConnectionString))
@@ -100,12 +94,12 @@ namespace MigrationTool
                             if (row.IsNull(tbl.ImageField))
                                 continue;
                             
-                            var image = new Mediatek.Entities.Image
+                            var image = new Image
                             {
                                 Id = imageId,
                                 Name = row[tbl.NameField] as string
                             };
-                            var imageData = new Mediatek.Entities.ImageData
+                            var imageData = new ImageData
                             {
                                 Image = image,
                                 Bytes = row[tbl.ImageField] as byte[]
@@ -264,7 +258,7 @@ namespace MigrationTool
             }
         }
 
-        private int FillTable(SQLiteConnection connection, DataTable table)
+        private static int FillTable(SQLiteConnection connection, DataTable table)
         {
             using (var adapter = new SQLiteDataAdapter(string.Format("SELECT * FROM {0} ORDER BY id", table.TableName), connection))
             {
@@ -281,13 +275,14 @@ namespace MigrationTool
         {
             if (e.Error != null)
             {
-                MessageBox.Show("Error : " + e.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(Resources.Error_format, e.Error), Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                MessageBox.Show("Migration complete");
+                MessageBox.Show(Resources.MigrationComplete);
             }
             this.Enabled = true;
         }
     }
 }
+// ReSharper restore AccessToModifiedClosure

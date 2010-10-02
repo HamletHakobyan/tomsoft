@@ -9,8 +9,7 @@ namespace Mediatek.ViewModel
         {
             if (name.IsNullOrEmpty())
                 return App.UnityContainer.Resolve<TService>();
-            else
-                return App.UnityContainer.Resolve<TService>(name);
+            return App.UnityContainer.Resolve<TService>(name);
         }
     }
 
@@ -20,8 +19,7 @@ namespace Mediatek.ViewModel
         {
             if (name.IsNullOrEmpty())
                 return App.UnityContainer.Resolve<TService>();
-            else
-                return App.UnityContainer.Resolve<TService>(name);
+            return App.UnityContainer.Resolve<TService>(name);
         }
     }
 }

@@ -19,26 +19,34 @@
         </thead>
         <tbody>
 
-        <% var movies = Model as IEnumerable<Mediatek.Entities.Movie>; %>
-        <% foreach (var m in movies) { %>
+        <%
+            var movies = Model as IEnumerable<Mediatek.Entities.Movie>;
+            if (movies != null)
+            {
+                foreach (var m in movies)
+                {
+        %>
         
             <tr>
-                <td><img src="<%= m.Picture.GetPath(true) %>" alt="<%= m.Picture.Name %>" title="<%= m.Picture.Name %>" /></td>
-                <td><%= Html.Encode(m.Title) %></td>
-                <td><%= Html.CriteriaLink(m.Year.ToString(), new { year = m.Year }) %></td>
-                <td><%= Html.BulletedList(
-                            m.Contributions
-                                .OrderBy(c => c.Role.Name)
-                                .ThenBy(c => c.Person.DisplayName)
-                                .Select(c => MvcHtmlString.Create(string.Format(
-                                                "{0} ({1})",
-                                                Html.CriteriaLink(
-                                                    c.Person.DisplayName,
-                                                    new { contributor = c.PersonId }),
-                                                c.Role.Name)))) %></td>
+                <td><img src="<%=m.Picture.GetPath(true)%>" alt="<%=m.Picture.Name%>" title="<%=m.Picture.Name%>" /></td>
+                <td><%=Html.Encode(m.Title)%></td>
+                <td><%=Html.CriteriaLink(m.Year.ToString(), new { year = m.Year })%></td>
+                <td><%=Html.BulletedList(
+                        m.Contributions
+                            .OrderBy(c => c.Role.Name)
+                            .ThenBy(c => c.Person.DisplayName)
+                            .Select(c => MvcHtmlString.Create(string.Format(
+                                "{0} ({1})",
+                                Html.CriteriaLink(
+                                    c.Person.DisplayName,
+                                    new { contributor = c.PersonId }),
+                                c.Role.Name))))%></td>
             </tr>
-        <%  } %>
-        
+            <%
+                }
+            }
+            %>
+
         </tbody>
     </table>
     

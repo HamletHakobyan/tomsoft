@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Text;
 using System.ComponentModel;
 using System.Web.Routing;
-using System.Web.Mvc.Html;
 
 namespace Mediatek.Web.Helpers
 {
@@ -16,7 +14,7 @@ namespace Mediatek.Web.Helpers
         {
             Func<object, string> stringSelector = obj => helper.Encode(obj);
             if (typeof(MvcHtmlString).IsAssignableFrom(typeof(T)))
-                stringSelector = obj => (obj as MvcHtmlString).ToHtmlString();
+                stringSelector = obj => ((MvcHtmlString) obj).ToHtmlString();
 
             StringBuilder sb = new StringBuilder();
             sb.Append("<ul>");
@@ -44,10 +42,10 @@ namespace Mediatek.Web.Helpers
             if (sortField == currentSortField && routeValues.ContainsKey("sortDirection"))
             {
                 var currentSortDirection = (ListSortDirection)routeValues["sortField"];
-                if (currentSortDirection == ListSortDirection.Ascending)
-                    sortDirection = ListSortDirection.Descending;
-                else
-                    sortDirection = ListSortDirection.Ascending;
+                sortDirection =
+                    currentSortDirection == ListSortDirection.Ascending
+                        ? ListSortDirection.Descending
+                        : ListSortDirection.Ascending;
             }
 
             return helper.SortLink(

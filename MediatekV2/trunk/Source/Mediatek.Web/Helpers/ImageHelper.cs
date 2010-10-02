@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.IO;
+using Mediatek.Entities;
 
 namespace Mediatek.Web.Helpers
 {
     public static class ImageHelper
     {
-        public static string GetPath(this Mediatek.Entities.Image image, bool thumbnail)
+        public static string GetPath(this Image image, bool thumbnail)
         {
             if (image != null)
             {
@@ -21,26 +21,23 @@ namespace Mediatek.Web.Helpers
                 {
                     return path;
                 }
-                else
+                var imageData = image.Data;
+                if (imageData != null && imageData.Bytes != null)
                 {
-                    var imageData = image.Data;
-                    if (imageData != null && imageData.Bytes != null)
+                    if (thumbnail)
                     {
-                        if (thumbnail)
+                        using (MemoryStream ms = new MemoryStream(imageData.Bytes))
+                        using (var img = System.Drawing.Image.FromStream(ms))
+                        using (var thumb = img.GetThumbnailImage(100, 150, null, IntPtr.Zero))
                         {
-                            using (MemoryStream ms = new MemoryStream(imageData.Bytes))
-                            using (var img = System.Drawing.Image.FromStream(ms))
-                            using (var thumb = img.GetThumbnailImage(100, 150, null, IntPtr.Zero))
-                            {
-                                thumb.Save(physicalPath);
-                            }
+                            thumb.Save(physicalPath);
                         }
-                        else
-                        {
-                            File.WriteAllBytes(physicalPath, imageData.Bytes);
-                        }
-                        return path;
                     }
+                    else
+                    {
+                        File.WriteAllBytes(physicalPath, imageData.Bytes);
+                    }
+                    return path;
                 }
             }
             return "/Content/MissingImage.png";

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Controls;
 using System.Windows;
-using System.Windows.Media.Imaging;
+using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using Developpez.Dotnet.Windows;
 
 namespace Mediatek.Controls
@@ -28,7 +25,10 @@ namespace Mediatek.Controls
         private static void UriSourceChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             AnimatedGifImage image = obj as AnimatedGifImage;
-            if (image._clock != null)
+            if (image == null)
+                return;
+
+            if (image._clock != null && image._clock.Controller != null)
             {
                 image._clock.Controller.Stop();
                 image._clock = null;
@@ -44,11 +44,11 @@ namespace Mediatek.Controls
         private int FrameIndex
         {
             get { return (int)GetValue(FrameIndexProperty); }
-            set { SetValue(FrameIndexProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for FrameIndex.  This enables animation, styling, binding, etc...
+// ReSharper disable InconsistentNaming
         private static readonly DependencyProperty FrameIndexProperty =
+// ReSharper restore InconsistentNaming
             DependencyProperty.Register(
                 "FrameIndex",
                 typeof(int),
@@ -60,6 +60,9 @@ namespace Mediatek.Controls
         private static void FrameIndexChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             AnimatedGifImage image = obj as AnimatedGifImage;
+            if (image == null)
+                return;
+
             if (image._decoder != null)
             {
                 image.SetCurrentValue(SourceProperty, image._decoder.Frames[image.FrameIndex]);

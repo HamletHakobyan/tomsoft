@@ -7,7 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <ListView Grid.Row="0" ItemsSource="{Binding Movies}"
+        <ListView Grid.Row="0"
+                  ItemsSource="{Binding Movies}"
+                  ItemTemplate="{StaticResource tplMovieListItem}"
                   IsSynchronizedWithCurrentItem="True">
             <ListView.View>
                 <ctl:TileView />
