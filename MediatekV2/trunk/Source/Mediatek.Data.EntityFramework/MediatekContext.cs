@@ -20,15 +20,39 @@ namespace Mediatek.Data.EntityFramework
         public MediatekContext(string connectionString, string defaultContainerName)
             : base(connectionString, defaultContainerName)
         {
+            this.ContextOptions.ProxyCreationEnabled = false;
             this.ContextOptions.LazyLoadingEnabled = true;
 
-            _languages = CreateObjectSet<Language>();
-            _countries = CreateObjectSet<Country>();
-            _roles = CreateObjectSet<Role>();
-            _persons = CreateObjectSet<Person>();
-            _medias = CreateObjectSet<Media>();
-            _contributions = CreateObjectSet<Contribution>();
-            _loans = CreateObjectSet<Loan>();
+            _languages = CreateObjectSet<Language>()
+                            .Include("Countries")
+                            .Include("Medias")
+                            .Include("Flag");
+            _countries = CreateObjectSet<Country>()
+                             .Include("Language")
+                             .Include("Persons")
+                             .Include("Medias")
+                             .Include("Flag");
+            _roles = CreateObjectSet<Role>()
+                         .Include("Contributions")
+                         .Include("Symbol");
+            _persons = CreateObjectSet<Person>()
+                           .Include("Countries")
+                           .Include("Contributions")
+                           .Include("Loans")
+                           .Include("Picture");
+            _medias = CreateObjectSet<Media>()
+                          .Include("Language")
+                          .Include("Countries")
+                          .Include("Contributions")
+                          .Include("Loans")
+                          .Include("Picture");
+            _contributions = CreateObjectSet<Contribution>()
+                                 .Include("Media")
+                                 .Include("Person")
+                                 .Include("Role");
+            _loans = CreateObjectSet<Loan>()
+                         .Include("Media")
+                         .Include("Person");
             _images = CreateObjectSet<Image>();
             _imageData = CreateObjectSet<ImageData>();
             _dbProperties = CreateObjectSet<DbProperties>();
@@ -40,16 +64,16 @@ namespace Mediatek.Data.EntityFramework
 
         private static readonly string _defaultContainerName = "MediatekDataEntities";
 
-        private readonly ObjectSet<Country> _countries;
-        private readonly ObjectSet<Language> _languages;
-        private readonly ObjectSet<Role> _roles;
-        private readonly ObjectSet<Person> _persons;
-        private readonly ObjectSet<Media> _medias;
-        private readonly ObjectSet<Contribution> _contributions;
-        private readonly ObjectSet<Loan> _loans;
-        private readonly ObjectSet<Image> _images;
-        private readonly ObjectSet<ImageData> _imageData;
-        private readonly ObjectSet<DbProperties> _dbProperties;
+        private readonly ObjectQuery<Country> _countries;
+        private readonly ObjectQuery<Language> _languages;
+        private readonly ObjectQuery<Role> _roles;
+        private readonly ObjectQuery<Person> _persons;
+        private readonly ObjectQuery<Media> _medias;
+        private readonly ObjectQuery<Contribution> _contributions;
+        private readonly ObjectQuery<Loan> _loans;
+        private readonly ObjectQuery<Image> _images;
+        private readonly ObjectQuery<ImageData> _imageData;
+        private readonly ObjectQuery<DbProperties> _dbProperties;
 
         private bool _dbPropertiesLoaded;
         private string _name;
@@ -58,49 +82,49 @@ namespace Mediatek.Data.EntityFramework
 
         #endregion
 
-        #region Public properties
+        #region IEntityRepository implementation
 
-        public ObjectSet<Language> Languages
+        public IQueryable<Language> Languages
         {
             get { return _languages; }
         }
 
-        public ObjectSet<Country> Countries
+        public IQueryable<Country> Countries
         {
             get { return _countries; }
         }
 
-        public ObjectSet<Media> Medias
+        public IQueryable<Media> Medias
         {
             get { return _medias; }
         }
 
-        public ObjectSet<Role> Roles
+        public IQueryable<Role> Roles
         {
             get { return _roles; }
         }
 
-        public ObjectSet<Person> Persons
+        public IQueryable<Person> Persons
         {
             get { return _persons; }
         }
 
-        public ObjectSet<Contribution> Contributions
+        public IQueryable<Contribution> Contributions
         {
             get { return _contributions; }
         }
 
-        public ObjectSet<Loan> Loans
+        public IQueryable<Loan> Loans
         {
             get { return _loans; }
         }
 
-        public ObjectSet<Image> Images
+        public IQueryable<Image> Images
         {
             get { return _images; }
         }
 
-        public ObjectSet<ImageData> ImageData
+        public IQueryable<ImageData> ImageData
         {
             get { return _imageData; }
         }
@@ -147,17 +171,49 @@ namespace Mediatek.Data.EntityFramework
             }
         }
 
-        #endregion
-
-        #region Public methods
-
-        public static MediatekContext GetContext(string providerName, string providerConnectionString)
+        public void AddContribution(Contribution contribution)
         {
-            var ecsb = new EntityConnectionStringBuilder();
-            ecsb.Provider = providerName;
-            ecsb.ProviderConnectionString = providerConnectionString;
-            ecsb.Metadata = Properties.Resources.EntityMetaData;
-            return new MediatekContext(ecsb.ConnectionString, _defaultContainerName);
+            AddObject(_contributions.Name, contribution);
+        }
+
+        public void AddCountry(Country country)
+        {
+            AddObject(_countries.Name, country);
+        }
+
+        public void AddLanguage(Language language)
+        {
+            AddObject(_languages.Name, language);
+        }
+
+        public void AddLoan(Loan loan)
+        {
+            AddObject(_loans.Name, loan);
+        }
+
+        public void AddMedia(Media media)
+        {
+            AddObject(_medias.Name, media);
+        }
+
+        public void AddPerson(Person person)
+        {
+            AddObject(_persons.Name, person);
+        }
+
+        public void AddRole(Role role)
+        {
+            AddObject(_roles.Name, role);
+        }
+
+        public void AddImage(Image image)
+        {
+            AddObject(_images.Name, image);
+        }
+
+        public void AddImageData(ImageData imageData)
+        {
+            AddObject(_imageData.Name, imageData);
         }
 
         public override int SaveChanges(SaveOptions options)
@@ -172,7 +228,7 @@ namespace Mediatek.Data.EntityFramework
                     dbProperties.Name = _name;
                     dbProperties.Description = _description;
                     dbProperties.Culture = _culture;
-                    _dbProperties.AddObject(dbProperties);
+                    AddObject(_dbProperties.Name, dbProperties);
                 }
                 else
                 {
@@ -186,51 +242,15 @@ namespace Mediatek.Data.EntityFramework
 
         #endregion
 
-        #region IMediatekEntityProvider implementation
+        #region Public methods
 
-        IQueryable<Contribution> IEntityRepository.Contributions
+        public static MediatekContext GetContext(string providerName, string providerConnectionString)
         {
-            get { return this.Contributions; }
-        }
-
-        IQueryable<Country> IEntityRepository.Countries
-        {
-            get { return this.Countries; }
-        }
-
-        IQueryable<Language> IEntityRepository.Languages
-        {
-            get { return this.Languages; }
-        }
-
-        IQueryable<Loan> IEntityRepository.Loans
-        {
-            get { return this.Loans; }
-        }
-
-        IQueryable<Media> IEntityRepository.Medias
-        {
-            get { return this.Medias; }
-        }
-
-        IQueryable<Person> IEntityRepository.Persons
-        {
-            get { return this.Persons; }
-        }
-
-        IQueryable<Role> IEntityRepository.Roles
-        {
-            get { return this.Roles; }
-        }
-
-        IQueryable<Image> IEntityRepository.Images
-        {
-            get { return this.Images; }
-        }
-
-        IQueryable<ImageData> IEntityRepository.ImageData
-        {
-            get { return this.ImageData; }
+            var ecsb = new EntityConnectionStringBuilder();
+            ecsb.Provider = providerName;
+            ecsb.ProviderConnectionString = providerConnectionString;
+            ecsb.Metadata = Properties.Resources.EntityMetaData;
+            return new MediatekContext(ecsb.ConnectionString, _defaultContainerName);
         }
 
         #endregion

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Mediatek.Entities
 {
-    public class Language
+    public class Language : IEntity
     {
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }

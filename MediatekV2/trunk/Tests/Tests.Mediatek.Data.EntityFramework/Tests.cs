@@ -33,21 +33,21 @@ namespace Tests.Mediatek.Data.EntityFramework
 
                 using (var transaction = context.Connection.BeginTransaction())
                 {
-                    context.Roles.AddObject(new Role
+                    context.AddRole(new Role
                     {
                         Id = Guid.NewGuid(),
                         Name = "Director",
                         Description = "Movie director"
                     });
 
-                    context.Roles.AddObject(new Role
+                    context.AddRole(new Role
                     {
                         Id = Guid.NewGuid(),
                         Name = "Author",
                         Description = "Book author"
                     });
 
-                    context.Roles.AddObject(new Role
+                    context.AddRole(new Role
                     {
                         Id = Guid.NewGuid(),
                         Name = "Performer",
@@ -64,7 +64,7 @@ namespace Tests.Mediatek.Data.EntityFramework
                     Role r = context.CreateObject<Role>();
                     r.Id = Guid.NewGuid();
                     r.Name = "Test";
-                    context.Roles.AddObject(r);
+                    context.AddRole(r);
 
                     context.SaveChanges();
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Mediatek.Entities
 {
-    public abstract class Media
+    public abstract class Media : IEntity
     {
         public virtual Guid Id { get; set; }
         public virtual string Title { get; set; }
@@ -16,6 +16,7 @@ namespace Mediatek.Entities
         public virtual string Comment { get; set; }
         public virtual byte? Rating { get; set; }
         public virtual Guid? PictureId { get; set; }
+        public virtual DateTime? DateAdded { get; set; }
 
         public virtual Language Language { get; set; }
         public virtual ICollection<Country> Countries { get; set; }

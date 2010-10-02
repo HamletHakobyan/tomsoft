@@ -8,5 +8,7 @@ namespace Mediatek.Service
     interface IViewModelRepository
     {
         IList<MediaViewModel> Medias { get; }
+        IList<PersonViewModel> Persons { get; }
+        IList<LoanViewModel> Loans { get; }
     }
 }

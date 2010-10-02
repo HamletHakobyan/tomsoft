@@ -14,7 +14,7 @@ using Mediatek.Messaging;
 
 namespace Mediatek.ViewModel
 {
-    public class MainViewModel : ViewModelBase, INavigationService
+    public class MainViewModel : MediatekViewModelBase, INavigationService
     {
         private readonly LinkedList<object> _history;
         private LinkedListNode<object> _currentNode;
@@ -24,30 +24,30 @@ namespace Mediatek.ViewModel
             Mediator.Instance.Subscribe<NavigationMessage>(NavigationMessageHandler);
 
             _history = new LinkedList<object>();
-            HomeVM = new HomeViewModel();
-            MoviesVM = new MoviesViewModel();
-            AlbumsVM = new AlbumsViewModel();
-            BooksVM = new BooksViewModel();
-            Navigate(HomeVM);
+            Home = new HomeViewModel();
+            Movies = new MoviesViewModel();
+            Albums = new AlbumsViewModel();
+            Books = new BooksViewModel();
+            Navigate(Home);
         }
 
         private void NavigationMessageHandler(object sender, NavigationMessage message)
         {
+            object destination = Home;
             switch (message.Destination)
             {
                 case NavigationDestination.Movies:
-                    ShowMovies();
+                    destination = Movies;
                     break;
                 case NavigationDestination.Albums:
+                    destination = Albums;
                     ShowAlbums();
                     break;
                 case NavigationDestination.Books:
-                    ShowBooks();
-                    break;
-                default:
-                    Navigate(HomeVM);
+                    destination = Books;
                     break;
             }
+            Navigate(destination);
         }
 
         #region INavigationService implementation
@@ -116,14 +116,14 @@ namespace Mediatek.ViewModel
 
         #region Properties
 
-        public HomeViewModel HomeVM { get; private set; }
-        public MoviesViewModel MoviesVM { get; private set; }
-        public AlbumsViewModel AlbumsVM { get; private set; }
-        public BooksViewModel BooksVM { get; private set; }
+        public HomeViewModel Home { get; private set; }
+        public MoviesViewModel Movies { get; private set; }
+        public AlbumsViewModel Albums { get; private set; }
+        public BooksViewModel Books { get; private set; }
 
         public IList<MediaViewModel> Medias
         {
-            get { return App.GetService<IViewModelRepository>().Medias; }
+            get { return GetService<IViewModelRepository>().Medias; }
         }
 
         #endregion
@@ -150,9 +150,7 @@ namespace Mediatek.ViewModel
             {
                 if (_goForwardCommand == null)
                 {
-                    _goForwardCommand = new DelegateCommand(
-                        () => GoForward(),
-                        () => CanGoForward);
+                    _goForwardCommand = new DelegateCommand(() => GoForward());
                 }
                 return _goForwardCommand;
             }
@@ -165,11 +163,22 @@ namespace Mediatek.ViewModel
             {
                 if (_goBackCommand == null)
                 {
-                    _goBackCommand = new DelegateCommand(
-                        () => GoBack(),
-                        () => CanGoBack);
+                    _goBackCommand = new DelegateCommand(() => GoBack());
                 }
                 return _goBackCommand;
+            }
+        }
+
+        private DelegateCommand _goHomeCommand;
+        public ICommand GoHomeCommand
+        {
+            get
+            {
+                if (_goHomeCommand == null)
+                {
+                    _goHomeCommand = new DelegateCommand(() => Navigate(Home));
+                }
+                return _goHomeCommand;
             }
         }
 
@@ -179,17 +188,17 @@ namespace Mediatek.ViewModel
 
         public void ShowMovies()
         {
-            Navigate(MoviesVM);
+            Navigate(Movies);
         }
 
         public void ShowAlbums()
         {
-            Navigate(AlbumsVM);
+            Navigate(Albums);
         }
 
         public void ShowBooks()
         {
-            Navigate(BooksVM);
+            Navigate(Books);
         }
 
         #endregion

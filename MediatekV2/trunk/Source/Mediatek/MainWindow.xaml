@@ -28,23 +28,38 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <!-- Window buttons -->
-            <StackPanel Grid.Row="0"
-                        Grid.Column="1"
+            <DockPanel Grid.Row="0" Grid.Column="1" Panel.ZIndex="2">
+                <!-- Window buttons -->
+                <StackPanel DockPanel.Dock="Right"
                         Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Panel.ZIndex="2">
-                <Button ToolTip="Minimize" Click="MinimizeButton_Click">
-                    <Image Source="Images/down.png" />
-                </Button>
-                <Button ToolTip="Maximize" Click="MaximizeButton_Click">
-                    <Image Source="Images/window.png" />
-                </Button>
-                <Button Command="{Binding CloseCommand}" ToolTip="Close">
-                    <Image Source="Images/close.png" />
-                </Button>
-            </StackPanel>
+                    <Button ToolTip="Minimize" Click="MinimizeButton_Click">
+                        <Image Source="Images/down.png" />
+                    </Button>
+                    <Button ToolTip="Maximize" Click="MaximizeButton_Click">
+                        <Image Source="Images/window.png" />
+                    </Button>
+                    <Button Command="{Binding CloseCommand}" ToolTip="Close">
+                        <Image Source="Images/close.png" />
+                    </Button>
+                </StackPanel>
+
+                <!-- Navigation controls -->
+                <StackPanel Orientation="Horizontal" Panel.ZIndex="2">
+                    <Button Command="{Binding GoHomeCommand}">
+                        <Image Source="/Images/home.png" />
+                    </Button>
+                    <Button Command="{Binding GoBackCommand}" IsEnabled="{Binding CanGoBack}">
+                        <Image Source="/Images/back.png" />
+                    </Button>
+                    <Button Command="{Binding GoForwardCommand}" IsEnabled="{Binding CanGoForward}">
+                        <Image Source="/Images/next.png" />
+                    </Button>
+                    
+                </StackPanel>
+            </DockPanel>
 
             <!-- Double-click target for maximize -->
             <Control Grid.Row="0" Grid.RowSpan="2"
@@ -66,23 +81,14 @@
                        FontFamily="Comic Sans MS"
                        FontSize="24"
                        Panel.ZIndex="0"/>
-
-            <!-- Navigation buttons -->
-            <StackPanel Orientation="Horizontal"
-                        Grid.Row="1"
-                        Panel.ZIndex="2">
-                <Button Command="{Binding GoBackCommand}">
-                    <Image Source="/Images/back.png" />
-                </Button>
-                <Button Command="{Binding GoForwardCommand}">
-                    <Image Source="/Images/next.png" />
-                </Button>
-            </StackPanel>
         </Grid>
         
         <Border Grid.Row="1" CornerRadius="10">
             <Border.Background>
-                <SolidColorBrush Color="White" Opacity="0.5" />
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0.00" Color="#CCFFFFFF" />
+                    <GradientStop Offset="1.00" Color="#CC00FFFF" />
+                </LinearGradientBrush>
             </Border.Background>
             <Frame Name="frame" Content="{Binding Current}" Padding="5" NavigationUIVisibility="Hidden" />
         </Border>

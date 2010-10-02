@@ -55,20 +55,17 @@ namespace Tests
         private static void Test1(MediatekContext context)
         {
             var movies = context.Medias
-                                .Include("Contributions.Person")
-                                .Include("Contributions.Role")
-                                .Include("Loans.Person")
                                 .OfType<Movie>();
 
             Console.WriteLine("**********************************");
             Console.WriteLine("* Entity SQL *");
             Console.WriteLine("**********************************");
-            Console.WriteLine(movies.CommandText);
+            Console.WriteLine(((ObjectQuery)movies).CommandText);
             Console.WriteLine();
             Console.WriteLine("**********************************");
             Console.WriteLine("* SQL *");
             Console.WriteLine("**********************************");
-            Console.WriteLine(movies.ToTraceString());
+            Console.WriteLine(((ObjectQuery)movies).ToTraceString());
             Console.WriteLine("**********************************");
             Console.WriteLine();
 

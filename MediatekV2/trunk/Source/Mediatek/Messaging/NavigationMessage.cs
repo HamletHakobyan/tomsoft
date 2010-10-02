@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace Mediatek.Messaging
 {
     enum NavigationDestination
@@ -10,7 +6,11 @@ namespace Mediatek.Messaging
         Home,
         Movies,
         Albums,
-        Books
+        Books,
+        People,
+        ReferenceData,
+        Settings,
+        Loans
     }
 
     class NavigationMessage

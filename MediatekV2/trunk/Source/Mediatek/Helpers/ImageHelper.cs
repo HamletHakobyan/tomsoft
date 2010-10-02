@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Mediatek.Entities;
-using System.Windows.Media;
-using System.IO;
+﻿using System.IO;
 using System.Windows.Media.Imaging;
-using System.Threading;
+using Mediatek.Entities;
 
 namespace Mediatek.Helpers
 {
@@ -14,6 +8,10 @@ namespace Mediatek.Helpers
     {
         public static BitmapSource GetBitmapSource(this Image image)
         {
+            if (image.Data == null)
+            {
+                App.Repository.LoadProperty(image, i => i.Data);
+            }
             if (image.Data != null)
             {
                 return BitmapSourceFromBytes(image.Data.Bytes);
@@ -33,17 +31,6 @@ namespace Mediatek.Helpers
                 bmp.Freeze();
                 return bmp;
             }
-        }
-
-        public static void GetBitmapSourceAsync(this Image image, Action<BitmapSource> callback)
-        {
-            App.Current.Dispatcher.BeginInvoke(new Action(
-                () =>
-                {
-                    var bmp = image.GetBitmapSource();
-                    callback(bmp);
-                }),
-                System.Windows.Threading.DispatcherPriority.Background);
         }
 
         public static void SetImageData(this Image image, BitmapSource bitmapSource)
