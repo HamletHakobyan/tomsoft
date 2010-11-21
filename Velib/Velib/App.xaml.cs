@@ -21,7 +21,7 @@ namespace Velib
             }
         }
 
-        private void Application_Startup(object sender, StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             LoadConfig();
 
@@ -79,7 +79,7 @@ namespace Velib
             }
         }
 
-        private void Application_Exit(object sender, ExitEventArgs e)
+        protected override void OnExit(ExitEventArgs e)
         {
             if (Config != null)
             {

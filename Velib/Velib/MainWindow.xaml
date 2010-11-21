@@ -3,15 +3,14 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:vm="clr-namespace:Velib.ViewModel"
                   xmlns:view="clr-namespace:Velib.View"
-                  Name="navWindow"
-                  Title="{Binding Content.Title, ElementName=navWindow, FallbackValue=Vélib}"
-                  Height="450" Width="600">
+                  Title="{Binding Content.DisplayName, RelativeSource={RelativeSource Self}, FallbackValue=Vélib}"
+                  Height="600" Width="800">
     <NavigationWindow.Resources>
         <DataTemplate DataType="{x:Type vm:HomeViewModel}">
-            <view:HomeView DataContext="{Binding}"/>
+            <view:HomeView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:NetworkViewModel}">
-            <view:NetworkView DataContext="{Binding}"/>
+            <view:NetworkView />
         </DataTemplate>
     </NavigationWindow.Resources>
 </NavigationWindow>

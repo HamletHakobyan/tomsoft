@@ -4,9 +4,9 @@
       xmlns:view="clr-namespace:Velib.View"
       xmlns:vm="clr-namespace:Velib.ViewModel"
       xmlns:ctl="clr-namespace:Velib.Controls"
-      xmlns:input="clr-namespace:MVVMLib.Input;assembly=MVVMLib"
+      xmlns:input="clr-namespace:Developpez.Dotnet.Windows.Input;assembly=Developpez.Dotnet.Windows"
       xmlns:util="clr-namespace:Velib.Util"
-      Title="{Binding Name}">
+      Title="{Binding DisplayName}">
 
     <Page.Resources>
         
@@ -84,7 +84,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <ContentControl Content="{Binding}">
+        <ContentControl Content="{Binding}" Margin="5">
             <ContentControl.Style>
                 <Style TargetType="{x:Type ContentControl}">
                     <Setter Property="ContentTemplate" Value="{StaticResource NetworkDisplayTemplate}" />
@@ -106,9 +106,30 @@
             </ctl:DualHeaderGroupBox.RightHeader>
 
             <Grid>
+                <Grid Background="White"
+                      Visibility="{Binding LoadingPanelVisibility}">
+                    <ProgressBar IsIndeterminate="True"
+                                 Width="100" Height="20"/>
+                    <!--<Image Source="/Resources/load.gif"/>-->
+                </Grid>
+
                 <DockPanel>
                     <DockPanel DockPanel.Dock="Top">
                         <TextBlock DockPanel.Dock="Left" Text="Rechercher"/>
+                        <ctl:MyCheckBox DockPanel.Dock="Right"
+                                        Margin="5,0,0,0"
+                                        Content="Ouverte"
+                                        IsChecked="{Binding SearchOpen}"
+                                        IsThreeState="True"
+                                        InvertCheckStateOrder="True"
+                                        Style="{StaticResource FilterThreeStateStyle}"/>
+                        <ctl:MyCheckBox DockPanel.Dock="Right"
+                                        Margin="5,0,0,0"
+                                        Content="Bonus"
+                                        IsChecked="{Binding SearchBonus}"
+                                        IsThreeState="True"
+                                        InvertCheckStateOrder="True"
+                                        Style="{StaticResource FilterThreeStateStyle}"/>
                         <TextBox Margin="5,0,0,0" Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
                     </DockPanel>
                     <ListView ItemsSource="{Binding Stations}"
@@ -127,21 +148,60 @@
                                     <GridViewColumn Header="Adresse"
                                                 DisplayMemberBinding="{Binding Address}"
                                                 util:GridViewSort.PropertyName="Address"/>
+                                    <GridViewColumn Header="Ouverte"
+                                                    util:GridViewSort.PropertyName="Open">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Ellipse Name="light"
+                                                         Fill="Red"
+                                                         HorizontalAlignment="Center"
+                                                         VerticalAlignment="Center"
+                                                         Height="24" Width="24">
+                                                    <Ellipse.BitmapEffect>
+                                                        <BevelBitmapEffect BevelWidth="5" EdgeProfile="CurvedOut" Smoothness="1"/>
+                                                    </Ellipse.BitmapEffect>
+                                                </Ellipse>
+                                                <DataTemplate.Triggers>
+                                                    <DataTrigger Binding="{Binding Open}" Value="True">
+                                                        <Setter TargetName="light" Property="Fill" Value="Green"/>
+                                                    </DataTrigger>
+                                                </DataTemplate.Triggers>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Bonus"
+                                                    util:GridViewSort.PropertyName="Bonus">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Image Name="bonusLogo"
+                                                       Source="/Resources/bonus.png"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       Height="32" Width="32"
+                                                       Visibility="Hidden"/>
+                                                <DataTemplate.Triggers>
+                                                    <DataTrigger Binding="{Binding Bonus}" Value="True">
+                                                        <Setter TargetName="bonusLogo" Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </DataTemplate.Triggers>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
                                 </GridView.Columns>
                             </GridView>
                         </ListView.View>
                     </ListView>
                 </DockPanel>
-                <Grid Background="White"
-                      Visibility="{Binding LoadingPanelVisibility}">
-                    <ProgressBar IsIndeterminate="True"
-                                 Width="100" Height="20"/>
-                </Grid>
             </Grid>
         </ctl:DualHeaderGroupBox>
-        <GroupBox Grid.Row="2"
-                 Header="Détails">
+        <ctl:DualHeaderGroupBox Grid.Row="2"
+                 LeftHeader="Détails">
+            <ctl:DualHeaderGroupBox.RightHeader>
+                <Button Style="{StaticResource LinkButtonStyle}"
+                        Content="Actualiser"
+                        Command="{Binding SelectedStation.RefreshStatusCommand}"/>
+            </ctl:DualHeaderGroupBox.RightHeader>
             <ContentControl Content="{Binding SelectedStation}"/>
-        </GroupBox>
+        </ctl:DualHeaderGroupBox>
     </Grid>
 </Page>
