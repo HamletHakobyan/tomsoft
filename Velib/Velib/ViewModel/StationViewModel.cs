@@ -1,9 +1,10 @@
-﻿using MVVMLib.Input;
-using MVVMLib.ViewModel;
+﻿using Developpez.Dotnet.Windows.Input;
+using Developpez.Dotnet.Windows.ViewModel;
 using Velib.Navigation;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
+using Velib.Util;
 
 namespace Velib.ViewModel
 {
@@ -13,6 +14,7 @@ namespace Velib.ViewModel
         {
             this._navigationService = navigationService;
             this._station = station;
+            this.DisplayName = this.Name;
         }
 
         private INavigationService _navigationService;
@@ -46,7 +48,6 @@ namespace Velib.ViewModel
             get { return _station.Name; }
         }
 
-
         public string Address
         {
             get { return _station.Address; }
@@ -56,6 +57,27 @@ namespace Velib.ViewModel
         {
             get { return _station.FullAddress; }
         }
+
+        public LatLngPoint Location
+        {
+            get
+            {
+                return new LatLngPoint(_station.Latitude, _station.Longitude);
+            }
+        }
+
+        public bool Open
+        {
+            get { return _station.Open; }
+            set { _station.Open = value; }
+        }
+
+        public bool Bonus
+        {
+            get { return _station.Bonus; }
+            set { _station.Bonus = value; }
+        }
+
 
         private StationStatusViewModel _status;
         public StationStatusViewModel Status

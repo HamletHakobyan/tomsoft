@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using MVVMLib.Input;
-using MVVMLib.ViewModel;
+using Developpez.Dotnet.Windows.Input;
+using Developpez.Dotnet.Windows.ViewModel;
 using Velib.Model;
 using Velib.Navigation;
 
@@ -19,6 +19,7 @@ namespace Velib.ViewModel
             
             this.Networks = new ObservableCollection<NetworkViewModel>(networkViewModels);
             this.Networks.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(Networks_CollectionChanged);
+            this.DisplayName = "Vélib - Accueil";
         }
 
         private INavigationService _navigationService;

@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ctl="clr-namespace:Velib.Controls">
 
     <Style x:Key="LinkButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Template">
@@ -16,6 +17,46 @@
                                 <ContentPresenter/>
                             </Hyperlink>
                     </TextBlock>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="FilterThreeStateStyle" TargetType="{x:Type ctl:MyCheckBox}">
+        <Setter Property="IsThreeState" Value="True"/>
+        <Setter Property="InvertCheckStateOrder" Value="True"/>
+        <Setter Property="Padding" Value="5,0,0,0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Border Background="{TemplateBinding Background}">
+                        <BulletDecorator>
+                            <BulletDecorator.Bullet>
+                                <Image Name="checkImage"
+                                       Source="/Resources/undef-16x16.png"
+                                       Stretch="None"/>
+                            </BulletDecorator.Bullet>
+
+                            <ContentPresenter RecognizesAccessKey="True"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+
+                        </BulletDecorator>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="checkImage" Property="Source" Value="/Resources/tick-16x16.png"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="checkImage" Property="Source" Value="/Resources/block-16x16.png"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

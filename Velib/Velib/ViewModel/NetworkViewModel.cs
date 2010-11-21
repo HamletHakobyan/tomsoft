@@ -2,12 +2,14 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
-using MVVMLib.Input;
-using MVVMLib.ViewModel;
+using Developpez.Dotnet.Windows.Input;
+using Developpez.Dotnet.Windows.ViewModel;
 using Velib.Model;
 using Velib.Navigation;
 using System.Threading;
 using System.Windows;
+using System;
+using System.Windows.Threading;
 
 namespace Velib.ViewModel
 {
@@ -18,6 +20,8 @@ namespace Velib.ViewModel
         {
             this._navigationService = navigationService;
             this._network = network;
+            this.DisplayName = network.Name;
+            this._uiDispatcher = Dispatcher.CurrentDispatcher;
         }
 
         private INavigationService _navigationService;
@@ -74,6 +78,7 @@ namespace Velib.ViewModel
             {
                 _isDataReady = value;
                 OnPropertyChanged("IsDataReady");
+                OnPropertyChanged("Stations");
                 OnPropertyChanged("LoadingPanelVisibility");
             }
         }
@@ -136,6 +141,7 @@ namespace Velib.ViewModel
         private string _searchText = "";
         public string SearchText
         {
+            get { return _searchText; }
             set
             {
                 _searchText = value.ToLower();
@@ -143,6 +149,33 @@ namespace Velib.ViewModel
             }
         }
 
+        private bool? _searchOpen;
+        public bool? SearchOpen
+        {
+            get { return _searchOpen; }
+            set
+            {
+                if (value != _searchOpen)
+                {
+                    _searchOpen = value;
+                    SetStationFilter();
+                }
+            }
+        }
+
+        private bool? _searchBonus;
+        public bool? SearchBonus
+        {
+            get { return _searchBonus; }
+            set
+            {
+                if (value != _searchBonus)
+                {
+                    _searchBonus = value;
+                    SetStationFilter();
+                }
+            }
+        }
 
         #endregion Properties
 
@@ -271,6 +304,7 @@ namespace Velib.ViewModel
 
         #endregion Commands
 
+        private Dispatcher _uiDispatcher;
         private bool _creatingStations = false;
         private void CreateStationsAsync(bool refresh)
         {
@@ -293,7 +327,7 @@ namespace Velib.ViewModel
                 from s in _network.Data.Stations
                 select new StationViewModel(_navigationService, s);
 
-            Stations = new ObservableCollection<StationViewModel>(stationViewModels);
+            _stations = new ObservableCollection<StationViewModel>(stationViewModels);
 
             SetStationFilter();
 
@@ -303,12 +337,15 @@ namespace Velib.ViewModel
 
         private void SetStationFilter()
         {
-            ICollectionView view = CollectionViewSource.GetDefaultView(_stations);
-            view.Filter = (item) =>
+            Predicate<object> filter = (item) =>
             {
                 StationViewModel station = item as StationViewModel;
                 if (station != null)
                 {
+                    if (_searchOpen.HasValue && station.Open != _searchOpen.Value)
+                        return false;
+                    if (_searchBonus.HasValue && station.Bonus != _searchBonus.Value)
+                        return false;
                     if (station.FullName.ToLower().Contains(_searchText))
                         return true;
                     if (station.Address.ToLower().Contains(_searchText))
@@ -318,7 +355,22 @@ namespace Velib.ViewModel
                 }
                 return false;
             };
-        }
 
+            Action setFilter = () =>
+            {
+                ICollectionView view = CollectionViewSource.GetDefaultView(_stations);
+                if (view != null)
+                    view.Filter = filter;
+            };
+
+            if (!_uiDispatcher.CheckAccess())
+            {
+                _uiDispatcher.Invoke(setFilter, new object[0]);
+            }
+            else
+            {
+                setFilter();
+            }
+        }
     }
 }

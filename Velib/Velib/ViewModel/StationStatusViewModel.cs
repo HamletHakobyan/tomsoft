@@ -1,4 +1,4 @@
-﻿using MVVMLib.ViewModel;
+﻿using Developpez.Dotnet.Windows.ViewModel;
 
 namespace Velib.ViewModel
 {
