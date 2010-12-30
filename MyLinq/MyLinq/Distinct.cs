@@ -8,12 +8,11 @@ namespace MyLinq
         {
             source.CheckArgumentNotNull("source");
             comparer = comparer ?? EqualityComparer<TSource>.Default;
-            Dictionary<TSource, bool> seen = new Dictionary<TSource,bool>(comparer);
+            HashSet<TSource> seen = new HashSet<TSource>(comparer);
             foreach (var item in source)
             {
-                if (seen.ContainsKey(item)) continue;
-                seen.Add(item, false);
-                yield return item;
+                if (seen.Add(item))
+                    yield return item;
             }
         }
 

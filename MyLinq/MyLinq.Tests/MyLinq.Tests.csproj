@@ -38,11 +38,19 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="CountingEnumerable.cs" />
+    <Compile Include="CountTest.cs" />
+    <Compile Include="EmptyTest.cs" />
+    <Compile Include="LongCountTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WhereTests.cs" />
+    <Compile Include="QueryExpressionTest.cs" />
+    <Compile Include="RangeTest.cs" />
+    <Compile Include="RepeatTest.cs" />
+    <Compile Include="SelectTest.cs" />
+    <Compile Include="SemiGenericCollection.cs" />
+    <Compile Include="TestExtensions.cs" />
+    <Compile Include="ThrowingEnumerable.cs" />
+    <Compile Include="WhereTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyLinq\MyLinq.csproj">

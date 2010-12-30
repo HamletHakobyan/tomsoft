@@ -39,11 +39,10 @@ namespace MyLinq
             int n = 0;
             checked
             {
-#pragma warning disable 168
                 foreach (var item in source)
-#pragma warning restore 168
                 {
-                    n++;
+                    if (predicate(item))
+                        n++;
                 }
             }
             return n;
