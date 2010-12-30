@@ -8,6 +8,11 @@ namespace MyLinq
         {
             source.CheckArgumentNotNull("source");
             comparer = comparer ?? EqualityComparer<TSource>.Default;
+            return source.DistinctImpl(comparer);
+        }
+
+        private static IEnumerable<TSource> DistinctImpl<TSource>(this IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
+        {
             HashSet<TSource> seen = new HashSet<TSource>(comparer);
             foreach (var item in source)
             {

@@ -15,10 +15,7 @@
 #endregion
 using System;
 using System.Collections.Generic;
-#if NORMAL_LINQ
-using System.Linq;
-#endif
-
+//using System.Linq;
 using NUnit.Framework;
 
 namespace MyLinq.Tests
@@ -77,7 +74,7 @@ namespace MyLinq.Tests
         public void SimpleProjectionToDifferentType()
         {
             int[] source = { 1, 5, 2 };
-            var result = source.Select(x => x.ToString());
+            var result = source.Select(x => x.ToInvariantString());
             result.AssertSequenceEqual("1", "5", "2");
         }
 

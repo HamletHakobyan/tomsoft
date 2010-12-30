@@ -16,9 +16,7 @@
 
 using System;
 using System.Collections.Generic;
-#if NORMAL_LINQ
-using System.Linq;
-#endif
+//using System.Linq;
 using NUnit.Framework;
 
 namespace MyLinq.Tests
@@ -77,7 +75,6 @@ namespace MyLinq.Tests
             Assert.AreEqual(3, Enumerable.Range(2, 5).Count(x => x % 2 == 0));
         }
 
-#if true
         [Test]
         [Ignore("Takes an enormous amount of time!")]
         public void Overflow()
@@ -95,7 +92,5 @@ namespace MyLinq.Tests
                                           .Concat(Enumerable.Range(0, 1));
             Assert.Throws<OverflowException>(() => largeSequence.Count(x => x >= 0));
         }
-#endif
-
     }
 }

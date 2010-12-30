@@ -13,26 +13,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 //using System.Linq;
-using NUnit.Framework;
+using System.Text;
 
 namespace MyLinq.Tests
 {
     /// <summary>
-    /// Tests for query expressions which use multiple operators
-    /// (and thus don't belong in a single operator's test case).
+    /// Simple class to let us convert an Int32 to a string using the invariant culture,
+    /// without explicitly having to use CultureInfo.InvariantCulture everywhere.
     /// </summary>
-    [TestFixture]
-    public class QueryExpressionTest
+    public static class Int32Extensions
     {
-        [Test]
-        public void WhereAndSelect()
+        public static string ToInvariantString(this int value)
         {
-            int[] source = { 1, 3, 4, 2, 8, 1 };
-            var result = from x in source
-                         where x < 4
-                         select x * 2;
-            result.AssertSequenceEqual(2, 6, 4, 2);
+            return value.ToString(CultureInfo.InvariantCulture);
         }
     }
 }

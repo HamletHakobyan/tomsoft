@@ -16,9 +16,7 @@
 
 using System;
 using System.Collections.Generic;
-#if NORMAL_LINQ
-using System.Linq;
-#endif
+//using System.Linq;
 using NUnit.Framework;
 
 namespace MyLinq.Tests
@@ -77,7 +75,6 @@ namespace MyLinq.Tests
             Assert.AreEqual(3, Enumerable.Range(2, 5).LongCount(x => x % 2 == 0));
         }
 
-        /* We haven't implemented Concat yet...
         [Test]
         [Ignore("Takes an enormous amount of time!")]
         public void CollectionBiggerThanMaxInt32CanBeCountedWithLongCount()
@@ -88,11 +85,10 @@ namespace MyLinq.Tests
 
         [Test]
         [Ignore("Takes an enormous amount of time!")]
-        public void CollectionBiggerThanMaxInt32CanBeCountedWithLongCount()
+        public void CollectionBiggerThanMaxInt32CanBeCountedWithLongCountWithPredicate()
         {
             var hugeCollection = Enumerable.Range(0, int.MaxValue).Concat(Enumerable.Range(0, 1));
             Assert.AreEqual(int.MaxValue + 1L, hugeCollection.LongCount(x => x >= 0));
         }
-        */
     }
 }
