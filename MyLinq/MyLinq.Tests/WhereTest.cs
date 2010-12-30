@@ -15,9 +15,7 @@
 #endregion
 using System;
 using System.Collections.Generic;
-#if NORMAL_LINQ
-using System.Linq;
-#endif
+//using System.Linq;
 using NUnit.Framework;
 
 namespace MyLinq.Tests
