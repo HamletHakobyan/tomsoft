@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{58954D66-FE8A-422B-B78F-DAA63FDFFC06}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MyLinq</RootNamespace>
+    <AssemblyName>MyLinq</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="ExtensionAttribute.cs" />
+    <None Include="Func.cs" />
+    <Compile Include="Helpers.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enumerable.cs" />
+    <Compile Include="Aggregate.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Count.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LongCount.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Select.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Take.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Where.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SequenceEqual.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectMany.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Single.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Last.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Range.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repeat.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="All.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Any.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Concat.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DefaultIfEmpty.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Distinct.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Empty.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="First.cs">
+      <DependentUpon>Enumerable.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
