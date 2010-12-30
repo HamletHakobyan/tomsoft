@@ -36,8 +36,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="ExtensionAttribute.cs" />
-    <None Include="Func.cs" />
     <Compile Include="Helpers.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +55,7 @@
     <Compile Include="Take.cs">
       <DependentUpon>Enumerable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Union.cs" />
     <Compile Include="Where.cs">
       <DependentUpon>Enumerable.cs</DependentUpon>
     </Compile>
