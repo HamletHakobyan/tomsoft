@@ -35,69 +35,35 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerable\Join.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enumerable.cs" />
-    <Compile Include="Aggregate.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Count.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LongCount.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Select.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Take.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Union.cs" />
-    <Compile Include="Where.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SequenceEqual.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SelectMany.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Single.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Last.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Range.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Repeat.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="All.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Any.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Concat.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DefaultIfEmpty.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Distinct.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Empty.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="First.cs">
-      <DependentUpon>Enumerable.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Enumerable\Aggregate.cs" />
+    <Compile Include="Enumerable\Count.cs" />
+    <Compile Include="Enumerable\LongCount.cs" />
+    <Compile Include="Enumerable\Select.cs" />
+    <Compile Include="Enumerable\Take.cs" />
+    <Compile Include="Enumerable\ToList.cs" />
+    <Compile Include="Enumerable\ToLookup.cs" />
+    <Compile Include="Enumerable\Union.cs" />
+    <Compile Include="Enumerable\Where.cs" />
+    <Compile Include="Enumerable\SequenceEqual.cs" />
+    <Compile Include="Enumerable\SelectMany.cs" />
+    <Compile Include="Enumerable\Single.cs" />
+    <Compile Include="Enumerable\Last.cs" />
+    <Compile Include="Enumerable\Range.cs" />
+    <Compile Include="Enumerable\Repeat.cs" />
+    <Compile Include="Enumerable\All.cs" />
+    <Compile Include="Enumerable\Any.cs" />
+    <Compile Include="Enumerable\Concat.cs" />
+    <Compile Include="Enumerable\DefaultIfEmpty.cs" />
+    <Compile Include="Enumerable\Distinct.cs" />
+    <Compile Include="Enumerable\Empty.cs" />
+    <Compile Include="Enumerable\First.cs" />
+    <Compile Include="Enumerable\Except.cs" />
+    <Compile Include="Enumerable\Intersect.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
