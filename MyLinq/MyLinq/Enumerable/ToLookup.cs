@@ -11,7 +11,7 @@ namespace MyLinq
             this IEnumerable<TSource> source, 
             Func<TSource, TKey> keySelector)
         {
-            return source.ToLookup(keySelector, x => x, null);
+            return source.ToLookup(keySelector, Identity, null);
         }
 
         public static Linq.ILookup<TKey, TSource> ToLookup<TSource, TKey>( 
@@ -19,7 +19,7 @@ namespace MyLinq
             Func<TSource, TKey> keySelector, 
             IEqualityComparer<TKey> comparer)
         {
-            return source.ToLookup(keySelector, x => x, comparer);
+            return source.ToLookup(keySelector, Identity, comparer);
         }
 
         public static Linq.ILookup<TKey, TElement> ToLookup<TSource, TKey, TElement>( 
@@ -42,7 +42,7 @@ namespace MyLinq
 
             comparer = comparer ?? EqualityComparer<TKey>.Default;
 
-            MyLookup<TKey, TElement> lookup = new MyLookup<TKey, TElement>(comparer);
+            Lookup<TKey, TElement> lookup = new Lookup<TKey, TElement>(comparer);
             foreach (var item in source)
             {
                 lookup.Add(keySelector(item), elementSelector(item));
@@ -50,23 +50,23 @@ namespace MyLinq
             return lookup;
         }
 
-        private class MyLookup<TKey, TElement> : Linq.ILookup<TKey, TElement>
+        private class Lookup<TKey, TElement> : Linq.ILookup<TKey, TElement>
         {
             private readonly List<TKey> _keys;
-            private readonly Dictionary<TKey, MyGrouping<TKey, TElement>> _groupings;
+            private readonly Dictionary<TKey, Grouping<TKey, TElement>> _groupings;
 
-            public MyLookup(IEqualityComparer<TKey> comparer)
+            public Lookup(IEqualityComparer<TKey> comparer)
             {
                 _keys = new List<TKey>();
-                _groupings = new Dictionary<TKey, MyGrouping<TKey, TElement>>(comparer);
+                _groupings = new Dictionary<TKey, Grouping<TKey, TElement>>(comparer);
             }
 
             internal void Add(TKey key, TElement element)
             {
-                MyGrouping<TKey, TElement> grouping;
+                Grouping<TKey, TElement> grouping;
                 if (!_groupings.TryGetValue(key, out grouping))
                 {
-                    grouping = new MyGrouping<TKey, TElement>(key);
+                    grouping = new Grouping<TKey, TElement>(key);
                     _groupings.Add(key, grouping);
                     _keys.Add(key);
                 }
@@ -100,7 +100,7 @@ namespace MyLinq
             {
                 get
                 {
-                    MyGrouping<TKey, TElement> grouping;
+                    Grouping<TKey, TElement> grouping;
                     if (_groupings.TryGetValue(key, out grouping))
                     {
                         return grouping;
@@ -110,12 +110,12 @@ namespace MyLinq
             }
         }
 
-        private class MyGrouping<TKey, TElement> : Linq.IGrouping<TKey, TElement>
+        private class Grouping<TKey, TElement> : Linq.IGrouping<TKey, TElement>
         {
             private readonly TKey _key;
             private readonly List<TElement> _elements;
 
-            public MyGrouping(TKey key)
+            public Grouping(TKey key)
             {
                 _key = key;
                 _elements = new List<TElement>();

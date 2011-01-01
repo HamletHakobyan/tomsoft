@@ -50,12 +50,15 @@
     <Compile Include="ExceptTest.cs" />
     <Compile Include="FirstOrDefaultTest.cs" />
     <Compile Include="FirstTest.cs" />
+    <Compile Include="GroupByTest.cs" />
+    <Compile Include="GroupJoinTest.cs" />
     <Compile Include="Int32Extensions.cs" />
     <Compile Include="IntersectTest.cs" />
     <Compile Include="JoinTest.cs" />
     <Compile Include="LastOrDefaultTest.cs" />
     <Compile Include="LastTest.cs" />
     <Compile Include="LongCountTest.cs" />
+    <Compile Include="NonEnumerableCollection.cs" />
     <Compile Include="NonEnumerableList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryExpressionTest.cs" />
@@ -68,6 +71,7 @@
     <Compile Include="SingleTest.cs" />
     <Compile Include="TestExtensions.cs" />
     <Compile Include="ThrowingEnumerable.cs" />
+    <Compile Include="ToListTest.cs" />
     <Compile Include="ToLookupTest.cs" />
     <Compile Include="UnionTest.cs" />
     <Compile Include="WhereTest.cs" />

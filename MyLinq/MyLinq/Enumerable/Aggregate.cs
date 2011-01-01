@@ -33,11 +33,6 @@ namespace MyLinq
             return source.Aggregate(seed, func, Identity);
         }
 
-        private static T Identity<T>(T value)
-        {
-            return value;
-        }
-
         public static TResult Aggregate<TSource, TAccumulate, TResult>(
             this IEnumerable<TSource> source,
             TAccumulate seed,
