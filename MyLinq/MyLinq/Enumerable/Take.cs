@@ -7,12 +7,14 @@ namespace MyLinq
         public static IEnumerable<T> Take<T>(this IEnumerable<T> source, int count)
         {
             source.CheckArgumentNotNull("source");
-            count.CheckArgumentGreaterThanOrEqual("count", 0);
-            return TakeImpl(source, count);
+            return source.TakeImpl(count);
         }
 
-        private static IEnumerable<T> TakeImpl<T>(IEnumerable<T> source, int count)
+        private static IEnumerable<T> TakeImpl<T>(this IEnumerable<T> source, int count)
         {
+            if (count <= 0)
+                yield break;
+
             int n = 0;
             foreach (var item in source)
             {
