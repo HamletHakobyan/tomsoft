@@ -18,7 +18,7 @@ namespace MyLinq
             int n = 0;
             foreach (var item in source)
             {
-                if (n > count)
+                if (n >= count)
                     yield break;
                 yield return item;
                 n++;
