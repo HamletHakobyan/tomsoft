@@ -1,20 +1,18 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using Linq = System.Linq;
 
 namespace MyLinq
 {
     public static partial class Enumerable
     {
-        public static IEnumerable<Linq.IGrouping<TKey, TSource>> GroupBy<TSource, TKey>( 
+        public static IEnumerable<System.Linq.IGrouping<TKey, TSource>> GroupBy<TSource, TKey>( 
             this IEnumerable<TSource> source, 
             Func<TSource, TKey> keySelector)
         {
             return source.GroupBy(keySelector, Identity, null);
         }
 
-        public static IEnumerable<Linq.IGrouping<TKey, TSource>> GroupBy<TSource, TKey>( 
+        public static IEnumerable<System.Linq.IGrouping<TKey, TSource>> GroupBy<TSource, TKey>( 
             this IEnumerable<TSource> source, 
             Func<TSource, TKey> keySelector, 
             IEqualityComparer<TKey> comparer)
@@ -22,7 +20,7 @@ namespace MyLinq
             return source.GroupBy(keySelector, Identity, comparer);
         }
 
-        public static IEnumerable<Linq.IGrouping<TKey, TElement>> GroupBy<TSource, TKey, TElement>( 
+        public static IEnumerable<System.Linq.IGrouping<TKey, TElement>> GroupBy<TSource, TKey, TElement>( 
             this IEnumerable<TSource> source, 
             Func<TSource, TKey> keySelector, 
             Func<TSource, TElement> elementSelector)
@@ -30,7 +28,7 @@ namespace MyLinq
             return source.GroupBy(keySelector, elementSelector, null);
         }
 
-        public static IEnumerable<Linq.IGrouping<TKey, TElement>> GroupBy<TSource, TKey, TElement>( 
+        public static IEnumerable<System.Linq.IGrouping<TKey, TElement>> GroupBy<TSource, TKey, TElement>( 
             this IEnumerable<TSource> source, 
             Func<TSource, TKey> keySelector, 
             Func<TSource, TElement> elementSelector, 
@@ -87,7 +85,7 @@ namespace MyLinq
         //    }
         //}
 
-        private static IEnumerable<Linq.IGrouping<TKey, TElement>> GroupByImpl<TSource, TKey, TElement>( 
+        private static IEnumerable<System.Linq.IGrouping<TKey, TElement>> GroupByImpl<TSource, TKey, TElement>( 
             this IEnumerable<TSource> source, 
             Func<TSource, TKey> keySelector, 
             Func<TSource, TElement> elementSelector, 
