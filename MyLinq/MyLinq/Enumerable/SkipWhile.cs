@@ -18,20 +18,6 @@ namespace MyLinq
             this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
-            //bool stopSkipping = false;
-            //foreach (var item in source)
-            //{
-            //    if (!stopSkipping)
-            //    {
-            //        if (predicate(item))
-            //        {
-            //            continue;
-            //        }
-            //        stopSkipping = true;
-            //    }
-            //    yield return item;
-            //}
-
             using (var enumerator = source.GetEnumerator())
             {
                 while (enumerator.MoveNext())
@@ -63,38 +49,21 @@ namespace MyLinq
             this IEnumerable<TSource> source,
             Func<TSource, int, bool> predicate)
         {
-            //int n = -1;
-            //bool stopSkipping = false;
-            //foreach (var item in source)
-            //{
-            //    n++;
-            //    if (!stopSkipping)
-            //    {
-            //        if (predicate(item, n))
-            //        {
-            //            continue;
-            //        }
-            //        stopSkipping = true;
-            //    }
-            //    yield return item;
-            //}
-
-            int n = -1;
+            int n = 0;
             using (var enumerator = source.GetEnumerator())
             {
                 while (enumerator.MoveNext())
                 {
-                    n++;
                     if (!predicate(enumerator.Current, n))
                     {
                         yield return enumerator.Current;
                         break;
                     }
+                    n++;
                 }
 
                 while (enumerator.MoveNext())
                 {
-                    n++;
                     yield return enumerator.Current;
                 }
             }

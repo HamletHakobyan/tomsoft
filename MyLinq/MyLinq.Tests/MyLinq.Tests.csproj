@@ -69,8 +69,13 @@
     <Compile Include="SemiGenericCollection.cs" />
     <Compile Include="SingleOrDefaultTest.cs" />
     <Compile Include="SingleTest.cs" />
+    <Compile Include="SkipTest.cs" />
+    <Compile Include="SkipWhileTest.cs" />
+    <Compile Include="TakeTest.cs" />
+    <Compile Include="TakeWhileTest.cs" />
     <Compile Include="TestExtensions.cs" />
     <Compile Include="ThrowingEnumerable.cs" />
+    <Compile Include="ToArrayTest.cs" />
     <Compile Include="ToListTest.cs" />
     <Compile Include="ToLookupTest.cs" />
     <Compile Include="UnionTest.cs" />

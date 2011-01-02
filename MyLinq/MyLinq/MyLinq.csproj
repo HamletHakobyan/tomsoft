@@ -42,6 +42,7 @@
     <Compile Include="Enumerable\Skip.cs" />
     <Compile Include="Enumerable\SkipWhile.cs" />
     <Compile Include="Enumerable\TakeWhile.cs" />
+    <Compile Include="Enumerable\ToArray.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers.cs" />
   </ItemGroup>

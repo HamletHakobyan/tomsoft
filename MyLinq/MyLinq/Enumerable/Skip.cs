@@ -17,12 +17,14 @@ namespace MyLinq
             this IEnumerable<TSource> source,
             int count)
         {
-            int n = -1;
+            int n = 0;
             foreach (var item in source)
             {
-                n++;
                 if (n < count)
+                {
+                    n++;
                     continue;
+                }
                 yield return item;
             }
         }
