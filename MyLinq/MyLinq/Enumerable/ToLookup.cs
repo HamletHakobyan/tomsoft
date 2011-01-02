@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Linq = System.Linq;
 
 namespace MyLinq
 {
     public static partial class Enumerable
     {
-        public static Linq.ILookup<TKey, TSource> ToLookup<TSource, TKey>( 
+        public static System.Linq.ILookup<TKey, TSource> ToLookup<TSource, TKey>( 
             this IEnumerable<TSource> source, 
             Func<TSource, TKey> keySelector)
         {
             return source.ToLookup(keySelector, Identity, null);
         }
 
-        public static Linq.ILookup<TKey, TSource> ToLookup<TSource, TKey>( 
+        public static System.Linq.ILookup<TKey, TSource> ToLookup<TSource, TKey>( 
             this IEnumerable<TSource> source, 
             Func<TSource, TKey> keySelector, 
             IEqualityComparer<TKey> comparer)
@@ -22,7 +21,7 @@ namespace MyLinq
             return source.ToLookup(keySelector, Identity, comparer);
         }
 
-        public static Linq.ILookup<TKey, TElement> ToLookup<TSource, TKey, TElement>( 
+        public static System.Linq.ILookup<TKey, TElement> ToLookup<TSource, TKey, TElement>( 
             this IEnumerable<TSource> source, 
             Func<TSource, TKey> keySelector, 
             Func<TSource, TElement> elementSelector)
@@ -30,7 +29,7 @@ namespace MyLinq
             return source.ToLookup(keySelector, elementSelector, null);
         }
 
-        public static Linq.ILookup<TKey, TElement> ToLookup<TSource, TKey, TElement>( 
+        public static System.Linq.ILookup<TKey, TElement> ToLookup<TSource, TKey, TElement>( 
             this IEnumerable<TSource> source, 
             Func<TSource, TKey> keySelector, 
             Func<TSource, TElement> elementSelector, 
@@ -50,7 +49,7 @@ namespace MyLinq
             return lookup;
         }
 
-        private class Lookup<TKey, TElement> : Linq.ILookup<TKey, TElement>
+        private class Lookup<TKey, TElement> : System.Linq.ILookup<TKey, TElement>
         {
             private readonly List<TKey> _keys;
             private readonly Dictionary<TKey, Grouping<TKey, TElement>> _groupings;
@@ -73,7 +72,7 @@ namespace MyLinq
                 grouping.Add(element);
             }
 
-            public IEnumerator<Linq.IGrouping<TKey, TElement>> GetEnumerator()
+            public IEnumerator<System.Linq.IGrouping<TKey, TElement>> GetEnumerator()
             {
                 foreach (var key in _keys)
                 {
@@ -105,12 +104,12 @@ namespace MyLinq
                     {
                         return grouping;
                     }
-                    return Enumerable.Empty<TElement>();
+                    return Empty<TElement>();
                 }
             }
         }
 
-        private class Grouping<TKey, TElement> : Linq.IGrouping<TKey, TElement>
+        private class Grouping<TKey, TElement> : System.Linq.IGrouping<TKey, TElement>
         {
             private readonly TKey _key;
             private readonly List<TElement> _elements;
