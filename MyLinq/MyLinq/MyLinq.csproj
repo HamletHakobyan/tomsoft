@@ -35,12 +35,33 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerable\Average.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Average.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Enumerable\Cast.cs" />
     <Compile Include="Enumerable\Enumerable.cs" />
     <Compile Include="Enumerable\GroupBy.cs" />
     <Compile Include="Enumerable\GroupJoin.cs" />
     <Compile Include="Enumerable\Join.cs" />
+    <Compile Include="Enumerable\Max.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Max.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Enumerable\Min.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Min.tt</DependentUpon>
+    </Compile>
     <Compile Include="Enumerable\Skip.cs" />
     <Compile Include="Enumerable\SkipWhile.cs" />
+    <Compile Include="Enumerable\Sum.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Sum.tt</DependentUpon>
+    </Compile>
     <Compile Include="Enumerable\TakeWhile.cs" />
     <Compile Include="Enumerable\ToArray.cs" />
     <Compile Include="Enumerable\ToDictionary.cs" />
@@ -72,6 +93,27 @@
     <Compile Include="Enumerable\First.cs" />
     <Compile Include="Enumerable\Except.cs" />
     <Compile Include="Enumerable\Intersect.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Enumerable\Average.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Average.cs</LastGenOutput>
+    </None>
+    <None Include="Enumerable\Max.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Max.cs</LastGenOutput>
+    </None>
+    <None Include="Enumerable\Min.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Min.cs</LastGenOutput>
+    </None>
+    <None Include="Enumerable\Sum.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Sum.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

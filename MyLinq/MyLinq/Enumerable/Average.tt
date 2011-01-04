@@ -1,0 +1,44 @@
+﻿<#@ Template debug="false" hostspecific="false" language="C#" #>
+<#@ Assembly Name="System.Core" #>
+<#@ Import Namespace="System.Linq" #>
+<#@ Output extension=".cs" #>
+using System;
+using System.Collections.Generic;
+
+namespace MyLinq
+{
+    public static partial class Enumerable
+    {
+    <#
+    string[] types = new[] { "int", "long", "double", "float", "decimal" };
+    string[] nullableTypes = types.Select(t => string.Format("{0}?", t)).ToArray();
+    foreach (var t in types.Concat(nullableTypes))
+    {
+    #>
+
+        public static <#= t #> Average(this IEnumerable<<#= t #>> source)
+        {
+            return source.Average(x => x);
+        }
+
+        public static <#= t #> Average<TSource>(
+            this IEnumerable<TSource> source,
+            Func<TSource, <#= t #>> selector)
+        {
+            source.CheckArgumentNotNull("source");
+            selector.CheckArgumentNotNull("selector");
+            <#= t #> sum = 0;
+            int n = 0;
+            foreach(TSource item in source)
+            {
+                sum += selector(item);
+                n++;
+            }
+            return sum / n;
+        }
+    <#
+    }
+    #>
+
+    }
+}
