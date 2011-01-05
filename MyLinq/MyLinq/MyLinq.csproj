@@ -55,6 +55,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Min.tt</DependentUpon>
     </Compile>
+    <Compile Include="Enumerable\OfType.cs" />
     <Compile Include="Enumerable\Skip.cs" />
     <Compile Include="Enumerable\SkipWhile.cs" />
     <Compile Include="Enumerable\Sum.cs">

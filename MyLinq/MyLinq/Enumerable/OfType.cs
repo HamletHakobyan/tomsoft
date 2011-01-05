@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 namespace MyLinq
 {
     public static partial class Enumerable
     {
-        public static IEnumerable<TResult> Cast<TResult>(this IEnumerable source)
+        public static IEnumerable<TResult> OfType<TResult>(this IEnumerable source)
         {
             source.CheckArgumentNotNull("source");
-            return source.CastImpl<TResult>();
+            return source.OfTypeImpl<TResult>();
         }
 
-        private static IEnumerable<TResult> CastImpl<TResult>(this IEnumerable source)
+        private static IEnumerable<TResult> OfTypeImpl<TResult>(this IEnumerable source)
         {
             foreach (object item in source)
             {
-                yield return (TResult)item;
+                if (item is TResult)
+                    yield return (TResult)item;
             }
         }
     }
