@@ -11,7 +11,7 @@ namespace MyLinq
 
         public ReverseComparer(IComparer<TElement> baseComparer)
         {
-            _baseComparer = baseComparer;
+            _baseComparer = baseComparer ?? Comparer<TElement>.Default;
         }
 
         public int Compare(TElement x, TElement y)
