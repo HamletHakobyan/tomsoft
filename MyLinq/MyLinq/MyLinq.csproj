@@ -57,6 +57,7 @@
       <DependentUpon>Min.tt</DependentUpon>
     </Compile>
     <Compile Include="Enumerable\OfType.cs" />
+    <Compile Include="Enumerable\OrderBy.cs" />
     <Compile Include="Enumerable\Skip.cs" />
     <Compile Include="Enumerable\SkipWhile.cs" />
     <Compile Include="Enumerable\Sum.cs">
@@ -65,6 +66,7 @@
       <DependentUpon>Sum.tt</DependentUpon>
     </Compile>
     <Compile Include="Enumerable\TakeWhile.cs" />
+    <Compile Include="Enumerable\ThenBy.cs" />
     <Compile Include="Enumerable\ToArray.cs" />
     <Compile Include="Enumerable\ToDictionary.cs" />
     <Compile Include="OrderedEnumerable.cs" />
