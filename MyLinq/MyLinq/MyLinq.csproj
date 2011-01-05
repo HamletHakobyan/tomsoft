@@ -35,6 +35,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompoundComparer.cs" />
     <Compile Include="Enumerable\Average.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -66,8 +67,11 @@
     <Compile Include="Enumerable\TakeWhile.cs" />
     <Compile Include="Enumerable\ToArray.cs" />
     <Compile Include="Enumerable\ToDictionary.cs" />
+    <Compile Include="OrderedEnumerable.cs" />
+    <Compile Include="ProjectionComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="ReverseComparer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enumerable\Aggregate.cs" />
