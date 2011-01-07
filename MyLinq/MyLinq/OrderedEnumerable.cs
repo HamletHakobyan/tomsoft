@@ -27,28 +27,13 @@ namespace MyLinq
 
         public IEnumerator<TElement> GetEnumerator()
         {
-            // TODO: to be improved
-            var list = _source.Select((x, i) => new IndexedElement(x, i)).ToList();
-            var elementComparer = new ProjectionComparer<IndexedElement, TElement>(i => i.Element, _comparer);
-            var indexComparer = new ProjectionComparer<IndexedElement, int>(i => i.Index, null);
-            var actualComparer = new CompoundComparer<IndexedElement>(elementComparer, indexComparer);
-            list.Sort(actualComparer);
-            return list.Select(i => i.Element).GetEnumerator();
-        }
-
-        private class IndexedElement
-        {
-            private readonly TElement _element;
-            private readonly int _index;
-
-            public IndexedElement(TElement element, int index)
+            int count;
+            TElement[] data = _source.ToBuffer(out count);
+            MergeSort(data, count);
+            for (int i = 0; i < count; i++)
             {
-                _element = element;
-                _index = index;
+                yield return data[i];
             }
-
-            public int Index { get { return _index; } }
-            public TElement Element { get { return _element; } }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -61,6 +46,71 @@ namespace MyLinq
             if (descending)
                 keyComparer = new ReverseComparer<TKey>(keyComparer);
             return new ProjectionComparer<TElement, TKey>(keySelector, keyComparer);
+        }
+
+        private void MergeSort(TElement[] data, int count)
+        {
+            TElement[] tmp = new TElement[count];
+            MergeSort(data, tmp, 0, count);
+        }
+
+        private void MergeSort(TElement[] data, TElement[] tempBuffer, int start, int count)
+        {
+            if (count < 2)
+            {
+                return;
+            }
+            
+            if (count == 2)
+            {
+                TElement x = data[start];
+                TElement y = data[start + 1];
+                if (_comparer.Compare(x, y) > 0)
+                {
+                    data[start] = y;
+                    data[start + 1] = x;
+                }
+                return;
+            }
+
+            int leftCount = count / 2;
+            int rightCount = count - leftCount;
+            MergeSort(data, tempBuffer, start, leftCount);
+            MergeSort(data, tempBuffer, start + leftCount, rightCount);
+            Merge(data, tempBuffer, start, start + leftCount, count);
+        }
+
+        private void Merge(TElement[] data, TElement[] tempBuffer, int start, int middle, int count)
+        {
+            int index = 0;
+            int leftIndex = start;
+            int rightIndex = middle;
+
+            while (leftIndex < middle && rightIndex < count)
+            {
+                TElement left = data[leftIndex];
+                TElement right = data[rightIndex];
+                if (_comparer.Compare(left, right) <= 0)
+                {
+                    tempBuffer[index] = left;
+                    leftIndex++;
+                }
+                else
+                {
+                    tempBuffer[index] = right;
+                    rightIndex++;
+                }
+                index++;
+            }
+            while (leftIndex < middle)
+            {
+                tempBuffer[index++] = data[leftIndex++];
+            }
+            while (rightIndex < count)
+            {
+                tempBuffer[index++] = data[rightIndex++];
+            }
+            Array.Copy(tempBuffer, 0, data, start, count);
         }
     }
 }
