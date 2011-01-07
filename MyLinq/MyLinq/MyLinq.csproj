@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompoundComparer.cs" />
+    <Compile Include="Enumerable\AsEnumerable.cs" />
     <Compile Include="Enumerable\Average.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
