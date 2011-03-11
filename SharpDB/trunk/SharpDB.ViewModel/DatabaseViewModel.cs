@@ -82,7 +82,7 @@ namespace SharpDB.ViewModel
             {
                 if (_modelGroups == null && IsConnected)
                 {
-                    _model = DbModelHelper.GetModel(_databaseConnection.ProviderName);
+                    _model = DbProviderHelper.GetDbModel(_databaseConnection.ProviderName);
                     if (_model != null)
                     {
                         _model.InitModel(_connection);

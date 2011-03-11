@@ -46,9 +46,10 @@
     <Compile Include="Config.cs" />
     <Compile Include="DatabaseConnection.cs" />
     <Compile Include="Data\DbExceptionWrapper.cs" />
-    <Compile Include="Data\DbModelHelper.cs" />
-    <Compile Include="Data\DbProviderNameAttribute.cs" />
+    <Compile Include="Data\DbProviderSpecificTypeAttribute.cs" />
+    <Compile Include="Data\DbProviderHelper.cs" />
     <Compile Include="Data\DbSchema.cs" />
+    <Compile Include="Data\IConnectionStringEditor.cs" />
     <Compile Include="Data\IDbIndexColumnItem.cs" />
     <Compile Include="Data\IDbModel.cs" />
     <Compile Include="Data\IDbColumnItem.cs" />

@@ -1,12 +1,9 @@
-﻿using System.Data.Common;
+﻿using System;
+using System.Data.Common;
 using System.Data;
-namespace SharpDB.Model.Data.SQLite
-{
-}
 
 namespace SharpDB.Model.Data.SQLite
 {
-    [DbProviderName("System.Data.SQLite")]
     partial class SQLiteDbModel : IDbModel
     {
         private bool _schemaInitialized;
@@ -43,13 +40,10 @@ namespace SharpDB.Model.Data.SQLite
         {
             get { return _itemGroups; }
         }
-    }
-}
 
-namespace SharpDB.Model.Data.SQLite {
-
-
-    internal partial class SQLiteDbModel
-    {
+        public string ConnectionStringEditorTypeName
+        {
+            get { return null; }
+        }
     }
 }
