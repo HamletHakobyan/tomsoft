@@ -4,12 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:SharpDB.ViewModel;assembly=SharpDB.ViewModel"
+             xmlns:dvm="clr-namespace:SharpDB.ViewModel.Design;assembly=SharpDB.ViewModel.Design"
              xmlns:prop="clr-namespace:SharpDB.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance Type=dvm:DesignConnectionDialogViewModel, IsDesignTimeCreatable=True}"
              Width="500" Height="100">
     <UserControl.Resources>
         <Thickness x:Key="fieldMargin">10,3,3,3</Thickness>
+        <BooleanToVisibilityConverter x:Key="visibilityConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -34,7 +37,14 @@
                   DisplayMemberPath="Name"
                   SelectedValuePath="InvariantName"
                   SelectedValue="{Binding ProviderName}"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="{StaticResource fieldMargin}"
-                 Text="{Binding ConnectionString}" />
+        <Grid Grid.Row="2" Grid.Column="1" Margin="{StaticResource fieldMargin}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Text="{Binding ConnectionString}" />
+            <Button Grid.Column="1" Content="..." Command="{Binding EditConnectionStringCommand}"
+                    Visibility="{Binding CanEditConnectionString, Converter={StaticResource visibilityConverter}}"/>
+        </Grid>
     </Grid>
 </UserControl>

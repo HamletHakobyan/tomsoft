@@ -84,6 +84,7 @@
     <Compile Include="Behaviors\TextEditorBehavior.cs" />
     <Compile Include="Behaviors\WindowBehavior.cs" />
     <Compile Include="CustomEffects\GreyscaleEffect.cs" />
+    <Compile Include="ProviderSpecific\SQLite\SQLiteConnectionStringEditor.cs" />
     <Compile Include="Service\BasicMessageBoxService.cs" />
     <Compile Include="DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>

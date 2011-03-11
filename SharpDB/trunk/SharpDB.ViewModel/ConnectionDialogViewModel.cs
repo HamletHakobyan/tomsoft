@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
+using Developpez.Dotnet.Windows.Input;
+using SharpDB.Model.Data;
 using SharpDB.Util.Service;
 using SharpDB.Model;
 using System.Data;
@@ -13,12 +16,19 @@ namespace SharpDB.ViewModel
     {
         private DialogButton[] _buttons;
         private DatabaseConnection _connection;
+        private IConnectionStringEditor _connectionStringEditor;
+        private bool _isDefaultName;
 
         #region Constructors
 
         public ConnectionDialogViewModel(DatabaseConnection connection)
         {
-            _connection = connection ?? new DatabaseConnection { Name = GetResource<string>("connection_default_name") };
+            _connection = connection;
+            if (_connection == null)
+            {
+                _connection = new DatabaseConnection { Name = GetResource<string>("connection_default_name") };
+                _isDefaultName = true;
+            }
 
             this.DialogTitle = connection == null
                                 ? GetResource<string>("new_database_connection")
@@ -78,6 +88,7 @@ namespace SharpDB.ViewModel
             set
             {
                 _name = value;
+                _isDefaultName = false;
                 OnPropertyChanged("Name");
             }
         }
@@ -89,7 +100,12 @@ namespace SharpDB.ViewModel
             set
             {
                 _providerName = value;
+                _connectionStringEditor = string.IsNullOrEmpty(_providerName)
+                        ? null
+                        : DbProviderHelper.GetConnectionStringEditor(_providerName);
                 OnPropertyChanged("ProviderName");
+                OnPropertyChanged("CanEditConnectionString");
+                
             }
         }
 
@@ -102,6 +118,11 @@ namespace SharpDB.ViewModel
                 _connectionString = value;
                 OnPropertyChanged("ConnectionString");
             }
+        }
+
+        public bool CanEditConnectionString
+        {
+            get { return _connectionStringEditor != null; }
         }
 
         #endregion
@@ -124,15 +145,16 @@ namespace SharpDB.ViewModel
         {
             if (_connection != null)
             {
-                Name = _connection.Name;
-                ProviderName = _connection.ProviderName;
-                ConnectionString = _connection.ConnectionString;
+                _name = _connection.Name;
+                _providerName = _connection.ProviderName;
+                _connectionString = _connection.ConnectionString;
             }
             else
             {
-                Name = "New database connection";
-                ProviderName = null;
-                ConnectionString = null;
+                _name = GetResource<string>("connection_default_name");
+                _providerName = null;
+                _connectionString = null;
+                _isDefaultName = true;
             }
         }
 
@@ -150,6 +172,40 @@ namespace SharpDB.ViewModel
         {
             add { }
             remove { }
+        }
+
+        #endregion
+
+        #region Commands
+
+        private DelegateCommand _editConnectionStringCommand;
+        public ICommand EditConnectionStringCommand
+        {
+            get
+            {
+                if (_editConnectionStringCommand == null)
+                {
+                    _editConnectionStringCommand = new DelegateCommand(EditConnectionString, () => CanEditConnectionString);
+                }
+                return _editConnectionStringCommand;
+            }
+        }
+
+        private void EditConnectionString()
+        {
+            if (_connectionStringEditor != null)
+            {
+                _connectionStringEditor.ConnectionString = ConnectionString;
+                if (_connectionStringEditor.ShowDialog() == true)
+                {
+                    ConnectionString = _connectionStringEditor.ConnectionString;
+                    if (string.IsNullOrEmpty(Name) || _isDefaultName)
+                    {
+                        Name = _connectionStringEditor.GetDefaultName();
+                        _isDefaultName = true;
+                    }
+                }
+            }
         }
 
         #endregion
