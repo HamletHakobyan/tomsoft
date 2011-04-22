@@ -13,7 +13,7 @@ namespace ProjectEuler
         public object GetSolution()
         {
             return Enumerable.Range(1, 1000000)
-                .WithMax(i => GetSequence(i).Count());
+                .MaxBy(i => GetSequence(i).Count());
         }
 
         #endregion

@@ -21,7 +21,7 @@ namespace ProjectEuler
             return ParallelEnumerable
                 .Range(2, max)
                 .Select(n => new { N = n, Phi = Totient(n) })
-                .WithMax(x => (double)x.N / x.Phi);
+                .MaxBy(x => (double)x.N / x.Phi);
         }
 
         static long Totient(long n)

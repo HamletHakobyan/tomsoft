@@ -24,12 +24,12 @@ namespace ProjectEuler
                 group 1 by ab + bc + ac into g
                 select new { Perimeter = g.Key, NumberOfSolutions = g.Count() };
 
-            return solutionsPerPerimeter.WithMax(g => g.NumberOfSolutions).Perimeter;
+            return solutionsPerPerimeter.MaxBy(g => g.NumberOfSolutions).Perimeter;
         }
 
         #endregion
 
-        bool IsRectangleTriangle(int hypo, int s1, int s2)
+        static bool IsRectangleTriangle(int hypo, int s1, int s2)
         {
             double x = Math.Sqrt(s1 * s1 + s2 * s2);
             return x == hypo;

@@ -20,7 +20,7 @@ namespace ProjectEuler
                 where terms != 0
                 select new { Prime = p, Terms = terms };
 
-            var max = q.WithMax(p => p.Terms);
+            var max = q.MaxBy(p => p.Terms);
             return string.Format("{0} ({1} terms)", max.Prime, max.Terms);
         }
 
