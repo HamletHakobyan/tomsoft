@@ -12,7 +12,7 @@ namespace ProjectEuler
 
         public object GetSolution()
         {
-            return Enumerable.Range(1, 999).WithMax(n => Util.GetDecimalCycleLength(1, n));
+            return Enumerable.Range(1, 999).MaxBy(n => Util.GetDecimalCycleLength(1, n));
         }
 
         #endregion

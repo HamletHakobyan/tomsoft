@@ -12,7 +12,7 @@ namespace ProjectEuler
         public object GetSolution()
         {
             var sieve = new PrimeSieve();
-            var primes = sieve.GetPrimes(25000000).TakeWhile(i => i < 5000).ToArray();
+            var primes = sieve.GetPrimes(9999).ToArray();
 
             var tmp = new[] { new long[0] } as IEnumerable<long[]>;
             for (int i = 0; i < 5; i++)
@@ -23,7 +23,7 @@ namespace ProjectEuler
             return tmp.Select(v => v.Sum()).FirstOrDefault();
         }
 
-        public IEnumerable<long[]> MakeSolutions(IEnumerable<long[]> prevSolution, long[] primes, PrimeSieve sieve)
+        private static IEnumerable<long[]> MakeSolutions(IEnumerable<long[]> prevSolution, long[] primes, PrimeSieve sieve)
         {
             return from px in prevSolution
                    from p in primes
@@ -33,7 +33,7 @@ namespace ProjectEuler
                    select x;
         }
 
-        bool IsSolution(long[] primes, PrimeSieve sieve)
+        static bool IsSolution(long[] primes, PrimeSieve sieve)
         {
             var q =
                 from a in primes
