@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Developpez.Dotnet.Windows.ViewModel;
 using System.Windows.Input;
-using Millionaire.Model;
+using Developpez.Dotnet.Windows.ViewModel;
 
 namespace Millionaire.ViewModel
 {
     public abstract class SlideViewModel : ViewModelBase
     {
-
-        private Slide _slide;
-
-        public SlideViewModel(GameViewModel game)
+        protected SlideViewModel(GameViewModel game)
         {
             this._game = game;
         }

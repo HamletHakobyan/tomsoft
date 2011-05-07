@@ -1,26 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Media;
-using Millionaire.Model;
-using System.Windows;
-using System.Windows.Media.Imaging;
 using System.IO;
+using System.Linq;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using Millionaire.Model;
 
 namespace Millionaire.ViewModel
 {
     public class PhotoViewModel : SlideViewModel
     {
-        private Photo _photo;
+        private readonly Photo _photo;
 
         public PhotoViewModel(Photo photo, GameViewModel game)
             : base(game)
         {
             this._photo = photo;
-            if (!String.IsNullOrEmpty(_photo.SoundPath))
+            if (!String.IsNullOrEmpty(_photo.Quiz.ContentPath)) 
             {
-                if (!String.IsNullOrEmpty(_photo.Quiz.ContentPath))
+                if (!String.IsNullOrEmpty(_photo.SoundPath))
                 {
                     string fullPath = Path.Combine(_photo.Quiz.ContentPath, _photo.SoundPath);
                     this.Sound = new Uri(fullPath);

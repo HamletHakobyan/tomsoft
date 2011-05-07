@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Windows.Media;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Millionaire.Design
@@ -23,7 +21,7 @@ namespace Millionaire.Design
             }
         }
 
-        private ImageSource _image;
+        private readonly ImageSource _image;
         public ImageSource Image
         {
             get { return _image; }

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Millionaire.View.SlideShowView"
+﻿<UserControl x:Class="Millionaire.View.VideoView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:dvp="http://www.developpez.com/xaml"
@@ -14,7 +14,11 @@
         <MouseBinding Gesture="{x:Static u:MouseWheelGesture.WheelUp}" Command="{dvp:CommandBinding PreviousCommand}"/>
     </UserControl.InputBindings>
     <Grid>
-        <MediaElement Source="{Binding Sound}" LoadedBehavior="Play" UnloadedBehavior="Stop" Volume="1.0" />
-        <Image Source="{Binding CurrentPhoto}"/>
+        <MediaElement Source="{Binding Sound}"
+                      LoadedBehavior="Play" UnloadedBehavior="Stop"
+                      Volume="1.0" Visibility="Hidden" />
+        <MediaElement Source="{Binding Video}"
+                      LoadedBehavior="Play" UnloadedBehavior="Stop"
+                      Volume="1.0" Stretch="Uniform" />
     </Grid>
 </UserControl>

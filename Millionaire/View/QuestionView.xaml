@@ -10,7 +10,7 @@
              u:DesignTimeHelper.DesignTimeData="{x:Type d:DesignQuestionViewModel}">
     <UserControl.InputBindings>
         <KeyBinding Key="Space" Command="{dvp:CommandBinding NextCommand}"/>
-        <KeyBinding Key="Backspace" Command="{dvp:CommandBinding PreviousCommand}"/>
+        <KeyBinding Key="Back" Command="{dvp:CommandBinding PreviousCommand}"/>
         <KeyBinding Key="Right" Command="{dvp:CommandBinding NextCommand}"/>
         <KeyBinding Key="Left" Command="{dvp:CommandBinding PreviousCommand}"/>
         <MouseBinding Gesture="{x:Static u:MouseWheelGesture.WheelDown}" Command="{dvp:CommandBinding NextCommand}"/>

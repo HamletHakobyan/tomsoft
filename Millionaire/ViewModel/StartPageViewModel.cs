@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Millionaire.Model;
 
 namespace Millionaire.ViewModel
 {
     public class StartPageViewModel : SlideViewModel
     {
-        private StartPage _startPage;
+        private readonly StartPage _startPage;
 
         public StartPageViewModel(StartPage startPage, GameViewModel game)
             : base(game)

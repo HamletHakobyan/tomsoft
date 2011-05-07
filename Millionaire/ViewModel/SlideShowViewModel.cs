@@ -1,20 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Millionaire.Model;
 using System.IO;
-using Developpez.Dotnet.Windows.Input;
+using System.Linq;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using System.Windows.Media;
+using Developpez.Dotnet.Windows.Input;
+using Millionaire.Model;
 
 namespace Millionaire.ViewModel
 {
     public class SlideShowViewModel : SlideViewModel
     {
-        private SlideShow _slideShow;
+        private readonly SlideShow _slideShow;
 
         public SlideShowViewModel(SlideShow slideShow, GameViewModel game)
             : base(game)
@@ -30,10 +28,10 @@ namespace Millionaire.ViewModel
             }
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromMilliseconds(_slideShow.Interval);
-            _timer.Tick += new EventHandler(_timer_Tick);
+            _timer.Tick += _timer_Tick;
         }
 
-        private DispatcherTimer _timer;
+        private readonly DispatcherTimer _timer;
         void _timer_Tick(object sender, EventArgs e)
         {
             if (_currentIndex + 1 < _slideShow.Photos.Count)
