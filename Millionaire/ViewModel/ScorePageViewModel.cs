@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Millionaire.Model;
 using System.Windows.Input;
 using Developpez.Dotnet.Windows.Input;
+using Millionaire.Model;
 
 namespace Millionaire.ViewModel
 {
     public class ScorePageViewModel : SlideViewModel
     {
-        private ScorePage _scorePage;
+        private readonly ScorePage _scorePage;
         
         public ScorePageViewModel(ScorePage scorePage, GameViewModel game)
             : base(game)
@@ -63,8 +61,7 @@ namespace Millionaire.ViewModel
                             {
                                 if (ShowScore)
                                     return Game.NextCommand.CanExecute(param);
-                                else
-                                    return true;
+                                return true;
                             });
                 }
                 return _nextCommand;
@@ -91,8 +88,7 @@ namespace Millionaire.ViewModel
                             {
                                 if (ShowScore)
                                     return true;
-                                else
-                                    return Game.PreviousCommand.CanExecute(param);
+                                return Game.PreviousCommand.CanExecute(param);
                             });
                 }
                 return _previousCommand;

@@ -3,14 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:dvp="http://www.developpez.com/xaml"
              xmlns:u="clr-namespace:Millionaire.Util"
-             xmlns:d="clr-namespace:Millionaire.Design"
              Background="Black" Width="1026" Height="770"
              Focusable="True" Loaded="UserControl_Loaded"
              DataContextChanged="UserControl_DataContextChanged">
 
     <UserControl.InputBindings>
         <KeyBinding Key="Space" Command="{dvp:CommandBinding NextCommand}"/>
-        <KeyBinding Key="Backspace" Command="{dvp:CommandBinding PreviousCommand}"/>
+        <KeyBinding Key="Back" Command="{dvp:CommandBinding PreviousCommand}"/>
         <KeyBinding Key="Right" Command="{dvp:CommandBinding NextCommand}"/>
         <KeyBinding Key="Left" Command="{dvp:CommandBinding PreviousCommand}"/>
         <MouseBinding Gesture="{x:Static u:MouseWheelGesture.WheelDown}" Command="{dvp:CommandBinding NextCommand}"/>

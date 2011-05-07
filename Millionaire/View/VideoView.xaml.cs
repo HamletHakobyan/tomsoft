@@ -6,11 +6,11 @@ using System.Windows.Input;
 namespace Millionaire.View
 {
     /// <summary>
-    /// Interaction logic for StartPageView.xaml
+    /// Interaction logic for VideoView.xaml
     /// </summary>
-    public partial class StartPageView : UserControl
+    public partial class VideoView : UserControl
     {
-        public StartPageView()
+        public VideoView()
         {
             InitializeComponent();
         }

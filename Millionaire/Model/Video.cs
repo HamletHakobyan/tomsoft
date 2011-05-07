@@ -1,8 +1,6 @@
-﻿using System.Linq;
-
-namespace Millionaire.Model
+﻿namespace Millionaire.Model
 {
-    public class Photo : Slide
+    public class Video : Slide
     {
         public string Path { get; set; }
         public string SoundPath { get; set; }

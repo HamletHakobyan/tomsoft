@@ -14,6 +14,9 @@
         <DataTemplate DataType="{x:Type vm:PhotoViewModel}">
             <v:PhotoView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VideoViewModel}">
+            <v:VideoView/>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:PublicChoiceViewModel}">
             <v:PublicChoiceView/>
         </DataTemplate>

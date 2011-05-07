@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Developpez.Dotnet.Windows.ViewModel;
+﻿using System.Linq;
 using Millionaire.Model;
 
 namespace Millionaire.ViewModel
 {
     public class JokerViewModel : SlideViewModel
     {
-        private Joker _joker;
+        private readonly Joker _joker;
 
         public JokerViewModel(Joker joker, GameViewModel game)
             : base(game)

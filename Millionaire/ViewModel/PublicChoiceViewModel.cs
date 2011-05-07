@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Millionaire.Model;
 using System.Windows.Input;
 using Developpez.Dotnet.Windows.Input;
+using Millionaire.Model;
 
 namespace Millionaire.ViewModel
 {
@@ -24,8 +22,7 @@ namespace Millionaire.ViewModel
             {
                 if (Question != null)
                     return Question.QuestionText;
-                else
-                    return null;
+                return null;
             }
         }
 
@@ -35,8 +32,7 @@ namespace Millionaire.ViewModel
             {
                 if (Question != null)
                     return Question.Answers;
-                else
-                    return null;
+                return null;
             }
         }
 
@@ -46,8 +42,7 @@ namespace Millionaire.ViewModel
             {
                 if (Question != null)
                     return Question.AnswerVisible;
-                else
-                    return null;
+                return null;
             }
         }
 
@@ -71,8 +66,7 @@ namespace Millionaire.ViewModel
             {
                 if (Question != null)
                     return Question.PublicChoicePercentage.Select(p => String.Format("{0}%", p)).ToArray();
-                else
-                    return null;
+                return null;
             }
         }
 
@@ -83,8 +77,7 @@ namespace Millionaire.ViewModel
                 if (Question != null)
                     return Question.PublicChoicePercentage
                             .Select(i => _referenceHeight * i / 100).ToArray();
-                else
-                    return null;
+                return null;
             }
         }
 

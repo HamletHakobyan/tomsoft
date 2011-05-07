@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Developpez.Dotnet.Windows.ViewModel;
 using Millionaire.Model;
 
@@ -9,7 +8,7 @@ namespace Millionaire.ViewModel
 {
     public class QuizViewModel : ViewModelBase
     {
-        private Quiz _quiz;
+        private readonly Quiz _quiz;
 
         public QuizViewModel(Quiz quiz, GameViewModel game)
         {
@@ -76,26 +75,27 @@ namespace Millionaire.ViewModel
             {
                 return new QuestionViewModel(s as Question, _game);
             }
-            else if (s.GetType() == typeof(Photo))
+            if (s.GetType() == typeof(Photo))
             {
                 return new PhotoViewModel(s as Photo, _game);
             }
-            else if (s.GetType() == typeof(StartPage))
+            if (s.GetType() == typeof(Video))
+            {
+                return new VideoViewModel(s as Video, _game);
+            }
+            if (s.GetType() == typeof(StartPage))
             {
                 return new StartPageViewModel(s as StartPage, _game);
             }
-            else if (s.GetType() == typeof(SlideShow))
+            if (s.GetType() == typeof(SlideShow))
             {
                 return new SlideShowViewModel(s as SlideShow, _game);
             }
-            else if (s.GetType() == typeof(ScorePage))
+            if (s.GetType() == typeof(ScorePage))
             {
                 return new ScorePageViewModel(s as ScorePage, _game);
             }
-            else
-            {
-                throw new ArgumentException("Type de slide inconnu", "s");
-            }
+            throw new ArgumentException("Type de slide inconnu", "s");
         }
 
         private JokerViewModel GetViewModel(Joker j)
@@ -104,16 +104,12 @@ namespace Millionaire.ViewModel
             {
                 case JokerType.FiftyFifty:
                     return new FiftyFiftyViewModel(j, _game);
-                    break;
                 case JokerType.PublicChoice:
                     return new PublicChoiceViewModel(j, _game);
-                    break;
                 case JokerType.PhoneCall:
                     return new PhoneCallViewModel(j, _game);
-                    break;
                 default:
                     throw new ArgumentException("Type de joker inconnu", "j");
-                    break;
             }
         }
 

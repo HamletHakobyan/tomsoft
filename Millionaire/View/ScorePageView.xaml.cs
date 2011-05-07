@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Millionaire.ViewModel;
 using System.Windows.Media.Animation;
+using Millionaire.ViewModel;
 
 namespace Millionaire.View
 {
@@ -77,7 +69,7 @@ namespace Millionaire.View
                     index = i;
                     break;
                 }
-                else if (scoreMap[i] < score)
+                if (scoreMap[i] < score)
                 {
                     if (i + 1 < scoreMap.Length)
                     {

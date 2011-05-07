@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Windows.Input;
+using Developpez.Dotnet.Windows.Input;
 using Developpez.Dotnet.Windows.ViewModel;
 using Millionaire.Model;
-using Developpez.Dotnet.Windows.Input;
-using System.Windows.Input;
 
 namespace Millionaire.ViewModel
 {
     public class GameViewModel : ViewModelBase
     {
-        static GameViewModel()
-        {
-        }
-
-        private Game _game;
+        private readonly Game _game;
 
         public GameViewModel(Game game)
         {
@@ -25,7 +19,7 @@ namespace Millionaire.ViewModel
 
         #region Public properties
 
-        private QuizViewModel _quizVM;
+        private readonly QuizViewModel _quizVM;
         public QuizViewModel Quiz
         {
             get

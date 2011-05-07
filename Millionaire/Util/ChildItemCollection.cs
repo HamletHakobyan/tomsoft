@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Millionaire.Util
 {
@@ -15,8 +13,8 @@ namespace Millionaire.Util
         where P : class
         where T : IChildItem<P>
     {
-        private P _parent;
-        private IList<T> _collection;
+        private readonly P _parent;
+        private readonly IList<T> _collection;
 
         public ChildItemCollection(P parent)
         {

@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using Developpez.Dotnet.Windows.ViewModel;
-using Millionaire.Model;
-using Developpez.Dotnet.Windows.Input;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.IO;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using Developpez.Dotnet.Windows.Input;
+using Millionaire.Model;
 
 namespace Millionaire.ViewModel
 {
     public class QuestionViewModel : SlideViewModel
     {
-        private Question _question;
+        private readonly Question _question;
 
         public QuestionViewModel(Question question, GameViewModel game)
             : base(game)
@@ -65,14 +62,14 @@ namespace Millionaire.ViewModel
             get { return _question.Answers; }
         }
 
-        private bool[] _answerSelected;
+        private readonly bool[] _answerSelected;
         public bool[] AnswerSelected
         {
             get { return _answerSelected; }
         }
 
-        private int _showAnswers = 0;
-        private bool[] _answerVisible;
+        private int _showAnswers;
+        private readonly bool[] _answerVisible;
         public bool[] AnswerVisible
         {
             get
@@ -81,7 +78,7 @@ namespace Millionaire.ViewModel
             }
         }
 
-        private bool[] _correctAnswerVisible;
+        private readonly bool[] _correctAnswerVisible;
         public bool[] CorrectAnswerVisible
         {
             get
@@ -182,8 +179,7 @@ namespace Millionaire.ViewModel
                             {
                                 if (_showAnswers <= 4)
                                     return true;
-                                else
-                                    return BaseNextCommand.CanExecute(param);
+                                return BaseNextCommand.CanExecute(param);
                             });
                 }
                 return _nextCommand;
@@ -238,8 +234,7 @@ namespace Millionaire.ViewModel
                             {
                                 if (_showAnswers > 0)
                                     return true;
-                                else
-                                    return BasePreviousCommand.CanExecute(param);
+                                return BasePreviousCommand.CanExecute(param);
                             });
                 }
                 return _previousCommand;
@@ -441,7 +436,7 @@ namespace Millionaire.ViewModel
             if (_timer == null)
             {
                 _timer = new DispatcherTimer();
-                _timer.Tick += new EventHandler(_timer_Tick);
+                _timer.Tick += _timer_Tick;
             }
             _timer.IsEnabled = false;
             _timer.Interval = duration;

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 using Millionaire.Util;
-using System.IO;
 
 namespace Millionaire.Model
 {
@@ -19,6 +17,7 @@ namespace Millionaire.Model
 
         [XmlElement("Question", typeof(Question))]
         [XmlElement("Photo", typeof(Photo))]
+        [XmlElement("Video", typeof(Video))]
         [XmlElement("StartPage", typeof(StartPage))]
         [XmlElement("SlideShow", typeof(SlideShow))]
         [XmlElement("ScorePage", typeof(ScorePage))]
@@ -37,7 +36,7 @@ namespace Millionaire.Model
             XmlSerializer xs = new XmlSerializer(typeof(Quiz));
             using (StreamReader reader = new StreamReader(path))
             {
-                Quiz quiz = xs.Deserialize(reader) as Quiz;
+                Quiz quiz = (Quiz)xs.Deserialize(reader);
                 FileInfo f = new FileInfo(path);
                 quiz.ContentPath = f.DirectoryName;
                 return quiz;
