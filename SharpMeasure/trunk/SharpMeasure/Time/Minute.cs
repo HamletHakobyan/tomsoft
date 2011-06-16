@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SharpMeasure.Time
+﻿namespace SharpMeasure.Time
 {
-    public class Minute : IUnit
+    public class Minute : IUnit<ITime>
     {
         public string Symbol { get { return "min"; } }
         public double ValueInSIUnit { get { return 60.0; } }

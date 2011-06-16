@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace SharpMeasure
 {
@@ -92,6 +91,8 @@ namespace SharpMeasure
         public Measure<TTargetUnit> Convert<TTargetUnit>()
             where TTargetUnit : IUnit, new()
         {
+            if (!Units.AreSameQuantity<TUnit, TTargetUnit>())
+                throw new IncompatibleUnitsException(typeof(TUnit), typeof(TTargetUnit));
             IUnit otherUnit = Units.GetUnit<TTargetUnit>();
             double value = this.Value * _unit.ValueInSIUnit / otherUnit.ValueInSIUnit;
             return new Measure<TTargetUnit>(value);

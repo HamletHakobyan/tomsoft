@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SharpMeasure
+﻿namespace SharpMeasure
 {
-    public class FractionalUnit<TNumerator, TDenominator> : IUnit
+    public class FractionalUnit<TNumerator, TDenominator> : CompositeUnitBase<TNumerator, TDenominator>
         where TNumerator : IUnit, new()
         where TDenominator : IUnit, new()
     {
@@ -20,7 +15,7 @@ namespace SharpMeasure
             _valueInSIUnit = numerator.ValueInSIUnit / denominator.ValueInSIUnit;
         }
 
-        public string Symbol { get { return _symbol; } }
-        public double ValueInSIUnit { get { return _valueInSIUnit; } }
+        public override string Symbol { get { return _symbol; } }
+        public override double ValueInSIUnit { get { return _valueInSIUnit; } }
     }
 }
