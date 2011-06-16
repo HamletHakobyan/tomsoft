@@ -39,6 +39,20 @@ namespace ConsoleTests
             Console.WriteLine(usainBoltSpeed);
             Console.WriteLine(speedKmh);
             Console.WriteLine(speedMph);
+            Console.WriteLine();
+
+            try
+            {
+                Console.WriteLine("Incompatible units:");
+                Console.WriteLine(distance.Convert<Hour>());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+
             Console.ReadLine();
         }
     }
