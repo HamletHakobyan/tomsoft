@@ -49,7 +49,7 @@ namespace SharpMeasure
 
         public override int GetHashCode()
         {
-            return this.Value.GetHashCode();
+            return _value.GetHashCode();
         }
 
         #endregion
@@ -58,7 +58,7 @@ namespace SharpMeasure
 
         public bool Equals(Measure<TUnit> other)
         {
-            return other.Value == this.Value;
+            return other.Value == _value;
         }
 
         #endregion
@@ -67,7 +67,7 @@ namespace SharpMeasure
 
         public int CompareTo(Measure<TUnit> other)
         {
-            return this.Value.CompareTo(other.Value);
+            return _value.CompareTo(other.Value);
         }
 
         #endregion
@@ -94,7 +94,7 @@ namespace SharpMeasure
             if (!Units.AreSameQuantity<TUnit, TTargetUnit>())
                 throw new IncompatibleUnitsException(typeof(TUnit), typeof(TTargetUnit));
             IUnit otherUnit = Units.GetUnit<TTargetUnit>();
-            double value = this.Value * _unit.ValueInSIUnit / otherUnit.ValueInSIUnit;
+            double value = otherUnit.FromSIUnit(_unit.ToSIUnit(_value));
             return new Measure<TTargetUnit>(value);
         }
 
@@ -130,13 +130,33 @@ namespace SharpMeasure
         public Measure<FractionalUnit<TUnit, TDivisorUnit>> DivideBy<TDivisorUnit>(Measure<TDivisorUnit> divisor)
             where TDivisorUnit : IUnit, new()
         {
-            return new Measure<FractionalUnit<TUnit, TDivisorUnit>>(this.Value / divisor.Value);
+            return new Measure<FractionalUnit<TUnit, TDivisorUnit>>(_value / divisor.Value);
+        }
+
+        public Measure<NoUnit> DivideBy(Measure<TUnit> divisor)
+        {
+            return new Measure<NoUnit>(_value / divisor.Value);
+        }
+
+        public Measure<TUnit> DivideBy(Measure<NoUnit> divisor)
+        {
+            return new Measure<TUnit>(_value / divisor.Value);
         }
 
         public Measure<ProductUnit<TUnit, TMultiplierUnit>> MultiplyBy<TMultiplierUnit>(Measure<TMultiplierUnit> multiplier)
             where TMultiplierUnit : IUnit, new()
         {
-            return new Measure<ProductUnit<TUnit, TMultiplierUnit>>(this.Value * multiplier.Value);
+            return new Measure<ProductUnit<TUnit, TMultiplierUnit>>(_value * multiplier.Value);
+        }
+
+        public Measure<NoUnit> MultiplyBy(Measure<FractionalUnit<NoUnit, TUnit>> multiplier)
+        {
+            return new Measure<NoUnit>(_value * multiplier.Value);
+        }
+
+        public Measure<TUnit> MultiplyBy(Measure<NoUnit> multiplier)
+        {
+            return new Measure<TUnit>(_value * multiplier.Value);
         }
 
         #endregion

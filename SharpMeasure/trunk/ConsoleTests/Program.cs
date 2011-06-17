@@ -12,7 +12,7 @@ namespace ConsoleTests
 
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             // distance est en mètres (Measure<Meter>)
             var distance = 100.Unit<Meter>();
@@ -58,13 +58,16 @@ namespace ConsoleTests
             Console.WriteLine(usainBoltSpeed.DivideBy(distance).Reduce());
             Console.WriteLine(time.MultiplyBy(usainBoltSpeed).Reduce());
             Console.WriteLine(usainBoltSpeed.MultiplyBy(time).Reduce());
+            Console.WriteLine();
+
+            Console.WriteLine("Multiplication and division by dimensionless quantity");
             var two = 2.Unit<NoUnit>();
             var twiceAsFast = usainBoltSpeed.MultiplyBy(two);
             Console.WriteLine(twiceAsFast);
-            Console.WriteLine(twiceAsFast.Reduce());
+            //Console.WriteLine(twiceAsFast.Reduce());
             var halfAsFast = usainBoltSpeed.DivideBy(two);
             Console.WriteLine(halfAsFast);
-            Console.WriteLine(halfAsFast.Reduce());
+            //Console.WriteLine(halfAsFast.Reduce());
             Console.ReadLine();
         }
     }

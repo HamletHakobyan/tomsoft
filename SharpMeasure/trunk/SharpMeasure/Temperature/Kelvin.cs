@@ -1,9 +1,9 @@
-﻿namespace SharpMeasure.Time
+﻿namespace SharpMeasure.Temperature
 {
-    public class Second : IUnit<ITime>
+    public class Kelvin : IUnit<ITemperature>
     {
-        public string Symbol { get { return "s"; } }
-        
+        public string Symbol { get { return "K"; } }
+
         public double ToSIUnit(double value)
         {
             return value;
