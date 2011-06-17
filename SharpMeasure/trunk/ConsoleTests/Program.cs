@@ -45,14 +45,17 @@ namespace ConsoleTests
             {
                 Console.WriteLine("Incompatible units:");
                 Console.WriteLine(distance.Convert<Hour>());
+                Console.WriteLine();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.WriteLine();
             }
 
-
-
+            Console.WriteLine("Reduction of composite units");
+            Console.WriteLine(distance.DivideBy(usainBoltSpeed));
+            Console.WriteLine(time.MultiplyBy(usainBoltSpeed));
             Console.ReadLine();
         }
     }
