@@ -54,8 +54,10 @@ namespace ConsoleTests
             }
 
             Console.WriteLine("Reduction of composite units");
-            Console.WriteLine(distance.DivideBy(usainBoltSpeed));
-            Console.WriteLine(time.MultiplyBy(usainBoltSpeed));
+            Console.WriteLine(distance.DivideBy(usainBoltSpeed).Reduce());
+            Console.WriteLine(usainBoltSpeed.DivideBy(distance).Reduce());
+            Console.WriteLine(time.MultiplyBy(usainBoltSpeed).Reduce());
+            Console.WriteLine(usainBoltSpeed.MultiplyBy(time).Reduce());
             Console.ReadLine();
         }
     }

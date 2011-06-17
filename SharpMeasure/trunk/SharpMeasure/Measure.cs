@@ -133,22 +133,10 @@ namespace SharpMeasure
             return new Measure<FractionalUnit<TUnit, TDivisorUnit>>(this.Value / divisor.Value);
         }
 
-        public Measure<TDenominator> DivideBy<TDenominator>(Measure<FractionalUnit<TUnit, TDenominator>> other)
-            where TDenominator : IUnit, new()
-        {
-            return new Measure<TDenominator>(this.Value / other.Value);
-        }
-
         public Measure<ProductUnit<TUnit, TMultiplierUnit>> MultiplyBy<TMultiplierUnit>(Measure<TMultiplierUnit> multiplier)
             where TMultiplierUnit : IUnit, new()
         {
             return new Measure<ProductUnit<TUnit, TMultiplierUnit>>(this.Value * multiplier.Value);
-        }
-
-        public Measure<TNumerator> MultiplyBy<TNumerator>(Measure<FractionalUnit<TNumerator, TUnit>> multiplier)
-            where TNumerator : IUnit, new()
-        {
-            return new Measure<TNumerator>(this.Value * multiplier.Value);
         }
 
         #endregion

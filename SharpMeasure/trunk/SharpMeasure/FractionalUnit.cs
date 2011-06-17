@@ -11,7 +11,12 @@
         {
             var numerator = new TNumerator();
             var denominator = new TDenominator();
-            _symbol = string.Format("{0}/{1}", numerator.Symbol, denominator.Symbol);
+            if (numerator is NoUnit)
+                _symbol = string.Format("1/{0}", denominator.Symbol);
+            else if (denominator is NoUnit)
+                _symbol = string.Format("{0}", numerator.Symbol);
+            else
+                _symbol = string.Format("{0}/{1}", numerator.Symbol, denominator.Symbol);
             _valueInSIUnit = numerator.ValueInSIUnit / denominator.ValueInSIUnit;
         }
 
