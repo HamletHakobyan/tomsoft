@@ -70,5 +70,63 @@ namespace SharpMeasure
         }
 
         #endregion
+
+        #region Reduction of composite units
+
+        // Reduction of 'a/a/b' to 'b'
+        public static Measure<TDenominator> Reduce<TNumerator, TDenominator>(this Measure<FractionalUnit<TNumerator, FractionalUnit<TNumerator, TDenominator>>> measure)
+            where TNumerator : IUnit, new()
+            where TDenominator : IUnit, new()
+        {
+            return new Measure<TDenominator>(measure.Value);
+        }
+
+        // Reduction of 'a/b/a' to '1/b'
+        public static Measure<FractionalUnit<NoUnit, TDenominator>> Reduce<TNumerator, TDenominator>(this Measure<FractionalUnit<FractionalUnit<TNumerator, TDenominator>, TNumerator>> measure)
+            where TNumerator : IUnit, new()
+            where TDenominator : IUnit, new()
+        {
+            return new Measure<FractionalUnit<NoUnit, TDenominator>>(measure.Value);
+        }
+
+        // Reduction of 'a/1' to 'a'
+        public static Measure<TNumerator> Reduce<TNumerator>(this Measure<FractionalUnit<TNumerator, NoUnit>> measure)
+            where TNumerator : IUnit, new()
+        {
+            return new Measure<TNumerator>(measure.Value);
+        }
+
+        // Reduction of 'b * a/b' to 'a'
+        public static Measure<TNumerator> Reduce<TNumerator, TDenominator>(this Measure<ProductUnit<TDenominator, FractionalUnit<TNumerator, TDenominator>>> measure)
+            where TNumerator : IUnit, new()
+            where TDenominator : IUnit, new()
+        {
+            return new Measure<TNumerator>(measure.Value);
+        }
+
+        // Reduction of 'a/b * b' to 'a'
+        public static Measure<TNumerator> Reduce<TNumerator, TDenominator>(this Measure<ProductUnit<FractionalUnit<TNumerator, TDenominator>, TDenominator>> measure)
+            where TNumerator : IUnit, new()
+            where TDenominator : IUnit, new()
+        {
+            return new Measure<TNumerator>(measure.Value);
+        }
+
+        // Reduction of 'a * 1' to 'a'
+        public static Measure<TFirst> Reduce<TFirst>(this Measure<ProductUnit<TFirst, NoUnit>> measure)
+            where TFirst : IUnit, new()
+        {
+            return new Measure<TFirst>(measure.Value);
+        }
+
+        // Reduction of '1 * a' to 'a'
+        public static Measure<TSecond> Reduce<TSecond>(this Measure<ProductUnit<NoUnit, TSecond>> measure)
+            where TSecond : IUnit, new()
+        {
+            return new Measure<TSecond>(measure.Value);
+        }
+        
+
+        #endregion
     }
 }
