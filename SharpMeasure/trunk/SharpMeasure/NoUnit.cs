@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SharpMeasure
+﻿namespace SharpMeasure
 {
     public class NoUnit : IUnit<IDimensionless>
     {
         public string Symbol { get { return string.Empty; } }
 
-        public double ValueInSIUnit
+        public double ToSIUnit(double value)
         {
-            get { return 1.0; }
+            return value;
+        }
+
+        public double FromSIUnit(double value)
+        {
+            return value;
         }
     }
 

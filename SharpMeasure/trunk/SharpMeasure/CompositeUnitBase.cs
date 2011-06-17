@@ -6,7 +6,8 @@
         where TSecond : IUnit, new()
     {
         public abstract string Symbol { get; }
-        public abstract double ValueInSIUnit { get; }
+        public abstract double ToSIUnit(double value);
+        public abstract double FromSIUnit(double value);
     }
 // ReSharper restore UnusedTypeParameter
 }

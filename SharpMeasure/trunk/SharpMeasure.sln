@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMeasure", "SharpMeasur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTests", "ConsoleTests\ConsoleTests.csproj", "{BEC24A38-2B10-4644-B0EF-88358BAA9404}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMeasure.Tests", "SharpMeasure.Tests\SharpMeasure.Tests.csproj", "{067E2781-3E0C-4269-AAC4-060751B0059F}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -39,6 +41,16 @@ Global
 		{BEC24A38-2B10-4644-B0EF-88358BAA9404}.Release|Mixed Platforms.Build.0 = Release|x86
 		{BEC24A38-2B10-4644-B0EF-88358BAA9404}.Release|x86.ActiveCfg = Release|x86
 		{BEC24A38-2B10-4644-B0EF-88358BAA9404}.Release|x86.Build.0 = Release|x86
+		{067E2781-3E0C-4269-AAC4-060751B0059F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{067E2781-3E0C-4269-AAC4-060751B0059F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{067E2781-3E0C-4269-AAC4-060751B0059F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{067E2781-3E0C-4269-AAC4-060751B0059F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{067E2781-3E0C-4269-AAC4-060751B0059F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{067E2781-3E0C-4269-AAC4-060751B0059F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{067E2781-3E0C-4269-AAC4-060751B0059F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{067E2781-3E0C-4269-AAC4-060751B0059F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{067E2781-3E0C-4269-AAC4-060751B0059F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{067E2781-3E0C-4269-AAC4-060751B0059F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
