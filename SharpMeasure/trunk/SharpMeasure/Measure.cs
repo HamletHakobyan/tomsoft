@@ -133,6 +133,12 @@ namespace SharpMeasure
             return new Measure<FractionalUnit<TUnit, TDivisorUnit>>(_value / divisor.Value);
         }
 
+        public Measure<TDenominator> DivideBy<TDenominator>(Measure<FractionalUnit<TUnit, TDenominator>> divisor)
+            where TDenominator : IUnit, new()
+        {
+            return new Measure<TDenominator>(_value / divisor.Value);
+        }
+
         public Measure<NoUnit> DivideBy(Measure<TUnit> divisor)
         {
             return new Measure<NoUnit>(_value / divisor.Value);
@@ -147,6 +153,12 @@ namespace SharpMeasure
             where TMultiplierUnit : IUnit, new()
         {
             return new Measure<ProductUnit<TUnit, TMultiplierUnit>>(_value * multiplier.Value);
+        }
+
+        public Measure<TNumerator> MultiplyBy<TNumerator>(Measure<FractionalUnit<TNumerator, TUnit>> multiplier)
+            where TNumerator : IUnit, new()
+        {
+            return new Measure<TNumerator>(_value * multiplier.Value);
         }
 
         public Measure<NoUnit> MultiplyBy(Measure<FractionalUnit<NoUnit, TUnit>> multiplier)
