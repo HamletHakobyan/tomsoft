@@ -12,9 +12,9 @@
             var first = new TFirst();
             var second = new TSecond();
             if (first is NoUnit)
-                _symbol = string.Format("{0}", first.Symbol);
-            else if (second is NoUnit)
                 _symbol = string.Format("{0}", second.Symbol);
+            else if (second is NoUnit)
+                _symbol = string.Format("{0}", first.Symbol);
             else
                 _symbol = string.Format("{0}.{1}", first.Symbol, second.Symbol);
             _valueInSIUnit = first.ValueInSIUnit * second.ValueInSIUnit;

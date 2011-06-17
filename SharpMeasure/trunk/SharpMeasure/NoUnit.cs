@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SharpMeasure
 {
-    public class NoUnit : IUnit<INoQuantity>
+    public class NoUnit : IUnit<IDimensionless>
     {
         public string Symbol { get { return string.Empty; } }
 
@@ -15,7 +15,7 @@ namespace SharpMeasure
         }
     }
 
-    public interface INoQuantity : IQuantity
+    public interface IDimensionless : IQuantity
     {
     }
 }
