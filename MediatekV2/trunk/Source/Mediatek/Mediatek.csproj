@@ -37,11 +37,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Developpez.Dotnet, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>D:\Docs\Visual Studio 2010\Projects\Mediatek\Lib\Developpez.Dotnet.dll</HintPath>
+    <Reference Include="Developpez.Dotnet, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\dvp-net.0.4\lib\net40\Developpez.Dotnet.dll</HintPath>
     </Reference>
-    <Reference Include="Developpez.Dotnet.Windows, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>D:\Docs\Visual Studio 2010\Projects\Mediatek\Lib\Developpez.Dotnet.Windows.dll</HintPath>
+    <Reference Include="Developpez.Dotnet.Windows, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\dvp-net-wpf.0.4\lib\net40\Developpez.Dotnet.Windows.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ObjectBuilder2">
       <HintPath>..\..\Lib\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
@@ -221,6 +223,7 @@
     <None Include="app.config" />
     <Resource Include="CustomEffects\ByteCode\Greyscale.ps" />
     <None Include="CustomEffects\Source\Greyscale.fx" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -287,6 +290,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\moviedefault.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\star_off.png" />
+    <Resource Include="Images\star_on.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
