@@ -3,5 +3,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Themes/Styles.xaml" />
         <ResourceDictionary Source="/Themes/TileView.resources.xaml" />
+        <ResourceDictionary Source="/Themes/BulletList.resources.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

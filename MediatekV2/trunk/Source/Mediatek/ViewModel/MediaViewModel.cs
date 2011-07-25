@@ -5,6 +5,12 @@ using Mediatek.Helpers;
 using System.Windows.Media.Imaging;
 using System.Windows;
 using System.Windows.Threading;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using Developpez.Dotnet.Windows.Service;
+using Mediatek.Messaging;
+using System.Windows.Data;
+using System.ComponentModel;
 
 namespace Mediatek.ViewModel
 {
@@ -13,7 +19,29 @@ namespace Mediatek.ViewModel
         protected MediaViewModel(Media media)
         {
             this.Model = media;
+            Mediator.Instance.Subscribe<EntityMessage<ContributionViewModel>>(ContributionMessageHandler);
+            Mediator.Instance.Subscribe<EntityMessage<LoanViewModel>>(LoanMessageHandler);
         }
+
+        private void LoanMessageHandler(object sender, EntityMessage<LoanViewModel> message)
+        {
+            // TODO
+        }
+
+        private void ContributionMessageHandler(object sender, EntityMessage<ContributionViewModel> message)
+        {
+            switch (message.Action)
+            {
+                case EntityAction.Created:
+                    Contributions.Add(message.Entity);
+                    break;
+                case EntityAction.Deleted:
+                    Contributions.Remove(message.Entity);
+                    break;
+            }
+        }
+
+        #region Properties
 
         public Guid Id
         {
@@ -72,6 +100,56 @@ namespace Mediatek.ViewModel
             }
         }
 
+        public string OriginalTitle
+        {
+            get { return Model.OriginalTitle; }
+            set
+            {
+                if (value != Model.OriginalTitle)
+                {
+                    Model.OriginalTitle = value;
+                    OnPropertyChanged("OriginalTitle");
+                }
+            }
+        }
+
+        private ObservableCollection<ContributionViewModel> _contributions;
+        public ICollection<ContributionViewModel> Contributions
+        {
+            get
+            {
+                if (_contributions == null)
+                {
+                    _contributions =
+                        Model.Contributions
+                            .Select(c => new ContributionViewModel(c))
+                            .ToObservableCollection();
+                    var view = CollectionViewSource.GetDefaultView(_contributions);
+                    view.SortDescriptions.Add(new SortDescription("RoleName", ListSortDirection.Ascending));
+                    view.SortDescriptions.Add(new SortDescription("ContributorName", ListSortDirection.Ascending));
+                    view.GroupDescriptions.Add(new PropertyGroupDescription("RoleName"));
+                }
+                return _contributions;
+            }
+        }
+
+        private ObservableCollection<LoanViewModel> _loans;
+        public ObservableCollection<LoanViewModel> Loans
+        {
+            get
+            {
+                if (_loans == null)
+                {
+                    _loans = Model.Loans
+                        .Select(l => new LoanViewModel(l))
+                        .ToObservableCollection();
+                }
+                return _loans;
+            }
+        }
+
+
+        #endregion
 
     }
 }

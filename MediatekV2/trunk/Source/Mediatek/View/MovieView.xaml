@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="Mediatek.View.MovieView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dvm="clr-namespace:Mediatek.Design"
+             xmlns:bhv="clr-namespace:Mediatek.Behaviors"
+             xmlns:ctl="clr-namespace:Mediatek.Controls"
+             xmlns:prop="clr-namespace:Mediatek.Properties"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600">
+    <d:DesignProperties.DataContext>
+        <dvm:DesignMovieViewModel />
+    </d:DesignProperties.DataContext>
+    <UserControl.Resources>
+        <Style x:Key="{x:Type Button}" TargetType="Button" BasedOn="{StaticResource stlFlatButton}" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                       Text="{Binding Title}"
+                       Style="{StaticResource stlMainTitle}" />
+            <TextBlock Grid.Row="1" Grid.Column="0"
+                       Text="{Binding OriginalTitle}"
+                       Style="{StaticResource stlSubTitle}"
+                       bhv:VisibilityBehavior.HideIfEmpty="True" />
+            <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
+                        Orientation="Horizontal">
+                <Button Command="{Binding EditCommand}" ToolTip="{x:Static prop:Resources.media_edit}">
+                    <Image Source="/Images/edit.png"  Style="{StaticResource stlFlatButtonImage}" />
+                </Button>
+                <Button Command="{Binding DeleteCommand}" ToolTip="{x:Static prop:Resources.media_delete}">
+                    <Image Source="/Images/delete.png" Style="{StaticResource stlFlatButtonImage}" />
+                </Button>
+            </StackPanel>
+        </Grid>
+        <DockPanel Grid.Row="1">
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
+                <Image Source="{Binding Picture}"
+                        Width="200" Height="200"
+                        Margin="5" />
+            </StackPanel>
+
+            <StackPanel>
+                <ctl:BulletList ItemsSource="{Binding Contributions}">
+                    <ctl:BulletList.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ContributorName}" />
+                        </DataTemplate>
+                    </ctl:BulletList.ItemTemplate>
+                    <ctl:BulletList.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Style="{StaticResource stlTitle}"
+                                               Text="{Binding Name}" />
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ctl:BulletList.GroupStyle>
+                </ctl:BulletList>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</UserControl>

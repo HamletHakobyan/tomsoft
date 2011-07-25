@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dvm="clr-namespace:Mediatek.Design"
              xmlns:bhv="clr-namespace:Mediatek.Behaviors"
+             xmlns:ctl="clr-namespace:Mediatek.Controls"
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="800">
 
@@ -15,6 +16,7 @@
     <UserControl.Resources>
 
         <Style x:Key="stlHomePageButton" TargetType="Button" BasedOn="{StaticResource stlLinkButton}">
+            <Setter Property="Margin" Value="5" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="TextElement.FontWeight" Value="Bold" />
             <Setter Property="TextElement.FontSize" Value="14" />
@@ -133,44 +135,37 @@
             <!-- Recently added -->
             <StackPanel Grid.Row="0" Margin="10">
                 <TextBlock Style="{StaticResource stlTitle}" Text="Recently added" />
-                <ItemsControl ItemsSource="{Binding RecentlyAdded}">
-                    <ItemsControl.ItemTemplate>
+                <ctl:BulletList ItemsSource="{Binding RecentlyAdded}">
+                    <ctl:BulletList.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Control Style="{StaticResource stlBullet}" />
-                                <TextBlock VerticalAlignment="Center"
-                                           Margin="5"
-                                           Text="{Binding Title}" />
-                            </StackPanel>
+                            <Button Style="{StaticResource stlLinkButton}"
+                                    Content="{Binding Title}"
+                                    Command="{Binding ShowMeCommand}" />
                         </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                    </ctl:BulletList.ItemTemplate>
+                </ctl:BulletList>
             </StackPanel>
             
             <Separator Grid.Row="1" Margin="10, 0" />
 
             <!-- Loans -->
             <StackPanel Grid.Row="2" Margin="10">
-                <TextBlock Style="{StaticResource stlTitle}" Text="Lent items" />
-                <ItemsControl ItemsSource="{Binding Loans}">
-                    <ItemsControl.ItemTemplate>
+                <TextBlock Style="{StaticResource stlTitle}" Text="On loan" />
+                <ctl:BulletList ItemsSource="{Binding Loans}">
+                    <ctl:BulletList.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Control Style="{StaticResource stlBullet}" />
-                                <TextBlock VerticalAlignment="Center"
-                                           Margin="5">
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0}: lent to {1} since {2:d}">
-                                            <Binding Path="Media.Title" />
-                                            <Binding Path="Person.PersonDisplayName" />
-                                            <Binding Path="LoanDate" />
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                            </StackPanel>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}: lent to {1} since {2:d}">
+                                        <Binding Path="Media.Title" />
+                                        <Binding Path="Person.PersonDisplayName" />
+                                        <Binding Path="LoanDate" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
                         </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                    </ctl:BulletList.ItemTemplate>
+                </ctl:BulletList>
             </StackPanel>
 
         </Grid>

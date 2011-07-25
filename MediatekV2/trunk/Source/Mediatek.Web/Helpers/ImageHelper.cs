@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Web;
 using System.IO;
@@ -13,8 +14,8 @@ namespace Mediatek.Web.Helpers
             if (image != null)
             {
                 string path = thumbnail
-                    ? string.Format("/Content/DbImages/Thumbnails/{0}.png", image.Id)
-                    : string.Format("/Content/DbImages/{0}.png", image.Id);
+                    ? string.Format("Content/DbImages/Thumbnails/{0}.png", image.Id)
+                    : string.Format("Content/DbImages/{0}.png", image.Id);
 
                 string physicalPath = HttpContext.Current.Server.MapPath(path);
                 if (File.Exists(physicalPath))
@@ -30,7 +31,7 @@ namespace Mediatek.Web.Helpers
                         using (var img = System.Drawing.Image.FromStream(ms))
                         using (var thumb = img.GetThumbnailImage(100, 150, null, IntPtr.Zero))
                         {
-                            thumb.Save(physicalPath);
+                            thumb.Save(physicalPath, ImageFormat.Png);
                         }
                     }
                     else

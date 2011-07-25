@@ -8,10 +8,6 @@ namespace Mediatek.Helpers
     {
         public static BitmapSource GetBitmapSource(this Image image)
         {
-            if (image.Data == null)
-            {
-                App.Repository.LoadProperty(image, i => i.Data);
-            }
             if (image.Data != null)
             {
                 return BitmapSourceFromBytes(image.Data.Bytes);
