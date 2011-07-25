@@ -6,8 +6,7 @@
              xmlns:dvm="clr-namespace:Mediatek.Design"
              xmlns:bhv="clr-namespace:Mediatek.Behaviors"
              xmlns:ctl="clr-namespace:Mediatek.Controls"
-             xmlns:prop="clr-namespace:Mediatek.Properties"
-             mc:Ignorable="d" 
+             xmlns:prop="clr-namespace:Mediatek.Properties" xmlns:dvp="clr-namespace:Developpez.Dotnet.Windows.Controls;assembly=Developpez.Dotnet.Windows" mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600">
     <d:DesignProperties.DataContext>
         <dvm:DesignMovieViewModel />
@@ -17,7 +16,7 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -36,8 +35,9 @@
                        Text="{Binding OriginalTitle}"
                        Style="{StaticResource stlSubTitle}"
                        bhv:VisibilityBehavior.HideIfEmpty="True" />
-            <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
-                        Orientation="Horizontal">
+            <StackPanel Grid.Row="1" Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
                 <Button Command="{Binding EditCommand}" ToolTip="{x:Static prop:Resources.media_edit}">
                     <Image Source="/Images/edit.png"  Style="{StaticResource stlFlatButtonImage}" />
                 </Button>
@@ -45,6 +45,15 @@
                     <Image Source="/Images/delete.png" Style="{StaticResource stlFlatButtonImage}" />
                 </Button>
             </StackPanel>
+            <Border Grid.Row="0" Grid.Column="2"
+                    HorizontalAlignment="Right" Margin="3"
+                    CornerRadius="10" Background="#80000000">
+                <dvp:RatingControl Margin="3"
+                                   Height="24"
+                                   Value="{Binding Rating}"
+                                   ImageOff="/Images/star_off.png"
+                                   ImageOn="/Images/star_on.png" />
+            </Border>
         </Grid>
         <DockPanel Grid.Row="1">
             <StackPanel Orientation="Vertical" DockPanel.Dock="Left">

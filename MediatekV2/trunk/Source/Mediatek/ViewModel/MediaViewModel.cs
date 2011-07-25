@@ -113,6 +113,19 @@ namespace Mediatek.ViewModel
             }
         }
 
+        public byte Rating
+        {
+            get { return Model.Rating ?? 0; }
+            set
+            {
+                if (value != (Model.Rating ?? 0))
+                {
+                    Model.Rating = value;
+                    OnPropertyChanged("Rating");
+                }
+            }
+        }
+
         private ObservableCollection<ContributionViewModel> _contributions;
         public ICollection<ContributionViewModel> Contributions
         {
