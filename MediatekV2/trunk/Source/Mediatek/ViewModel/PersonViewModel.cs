@@ -32,6 +32,70 @@ namespace Mediatek.ViewModel
             }
         }
 
-        
+        public string FirstName
+        {
+            get { return Model.FirstName; }
+            set
+            {
+                if (value != Model.FirstName)
+                {
+                    Model.FirstName = value;
+                    OnPropertyChanged("FirstName");
+                }
+            }
+        }
+
+        public string LastName
+        {
+            get { return Model.LastName; }
+            set
+            {
+                if (value != Model.LastName)
+                {
+                    Model.LastName = value;
+                    OnPropertyChanged("LastName");
+                }
+            }
+        }
+
+        public new string DisplayName
+        {
+            get { return Model.DisplayName; }
+            set
+            {
+                if (value != Model.DisplayName)
+                {
+                    Model.DisplayName = value;
+                    OnPropertyChanged("DisplayName");
+                }
+            }
+        }
+
+        public string NickName
+        {
+            get { return Model.NickName; }
+            set
+            {
+                if (value != Model.NickName)
+                {
+                    Model.NickName = value;
+                    OnPropertyChanged("NickName");
+                }
+            }
+        }
+
+        public bool IsGroup
+        {
+            get { return Model.IsGroup; }
+            set
+            {
+                if (value != Model.IsGroup)
+                {
+                    Model.IsGroup = value;
+                    OnPropertyChanged("IsGroup");
+                }
+            }
+        }
+
     }
 }

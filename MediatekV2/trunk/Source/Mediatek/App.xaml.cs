@@ -30,6 +30,7 @@ namespace Mediatek
             // Setup services
             UnityContainer = SetupUnityContainerFromConfig();
             UnityContainer.RegisterInstance<IMessageBoxService>(new MessageBoxService());
+            UnityContainer.RegisterInstance<IFileDialogService>(new FileDialogService());
             UnityContainer.RegisterInstance<IViewModelRepository>(new ViewModelRepository());
             var mainVM = new MainViewModel();
             UnityContainer.RegisterInstance<INavigationService>(mainVM);

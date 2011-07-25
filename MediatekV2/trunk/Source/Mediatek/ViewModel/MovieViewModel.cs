@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
+using Developpez.Dotnet.Windows.Input;
 using Mediatek.Entities;
 using System.Windows.Threading;
 using Mediatek.Helpers;
 using System.Windows;
+using Developpez.Dotnet.Windows.Service;
+using Mediatek.Messaging;
 
 namespace Mediatek.ViewModel
 {
@@ -13,6 +18,8 @@ namespace Mediatek.ViewModel
             : base(movie)
         {
         }
+
+        #region Properties
 
         public Movie MovieModel
         {
@@ -41,6 +48,30 @@ namespace Mediatek.ViewModel
                     .Where(r => r.RoleId == Role.DirectorRoleId)
                     .Select(r => r.Person.DisplayName);
             }
+        }
+
+        #endregion
+
+        #region Commands
+
+        private DelegateCommand _showMeCommand;
+        public ICommand ShowMeCommand
+        {
+            get
+            {
+                if (_showMeCommand == null)
+                {
+                    _showMeCommand = new DelegateCommand(ShowMe);
+                }
+                return _showMeCommand;
+            }
+        }
+
+        #endregion
+
+        private void ShowMe()
+        {
+            Mediator.Instance.Post(this, new NavigationMessage(this));
         }
     }
 }

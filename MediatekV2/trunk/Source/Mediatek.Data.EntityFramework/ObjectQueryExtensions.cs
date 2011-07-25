@@ -13,21 +13,8 @@ namespace Mediatek.Data.EntityFramework
     {
         public static ObjectQuery<T> Include<T>(this ObjectQuery<T> query, Expression<Func<T, object>> selector)
         {
-            string path = GetPropertyPath(selector);
+            string path = new PropertyPathVisitor().GetPropertyPath(selector);
             return query.Include(path);
-        }
-
-        private static string GetPropertyName<T>(Expression<Func<T, object>> expression)
-        {
-            MemberExpression memberExpr = expression.Body as MemberExpression;
-            if (memberExpr == null)
-                throw new ArgumentException("Expression body must be a member expression");
-            return memberExpr.Member.Name;
-        }
-
-        private static string GetPropertyPath<T>(Expression<Func<T, object>> expression)
-        {
-            return new PropertyPathVisitor().GetPropertyPath(expression);
         }
 
         class PropertyPathVisitor : ExpressionVisitor

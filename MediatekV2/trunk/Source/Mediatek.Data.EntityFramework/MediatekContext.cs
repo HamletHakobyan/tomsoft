@@ -165,47 +165,47 @@ namespace Mediatek.Data.EntityFramework
 
         public void AddContribution(Contribution contribution)
         {
-            AddObject(_contributions.Name, contribution);
+            AddObject("Contributions", contribution);
         }
 
         public void AddCountry(Country country)
         {
-            AddObject(_countries.Name, country);
+            AddObject("Countries", country);
         }
 
         public void AddLanguage(Language language)
         {
-            AddObject(_languages.Name, language);
+            AddObject("Languages", language);
         }
 
         public void AddLoan(Loan loan)
         {
-            AddObject(_loans.Name, loan);
+            AddObject("Loans", loan);
         }
 
         public void AddMedia(Media media)
         {
-            AddObject(_medias.Name, media);
+            AddObject("Medias", media);
         }
 
         public void AddPerson(Person person)
         {
-            AddObject(_persons.Name, person);
+            AddObject("People", person);
         }
 
         public void AddRole(Role role)
         {
-            AddObject(_roles.Name, role);
+            AddObject("Roles", role);
         }
 
         public void AddImage(Image image)
         {
-            AddObject(_images.Name, image);
+            AddObject("Images", image);
         }
 
         public void AddImageData(ImageData imageData)
         {
-            AddObject(_imageData.Name, imageData);
+            AddObject("ImageDatas", imageData);
         }
 
         public override int SaveChanges(SaveOptions options)

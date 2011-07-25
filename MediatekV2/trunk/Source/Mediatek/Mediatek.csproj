@@ -55,10 +55,13 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Services.Client" />
     <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Microsoft SQL Server Compact Edition\v3.5\Desktop\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Presentation" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -77,19 +80,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\ListBoxBehavior.cs" />
     <Compile Include="Behaviors\ThemeProperties.cs" />
     <Compile Include="Behaviors\ButtonStateBehavior.cs" />
+    <Compile Include="Behaviors\VisibilityBehavior.cs" />
     <Compile Include="Controls\AnimatedGifImage.cs" />
+    <Compile Include="Controls\BulletList.cs" />
+    <Compile Include="Controls\BulletListItem.cs" />
+    <Compile Include="Controls\ImagePicker.xaml.cs">
+      <DependentUpon>ImagePicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TileView.cs" />
     <Compile Include="Converters\CsvConverter.cs" />
     <Compile Include="CustomEffects\GreyscaleEffect.cs" />
     <Compile Include="Design\DesignHomeViewModel.cs" />
-    <Compile Include="Helpers\EntityExtensions.cs" />
+    <Compile Include="Design\DesignMediaViewModel.cs" />
+    <Compile Include="Design\DesignMovieViewModel.cs" />
+    <Compile Include="Helpers\CopyHelper.cs" />
+    <Compile Include="Helpers\Editable.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\PackUri.cs" />
     <Compile Include="Messaging\EntityMessage.cs" />
     <Compile Include="Messaging\NavigationMessage.cs" />
+    <Compile Include="Service\IFileDialogService.cs" />
+    <Compile Include="Service\Implementation\FileDialogService.cs" />
     <Compile Include="Service\IViewModelRepository.cs" />
     <Compile Include="Service\INavigationService.cs" />
     <Compile Include="Service\IDialogService.cs" />
@@ -100,6 +115,8 @@
     <Compile Include="ViewModel\AlbumViewModel.cs" />
     <Compile Include="ViewModel\BooksViewModel.cs" />
     <Compile Include="ViewModel\BookViewModel.cs" />
+    <Compile Include="ViewModel\ContributionViewModel.cs" />
+    <Compile Include="ViewModel\CountryViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LoanViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -108,12 +125,23 @@
     <Compile Include="ViewModel\MovieViewModel.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />
     <Compile Include="ViewModel\MediatekViewModelBase.cs" />
+    <Compile Include="ViewModel\ReferenceData.cs" />
+    <Compile Include="View\EditCountryView.xaml.cs">
+      <DependentUpon>EditCountryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MoviesView.xaml.cs">
       <DependentUpon>MoviesView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MovieView.xaml.cs">
+      <DependentUpon>MovieView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\ImagePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Converters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -138,6 +166,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\BulletList.resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -150,11 +182,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EditCountryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MoviesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MovieView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -174,7 +214,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -244,6 +284,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\loading.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\moviedefault.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

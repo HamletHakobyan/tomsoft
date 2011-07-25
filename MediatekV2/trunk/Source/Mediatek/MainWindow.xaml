@@ -2,7 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:dvp="http://www.developpez.com/xaml"
-        Title="Mediatek"
+        xmlns:res="clr-namespace:Mediatek.Properties"
+        Title="{x:Static res:Resources.app_title}"
         Height="600"
         Width="800"
         WindowStyle="None"
@@ -15,13 +16,13 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition x:Name="headerRow" Height="60" />
+            <RowDefinition x:Name="headerRow" Height="30" />
             <RowDefinition x:Name="contentRow" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition />
-                <RowDefinition />
+                <!--<RowDefinition />-->
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150" />
@@ -35,34 +36,34 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Panel.ZIndex="2">
-                    <Button ToolTip="Minimize" Click="MinimizeButton_Click">
-                        <Image Source="Images/down.png" />
+                    <Button ToolTip="{x:Static res:Resources.mainwindow_minimize}" Click="MinimizeButton_Click">
+                        <Image Source="Images/down.png" Style="{StaticResource stlFlatButtonImage}" />
                     </Button>
-                    <Button ToolTip="Maximize" Click="MaximizeButton_Click">
-                        <Image Source="Images/window.png" />
+                    <Button ToolTip="{x:Static res:Resources.mainwindow_maximize}" Click="MaximizeButton_Click">
+                        <Image Source="Images/window.png" Style="{StaticResource stlFlatButtonImage}" />
                     </Button>
-                    <Button Command="{Binding CloseCommand}" ToolTip="Close">
-                        <Image Source="Images/close.png" />
+                    <Button ToolTip="{x:Static res:Resources.mainwindow_close}" Command="{Binding CloseCommand}">
+                        <Image Source="Images/close.png" Style="{StaticResource stlFlatButtonImage}" />
                     </Button>
                 </StackPanel>
 
                 <!-- Navigation controls -->
                 <StackPanel Orientation="Horizontal" Panel.ZIndex="2">
-                    <Button Command="{Binding GoHomeCommand}">
-                        <Image Source="/Images/home.png" />
+                    <Button ToolTip="{x:Static res:Resources.navigation_home}" Command="{Binding GoHomeCommand}">
+                        <Image Source="/Images/home.png" Style="{StaticResource stlFlatButtonImage}" />
                     </Button>
-                    <Button Command="{Binding GoBackCommand}" IsEnabled="{Binding CanGoBack}">
-                        <Image Source="/Images/back.png" />
+                    <Button ToolTip="{x:Static res:Resources.navigation_back}" Command="{Binding GoBackCommand}" IsEnabled="{Binding CanGoBack}">
+                        <Image Source="/Images/back.png" Style="{StaticResource stlFlatButtonImage}" />
                     </Button>
-                    <Button Command="{Binding GoForwardCommand}" IsEnabled="{Binding CanGoForward}">
-                        <Image Source="/Images/next.png" />
+                    <Button ToolTip="{x:Static res:Resources.navigation_forward}" Command="{Binding GoForwardCommand}" IsEnabled="{Binding CanGoForward}">
+                        <Image Source="/Images/next.png" Style="{StaticResource stlFlatButtonImage}" />
                     </Button>
                     
                 </StackPanel>
             </DockPanel>
 
             <!-- Double-click target for maximize -->
-            <Control Grid.Row="0" Grid.RowSpan="2"
+            <Control Grid.Row="0" Grid.RowSpan="1"
                      Grid.Column="0" Grid.ColumnSpan="2"
                      MouseDoubleClick="Control_MouseDoubleClick"
                      Panel.ZIndex="1">
@@ -75,7 +76,7 @@
 
             <!-- Window title -->
             <TextBlock Grid.Row="0"
-                       Text="Mediatek"
+                       Text="{x:Static res:Resources.app_title}"
                        Margin="2"
                        VerticalAlignment="Center"
                        FontFamily="Comic Sans MS"
@@ -83,14 +84,15 @@
                        Panel.ZIndex="0"/>
         </Grid>
         
-        <Border Grid.Row="1" CornerRadius="10">
+        <Border Grid.Row="1" CornerRadius="10" Margin="0,5,0,0">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                     <GradientStop Offset="0.00" Color="#CCFFFFFF" />
                     <GradientStop Offset="1.00" Color="#CC00FFFF" />
                 </LinearGradientBrush>
             </Border.Background>
-            <Frame Name="frame" Content="{Binding Current}" Padding="5" NavigationUIVisibility="Hidden" />
+            <Frame Name="frame" Content="{Binding Current}" Padding="5"
+                   NavigationUIVisibility="Hidden"/>
         </Border>
     </Grid>
 </Window>

@@ -27,11 +27,7 @@ namespace Mediatek.Service.Implementation
             {
                 if (_medias == null)
                 {
-                    _medias =
-                        App.Repository.Medias
-                            .AsEnumerable()
-                            .Select(CreateViewModel)
-                            .ToObservableCollection();
+                    _medias = BuildViewModels(App.Repository.Medias, CreateViewModel);
                 }
                 return _medias;
             }
@@ -78,11 +74,7 @@ namespace Mediatek.Service.Implementation
             {
                 if (_persons == null)
                 {
-                    _persons =
-                        App.Repository.Persons
-                            .AsEnumerable()
-                            .Select(p => new PersonViewModel(p))
-                            .ToObservableCollection();
+                    _persons = BuildViewModels(App.Repository.Persons, p => new PersonViewModel(p));
                 }
                 return _persons;
             }
@@ -99,14 +91,37 @@ namespace Mediatek.Service.Implementation
             {
                 if (_loans == null)
                 {
-                    _loans =
-                        App.Repository.Loans
-                            .AsEnumerable()
-                            .Select(loan => new LoanViewModel(loan))
-                            .ToObservableCollection();
+                    _loans = BuildViewModels(App.Repository.Loans, loan => new LoanViewModel(loan));
                 }
                 return _loans;
             }
+        }
+
+        #endregion
+
+        #region Countries
+
+        private ObservableCollection<CountryViewModel> _countries;
+        public IList<CountryViewModel> Countries
+        {
+            get
+            {
+                if (_countries == null)
+                {
+                    _countries = BuildViewModels(App.Repository.Countries, country => new CountryViewModel(country));
+                }
+                return _countries;
+            }
+        }
+
+
+        #endregion
+
+        #region Utility methods
+
+        private ObservableCollection<TViewModel> BuildViewModels<TModel, TViewModel>(IEnumerable<TModel> models, Func<TModel, TViewModel> projection)
+        {
+            return models.Select(projection).ToObservableCollection();
         }
 
         #endregion

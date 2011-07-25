@@ -4,13 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ctl="clr-namespace:Mediatek.Controls"
+             xmlns:bhv="clr-namespace:Mediatek.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <ListView Grid.Row="0"
                   ItemsSource="{Binding Movies}"
                   ItemTemplate="{StaticResource tplMovieListItem}"
-                  IsSynchronizedWithCurrentItem="True">
+                  IsSynchronizedWithCurrentItem="True"
+                  bhv:ListBoxBehavior.ItemDoubleClick="{Binding ShowMovieCommand}">
             <ListView.View>
                 <ctl:TileView />
             </ListView.View>

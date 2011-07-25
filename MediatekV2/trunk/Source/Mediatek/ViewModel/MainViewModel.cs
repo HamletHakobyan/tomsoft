@@ -39,6 +39,9 @@ namespace Mediatek.ViewModel
                 case NavigationDestination.Books:
                     destination = Books;
                     break;
+                case NavigationDestination.Custom:
+                    destination = message.CustomDestination;
+                    break;
             }
             Navigate(destination);
         }

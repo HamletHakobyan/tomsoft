@@ -8,5 +8,6 @@ namespace Mediatek.Service
         IList<MediaViewModel> Medias { get; }
         IList<PersonViewModel> Persons { get; }
         IList<LoanViewModel> Loans { get; }
+        IList<CountryViewModel> Countries { get; }
     }
 }
