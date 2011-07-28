@@ -86,9 +86,11 @@
     <Compile Include="Behaviors\ThemeProperties.cs" />
     <Compile Include="Behaviors\ButtonStateBehavior.cs" />
     <Compile Include="Behaviors\VisibilityBehavior.cs" />
-    <Compile Include="Controls\AnimatedGifImage.cs" />
+    <Compile Include="Controls\BoundFormField.cs" />
     <Compile Include="Controls\BulletList.cs" />
     <Compile Include="Controls\BulletListItem.cs" />
+    <Compile Include="Controls\FormDataView.cs" />
+    <Compile Include="Controls\FormField.cs" />
     <Compile Include="Controls\ImagePicker.xaml.cs">
       <DependentUpon>ImagePicker.xaml</DependentUpon>
     </Compile>
@@ -140,6 +142,10 @@
     <Compile Include="View\MovieView.xaml.cs">
       <DependentUpon>MovieView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Themes\FormDataView.resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ImagePicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -294,6 +300,9 @@
   <ItemGroup>
     <Resource Include="Images\star_off.png" />
     <Resource Include="Images\star_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\FormViews\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

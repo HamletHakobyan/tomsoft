@@ -80,6 +80,12 @@
                         </GroupStyle>
                     </ctl:BulletList.GroupStyle>
                 </ctl:BulletList>
+                <Separator />
+                <CheckBox Content="Edit" Name="chkEdit" />
+                <ctl:FormDataView IsInEditMode="{Binding IsChecked, ElementName=chkEdit}">
+                    <ctl:TextFormField Header="Title" Binding="{Binding Title}" />
+                    <ctl:TextFormField Header="Original title" Binding="{Binding OriginalTitle}" />
+                </ctl:FormDataView>
             </StackPanel>
         </DockPanel>
     </Grid>
