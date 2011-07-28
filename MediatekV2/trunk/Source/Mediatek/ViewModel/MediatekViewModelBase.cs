@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using Developpez.Dotnet;
 using Developpez.Dotnet.Windows.ViewModel;
+using Microsoft.Practices.Unity;
 
 namespace Mediatek.ViewModel
 {

@@ -52,8 +52,7 @@ namespace Mediatek
         {
             var unityContainer = new UnityContainer();
             var unitySection = (UnityConfigurationSection)ConfigurationManager.GetSection("unity");
-            var containerElement = unitySection.Containers.Default;
-            containerElement.Configure(unityContainer);
+            unitySection.Configure(unityContainer);
             return unityContainer;
         }
 
