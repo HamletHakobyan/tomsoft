@@ -7,7 +7,7 @@ using Mediatek.Service;
 
 namespace Mediatek.ViewModel
 {
-    public class MainViewModel : MediatekViewModelBase, INavigationService
+    public class MainViewModel : WindowViewModelBase, INavigationService
     {
         private readonly LinkedList<object> _history;
         private LinkedListNode<object> _currentNode;
