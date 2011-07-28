@@ -3,7 +3,7 @@
                     xmlns:ctl="clr-namespace:Mediatek.Controls">
 
     <Style TargetType="{x:Type ctl:FormDataView}" BasedOn="{StaticResource ResourceKey={x:Type ItemsControl}}">
-        <Setter Property="ItemsPanel">
+        <!--<Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Vertical"
@@ -11,7 +11,7 @@
                                 IsItemsHost="True" />
                 </ItemsPanelTemplate>
             </Setter.Value>
-        </Setter>
+        </Setter>-->
     </Style>
     
     <Style TargetType="{x:Type ctl:FormField}">
@@ -20,10 +20,11 @@
                 <ControlTemplate TargetType="{x:Type ctl:FormField}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="headerColumn" />
-                            <ColumnDefinition Width="*" SharedSizeGroup="valueColumn" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <ContentPresenter Grid.Column="0"
+                                          Name="PART_Header"
                                           Content="{TemplateBinding Header}"
                                           Margin="3"
                                           TextElement.FontWeight="Bold" />
