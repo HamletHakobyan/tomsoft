@@ -16,7 +16,7 @@ namespace Mediatek.Controls
 
         public FormDataView()
         {
-            this.Loaded += new RoutedEventHandler(FormDataView_Loaded);
+            this.Loaded += FormDataView_Loaded;
         }
 
         void FormDataView_Loaded(object sender, RoutedEventArgs e)
