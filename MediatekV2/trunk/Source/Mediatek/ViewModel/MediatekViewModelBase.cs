@@ -16,7 +16,7 @@ namespace Mediatek.ViewModel
         }
     }
 
-    public class MediatekViewModelBase<TModel> : ViewModelBase<TModel> //, IEditableObject
+    public class MediatekViewModelBase<TModel> : ViewModelBase<TModel>
     {
         public override TService GetService<TService>(string name)
         {
@@ -24,51 +24,5 @@ namespace Mediatek.ViewModel
                 return App.UnityContainer.Resolve<TService>();
             return App.UnityContainer.Resolve<TService>(name);
         }
-
-        //#region Implementation of IEditableObject
-
-        //private bool _isInEditMode;
-        //public bool IsInEditMode
-        //{
-        //    get { return _isInEditMode; }
-        //}
-
-        //public void BeginEdit()
-        //{
-        //    if (_isInEditMode)
-        //        throw new InvalidOperationException("The object is already being edited.");
-        //    BeginEditCore();
-        //    _isInEditMode = true;
-        //}
-
-        //public void EndEdit()
-        //{
-        //    if (!_isInEditMode)
-        //        throw new InvalidOperationException("The object is not being edited.");
-        //    EndEditCore();
-        //    _isInEditMode = false;
-        //}
-
-        //public void CancelEdit()
-        //{
-        //    if (!_isInEditMode)
-        //        throw new InvalidOperationException("The object is not being edited.");
-        //    CancelEditCore();
-        //    _isInEditMode = false;
-        //}
-
-        //#endregion
-
-        //protected virtual void BeginEditCore()
-        //{
-        //}
-
-        //protected virtual void EndEditCore()
-        //{
-        //}
-
-        //protected virtual void CancelEditCore()
-        //{
-        //}
     }
 }

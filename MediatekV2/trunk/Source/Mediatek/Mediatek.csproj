@@ -105,8 +105,10 @@
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\PackUri.cs" />
+    <Compile Include="MediatekWindow.cs" />
     <Compile Include="Messaging\EntityMessage.cs" />
     <Compile Include="Messaging\NavigationMessage.cs" />
+    <Compile Include="Service\IDialogViewModel.cs" />
     <Compile Include="Service\IFileDialogService.cs" />
     <Compile Include="Service\Implementation\FileDialogService.cs" />
     <Compile Include="Service\IViewModelRepository.cs" />
@@ -115,6 +117,8 @@
     <Compile Include="Service\IMessageBoxService.cs" />
     <Compile Include="Service\Implementation\MessageBoxService.cs" />
     <Compile Include="Service\Implementation\ViewModelRepository.cs" />
+    <Compile Include="Service\IWindowViewModel.cs" />
+    <Compile Include="Service\WindowViewModelBase.cs" />
     <Compile Include="ViewModel\AlbumsViewModel.cs" />
     <Compile Include="ViewModel\AlbumViewModel.cs" />
     <Compile Include="ViewModel\BooksViewModel.cs" />
@@ -135,6 +139,9 @@
     </Compile>
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MediaContributionsView.xaml.cs">
+      <DependentUpon>MediaContributionsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MoviesView.xaml.cs">
       <DependentUpon>MoviesView.xaml</DependentUpon>
@@ -182,6 +189,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\MediatekWindow.resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -195,6 +206,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MediaContributionsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

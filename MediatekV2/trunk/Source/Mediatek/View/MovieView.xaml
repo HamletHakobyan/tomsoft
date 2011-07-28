@@ -6,7 +6,10 @@
              xmlns:dvm="clr-namespace:Mediatek.Design"
              xmlns:bhv="clr-namespace:Mediatek.Behaviors"
              xmlns:ctl="clr-namespace:Mediatek.Controls"
-             xmlns:prop="clr-namespace:Mediatek.Properties" xmlns:dvp="clr-namespace:Developpez.Dotnet.Windows.Controls;assembly=Developpez.Dotnet.Windows" mc:Ignorable="d" 
+             xmlns:prop="clr-namespace:Mediatek.Properties"
+             xmlns:v="clr-namespace:Mediatek.View"
+             xmlns:dvp="http://www.developpez.com/xaml"
+             mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600">
     <d:DesignProperties.DataContext>
         <dvm:DesignMovieViewModel />
@@ -63,23 +66,7 @@
             </StackPanel>
 
             <StackPanel>
-                <ctl:BulletList ItemsSource="{Binding Contributions}">
-                    <ctl:BulletList.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding ContributorName}" />
-                        </DataTemplate>
-                    </ctl:BulletList.ItemTemplate>
-                    <ctl:BulletList.GroupStyle>
-                        <GroupStyle>
-                            <GroupStyle.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock Style="{StaticResource stlTitle}"
-                                               Text="{Binding Name}" />
-                                </DataTemplate>
-                            </GroupStyle.HeaderTemplate>
-                        </GroupStyle>
-                    </ctl:BulletList.GroupStyle>
-                </ctl:BulletList>
+                <v:MediaContributionsView Contributions="{Binding Contributions}" />
             </StackPanel>
         </DockPanel>
     </Grid>
