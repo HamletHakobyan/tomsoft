@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:Mediatek.ViewModel"
-                    xmlns:ctl="clr-namespace:Mediatek.Controls">
+                    xmlns:ctl="clr-namespace:Mediatek.Controls"
+                    xmlns:dvp="http://www.developpez.com/xaml">
 
     <DataTemplate x:Key="tplMovieListItem" DataType="{x:Type vm:MovieViewModel}">
         <DataTemplate.Resources>
@@ -18,9 +19,9 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
-                <ctl:AnimatedGifImage x:Name="imgLoading"
-                                      UriSource="{Binding LoadingImageUri, Source={x:Static Application.Current}}"
-                                      Visibility="Collapsed"/>
+                <Image x:Name="imgLoading"
+                      dvp:ImageBehavior.AnimatedSource="{Binding LoadingImageUri, Source={x:Static Application.Current}}"
+                      Visibility="Collapsed"/>
                 <Image Name="imgPicture"
                        Source="{Binding Picture}" />
             </Grid>
