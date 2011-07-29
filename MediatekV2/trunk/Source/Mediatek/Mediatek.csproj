@@ -100,6 +100,9 @@
     <Compile Include="Design\DesignHomeViewModel.cs" />
     <Compile Include="Design\DesignMediaViewModel.cs" />
     <Compile Include="Design\DesignMovieViewModel.cs" />
+    <Compile Include="DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CopyHelper.cs" />
     <Compile Include="Helpers\Editable.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
@@ -110,6 +113,7 @@
     <Compile Include="Messaging\NavigationMessage.cs" />
     <Compile Include="Service\IDialogViewModel.cs" />
     <Compile Include="Service\IFileDialogService.cs" />
+    <Compile Include="Service\Implementation\DialogService.cs" />
     <Compile Include="Service\Implementation\FileDialogService.cs" />
     <Compile Include="Service\IViewModelRepository.cs" />
     <Compile Include="Service\INavigationService.cs" />
@@ -149,6 +153,10 @@
     <Compile Include="View\MovieView.xaml.cs">
       <DependentUpon>MovieView.xaml</DependentUpon>
     </Compile>
+    <Page Include="DialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\FormDataView.resources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -31,6 +31,7 @@ namespace Mediatek
             UnityContainer = SetupUnityContainerFromConfig();
             UnityContainer.RegisterInstance<IMessageBoxService>(new MessageBoxService());
             UnityContainer.RegisterInstance<IFileDialogService>(new FileDialogService());
+            UnityContainer.RegisterInstance<IDialogService>(new DialogService());
             UnityContainer.RegisterInstance<IViewModelRepository>(new ViewModelRepository());
             var mainVM = new MainViewModel();
             UnityContainer.RegisterInstance<INavigationService>(mainVM);
@@ -68,19 +69,6 @@ namespace Mediatek
                     _repository = factory.GetRepository(setting.ProviderName, setting.ConnectionString);
                 }
                 return _repository;
-            }
-        }
-
-        private Uri _loadingImageUri;
-        public Uri LoadingImageUri
-        {
-            get
-            {
-                if (_loadingImageUri == null)
-                {
-                    _loadingImageUri = new Uri("pack://application:,,,/Images/loading.gif");
-                }
-                return _loadingImageUri;
             }
         }
     }
