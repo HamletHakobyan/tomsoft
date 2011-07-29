@@ -7,9 +7,15 @@
         Title="{x:Static res:Resources.app_title}"
         Height="600"
         Width="800">
-    <mtk:MediatekWindow.Resources>
-        <Style x:Key="{x:Type Button}" TargetType="Button" BasedOn="{StaticResource stlFlatButton}" />
-    </mtk:MediatekWindow.Resources>
+    
+    <mtk:MediatekWindow.TitleStyle>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontFamily" Value="Comic Sans MS" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </mtk:MediatekWindow.TitleStyle>
+    
     <mtk:MediatekWindow.TitleBarContent>
         <!-- Navigation controls -->
         <StackPanel Grid.Row="0" Grid.Column="1"
@@ -29,4 +35,5 @@
     <!-- Content area -->
     <Frame Name="frame" Content="{Binding Current}" Padding="5"
             NavigationUIVisibility="Hidden"/>
+
 </mtk:MediatekWindow>

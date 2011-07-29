@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Windows.Input;
+using Developpez.Dotnet.Windows.Input;
 using Mediatek.Entities;
 using Mediatek.Helpers;
 using System.Windows.Media.Imaging;
@@ -11,6 +13,7 @@ using Developpez.Dotnet.Windows.Service;
 using Mediatek.Messaging;
 using System.Windows.Data;
 using System.ComponentModel;
+using Mediatek.Service;
 
 namespace Mediatek.ViewModel
 {
@@ -67,10 +70,10 @@ namespace Mediatek.ViewModel
                 {
                     Application.Current.Dispatcher.BeginInvoke(
                         () =>
-                            {
-                                _picture = Model.Picture.GetBitmapSource();
-                                OnPropertyChanged("Picture");
-                            },
+                        {
+                            _picture = Model.Picture.GetBitmapSource();
+                            OnPropertyChanged("Picture");
+                        },
                         DispatcherPriority.Background);
                     return null;
                 }
@@ -161,6 +164,32 @@ namespace Mediatek.ViewModel
             }
         }
 
+
+        #endregion
+
+        #region Commands
+
+        private DelegateCommand _editCommand;
+        public ICommand EditCommand
+        {
+            get
+            {
+                if (_editCommand == null)
+                {
+                    _editCommand = new DelegateCommand(Edit);
+                }
+                return _editCommand;
+            }
+        }
+
+        protected virtual void Edit()
+        {
+            GetService<IDialogService>().Show(null);
+        }
+
+        protected virtual void Delete()
+        {
+        }
 
         #endregion
 

@@ -60,6 +60,16 @@ namespace Mediatek
             set { SetValue(TitleBarContentProperty, value); }
         }
 
+        public Style TitleStyle
+        {
+            get { return (Style)GetValue(TitleStyleProperty); }
+            set { SetValue(TitleStyleProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TitleStyle.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TitleStyleProperty =
+            DependencyProperty.Register("TitleStyle", typeof(Style), typeof(MediatekWindow), new UIPropertyMetadata(null));
+
         public static readonly DependencyProperty TitleBarContentProperty =
             DependencyProperty.Register("TitleBarContent", typeof(object), typeof(MediatekWindow), new UIPropertyMetadata(null));
 

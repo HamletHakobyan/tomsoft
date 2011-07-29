@@ -1,0 +1,21 @@
+﻿<mtk:MediatekWindow x:Class="Mediatek.DialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mtk="clr-namespace:Mediatek"
+        Title="DialogWindow" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <ContentControl Content="{Binding}" />
+        
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="1"
+                    HorizontalAlignment="Right">
+            <Button Content="OK" />
+        </StackPanel>
+        
+    </Grid>
+</mtk:MediatekWindow>

@@ -20,7 +20,7 @@
 
             <Grid Grid.Column="0">
                 <Image x:Name="imgLoading"
-                      dvp:ImageBehavior.AnimatedSource="{Binding LoadingImageUri, Source={x:Static Application.Current}}"
+                      dvp:ImageBehavior.AnimatedSource="/Images/loading.gif"
                       Visibility="Collapsed"/>
                 <Image Name="imgPicture"
                        Source="{Binding Picture}" />
