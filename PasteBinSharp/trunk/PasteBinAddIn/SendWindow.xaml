@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         mc:Ignorable="d" 
-        d:DesignHeight="300" d:DesignWidth="400"
+        Height="300" Width="400"
         Title="Send to PasteBin">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -23,31 +23,54 @@
         </Grid.ColumnDefinitions>
         
         <Label Grid.Row="0" Grid.Column="0" Content="Title" />
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Entry.Title}" />
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Entry.Title}"
+                VerticalAlignment="Center" />
 
         <Label Grid.Row="1" Grid.Column="0" Content="Format" />
         <ComboBox Grid.Row="1" Grid.Column="1"
                   ItemsSource="{Binding FormatValues}" SelectedValuePath="Value" DisplayMemberPath="Name"
-                  SelectedValue="{Binding Entry.Format}" />
+                  SelectedValue="{Binding Entry.Format}"
+                VerticalAlignment="Center" />
         
         <Label Grid.Row="2" Grid.Column="0" Content="Expiration" />
         <ComboBox Grid.Row="2" Grid.Column="1"
                   ItemsSource="{Binding ExpirationValues}" SelectedValuePath="Value" DisplayMemberPath="Name"
-                  SelectedValue="{Binding Entry.Expiration}" />
+                  SelectedValue="{Binding Entry.Expiration}"
+                VerticalAlignment="Center" />
         
-        <Label Grid.Row="3" Grid.Column="0" Content="Private" />
-        <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding Entry.Private}" VerticalAlignment="Center" Margin="5" />
+        <CheckBox Grid.Row="4" Grid.Column="1"
+                  IsChecked="{Binding Entry.Private}"
+                  VerticalAlignment="Center" Margin="0,5"
+                  Content="Private"/>
         
-        <Label Grid.Row="4" Grid.Column="0" Content="Text" />
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Entry.Text}" AcceptsReturn="True" />
+        <Label Grid.Row="3" Grid.Column="0" Content="Text" />
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Entry.Text}" AcceptsReturn="True" />
         
-        <Label Grid.Row="5" Grid.Column="0" Content="Post anonymously" />
-        <CheckBox Grid.Row="5" Grid.Column="1" IsChecked="{Binding PostAnonymously}" VerticalAlignment="Center" Margin="5" />
-        
-        <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+        <StackPanel Grid.Row="5" Grid.Column="1">
+            <RadioButton IsChecked="{Binding PostAnonymously}"
+                         VerticalAlignment="Center" Margin="0,5"
+                         GroupName="anonymousOption"
+                         Content="Post anonymously" />
+
+            <RadioButton IsChecked="{Binding PostAsUser, Mode=OneWay}"
+                         VerticalAlignment="Center" Margin="0,0,0,5"
+                         GroupName="anonymousOption">
+                <TextBlock>
+                    <Run Text="Post as" />
+                    <Hyperlink Click="btnSettings_Click">
+                        <Run Text="{Binding UserName, Mode=OneWay, FallbackValue=[username]}" />
+                    </Hyperlink>
+                </TextBlock>
+            </RadioButton>
+        </StackPanel>
+
+        <Button Grid.Row="6" Grid.Column="0" Content="Settings"
+                Click="btnSettings_Click"
+                Margin="5"/>
+        <StackPanel Grid.Row="6" Grid.Column="1"
                     Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="OK" Click="btnOK_Click" IsDefault="True" MinWidth="50" />
-            <Button Content="Cancel" Click="btnCancel_Click" IsCancel="True" MinWidth="50" />
+            <Button Content="OK" Click="btnOK_Click" IsDefault="True" MinWidth="50" Margin="5" />
+            <Button Content="Cancel" Click="btnCancel_Click" IsCancel="True" MinWidth="50" Margin="5" />
         </StackPanel>
     </Grid>
 </Window>
