@@ -22,23 +22,21 @@
 
         <Label Grid.Row="0" Grid.Column="0" Content="API Key" />
         <TextBox Grid.Row="0" Grid.Column="1"
-                 Name="txtApiDevKey" />
+                 Name="txtApiDevKey"
+                 VerticalAlignment="Center"
+                 TextChanged="SettingChanged"/>
 
         <Label Grid.Row="1" Grid.Column="0" Content="User name" />
         <TextBox Grid.Row="1" Grid.Column="1"
-                 Name="txtUserName" />
+                 Name="txtUserName"
+                 VerticalAlignment="Center"
+                 TextChanged="SettingChanged"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Password" />
         <PasswordBox Grid.Row="2" Grid.Column="1"
-                 Name="pwdPassword" />
-
-        <Image Grid.Row="3" Grid.Column="0"
-               Name="imgError"
-               Source="/PasteBinAddIn;component/Images/error.png"
-               Stretch="None" VerticalAlignment="Center" />
-        <Label Grid.Row="3" Grid.Column="1"
-               Name="lblError"
-               VerticalAlignment="Center" />
+                 Name="pwdPassword"
+                 VerticalAlignment="Center"
+                 PasswordChanged="SettingChanged"/>
         
         <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                     Orientation="Horizontal" HorizontalAlignment="Right">

@@ -22,7 +22,7 @@ namespace PasteBinAddIn
     {
         private readonly Settings _settings;
 
-        public SettingsWindow(Settings settings, string errorMessage = null)
+        public SettingsWindow(Settings settings)
         {
             _settings = settings;
             
@@ -33,8 +33,6 @@ namespace PasteBinAddIn
             pwdPassword.Password = string.Empty;
             if (!string.IsNullOrEmpty(_settings.Password))
                 pwdPassword.Password = PasswordHelper.UnprotectPassword(_settings.Password);
-            lblError.Content = errorMessage;
-            imgError.Visibility = lblError.Visibility = string.IsNullOrEmpty(errorMessage) ? Visibility.Hidden : Visibility.Visible;
         }
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
@@ -45,12 +43,30 @@ namespace PasteBinAddIn
             if (!string.IsNullOrEmpty(pwdPassword.Password))
                 _settings.Password = PasswordHelper.ProtectPassword(pwdPassword.Password);
             _settings.Save();
-            this.Close();
+            this.DialogResult = true;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.DialogResult = false;
+        }
+
+        private void Validate()
+        {
+            if (string.IsNullOrEmpty(txtApiDevKey.Text))
+                txtApiDevKey.SetErrorMessage("API key must be set");
+            else
+                txtApiDevKey.SetErrorMessage(null);
+
+            if (!string.IsNullOrEmpty(txtUserName.Text) && string.IsNullOrEmpty(pwdPassword.Password))
+                pwdPassword.SetErrorMessage("Password must be set if user name is set");
+            else
+                pwdPassword.SetErrorMessage(null);
+        }
+
+        private void SettingChanged(object sender, RoutedEventArgs e)
+        {
+            Validate();
         }
     }
 }

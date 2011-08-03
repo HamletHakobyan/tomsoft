@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using PasteBinSharp;
 
 namespace PasteBinAddIn
@@ -20,7 +11,7 @@ namespace PasteBinAddIn
     /// <summary>
     /// Interaction logic for SendWindow.xaml
     /// </summary>
-    partial class SendWindow : Window
+    partial class SendWindow : Window, INotifyPropertyChanged
     {
         private readonly PasteBinEntry _entry;
         private readonly Properties.Settings _settings;
@@ -38,7 +29,7 @@ namespace PasteBinAddIn
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.DialogResult = false;
         }
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
@@ -69,7 +60,7 @@ namespace PasteBinAddIn
                 client.Paste(_entry);
                 if (_entry.Url != null)
                     Process.Start(_entry.Url.AbsoluteUri);
-                this.Close();
+                this.DialogResult = true;
             }
             catch (Exception ex)
             {
@@ -83,16 +74,22 @@ namespace PasteBinAddIn
             string errorMessage;
             while (!CheckSettings(out errorMessage))
             {
-                SettingsWindow settingsWindow = new SettingsWindow(_settings, errorMessage);
+                var r = MessageBox.Show(
+                    errorMessage + Environment.NewLine + "Would you like to edit the settings?",
+                    "Missing information",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Exclamation);
+                if (r == MessageBoxResult.Yes)
+                {
+                    SettingsWindow settingsWindow = new SettingsWindow(_settings);
 
-                if (settingsWindow.ShowDialog() == true)
-                {
-                    continue;
-                }
-                else
-                {
+                    if (settingsWindow.ShowDialog() == true)
+                    {
+                        continue;
+                    }
                     return false;
                 }
+                return false;
             }
             return true;
         }
@@ -337,12 +334,56 @@ namespace PasteBinAddIn
             }
         }
 
-        public bool PostAnonymously { get; set; }
+        private bool _postAnonymously;
+        public bool PostAnonymously
+        {
+            get { return _postAnonymously; }
+            set
+            {
+                _postAnonymously = value;
+                OnPropertyChanged("PostAnonymously");
+                OnPropertyChanged("PostAsUser");
+            }
+        }
+
+        public bool PostAsUser
+        {
+            get { return !PostAnonymously; }
+        }
+
+        public string UserName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_settings.UserName))
+                    return "(not set)";
+                return _settings.UserName;
+            }
+        }
+        
 
         public struct NamedValue<TValue>
         {
             public TValue Value { get; set; }
             public string Name { get; set; }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void btnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new SettingsWindow(_settings);
+            if (window.ShowDialog() == true)
+            {
+                OnPropertyChanged("UserName");
+            }
         }
     }
 }
