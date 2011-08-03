@@ -11,8 +11,8 @@ namespace PasteBinSharp
     {
         #region Constants
         
-        private const string _apiPostUrl = "http://pastebin.com/api/api_post.php";
-        private const string _apiLoginUrl = "http://pastebin.com/api/api_login.php";
+        private const string ApiPostUrl = "http://pastebin.com/api/api_post.php";
+        private const string ApiLoginUrl = "http://pastebin.com/api/api_login.php";
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace PasteBinSharp
             parameters[ApiParameters.UserName] = userName;
             parameters[ApiParameters.UserPassword] = password;
 
-            string resp = SendPasteBinRequest(_apiLoginUrl, parameters);
+            string resp = SendPasteBinRequest(ApiLoginUrl, parameters);
 
             _userName = userName;
             _apiUserKey = resp;
@@ -81,7 +81,7 @@ namespace PasteBinSharp
             SetIfNotEmpty(parameters, ApiParameters.PasteExpireDate, FormatExpireDate(entry.Expiration));
             SetIfNotEmpty(parameters, ApiParameters.UserKey, _apiUserKey);
 
-            var url = SendPasteBinRequest(_apiPostUrl, parameters);
+            var url = SendPasteBinRequest(ApiPostUrl, parameters);
             entry.Url = new Uri(url);
             entry.Key = ExtractKey(entry.Url);
             return url;
@@ -96,7 +96,7 @@ namespace PasteBinSharp
             if (maxResults > 0)
                 parameters[ApiParameters.ResultsLimit] = maxResults.ToString();
 
-            string result = SendPasteBinRequest(_apiPostUrl, parameters);
+            string result = SendPasteBinRequest(ApiPostUrl, parameters);
             return ParseEntryListing(result);
         }
 
@@ -108,7 +108,19 @@ namespace PasteBinSharp
             parameters[ApiParameters.UserKey] = _apiUserKey;
             parameters[ApiParameters.PasteKey] = entryKey;
 
-            SendPasteBinRequest(_apiPostUrl, parameters);
+            SendPasteBinRequest(ApiPostUrl, parameters);
+        }
+
+        public PasteBinUserDetails GetUserDetails()
+        {
+            EnsureLoggedIn();
+            var parameters = GetBaseParameters();
+            parameters[ApiParameters.Option] = ApiOptions.UserDetails;
+            parameters[ApiParameters.UserKey] = _apiUserKey;
+            
+            string result = SendPasteBinRequest(ApiPostUrl, parameters);
+            XElement element = XElement.Parse(result);
+            return PasteBinUserDetails.Parse(element);
         }
 
         #endregion
@@ -189,40 +201,8 @@ namespace PasteBinSharp
             var pastes = root.Elements("paste");
             foreach (var p in pastes)
             {
-                yield return ParseListEntry(p);
+                yield return PasteBinListEntry.Parse(p);
             }
-        }
-
-        private static PasteBinListEntry ParseListEntry(XElement element)
-        {
-            var entry = new PasteBinListEntry();
-// ReSharper disable PossibleNullReferenceException
-            entry.Key = element.Element("paste_key").Value;
-            entry.Url = new Uri(element.Element("paste_url").Value);
-            entry.Title = element.Element("paste_title").Value;
-            entry.LongFormat = element.Element("paste_format_long").Value;
-            entry.ShortFormat = element.Element("paste_format_short").Value;
-
-            entry.Size = int.Parse(element.Element("paste_size").Value);
-            entry.Hits = int.Parse(element.Element("paste_hits").Value);
-
-            long creationTicks = long.Parse(element.Element("paste_date").Value);
-            entry.CreationDate = TimeStampToDate(creationTicks);
-
-            long expireTicks = long.Parse(element.Element("paste_expire_date").Value);
-            if (expireTicks > 0)
-                entry.ExpirationDate = TimeStampToDate(expireTicks);
-            else
-                entry.ExpirationDate = null;
-// ReSharper restore PossibleNullReferenceException
-            
-            return entry;
-        }
-
-        private static DateTime _unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        private static DateTime TimeStampToDate(long timestamp)
-        {
-            return _unixEpoch.AddSeconds(timestamp);
         }
 
         private static class ApiParameters
