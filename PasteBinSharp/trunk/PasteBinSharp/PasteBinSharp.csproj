@@ -43,6 +43,7 @@
     <Compile Include="PasteBinEntry.cs" />
     <Compile Include="PasteBinExpiration.cs" />
     <Compile Include="PasteBinListEntry.cs" />
+    <Compile Include="PasteBinUserDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
