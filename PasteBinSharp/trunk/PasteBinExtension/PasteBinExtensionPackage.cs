@@ -87,8 +87,7 @@ namespace ThomasLevesque.PasteBinExtension
                         if (uiShell != null)
                             uiShell.CenterDialogOnWindow(hWnd, IntPtr.Zero);
                     };
-            window.ShowDialog();
-        }
+            window.ShowDialog();}
 
     }
 }
