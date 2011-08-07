@@ -121,6 +121,8 @@ namespace PasteBinSharp.UI
                     };
                 img.SetBinding(ToolTipProperty, ttBinding);
                 _errorBorder.Child = img;
+                this.AddVisualChild(_errorBorder);
+                this.AddLogicalChild(_errorBorder);
             }
 
             protected override Size MeasureOverride(Size constraint)
@@ -147,6 +149,14 @@ namespace PasteBinSharp.UI
                 get
                 {
                     return 1;
+                }
+            }
+
+            protected override System.Collections.IEnumerator LogicalChildren
+            {
+                get
+                {
+                    yield return _errorBorder;
                 }
             }
         }
