@@ -119,14 +119,19 @@
     <Compile Include="PkgCmdID.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="VSPackage.fr.resx">
+      <MergeWithCTO>true</MergeWithCTO>
+      <LogicalName>VSPackage.fr.Resources</LogicalName>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="VSPackage.resx">
+    <EmbeddedResource Include="VSPackage.en-US.resx">
       <MergeWithCTO>true</MergeWithCTO>
-      <ManifestResourceName>VSPackage</ManifestResourceName>
+      <LogicalName>VSPackage.en-US.Resources</LogicalName>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -139,7 +144,7 @@
     <None Include="Key.snk" />
   </ItemGroup>
   <ItemGroup>
-    <VSCTCompile Include="PasteBinExtension.vsct">
+    <VSCTCompile Include="PasteBinExtension.en-US.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
   </ItemGroup>
@@ -147,6 +152,9 @@
     <None Include="Resources\Images_32bit.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <VSCTCompile Include="PasteBinExtension.fr.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+    </VSCTCompile>
     <Content Include="Resources\Package.ico" />
   </ItemGroup>
   <ItemGroup>
