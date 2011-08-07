@@ -70,7 +70,7 @@ namespace ThomasLevesque.PasteBinExtension
             var document = dte.ActiveDocument;
             if (document == null)
                 return;
-            var selection = (TextSelection)document.Selection;
+            var selection = (TextSelection) document.Selection;
             if (selection == null)
                 return;
 
@@ -79,26 +79,15 @@ namespace ThomasLevesque.PasteBinExtension
             entry.Text = selection.Text;
             entry.Format = PasteBinUtil.FormatFromFileName(document.FullName);
 
-            CultureInfo prevCulture = CultureInfo.CurrentUICulture;
-            try
-            {
-                System.Threading.Thread.CurrentThread.CurrentUICulture =
-                    System.Threading.Thread.CurrentThread.CurrentCulture;
-
-                var window = new SendWindow(entry);
-                window.CenterWindowCallback = hWnd =>
-                                                  {
-                                                      IVsUIShell uiShell = (IVsUIShell)GetService(typeof(SVsUIShell));
-                                                      if (uiShell != null)
-                                                          uiShell.CenterDialogOnWindow(hWnd, IntPtr.Zero);
-                                                  };
-                window.ShowDialog();
-
-            }
-            finally
-            {
-                System.Threading.Thread.CurrentThread.CurrentUICulture = prevCulture;
-            }
+            var window = new SendWindow(entry);
+            window.CenterWindowCallback =
+                hWnd =>
+                    {
+                        IVsUIShell uiShell = (IVsUIShell) GetService(typeof(SVsUIShell));
+                        if (uiShell != null)
+                            uiShell.CenterDialogOnWindow(hWnd, IntPtr.Zero);
+                    };
+            window.ShowDialog();
         }
 
     }

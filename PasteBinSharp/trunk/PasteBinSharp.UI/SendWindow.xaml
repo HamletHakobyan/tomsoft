@@ -39,14 +39,14 @@
                   SelectedValue="{Binding Entry.Expiration}"
                 VerticalAlignment="Center" />
         
+        <Label Grid.Row="3" Grid.Column="0" Content="{x:Static prop:Resources.Paste_Text}" />
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Entry.Text}" AcceptsReturn="True" />
+
         <CheckBox Grid.Row="4" Grid.Column="1"
                   IsChecked="{Binding Entry.Private}"
                   VerticalAlignment="Center" Margin="0,5"
                   Content="{x:Static prop:Resources.Paste_Private}"/>
-        
-        <Label Grid.Row="3" Grid.Column="0" Content="Text" />
-        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Entry.Text}" AcceptsReturn="True" />
-        
+
         <StackPanel Grid.Row="5" Grid.Column="1">
             <RadioButton IsChecked="{Binding PostAnonymously}"
                          VerticalAlignment="Center" Margin="0,5"
