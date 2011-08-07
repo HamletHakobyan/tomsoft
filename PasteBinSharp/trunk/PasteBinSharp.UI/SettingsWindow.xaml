@@ -4,10 +4,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:prop="clr-namespace:PasteBinSharp.UI.Properties"
         mc:Ignorable="d" 
         Height="300" Width="300"
         WindowStartupLocation="CenterOwner"
-        Title="Settings">
+        Title="{x:Static prop:Resources.SettingsWindow_Title}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -21,19 +22,19 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="API Key" />
+        <Label Grid.Row="0" Grid.Column="0" Content="{x:Static prop:Resources.Settings_APIKey}" />
         <TextBox Grid.Row="0" Grid.Column="1"
                  Name="txtApiDevKey"
                  VerticalAlignment="Center"
                  TextChanged="SettingChanged"/>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="User name" />
+        <Label Grid.Row="1" Grid.Column="0" Content="{x:Static prop:Resources.Settings_UserName}" />
         <TextBox Grid.Row="1" Grid.Column="1"
                  Name="txtUserName"
                  VerticalAlignment="Center"
                  TextChanged="SettingChanged"/>
 
-        <Label Grid.Row="2" Grid.Column="0" Content="Password" />
+        <Label Grid.Row="2" Grid.Column="0" Content="{x:Static prop:Resources.Settings_Password}" />
         <PasswordBox Grid.Row="2" Grid.Column="1"
                  Name="pwdPassword"
                  VerticalAlignment="Center"
@@ -41,8 +42,8 @@
         
         <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                     Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="OK" Click="btnOK_Click" IsDefault="True" MinWidth="50" />
-            <Button Content="Cancel" Click="btnCancel_Click" IsCancel="True" MinWidth="50" />
+            <Button Content="{x:Static prop:Resources.General_OK}" Click="btnOK_Click" IsDefault="True" MinWidth="50" Margin="5" />
+            <Button Content="{x:Static prop:Resources.General_Cancel}" Click="btnCancel_Click" IsCancel="True" MinWidth="50" Margin="5" />
         </StackPanel>
 
     </Grid>

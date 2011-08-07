@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:prop="clr-namespace:PasteBinSharp.UI.Properties"
         mc:Ignorable="d" 
         Height="300" Width="400"
         WindowStartupLocation="CenterOwner"
-        Title="Send to PasteBin">
+        Title="{x:Static prop:Resources.SendWindow_Title}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -21,18 +22,18 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        
-        <Label Grid.Row="0" Grid.Column="0" Content="Title" />
+
+        <Label Grid.Row="0" Grid.Column="0" Content="{x:Static prop:Resources.Paste_Title}" />
         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Entry.Title}"
                 VerticalAlignment="Center" />
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Format" />
+        <Label Grid.Row="1" Grid.Column="0" Content="{x:Static prop:Resources.Paste_Format}" />
         <ComboBox Grid.Row="1" Grid.Column="1"
                   ItemsSource="{Binding FormatValues}" SelectedValuePath="Value" DisplayMemberPath="Name"
                   SelectedValue="{Binding Entry.Format}"
                 VerticalAlignment="Center" />
-        
-        <Label Grid.Row="2" Grid.Column="0" Content="Expiration" />
+
+        <Label Grid.Row="2" Grid.Column="0" Content="{x:Static prop:Resources.Paste_Expiration}" />
         <ComboBox Grid.Row="2" Grid.Column="1"
                   ItemsSource="{Binding ExpirationValues}" SelectedValuePath="Value" DisplayMemberPath="Name"
                   SelectedValue="{Binding Entry.Expiration}"
@@ -41,7 +42,7 @@
         <CheckBox Grid.Row="4" Grid.Column="1"
                   IsChecked="{Binding Entry.Private}"
                   VerticalAlignment="Center" Margin="0,5"
-                  Content="Private"/>
+                  Content="{x:Static prop:Resources.Paste_Private}"/>
         
         <Label Grid.Row="3" Grid.Column="0" Content="Text" />
         <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Entry.Text}" AcceptsReturn="True" />
@@ -50,13 +51,13 @@
             <RadioButton IsChecked="{Binding PostAnonymously}"
                          VerticalAlignment="Center" Margin="0,5"
                          GroupName="anonymousOption"
-                         Content="Post anonymously" />
+                         Content="{x:Static prop:Resources.Paste_PostAnonymously}" />
 
             <RadioButton IsChecked="{Binding PostAsUser, Mode=OneWay}"
                          VerticalAlignment="Center" Margin="0,0,0,5"
                          GroupName="anonymousOption">
                 <TextBlock>
-                    <Run Text="Post as" />
+                    <Run Text="{x:Static prop:Resources.Paste_PostAsUser}" />
                     <Hyperlink Click="btnSettings_Click">
                         <Run Text="{Binding UserName, Mode=OneWay, FallbackValue=[username]}" />
                     </Hyperlink>
@@ -64,13 +65,13 @@
             </RadioButton>
         </StackPanel>
 
-        <Button Grid.Row="6" Grid.Column="0" Content="Settings"
+        <Button Grid.Row="6" Grid.Column="0" Content="{x:Static prop:Resources.General_Settings}"
                 Click="btnSettings_Click"
                 Margin="5"/>
         <StackPanel Grid.Row="6" Grid.Column="1"
                     Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="OK" Click="btnOK_Click" IsDefault="True" MinWidth="50" Margin="5" />
-            <Button Content="Cancel" Click="btnCancel_Click" IsCancel="True" MinWidth="50" Margin="5" />
+            <Button Content="{x:Static prop:Resources.General_OK}" Click="btnOK_Click" IsDefault="True" MinWidth="50" Margin="5" />
+            <Button Content="{x:Static prop:Resources.General_Cancel}" Click="btnCancel_Click" IsCancel="True" MinWidth="50" Margin="5" />
         </StackPanel>
     </Grid>
 </Window>

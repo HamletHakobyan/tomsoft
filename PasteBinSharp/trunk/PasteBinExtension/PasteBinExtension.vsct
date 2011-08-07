@@ -69,7 +69,7 @@
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
           <CommandName>cmdidPostToPasteBin</CommandName>
-          <ButtonText>Post to PasteBin</ButtonText>
+          <ButtonText>Send to PasteBin</ButtonText>
         </Strings>
       </Button>
 

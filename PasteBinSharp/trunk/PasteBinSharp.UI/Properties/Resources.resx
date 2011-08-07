@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Error_Login" xml:space="preserve">
+    <value>Login error:</value>
+  </data>
+  <data name="Error_MissingInformation" xml:space="preserve">
+    <value>Missing information</value>
+  </data>
+  <data name="Error_Sending" xml:space="preserve">
+    <value>Error sending to PasteBin:</value>
+  </data>
+  <data name="Error_Title" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="General_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="General_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="General_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Paste_Expiration" xml:space="preserve">
+    <value>Expiration</value>
+  </data>
+  <data name="Paste_Format" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="Paste_PostAnonymously" xml:space="preserve">
+    <value>Post anonymously</value>
+  </data>
+  <data name="Paste_PostAsUser" xml:space="preserve">
+    <value>Post as</value>
+  </data>
+  <data name="Paste_Private" xml:space="preserve">
+    <value>Private</value>
+  </data>
+  <data name="Paste_Text" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="Paste_Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Paste_UserNotSet" xml:space="preserve">
+    <value>(not set)</value>
+  </data>
+  <data name="SendWindow_Title" xml:space="preserve">
+    <value>Send to PasteBin</value>
+  </data>
+  <data name="SettingsWindow_Title" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Settings_APIKey" xml:space="preserve">
+    <value>API Key</value>
+  </data>
+  <data name="Settings_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Settings_UserName" xml:space="preserve">
+    <value>User name</value>
+  </data>
+  <data name="Validation_APIKeyMustBeSet" xml:space="preserve">
+    <value>The API Key must be set</value>
+  </data>
+  <data name="Validation_EditSettingsQuestion" xml:space="preserve">
+    <value>Would you like to edit the settings?</value>
+  </data>
+  <data name="Validation_PasswordMustBeSet" xml:space="preserve">
+    <value>The password must be set if the user name is set</value>
+  </data>
+  <data name="Validation_TextCantBeEmpty" xml:space="preserve">
+    <value>The Text field can't be empty</value>
+  </data>
+  <data name="Validation_UserNameAndPasswordMustBeSet" xml:space="preserve">
+    <value>The user name and password must be set</value>
+  </data>
+</root>
