@@ -79,7 +79,15 @@ namespace ThomasLevesque.PasteBinExtension
             entry.Format = PasteBinUtil.FormatFromFileName(document.FullName);
 
             var window = new SendWindow(entry);
+            window.CenterWindowCallback = hWnd =>
+                {
+                    IVsUIShell uiShell = (IVsUIShell) GetService(typeof(SVsUIShell));
+                    if (uiShell != null)
+                        uiShell.CenterDialogOnWindow(hWnd, IntPtr.Zero);
+                };
             window.ShowDialog();
+
+            
         }
 
     }

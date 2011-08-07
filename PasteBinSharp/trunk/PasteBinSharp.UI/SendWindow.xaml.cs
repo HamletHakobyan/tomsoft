@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using System.Windows.Interop;
 
 namespace PasteBinSharp.UI
 {
@@ -25,6 +26,8 @@ namespace PasteBinSharp.UI
 
             this.DataContext = this;
         }
+
+        public Action<IntPtr> CenterWindowCallback { get; set; }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
@@ -385,9 +388,21 @@ namespace PasteBinSharp.UI
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
             var window = new SettingsWindow(_settings);
+            window.Owner = this;
             if (window.ShowDialog() == true)
             {
                 OnPropertyChanged("UserName");
+            }
+        }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            var callback = CenterWindowCallback;
+            if (callback != null)
+            {
+                IntPtr hWnd = new WindowInteropHelper(this).Handle;
+                callback(hWnd);
             }
         }
     }
