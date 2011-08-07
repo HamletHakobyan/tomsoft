@@ -4,14 +4,13 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
-using PasteBinSharp;
 
-namespace PasteBinAddIn
+namespace PasteBinSharp.UI
 {
     /// <summary>
     /// Interaction logic for SendWindow.xaml
     /// </summary>
-    partial class SendWindow : Window, INotifyPropertyChanged
+    public partial class SendWindow : Window, INotifyPropertyChanged
     {
         private readonly PasteBinEntry _entry;
         private readonly Properties.Settings _settings;
@@ -39,6 +38,12 @@ namespace PasteBinAddIn
 
         private void DoPaste()
         {
+            if (string.IsNullOrEmpty(_entry.Text))
+            {
+                MessageBox.Show("The Text field can't be empty");
+                return;
+            }
+
             if (!EnsureSettings())
                 return;
 
