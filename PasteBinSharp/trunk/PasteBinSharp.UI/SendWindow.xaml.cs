@@ -43,7 +43,7 @@ namespace PasteBinSharp.UI
         {
             if (string.IsNullOrEmpty(_entry.Text))
             {
-                MessageBox.Show("The Text field can't be empty");
+                MessageBox.Show(Properties.Resources.Validation_TextCantBeEmpty);
                 return;
             }
 
@@ -59,7 +59,11 @@ namespace PasteBinSharp.UI
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Login error:\r\n" + ex.Message);
+                    string msg = string.Format(
+                        "{0}\r\n{1}",
+                        Properties.Resources.Error_Login,
+                        ex.Message);
+                    MessageBox.Show(msg, Properties.Resources.Error_Title, MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }
@@ -72,7 +76,11 @@ namespace PasteBinSharp.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error sending to PasteBin:\r\n" + ex.Message);
+                string msg = string.Format(
+                    "{0}\r\n{1}",
+                    Properties.Resources.Error_Sending,
+                    ex.Message);
+                MessageBox.Show(msg, Properties.Resources.Error_Title, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
         }
@@ -83,8 +91,8 @@ namespace PasteBinSharp.UI
             while (!CheckSettings(out errorMessage))
             {
                 var r = MessageBox.Show(
-                    errorMessage + Environment.NewLine + "Would you like to edit the settings?",
-                    "Missing information",
+                    errorMessage + Environment.NewLine + Properties.Resources.Validation_EditSettingsQuestion,
+                    Properties.Resources.Error_MissingInformation,
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Exclamation);
                 if (r == MessageBoxResult.Yes)
@@ -106,12 +114,12 @@ namespace PasteBinSharp.UI
         {
             var errors = new List<string>();
             if (string.IsNullOrEmpty(_settings.ApiDevKey))
-                errors.Add("The API Key is mandatory");
+                errors.Add(Properties.Resources.Validation_APIKeyMustBeSet);
             if (!PostAnonymously)
             {
                 if (string.IsNullOrEmpty(_settings.UserName) || string.IsNullOrEmpty(_settings.Password))
                 {
-                    errors.Add("The user name and password are mandatory");
+                    errors.Add(Properties.Resources.Validation_UserNameAndPasswordMustBeSet);
                 }
             }
             errorMessage = string.Join(Environment.NewLine, errors);
@@ -364,7 +372,7 @@ namespace PasteBinSharp.UI
             get
             {
                 if (string.IsNullOrEmpty(_settings.UserName))
-                    return "(not set)";
+                    return Properties.Resources.Paste_UserNotSet;
                 return _settings.UserName;
             }
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
 using EnvDTE;
@@ -78,16 +79,26 @@ namespace ThomasLevesque.PasteBinExtension
             entry.Text = selection.Text;
             entry.Format = PasteBinUtil.FormatFromFileName(document.FullName);
 
-            var window = new SendWindow(entry);
-            window.CenterWindowCallback = hWnd =>
-                {
-                    IVsUIShell uiShell = (IVsUIShell) GetService(typeof(SVsUIShell));
-                    if (uiShell != null)
-                        uiShell.CenterDialogOnWindow(hWnd, IntPtr.Zero);
-                };
-            window.ShowDialog();
+            CultureInfo prevCulture = CultureInfo.CurrentUICulture;
+            try
+            {
+                System.Threading.Thread.CurrentThread.CurrentUICulture =
+                    System.Threading.Thread.CurrentThread.CurrentCulture;
 
-            
+                var window = new SendWindow(entry);
+                window.CenterWindowCallback = hWnd =>
+                                                  {
+                                                      IVsUIShell uiShell = (IVsUIShell)GetService(typeof(SVsUIShell));
+                                                      if (uiShell != null)
+                                                          uiShell.CenterDialogOnWindow(hWnd, IntPtr.Zero);
+                                                  };
+                window.ShowDialog();
+
+            }
+            finally
+            {
+                System.Threading.Thread.CurrentThread.CurrentUICulture = prevCulture;
+            }
         }
 
     }

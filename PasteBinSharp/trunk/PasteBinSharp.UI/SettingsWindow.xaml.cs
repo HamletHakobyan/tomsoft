@@ -42,12 +42,12 @@ namespace PasteBinSharp.UI
         private void Validate()
         {
             if (string.IsNullOrEmpty(txtApiDevKey.Text))
-                txtApiDevKey.SetErrorMessage("API key must be set");
+                txtApiDevKey.SetErrorMessage(Properties.Resources.Validation_APIKeyMustBeSet);
             else
                 txtApiDevKey.SetErrorMessage(null);
 
             if (!string.IsNullOrEmpty(txtUserName.Text) && string.IsNullOrEmpty(pwdPassword.Password))
-                pwdPassword.SetErrorMessage("Password must be set if user name is set");
+                pwdPassword.SetErrorMessage(Properties.Resources.Validation_PasswordMustBeSet);
             else
                 pwdPassword.SetErrorMessage(null);
         }
