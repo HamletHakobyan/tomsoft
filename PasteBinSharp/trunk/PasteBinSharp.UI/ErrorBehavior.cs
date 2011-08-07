@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,7 +7,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace PasteBinAddIn
+namespace PasteBinSharp.UI
 {
     public static class ErrorBehavior
     {
@@ -74,7 +72,10 @@ namespace PasteBinAddIn
             if (layer == null)
                 return;
 
-            var adorner = layer.GetAdorners(uiElement).OfType<ErrorAdorner>().FirstOrDefault();
+            var adorners = layer.GetAdorners(uiElement);
+            if (adorners == null)
+                return;
+            var adorner = adorners.OfType<ErrorAdorner>().FirstOrDefault();
             if (adorner != null)
                 layer.Remove(adorner);
         }
@@ -92,7 +93,7 @@ namespace PasteBinAddIn
         private static ImageSource GetDefaultErrorIcon()
         {
             return new BitmapImage(
-                new Uri("pack://application:,,,/PasteBinAddIn;component/Images/error.png"));
+                new Uri("pack://application:,,,/PasteBinSharp.UI;component/Images/error.png"));
         }
 
         private class ErrorAdorner : Adorner
