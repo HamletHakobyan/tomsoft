@@ -24,7 +24,7 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="{x:Static prop:Resources.Paste_Title}" />
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Entry.Title}"
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Entry.Title, UpdateSourceTrigger=PropertyChanged}"
                 VerticalAlignment="Center" />
 
         <Label Grid.Row="1" Grid.Column="0" Content="{x:Static prop:Resources.Paste_Format}" />
@@ -40,7 +40,7 @@
                 VerticalAlignment="Center" />
         
         <Label Grid.Row="3" Grid.Column="0" Content="{x:Static prop:Resources.Paste_Text}" />
-        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Entry.Text}" AcceptsReturn="True" />
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Entry.Text, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" />
 
         <CheckBox Grid.Row="4" Grid.Column="1"
                   IsChecked="{Binding Entry.Private}"
