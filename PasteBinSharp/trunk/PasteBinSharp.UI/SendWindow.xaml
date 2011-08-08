@@ -5,7 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:prop="clr-namespace:PasteBinSharp.UI.Properties"
         mc:Ignorable="d" 
-        Height="300" Width="400"
+        Height="400" Width="400"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         Title="{x:Static prop:Resources.SendWindow_Title}"
         Icon="/PasteBinSharp.UI;component/Images/PasteBin.ico">
@@ -41,7 +42,9 @@
                 VerticalAlignment="Center" />
         
         <Label Grid.Row="3" Grid.Column="0" Content="{x:Static prop:Resources.Paste_Text}" />
-        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Entry.Text, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" />
+        <TextBox Grid.Row="3" Grid.Column="1"
+                 Text="{Binding Entry.Text, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"
+                 HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
 
         <CheckBox Grid.Row="4" Grid.Column="1"
                   IsChecked="{Binding Entry.Private}"

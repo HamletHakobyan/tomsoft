@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Vsix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2010">
   <Identifier Id="ad0949ff-a16f-4f56-8685-bbd089f64b6f">
-    <Name>PasteBinExtension</Name>
+    <Name>Send to PasteBin</Name>
     <Author>Thomas Levesque</Author>
     <Version>1.0</Version>
     <Description xml:space="preserve">Post code to PasteBin directly from Visual Studio</Description>
     <Locale>1033</Locale>
+    <Icon>Resources\icon_64x64.png</Icon>
     <InstalledByMsi>false</InstalledByMsi>
     <SupportedProducts>
       <VisualStudio Version="10.0">

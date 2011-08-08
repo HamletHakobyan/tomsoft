@@ -6,7 +6,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:prop="clr-namespace:PasteBinSharp.UI.Properties"
         mc:Ignorable="d" 
-        Height="300" Width="300"
+        Height="150" Width="300"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         Title="{x:Static prop:Resources.SettingsWindow_Title}"
         Icon="/PasteBinSharp.UI;component/Images/PasteBin.ico">
