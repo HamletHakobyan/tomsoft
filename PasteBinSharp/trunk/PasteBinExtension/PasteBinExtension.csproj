@@ -161,6 +161,7 @@
     <ProjectReference Include="..\PasteBinSharp.UI\PasteBinSharp.UI.csproj">
       <Project>{741AA91D-1F46-495E-A539-3F010EB08313}</Project>
       <Name>PasteBinSharp.UI</Name>
+      <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup</IncludeOutputGroupsInVSIX>
     </ProjectReference>
     <ProjectReference Include="..\PasteBinSharp\PasteBinSharp.csproj">
       <Project>{9FBF6A21-3CE5-43CA-A2E7-E97AB7391456}</Project>
