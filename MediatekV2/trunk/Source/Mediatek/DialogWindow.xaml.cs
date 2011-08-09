@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Mediatek.Service;
 
 namespace Mediatek
 {
@@ -21,6 +22,22 @@ namespace Mediatek
         public DialogWindow()
         {
             InitializeComponent();
+        }
+
+        protected virtual void OnDialogButtonClicked(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button == null)
+                return;
+
+            DialogButton dButton = button.DataContext as DialogButton;
+            if (dButton == null)
+                return;
+
+            if (dButton.DialogResult.HasValue)
+            {
+                this.DialogResult = dButton.DialogResult;
+            }
         }
     }
 }

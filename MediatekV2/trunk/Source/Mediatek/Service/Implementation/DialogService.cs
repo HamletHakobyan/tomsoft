@@ -11,6 +11,7 @@ namespace Mediatek.Service.Implementation
         {
             var window = new DialogWindow();
             window.DataContext = viewModel;
+            viewModel.OnShow();
             return window.ShowDialog();
         }
     }

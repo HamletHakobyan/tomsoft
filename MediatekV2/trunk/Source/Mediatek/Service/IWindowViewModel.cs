@@ -8,8 +8,9 @@ namespace Mediatek.Service
 {
     public interface IWindowViewModel
     {
-        void OnClose();
-        void OnClosing(CancelEventArgs e);
+        void OnShow();
+        void OnClose(bool? dialogResult);
+        void OnClosing(bool? dialogResult, CancelEventArgs e);
         event EventHandler<CloseRequestedEventArgs> CloseRequested;
     }
 

@@ -52,15 +52,25 @@ namespace Mediatek.Service.Implementation
 
         private void MediaMessageHandler(object sender, EntityMessage<MediaViewModel> message)
         {
+            bool saveNeeded = false;
             switch (message.Action)
             {
                 case EntityAction.Created:
                     _medias.Add(message.Entity);
+                    App.Repository.AddMedia(message.Entity.Model);
+                    saveNeeded = true;
                     break;
                 case EntityAction.Deleted:
                     _medias.Remove(message.Entity);
+                    App.Repository.DeleteObject(message.Entity.Model);
+                    saveNeeded = true;
+                    break;
+                case EntityAction.Modified:
+                    saveNeeded = true;
                     break;
             }
+            if (saveNeeded)
+                App.Repository.SaveChanges();
         }
 
         #endregion
