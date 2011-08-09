@@ -12,14 +12,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Mediatek.View
+namespace Mediatek.View.Editors
 {
     /// <summary>
-    /// Interaction logic for EditCountryView.xaml
+    /// Interaction logic for MovieEditorView.xaml
     /// </summary>
-    public partial class EditCountryView : UserControl
+    public partial class MovieEditorView : UserControl
     {
-        public EditCountryView()
+        public MovieEditorView()
         {
             InitializeComponent();
         }

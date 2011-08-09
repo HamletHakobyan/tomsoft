@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:dvm="clr-namespace:Mediatek.Design"
              xmlns:bhv="clr-namespace:Mediatek.Behaviors"
-             xmlns:ctl="clr-namespace:Mediatek.Controls"
              xmlns:prop="clr-namespace:Mediatek.Properties"
              xmlns:v="clr-namespace:Mediatek.View"
              xmlns:dvp="http://www.developpez.com/xaml"

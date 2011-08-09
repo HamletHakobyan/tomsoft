@@ -70,11 +70,38 @@ namespace Mediatek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit movie.
+        /// </summary>
+        public static string edit_movie {
+            get {
+                return ResourceManager.GetString("edit_movie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Image files|*.png;*.jpg;*.jpeg;*.gif;*.bmp;*.tif;*.tiff.
         /// </summary>
         public static string filadialog_image_filter {
             get {
                 return ResourceManager.GetString("filadialog_image_filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string general_cancel {
+            get {
+                return ResourceManager.GetString("general_cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string general_ok {
+            get {
+                return ResourceManager.GetString("general_ok", resourceCulture);
             }
         }
         

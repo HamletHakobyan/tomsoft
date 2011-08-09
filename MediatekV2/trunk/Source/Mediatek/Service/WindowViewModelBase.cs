@@ -6,21 +6,30 @@ namespace Mediatek.Service
 {
     public abstract class WindowViewModelBase : ViewModelBase, IWindowViewModel
     {
-        void IWindowViewModel.OnClose()
+        void IWindowViewModel.OnShow()
         {
-            OnClose();
+            OnShow();
         }
 
-        protected virtual void OnClose()
+        protected virtual void OnShow()
         {
         }
 
-        void IWindowViewModel.OnClosing(CancelEventArgs e)
+        void IWindowViewModel.OnClose(bool? dialogResult)
         {
-            OnClosing(e);
+            OnClose(dialogResult);
         }
 
-        protected virtual void OnClosing(CancelEventArgs cancelEventArgs)
+        protected virtual void OnClose(bool? dialogResult)
+        {
+        }
+
+        void IWindowViewModel.OnClosing(bool? dialogResult, CancelEventArgs e)
+        {
+            OnClosing(dialogResult, e);
+        }
+
+        protected virtual void OnClosing(bool? dialogResult, CancelEventArgs e)
         {
         }
 

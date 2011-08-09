@@ -1,4 +1,7 @@
-﻿using Mediatek.Entities;
+﻿using System;
+using Mediatek.Entities;
+using Mediatek.Service;
+using Mediatek.ViewModel.Editors;
 
 namespace Mediatek.ViewModel
 {
@@ -15,5 +18,9 @@ namespace Mediatek.ViewModel
             set { Model = value; }
         }
 
+        protected override IDialogViewModel GetEditor()
+        {
+            return new BookEditorViewModel(this);
+        }
     }
 }

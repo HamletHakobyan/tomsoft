@@ -111,6 +111,7 @@
     <Compile Include="MediatekWindow.cs" />
     <Compile Include="Messaging\EntityMessage.cs" />
     <Compile Include="Messaging\NavigationMessage.cs" />
+    <Compile Include="Service\DialogViewModelBase.cs" />
     <Compile Include="Service\IDialogViewModel.cs" />
     <Compile Include="Service\IFileDialogService.cs" />
     <Compile Include="Service\Implementation\DialogService.cs" />
@@ -129,6 +130,10 @@
     <Compile Include="ViewModel\BookViewModel.cs" />
     <Compile Include="ViewModel\ContributionViewModel.cs" />
     <Compile Include="ViewModel\CountryViewModel.cs" />
+    <Compile Include="ViewModel\Editors\AlbumEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\BookEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\EditorViewModelBase.cs" />
+    <Compile Include="ViewModel\Editors\MovieEditorViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LoanViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -138,8 +143,8 @@
     <Compile Include="ViewModel\PersonViewModel.cs" />
     <Compile Include="ViewModel\MediatekViewModelBase.cs" />
     <Compile Include="ViewModel\ReferenceData.cs" />
-    <Compile Include="View\EditCountryView.xaml.cs">
-      <DependentUpon>EditCountryView.xaml</DependentUpon>
+    <Compile Include="View\Editors\MovieEditorView.xaml.cs">
+      <DependentUpon>MovieEditorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
@@ -209,7 +214,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\EditCountryView.xaml">
+    <Page Include="View\Editors\MovieEditorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -324,9 +329,7 @@
     <Resource Include="Images\star_off.png" />
     <Resource Include="Images\star_on.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\FormViews\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

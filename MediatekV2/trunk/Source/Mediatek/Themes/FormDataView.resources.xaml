@@ -3,7 +3,7 @@
                     xmlns:ctl="clr-namespace:Mediatek.Controls">
 
     <Style TargetType="{x:Type ctl:FormDataView}" BasedOn="{StaticResource ResourceKey={x:Type ItemsControl}}">
-        
+        <Setter Property="Grid.IsSharedSizeScope" Value="True" />
     </Style>
     
     <Style TargetType="{x:Type ctl:FormField}">
@@ -13,7 +13,7 @@
                 <ControlTemplate TargetType="{x:Type ctl:FormField}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="headerColumn" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <ContentPresenter Grid.Column="0"

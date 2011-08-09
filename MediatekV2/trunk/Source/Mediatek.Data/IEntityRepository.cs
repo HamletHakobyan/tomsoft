@@ -34,5 +34,7 @@ namespace Mediatek.Data
         void AddRole(Role role);
         void AddImage(Image image);
         void AddImageData(ImageData imageData);
+
+        void DeleteObject(object entity);
     }
 }

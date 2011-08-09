@@ -132,7 +132,7 @@ namespace Mediatek
             var viewModel = DataContext as IWindowViewModel;
             if (viewModel != null)
             {
-                viewModel.OnClose();
+                viewModel.OnClose(this.DialogResult);
             }
         }
 
@@ -142,7 +142,7 @@ namespace Mediatek
             var viewModel = DataContext as IWindowViewModel;
             if (viewModel != null)
             {
-                viewModel.OnClosing(e);
+                viewModel.OnClosing(this.DialogResult, e);
             }
         }
     }

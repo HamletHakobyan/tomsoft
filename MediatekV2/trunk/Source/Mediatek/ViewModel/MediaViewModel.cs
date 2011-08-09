@@ -14,6 +14,7 @@ using Mediatek.Messaging;
 using System.Windows.Data;
 using System.ComponentModel;
 using Mediatek.Service;
+using Mediatek.ViewModel.Editors;
 
 namespace Mediatek.ViewModel
 {
@@ -26,7 +27,7 @@ namespace Mediatek.ViewModel
             Mediator.Instance.Subscribe<EntityMessage<LoanViewModel>>(LoanMessageHandler);
         }
 
-        private void LoanMessageHandler(object sender, EntityMessage<LoanViewModel> message)
+        private static void LoanMessageHandler(object sender, EntityMessage<LoanViewModel> message)
         {
             // TODO
         }
@@ -170,6 +171,8 @@ namespace Mediatek.ViewModel
         #region Commands
 
         private DelegateCommand _editCommand;
+        private DelegateCommand _showMeCommand;
+
         public ICommand EditCommand
         {
             get
@@ -182,10 +185,41 @@ namespace Mediatek.ViewModel
             }
         }
 
+        public ICommand ShowMeCommand
+        {
+            get
+            {
+                if (_showMeCommand == null)
+                {
+                    _showMeCommand = new DelegateCommand(ShowMe);
+                }
+                return _showMeCommand;
+            }
+        }
+
+        public int? Year
+        {
+            get { return Model.Year; }
+            set
+            {
+                if (value != Model.Year)
+                {
+                    Model.Year = value;
+                    OnPropertyChanged("Year");
+                }
+            }
+        }
+
         protected virtual void Edit()
         {
-            GetService<IDialogService>().Show(null);
+            var editor = GetEditor();
+            if (GetService<IDialogService>().Show(editor) == true)
+            {
+                Mediator.Instance.Post(this, new EntityMessage<MediaViewModel>(this, EntityAction.Modified));
+            }
         }
+
+        protected abstract IDialogViewModel GetEditor();
 
         protected virtual void Delete()
         {
@@ -193,5 +227,9 @@ namespace Mediatek.ViewModel
 
         #endregion
 
+        private void ShowMe()
+        {
+            Mediator.Instance.Post(this, new NavigationMessage(this));
+        }
     }
 }

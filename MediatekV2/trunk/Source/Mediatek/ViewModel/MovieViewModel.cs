@@ -9,6 +9,8 @@ using Mediatek.Helpers;
 using System.Windows;
 using Developpez.Dotnet.Windows.Service;
 using Mediatek.Messaging;
+using Mediatek.Service;
+using Mediatek.ViewModel.Editors;
 
 namespace Mediatek.ViewModel
 {
@@ -27,19 +29,6 @@ namespace Mediatek.ViewModel
             set { Model = value; }
         }
 
-        public int? Year
-        {
-            get { return MovieModel.Year; }
-            set
-            {
-                if (value != MovieModel.Year)
-                {
-                    MovieModel.Year = value;
-                    OnPropertyChanged("Year");
-                }
-            }
-        }
-
         public IEnumerable<string> DirectorNames
         {
             get
@@ -52,26 +41,9 @@ namespace Mediatek.ViewModel
 
         #endregion
 
-        #region Commands
-
-        private DelegateCommand _showMeCommand;
-        public ICommand ShowMeCommand
+        protected override IDialogViewModel GetEditor()
         {
-            get
-            {
-                if (_showMeCommand == null)
-                {
-                    _showMeCommand = new DelegateCommand(ShowMe);
-                }
-                return _showMeCommand;
-            }
-        }
-
-        #endregion
-
-        private void ShowMe()
-        {
-            Mediator.Instance.Post(this, new NavigationMessage(this));
+            return new MovieEditorViewModel(this);
         }
     }
 }
