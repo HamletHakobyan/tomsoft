@@ -126,6 +126,7 @@ namespace Mediatek.ViewModel
                 {
                     Model.Rating = value;
                     OnPropertyChanged("Rating");
+                    OnModified();
                 }
             }
         }
@@ -215,8 +216,13 @@ namespace Mediatek.ViewModel
             var editor = GetEditor();
             if (GetService<IDialogService>().Show(editor) == true)
             {
-                Mediator.Instance.Post(this, new EntityMessage<MediaViewModel>(this, EntityAction.Modified));
+                OnModified();
             }
+        }
+
+        protected virtual void OnModified()
+        {
+            Mediator.Instance.Post(this, new EntityMessage<MediaViewModel>(this, EntityAction.Modified));
         }
 
         protected abstract IDialogViewModel GetEditor();
@@ -225,11 +231,12 @@ namespace Mediatek.ViewModel
         {
         }
 
-        #endregion
-
         private void ShowMe()
         {
             Mediator.Instance.Post(this, new NavigationMessage(this));
         }
+
+        #endregion
+
     }
 }
