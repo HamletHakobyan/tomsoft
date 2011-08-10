@@ -27,17 +27,19 @@ namespace Mediatek
         {
             base.OnStartup(e);
 
+            var mainWindow = new MainWindow();
+
             // Setup services
             UnityContainer = SetupUnityContainerFromConfig();
             UnityContainer.RegisterInstance<IMessageBoxService>(new MessageBoxService());
             UnityContainer.RegisterInstance<IFileDialogService>(new FileDialogService());
-            UnityContainer.RegisterInstance<IDialogService>(new DialogService());
+            UnityContainer.RegisterInstance<IDialogService>(new DialogService(mainWindow));
             UnityContainer.RegisterInstance<IViewModelRepository>(new ViewModelRepository());
             var mainVM = new MainViewModel();
             UnityContainer.RegisterInstance<INavigationService>(mainVM);
 
-            // Setup and show main window
-            var mainWindow = new MainWindow { DataContext = mainVM };
+            // Show main window
+            mainWindow.DataContext = mainVM;
             this.MainWindow = mainWindow;
             mainWindow.Show();
         }

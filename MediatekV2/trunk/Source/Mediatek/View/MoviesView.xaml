@@ -12,7 +12,8 @@
                   ItemsSource="{Binding Movies}"
                   ItemTemplate="{StaticResource tplMovieListItem}"
                   IsSynchronizedWithCurrentItem="True"
-                  bhv:ListBoxBehavior.ItemDoubleClick="{Binding ShowMovieCommand}">
+                  bhv:ListBoxBehavior.ItemDoubleClick="{Binding ShowMovieCommand}"
+                  bhv:ListBoxBehavior.ScrollSelectedIntoView="True">
             <ListView.View>
                 <ctl:TileView />
             </ListView.View>

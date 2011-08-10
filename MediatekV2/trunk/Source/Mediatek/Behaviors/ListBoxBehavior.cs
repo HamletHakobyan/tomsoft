@@ -73,5 +73,46 @@ namespace Mediatek.Behaviors
             if (command.CanExecute(data))
                 command.Execute(data);
         }
+
+        public static bool GetScrollSelectedIntoView(ListBox obj)
+        {
+            return (bool)obj.GetValue(ScrollSelectedIntoViewProperty);
+        }
+
+        public static void SetScrollSelectedIntoView(ListBox obj, bool value)
+        {
+            obj.SetValue(ScrollSelectedIntoViewProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for ScrollSelectedIntoView.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ScrollSelectedIntoViewProperty =
+            DependencyProperty.RegisterAttached(
+              "ScrollSelectedIntoView",
+              typeof(bool),
+              typeof(ListBoxBehavior),
+              new UIPropertyMetadata(
+                false,
+                ScrollSelectedIntoViewChanged));
+
+        private static void ScrollSelectedIntoViewChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+            var listBox = o as ListBox;
+            if (listBox == null)
+                return;
+
+            var newValue = (bool)e.NewValue;
+
+            if (newValue)
+            {
+                listBox.DoWhenLoaded(
+                    () =>
+                        {
+                            if (listBox.SelectedItem != null)
+                                listBox.ScrollIntoView(listBox.SelectedItem);
+                        });
+            }
+
+        }
+
     }
 }

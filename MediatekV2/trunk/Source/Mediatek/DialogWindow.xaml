@@ -1,9 +1,10 @@
 ﻿<mtk:MediatekWindow x:Class="Mediatek.DialogWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mtk="clr-namespace:Mediatek"
-        xmlns:svc="clr-namespace:Mediatek.Service"
-        Title="{Binding DialogTitle}" Height="300" Width="300">
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mtk="clr-namespace:Mediatek"
+                    xmlns:svc="clr-namespace:Mediatek.Service"
+                    WindowStartupLocation="CenterOwner"
+                    Title="{Binding DialogTitle}" Height="300" Width="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
