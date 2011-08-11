@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Security.Cryptography;
+using System.Windows;
 using PasteBinSharp.UI.Properties;
 
 namespace PasteBinSharp.UI
@@ -20,7 +22,20 @@ namespace PasteBinSharp.UI
             txtUserName.Text = _settings.UserName;
             pwdPassword.Password = string.Empty;
             if (!string.IsNullOrEmpty(_settings.Password))
-                pwdPassword.Password = PasswordHelper.UnprotectPassword(_settings.Password);
+            {
+                try
+                {
+                    pwdPassword.Password = PasswordHelper.UnprotectPassword(_settings.Password);
+                }
+                catch (PasswordDecodeException)
+                {
+                    MessageBox.Show(
+                        Properties.Resources.Settings_PasswordDecodeFailed,
+                        Properties.Resources.Error_Title,
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+            }
         }
 
         private void btnOK_Click(object sender, RoutedEventArgs e)

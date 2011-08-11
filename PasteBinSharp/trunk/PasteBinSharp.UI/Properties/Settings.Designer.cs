@@ -58,5 +58,29 @@ namespace PasteBinSharp.UI.Properties {
                 this["Password"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LastPostAnonymous {
+            get {
+                return ((bool)(this["LastPostAnonymous"]));
+            }
+            set {
+                this["LastPostAnonymous"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LastPostPrivate {
+            get {
+                return ((bool)(this["LastPostPrivate"]));
+            }
+            set {
+                this["LastPostPrivate"] = value;
+            }
+        }
     }
 }

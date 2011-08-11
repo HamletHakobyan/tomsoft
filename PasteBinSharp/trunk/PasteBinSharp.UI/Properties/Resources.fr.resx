@@ -192,4 +192,7 @@
   <data name="Validation_UserNameAndPasswordMustBeSet" xml:space="preserve">
     <value>Le nom d'utilisateur et le mot de passe doivent être renseignés</value>
   </data>
+	<data name="Settings_PasswordDecodeFailed" xml:space="preserve">
+    <value>Erreur lors du décodage du mot de passe. Veuillez saisir votre mot de passe à nouveau.</value>
+  </data>
 </root>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Interop;
 
@@ -22,7 +23,8 @@ namespace PasteBinSharp.UI
             _entry = entry;
             
             _settings = Properties.Settings.Default;
-            PostAnonymously = string.IsNullOrEmpty(_settings.UserName) || string.IsNullOrEmpty(_settings.Password);
+            _postAnonymously = _settings.LastPostAnonymous || string.IsNullOrEmpty(_settings.UserName);
+            _entry.Private = _settings.LastPostPrivate;
 
             this.DataContext = this;
         }
@@ -50,12 +52,19 @@ namespace PasteBinSharp.UI
             if (!EnsureSettings())
                 return;
 
+            _settings.LastPostAnonymous = PostAnonymously;
+            _settings.LastPostPrivate = _entry.Private;
+            _settings.Save();
+
             var client = new PasteBinClient(_settings.ApiDevKey);
             if (!PostAnonymously)
             {
                 try
                 {
-                    client.Login(_settings.UserName, PasswordHelper.UnprotectPassword(_settings.Password));
+                    string password = GetPassword();
+                    if (password == null)
+                        return;
+                    client.Login(_settings.UserName, password);
                 }
                 catch (Exception ex)
                 {
@@ -85,6 +94,29 @@ namespace PasteBinSharp.UI
             }
         }
 
+        private string GetPassword()
+        {
+            string password = null;
+
+            while (password == null)
+            {
+                try
+                {
+                    if (string.IsNullOrEmpty(_settings.Password))
+                        return null;
+                    password = PasswordHelper.UnprotectPassword(_settings.Password);
+                }
+                catch (PasswordDecodeException)
+                {
+                    if (ShowSettings() == true)
+                        continue;
+                    return null;
+                }
+            }
+
+            return password;
+        }
+
         private bool EnsureSettings()
         {
             string errorMessage;
@@ -97,9 +129,7 @@ namespace PasteBinSharp.UI
                     MessageBoxImage.Exclamation);
                 if (r == MessageBoxResult.Yes)
                 {
-                    SettingsWindow settingsWindow = new SettingsWindow(_settings);
-
-                    if (settingsWindow.ShowDialog() == true)
+                    if (ShowSettings() == true)
                     {
                         continue;
                     }
@@ -358,13 +388,7 @@ namespace PasteBinSharp.UI
             {
                 _postAnonymously = value;
                 OnPropertyChanged("PostAnonymously");
-                OnPropertyChanged("PostAsUser");
             }
-        }
-
-        public bool PostAsUser
-        {
-            get { return !PostAnonymously; }
         }
 
         public string UserName
@@ -395,12 +419,17 @@ namespace PasteBinSharp.UI
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
-            var window = new SettingsWindow(_settings);
-            window.Owner = this;
-            if (window.ShowDialog() == true)
+            if (ShowSettings() == true)
             {
                 OnPropertyChanged("UserName");
             }
+        }
+
+        bool? ShowSettings()
+        {
+            var window = new SettingsWindow(_settings);
+            window.Owner = this;
+            return window.ShowDialog();
         }
 
         protected override void OnSourceInitialized(EventArgs e)
