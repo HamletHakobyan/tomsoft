@@ -57,7 +57,7 @@
                          GroupName="anonymousOption"
                          Content="{x:Static prop:Resources.Paste_PostAnonymously}" />
 
-            <RadioButton IsChecked="{Binding PostAsUser, Mode=OneWay}"
+            <RadioButton IsChecked="True"
                          VerticalAlignment="Center" Margin="0,0,0,5"
                          GroupName="anonymousOption">
                 <TextBlock>

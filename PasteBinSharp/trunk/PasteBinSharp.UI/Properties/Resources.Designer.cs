@@ -223,6 +223,15 @@ namespace PasteBinSharp.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error decoding password. Please enter your password again..
+        /// </summary>
+        public static string Settings_PasswordDecodeFailed {
+            get {
+                return ResourceManager.GetString("Settings_PasswordDecodeFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User name.
         /// </summary>
         public static string Settings_UserName {

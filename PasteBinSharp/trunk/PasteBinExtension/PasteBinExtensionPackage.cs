@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
 using EnvDTE;
@@ -63,22 +62,7 @@ namespace ThomasLevesque.PasteBinExtension
         /// </summary>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            DTE dte = GetService(typeof(SDTE)) as DTE;
-            if (dte == null)
-                return;
-
-            var document = dte.ActiveDocument;
-            if (document == null)
-                return;
-            var selection = (TextSelection) document.Selection;
-            if (selection == null)
-                return;
-
-            var entry = new PasteBinEntry();
-            entry.Title = document.Name;
-            entry.Text = selection.Text;
-            entry.Format = PasteBinUtil.FormatFromFileName(document.FullName);
-
+            var entry = GetEntryFromActiveDocument();
             var window = new SendWindow(entry);
             window.CenterWindowCallback =
                 hWnd =>
@@ -87,7 +71,31 @@ namespace ThomasLevesque.PasteBinExtension
                         if (uiShell != null)
                             uiShell.CenterDialogOnWindow(hWnd, IntPtr.Zero);
                     };
-            window.ShowDialog();}
+            window.ShowDialog();
+        }
 
+        PasteBinEntry GetEntryFromActiveDocument()
+        {
+            PasteBinEntry entry = new PasteBinEntry();
+            entry.Text = string.Empty;
+            entry.Title = string.Empty;
+            
+            DTE dte = GetService(typeof(SDTE)) as DTE;
+            if (dte != null)
+            {
+                var document = dte.ActiveDocument;
+                if (document != null)
+                {
+                    entry.Title = document.Name;
+                    entry.Format = PasteBinUtil.FormatFromFileName(document.FullName);
+
+                    var selection = (TextSelection) document.Selection;
+                    if (selection != null)
+                        entry.Text = selection.Text;
+                }
+            }
+            return entry;
+        }
     }
+
 }
