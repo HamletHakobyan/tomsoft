@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
+using Developpez.Dotnet.Windows.Service;
+using SharpDB.Model.Data;
 using SharpDB.Util;
 using SharpDB.Model;
 using Developpez.Dotnet.Windows.Input;
 using System.Windows.Input;
 using SharpDB.Util.Service;
 using System.Windows;
-using Developpez.Dotnet.Windows.Util;
 
 namespace SharpDB.ViewModel
 {
@@ -280,6 +283,48 @@ namespace SharpDB.ViewModel
                 return true;
             }
             return false;
+        }
+
+        public void OnFileDrop(string[] files)
+        {
+            foreach (var file in files)
+            {
+                OnFileDrop(file);
+            }
+        }
+
+        public void OnFileDrop(string file)
+        {
+            var fileHandlers =
+                (from row in DbProviderFactories.GetFactoryClasses().AsEnumerable()
+                 let handler = DbProviderHelper.GetFileHandler((string)row["InvariantName"])
+                 where handler != null && handler.CanUseFile(file)
+                 select handler).ToArray();
+
+            
+            if (!fileHandlers.Any())
+            {
+                GetService<IMessageBoxService>().Show(GetResource<string>("no_handler_for_file"), GetResource<string>("error"), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var fileHandler = fileHandlers.First();
+            var connectionVM = new ConnectionDialogViewModel();
+            connectionVM.DatabaseConnection.ProviderName = fileHandler.ProviderName;
+            connectionVM.DatabaseConnection.ConnectionString = fileHandler.MakeConnectionString(file);
+            var service = GetService<IDialogService>();
+            if (service.Show(connectionVM) == true)
+            {
+                var config = GetService<Config>();
+                config.Connections.Add(connectionVM.DatabaseConnection);
+                config.Save();
+                var database = new DatabaseViewModel(connectionVM.DatabaseConnection);
+                Databases.Add(database);
+                Mediator.Instance.Post(this, new DatabaseAddedMessage
+                {
+                    Database = database
+                });
+            }
         }
     }
 }

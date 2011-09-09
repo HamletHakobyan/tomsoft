@@ -14,8 +14,8 @@ namespace SharpDB.ViewModel
 {
     public class ConnectionDialogViewModel : ViewModelBase, IDialogViewModel
     {
-        private DialogButton[] _buttons;
-        private DatabaseConnection _connection;
+        private readonly DialogButton[] _buttons;
+        private readonly DatabaseConnection _connection;
         private IConnectionStringEditor _connectionStringEditor;
         private bool _isDefaultName;
 
@@ -148,6 +148,9 @@ namespace SharpDB.ViewModel
                 _name = _connection.Name;
                 _providerName = _connection.ProviderName;
                 _connectionString = _connection.ConnectionString;
+                _connectionStringEditor = string.IsNullOrEmpty(_providerName)
+                    ? null
+                    : DbProviderHelper.GetConnectionStringEditor(_providerName);
             }
             else
             {

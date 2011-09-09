@@ -2,6 +2,8 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using SharpDB.Model.Data;
+using SharpDB.Model.Data.SqlCe35;
+using SharpDB.Model.Data.SqlCe40;
 using SharpDB.Model.Data.SQLite;
 
 // General Information about an assembly is controlled through the following 
@@ -37,7 +39,8 @@ using SharpDB.Model.Data.SQLite;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-
-
 // Provider specific implementations
 [assembly: DbProviderSpecificType("System.Data.SQLite", typeof(SQLiteDbModel))]
+[assembly: DbProviderSpecificType("System.Data.SQLite", typeof(SQLiteFileHandler))]
+[assembly: DbProviderSpecificType("System.Data.SqlServerCe.3.5", typeof(SqlCe35FileHandler))]
+[assembly: DbProviderSpecificType("System.Data.SqlServerCe.4.0", typeof(SqlCe40FileHandler))]

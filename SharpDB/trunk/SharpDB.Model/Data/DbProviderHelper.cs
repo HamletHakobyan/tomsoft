@@ -11,11 +11,13 @@ namespace SharpDB.Model.Data
     {
         private static readonly ConcurrentDictionary<string, Type> _dbModelCache;
         private static readonly ConcurrentDictionary<string, Type> _connectionStringEditorCache;
+        private static readonly ConcurrentDictionary<string, Type> _dbFileHandlerCache;
 
         static DbProviderHelper()
         {
             _dbModelCache = new ConcurrentDictionary<string, Type>();
             _connectionStringEditorCache = new ConcurrentDictionary<string, Type>();
+            _dbFileHandlerCache = new ConcurrentDictionary<string, Type>();
         }
 
         public static IDbModel GetDbModel(string providerName)
@@ -34,6 +36,15 @@ namespace SharpDB.Model.Data
                 return null;
 
             return (IConnectionStringEditor)Activator.CreateInstance(implementation);
+        }
+
+        public static IDbFileHandler GetFileHandler(string providerName)
+        {
+            Type implementation = _dbFileHandlerCache.GetOrAdd(providerName, FindProviderSpecificImplementation<IDbFileHandler>);
+            if (implementation == null)
+                return null;
+
+            return (IDbFileHandler)Activator.CreateInstance(implementation);
         }
 
         private static Type FindProviderSpecificImplementation<T>(string providerName)

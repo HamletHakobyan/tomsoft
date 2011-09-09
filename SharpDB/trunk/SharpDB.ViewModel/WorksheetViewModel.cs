@@ -9,12 +9,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using Developpez.Dotnet;
 using Developpez.Dotnet.Windows.Input;
+using Developpez.Dotnet.Windows.Service;
 using SharpDB.Util;
 using SharpDB.Util.Service;
 using System.Windows.Media;
 using System.Text.RegularExpressions;
 using System.Linq;
-using Developpez.Dotnet.Windows.Util;
 
 namespace SharpDB.ViewModel
 {

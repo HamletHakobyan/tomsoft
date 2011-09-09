@@ -4,6 +4,8 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 using SharpDB.Model.Data;
+using SharpDB.ProviderSpecific.SqlCe35;
+using SharpDB.ProviderSpecific.SqlCe40;
 using SharpDB.ProviderSpecific.SQLite;
 
 // General Information about an assembly is controlled through the following 
@@ -59,3 +61,5 @@ using SharpDB.ProviderSpecific.SQLite;
 
 // Provider specific implementations
 [assembly: DbProviderSpecificType("System.Data.SQLite", typeof(SQLiteConnectionStringEditor))]
+[assembly: DbProviderSpecificType("System.Data.SqlServerCe.3.5", typeof(SqlCe35ConnectionStringEditor))]
+[assembly: DbProviderSpecificType("System.Data.SqlServerCe.4.0", typeof(SqlCe40ConnectionStringEditor))]
