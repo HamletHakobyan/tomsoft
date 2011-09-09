@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="SharpDB.View.DatabaseManagerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:SharpDB.ViewModel;assembly=SharpDB.ViewModel"
+             xmlns:dvm="clr-namespace:SharpDB.ViewModel.Design;assembly=SharpDB.ViewModel.Design"
+             xmlns:util="clr-namespace:SharpDB.Util;assembly=SharpDB.Util"
+             xmlns:prop="clr-namespace:SharpDB.Properties"
+             xmlns:bhv="clr-namespace:SharpDB.Behaviors"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance Type=dvm:DesignDatabaseManagerViewModel, IsDesignTimeCreatable=True}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="20" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ToolBar Grid.Row="0">
+            <Button Command="{Binding NewConnectionCommand}"
+                    ToolTip="{x:Static prop:Resources.new_database_connection}"
+                    Style="{StaticResource ToolBarButton}">
+                <Image Source="/Images/database_add.png" />
+            </Button>
+            <Button Command="{Binding EditConnectionCommand}"
+                    ToolTip="{x:Static prop:Resources.edit_database_connection}"
+                    Style="{StaticResource ToolBarButton}">
+                <Image Source="/Images/edit.png" />
+            </Button>
+            <Button Command="{Binding DeleteConnectionCommand}"
+                    ToolTip="{x:Static prop:Resources.delete_database_connection}"
+                    Style="{StaticResource ToolBarButton}">
+                <Image Source="/Images/delete.png" />
+            </Button>
+            <Separator />
+            <Button Command="{Binding ConnectCommand}"
+                    ToolTip="{x:Static prop:Resources.connect_database}"
+                    Style="{StaticResource ToolBarButton}">
+                <Image Source="/Images/database.png" />
+            </Button>
+            <Button Command="{Binding DisconnectCommand}"
+                    ToolTip="{x:Static prop:Resources.disconnect_database}"
+                    Style="{StaticResource ToolBarButton}">
+                <Image Source="/Images/database_close.png" />
+            </Button>
+            <Button Command="{Binding RefreshModelCommand}"
+                    ToolTip="{x:Static prop:Resources.refresh_model}"
+                    Style="{StaticResource ToolBarButton}">
+                <Image Source="/Images/refresh.png" />
+            </Button>
+        </ToolBar>
+        <TreeView Grid.Row="1" ItemsSource="{Binding Databases}"
+                  util:TreeViewHelper.TrackSelection="True"
+                  util:TreeViewHelper.SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+            <TreeView.Resources>
+                <ResourceDictionary Source="/View/DbModelTemplates.xaml"/>
+            </TreeView.Resources>
+        </TreeView>
+    </Grid>
+</UserControl>
