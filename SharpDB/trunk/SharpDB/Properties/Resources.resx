@@ -255,4 +255,7 @@
   <data name="column_default_value_format" xml:space="preserve">
     <value>Default value: {0}</value>
   </data>
+  <data name="no_handler_for_file" xml:space="preserve">
+    <value>No handler exists for this type of file</value>
+  </data>
 </root>

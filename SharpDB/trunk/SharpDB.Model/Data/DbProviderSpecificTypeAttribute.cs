@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SharpDB.Model.Data
 {
-    [AttributeUsage(AttributeTargets.Assembly)]
+    [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
     public class DbProviderSpecificTypeAttribute : Attribute
     {
         public DbProviderSpecificTypeAttribute(string providerName, Type type)

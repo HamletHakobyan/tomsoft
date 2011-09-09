@@ -84,6 +84,10 @@
     <Compile Include="Behaviors\TextEditorBehavior.cs" />
     <Compile Include="Behaviors\WindowBehavior.cs" />
     <Compile Include="CustomEffects\GreyscaleEffect.cs" />
+    <Compile Include="ProviderSpecific\DbFileConnectionStringEditorBase.cs" />
+    <Compile Include="ProviderSpecific\SqlCe35\SqlCe35ConnectionStringEditor.cs" />
+    <Compile Include="ProviderSpecific\SqlCe35\SqlServerCeConnectionStringBuilder.cs" />
+    <Compile Include="ProviderSpecific\SqlCe40\SqlCe40ConnectionStringEditor.cs" />
     <Compile Include="ProviderSpecific\SQLite\SQLiteConnectionStringEditor.cs" />
     <Compile Include="Service\BasicMessageBoxService.cs" />
     <Compile Include="DialogWindow.xaml.cs">
@@ -263,6 +267,7 @@
   <ItemGroup>
     <Resource Include="Images\unique.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

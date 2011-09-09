@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SharpDB.ViewModel;
 
 namespace SharpDB.View
 {
@@ -22,6 +23,16 @@ namespace SharpDB.View
         public DatabaseManagerView()
         {
             InitializeComponent();
+        }
+
+        private void Grid_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[]) e.Data.GetData(DataFormats.FileDrop);
+                var vm = (DatabaseManagerViewModel)DataContext;
+                vm.OnFileDrop(files);
+            }
         }
     }
 }
