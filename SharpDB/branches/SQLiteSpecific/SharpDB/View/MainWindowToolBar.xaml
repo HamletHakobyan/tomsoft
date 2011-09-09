@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="SharpDB.View.MainWindowToolBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:SharpDB.ViewModel;assembly=SharpDB.ViewModel"
+             xmlns:prop="clr-namespace:SharpDB.Properties"
+             xmlns:ctl="clr-namespace:SharpDB.Controls;assembly=SharpDB.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="600">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="visibilibyConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <ToolBarTray>
+        <ToolBar>
+            <Button Command="{Binding NewWorksheetCommand}"
+                    ToolTip="{x:Static prop:Resources.new_worksheet}"
+                    Style="{StaticResource ToolBarButton}">
+                <Image Source="/Images/file.png" />
+            </Button>
+            <ctl:SplitButton Command="{Binding OpenWorksheetCommand}"
+                             ItemsSource="{Binding RecentFiles}"
+                             ToolTip="{x:Static prop:Resources.open_worksheet}"
+                             Style="{StaticResource ToolBarButton}"
+                             ButtonStyle="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <Image Source="/Images/open.png" />
+            </ctl:SplitButton>
+        </ToolBar>
+        <ToolBar Name="WorksheetToolbar"
+                 DataContext="{Binding CurrentWorksheet}">
+            <ToolBar.Style>
+                <Style TargetType="ToolBar">
+                    <Style.Triggers>
+                        <Trigger Property="DataContext" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ToolBar.Style>
+            <Button Command="{Binding SaveCommand}"
+                    ToolTip="{x:Static prop:Resources.save_worksheet}"
+                    Style="{StaticResource ToolBarButton}">
+                <Image Source="/Images/save.png" />
+            </Button>
+            <Button Command="{Binding CutCommand}"
+                    ToolTip="{x:Static prop:Resources.cut}"
+                    Style="{StaticResource ToolBarButton}">
+                <Image Source="/Images/cut.png" />
+            </Button>
+            <Button Command="{Binding CopyCommand}"
+                    ToolTip="{x:Static prop:Resources.copy}"
+                    Style="{StaticResource ToolBarButton}">
+                <Image Source="/Images/copy.png" />
+            </Button>
+            <Button Command="{Binding PasteCommand}"
+                    ToolTip="{x:Static prop:Resources.paste}"
+                    Style="{StaticResource ToolBarButton}">
+                <Image Source="/Images/paste.png" />
+            </Button>
+            <Separator />
+            <Image Source="/Images/database.png" ToolTip="{x:Static prop:Resources.current_database}"/>
+            <ComboBox ItemsSource="{Binding Databases}"
+                      SelectedItem="{Binding CurrentDatabase}"
+                      Width="150">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type vm:DatabaseViewModel}">
+                        <TextBlock Text="{Binding ConnectionName}"/>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                                <Setter Property="TextBlock.FontWeight" Value="Bold" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Separator />
+            <Button Command="{Binding ExecuteCurrentCommand}"
+                    ToolTip="{x:Static prop:Resources.execute_current}"
+                    Style="{StaticResource ToolBarButton}">
+                <Image Source="/Images/run.png" />
+            </Button>
+            <Button Command="{Binding ExecuteScriptCommand}"
+                    ToolTip="{x:Static prop:Resources.execute_as_script}"
+                    Style="{StaticResource ToolBarButton}">
+                <Image Source="/Images/run_script.png" />
+            </Button>
+            <Button Command="{Binding ExplainPlanCommand}"
+                    ToolTip="{x:Static prop:Resources.explain_plan}"
+                    Style="{StaticResource ToolBarButton}">
+                <Image Source="/Images/explain.png"/>
+            </Button>
+        </ToolBar>
+    </ToolBarTray>
+</UserControl>

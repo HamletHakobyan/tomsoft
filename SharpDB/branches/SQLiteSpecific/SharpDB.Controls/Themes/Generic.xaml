@@ -1,0 +1,157 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:SharpDB.Controls">
+
+    <BooleanToVisibilityConverter x:Key="visibilityConverter" />
+
+    <Style TargetType="{x:Type local:TabDocumentContainer}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:TabDocumentContainer}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <!-- Headers -->
+                            <ItemsPresenter Name="TabHeaders" Grid.Row="0" />
+
+
+                            <Border Grid.Row="1"
+                                    BorderBrush="WhiteSmoke"
+                                    BorderThickness="0,5,0,0">
+                                <!-- Documents -->
+                                <local:DocumentItemsControl x:Name="Documents"
+                                        ItemsSource="{TemplateBinding ItemsSource}"
+                                        ItemTemplate="{TemplateBinding ContentTemplate}"
+                                        SelectedItem="{TemplateBinding SelectedItem}">
+                                    <local:DocumentItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <Grid IsItemsHost="True" />
+                                        </ItemsPanelTemplate>
+                                    </local:DocumentItemsControl.ItemsPanel>
+                                    <local:DocumentItemsControl.ItemContainerStyle>
+                                        <Style TargetType="local:DocumentItem">
+                                            <Setter Property="Visibility" Value="{Binding IsSelected,
+                                                                            RelativeSource={RelativeSource Mode=Self},
+                                                                            Converter={StaticResource visibilityConverter}}" />
+                                        </Style>
+                                    </local:DocumentItemsControl.ItemContainerStyle>
+                                </local:DocumentItemsControl>
+                            </Border>
+
+                        </Grid>
+                    </Border>
+                    
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" IsItemsHost="True" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:TabDocumentContainerItem}">
+        <Setter Property="Background" Value="LightGray" />
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:TabDocumentContainerItem}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5,5,0,0">
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <ContentPresenter Grid.Column="0"
+                                              Margin="3"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"/>
+
+                            <Button Name="PART_CloseButton"
+                                    Grid.Column="2" Margin="3"
+                                    Width="16" Height="16"
+                                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                <Button.ContentTemplate>
+                                    <DataTemplate>
+                                        <Border>
+                                            <Path Name="cross"
+                                                  Stroke="Gray"
+                                                  StrokeThickness="2"
+                                                  Stretch="Uniform"
+                                                  Data="M0,0 1,1 M0,1 1,0">
+                                            </Path>
+                                        </Border>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}}" Value="True">
+                                                <Setter TargetName="cross" Property="Stroke" Value="Black" />
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </Button.ContentTemplate>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="WhiteSmoke" />
+                <Setter Property="BorderThickness" Value="1,1,1,0" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <Style TargetType="{x:Type local:SplitButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:SplitButton}">
+                    <Border Name="root"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <DockPanel>
+                            <Button Name="PART_DropDownButton"
+                                    DockPanel.Dock="Right"
+                                    Height="{Binding ActualHeight, ElementName=ActualButton}"
+                                    Style="{TemplateBinding ButtonStyle}">
+                                <Button.ContextMenu>
+                                    <ContextMenu ItemsSource="{TemplateBinding ItemsSource}"
+                                                 ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
+                                                 ItemTemplate="{TemplateBinding ItemTemplate}" />
+                                </Button.ContextMenu>
+                                <Path Fill="Black" Data="M1,3 7,3 4,7"/>
+                            </Button>
+                            
+                            <Button Name="ActualButton"
+                                    Command="{TemplateBinding Command}"
+                                    CommandTarget="{TemplateBinding CommandTarget}"
+                                    CommandParameter="{TemplateBinding CommandParameter}"
+                                    Style="{TemplateBinding ButtonStyle}">
+                                <ContentPresenter />
+                            </Button>
+                        </DockPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,59 @@
+﻿<?xml  version="1.0"?>
+<SyntaxDefinition name="SQL" extensions=".sql">
+  <Digits name="Digits" bold="false" italic="false" color="Black"/>
+  <RuleSets>
+    <RuleSet ignorecase="true">
+
+      <Delimiters>&amp;&lt;&gt;~!%^*()-+=|\#/{}[]:;"' , .?</Delimiters>
+
+      <Span name="Comment" stopateol="true" color="Gray">
+        <Begin>--</Begin>
+      </Span>
+      <Span name="Comment" stopateol="false" color="Gray">
+        <Begin>/*</Begin>
+        <End>*/</End>
+      </Span>
+
+      <Span name="String" bold="false" italic="false" color="Green" stopateol="true">
+        <Begin>'</Begin>
+        <End>'</End>
+      </Span>
+      <KeyWords name="OperatorKeywords" bold="true" italic="false" color="Blue">
+        <Key word="select" />
+        <Key word="insert" />
+        <Key word="update" />
+        <Key word="delete" />
+        <Key word="from" />
+        <Key word="join" />
+        <Key word="where" />
+        <Key word="group" />
+        <Key word="having" />
+        <Key word="truncate" />
+        <Key word="set" />
+        <Key word="as" />
+        <Key word="is" />
+        <Key word="not" />
+        <Key word="null" />
+        <Key word="union" />
+        <Key word="intersect" />
+        <Key word="outer" />
+        <Key word="inner" />
+        <Key word="left" />
+        <Key word="right" />
+        <Key word="full" />
+        <Key word="order" />
+        <Key word="by" />
+        <Key word="drop" />
+        <Key word="create" />
+        <Key word="alter" />
+        <Key word="table" />
+        <Key word="view" />
+        <Key word="index" />
+        <Key word="into" />
+        <Key word="values" />
+        <Key word="primary key" />
+        <Key word="unique" />
+      </KeyWords>
+    </RuleSet>
+  </RuleSets>
+</SyntaxDefinition>

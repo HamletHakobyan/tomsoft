@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4401C5FA-92CA-4526-9107-85148912A6D9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SharpDB.Model</RootNamespace>
+    <AssemblyName>SharpDB.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Developpez.Dotnet">
+      <HintPath>..\lib\Dvp.NET\Developpez.Dotnet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config.cs" />
+    <Compile Include="DatabaseConnection.cs" />
+    <Compile Include="Data\DbExceptionWrapper.cs" />
+    <Compile Include="Data\DbProviderSpecificTypeAttribute.cs" />
+    <Compile Include="Data\DbProviderHelper.cs" />
+    <Compile Include="Data\DbSchema.cs" />
+    <Compile Include="Data\IConnectionStringEditor.cs" />
+    <Compile Include="Data\IDbIndexColumnItem.cs" />
+    <Compile Include="Data\IDbModel.cs" />
+    <Compile Include="Data\IDbColumnItem.cs" />
+    <Compile Include="Data\IDbIndexItem.cs" />
+    <Compile Include="Data\IDbItemGroup.cs" />
+    <Compile Include="Data\IDbModelItem.cs" />
+    <Compile Include="Data\IDbTableItem.cs" />
+    <Compile Include="Data\DbItemType.cs" />
+    <Compile Include="Data\SQLite\SQLiteColumnItem.cs" />
+    <Compile Include="Data\SQLite\SQLiteColumnsItemGroup.cs" />
+    <Compile Include="Data\SQLite\SQLiteDbModel.cs">
+      <DependentUpon>SQLiteDbModel.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Data\SQLite\SQLiteDbModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SQLiteDbModel.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\SQLite\SQLiteIndexColumnItem.cs" />
+    <Compile Include="Data\SQLite\SQLiteIndexColumnItemGroup.cs" />
+    <Compile Include="Data\SQLite\SQLiteIndexesItemGroup.cs" />
+    <Compile Include="Data\SQLite\SQLiteIndexItem.cs" />
+    <Compile Include="Data\SQLite\SQLiteResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SQLiteResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\SQLite\SQLiteTablesItemGroup.cs" />
+    <Compile Include="Data\SQLite\SQLiteTableItem.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\SQLite\SQLiteDbModel.xsc">
+      <DependentUpon>SQLiteDbModel.xsd</DependentUpon>
+    </None>
+    <None Include="Data\SQLite\SQLiteDbModel.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SQLiteDbModel.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Data\SQLite\SQLiteDbModel.xss">
+      <DependentUpon>SQLiteDbModel.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\SQLite\SQLiteResources.fr-FR.resx" />
+    <EmbeddedResource Include="Data\SQLite\SQLiteResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SQLiteResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

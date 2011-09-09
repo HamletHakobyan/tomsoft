@@ -1,0 +1,60 @@
+﻿<Window x:Class="SharpDB.DialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dvp="http://www.developpez.com/xaml"
+        xmlns:dlg="clr-namespace:SharpDB.Util.Service;assembly=SharpDB.Util"
+        xmlns:dvm="clr-namespace:SharpDB.ViewModel.Design;assembly=SharpDB.ViewModel.Design"
+        xmlns:util="clr-namespace:SharpDB.Util;assembly=SharpDB.Util"
+        mc:Ignorable="d"
+        d:DesignHeight="300"
+        d:DesignWidth="380"
+        d:DataContext="{d:DesignInstance Type=dvm:DesignDialogViewModel, IsDesignTimeCreatable=True}"
+        Title="{Binding DialogTitle}"
+        ResizeMode="{dvp:Switch Resizable, ValueIfTrue=CanResize, ValueIfFalse=NoResize}"
+        ShowInTaskbar="False"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner"
+        util:WindowSettings.MaximizeBox="False"
+        util:WindowSettings.MinimizeBox="False">
+    
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+    </Window.Resources>
+    
+    <DockPanel>
+        
+        <Border Name="BdButtons"
+                DockPanel.Dock="Bottom"
+                Background="{x:Static SystemColors.ControlBrush}"
+                Height="50">
+            <ItemsControl ItemsSource="{Binding Buttons}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type dlg:DialogButton}">
+                        <Button Content="{Binding Text}"
+                                MinWidth="87"
+                                Height="24"
+                                Margin="0,0,12,0"
+                                Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                IsEnabled="{Binding IsEnabled}"
+                                IsDefault="{Binding IsDefault}"
+                                IsCancel="{Binding IsCancel}"
+                                Command="{Binding Command}"
+                                Click="DialogButton_Click"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Right" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Border>
+        
+        <ContentControl Content="{Binding}" />
+        
+    </DockPanel>
+    
+</Window>
