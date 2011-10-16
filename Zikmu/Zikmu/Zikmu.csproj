@@ -67,8 +67,7 @@
     <Compile Include="Behaviors\MediaElementBehavior.cs" />
     <Compile Include="Behaviors\IMediaController.cs" />
     <Compile Include="Controls\Marquee.cs" />
-    <Compile Include="Converters\NegateConverter.cs" />
-    <Compile Include="Converters\SumConverter.cs" />
+    <Compile Include="ExtensionMethods\ViewModelExtensions.cs" />
     <Compile Include="Infrastructure\CommandAttribute.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SongViewModel.cs" />
@@ -139,7 +138,9 @@
   <ItemGroup>
     <Resource Include="Images\music.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Converters\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

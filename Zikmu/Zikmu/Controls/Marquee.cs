@@ -10,7 +10,7 @@ using Developpez.Dotnet.ComponentModel;
 namespace Zikmu.Controls
 {
     [TemplatePart(Name = "PART_Canvas", Type = typeof(Canvas))]
-    [TemplatePart(Name = "PART_Presenter",Type = typeof(UIElement))]
+    [TemplatePart(Name = "PART_Presenter",Type = typeof(FrameworkElement))]
     public class Marquee : ContentControl
     {
         public static readonly DependencyProperty OrientationProperty =
@@ -25,9 +25,8 @@ namespace Zikmu.Controls
         public static readonly DependencyProperty PauseDurationProperty =
             DependencyProperty.Register("PauseDuration", typeof(TimeSpan), typeof(Marquee), new UIPropertyMetadata(TimeSpan.FromSeconds((1)), MarqueePropertyChanged));
 
-
         private Canvas _canvas;
-        private UIElement _presenter;
+        private FrameworkElement _presenter;
 
         static Marquee()
         {
@@ -37,6 +36,7 @@ namespace Zikmu.Controls
         public Marquee()
         {
             Loaded += Marquee_Loaded;
+            SizeChanged += Marquee_SizeChanged;
         }
 
         public Orientation Orientation
@@ -68,6 +68,15 @@ namespace Zikmu.Controls
             SetupAnimation();
         }
 
+        private void Marquee_SizeChanged(object sender, EventArgs e)
+        {
+            SetupAnimation();
+        }
+
+        void _presenter_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            SetupAnimation();
+        }
 
         private static void MarqueePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -80,9 +89,13 @@ namespace Zikmu.Controls
 
         public override void OnApplyTemplate()
         {
+            if (_presenter != null)
+                _presenter.SizeChanged -= _presenter_SizeChanged;
+
             base.OnApplyTemplate();
-            _presenter = (UIElement)Template.FindName("PART_Presenter", this);
+            _presenter = (FrameworkElement)Template.FindName("PART_Presenter", this);
             _canvas = (Canvas) Template.FindName("PART_Canvas", this);
+            _presenter.SizeChanged += _presenter_SizeChanged;
         }
 
         private void SetupAnimation()
