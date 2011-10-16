@@ -1,0 +1,58 @@
+﻿<Window x:Class="Zikmu.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dvp="http://www.developpez.com/xaml"
+        xmlns:ctl="clr-namespace:Zikmu.Controls"
+        xmlns:bhv="clr-namespace:Zikmu.Behaviors"
+        xmlns:cnv="clr-namespace:Zikmu.Converters"
+        Name="window"
+        Title="Zikmu" Icon="/Images/music.ico"
+        Height="200" Width="270"
+        WindowStyle="None" Background="Transparent"
+        dvp:WindowBehavior.GlassFrameMargins="-1"
+        dvp:WindowBehavior.EnableDragMove="True">
+    <Grid>
+        <MediaElement Source="{Binding CurrentSong.Uri}" Visibility="Hidden"
+                          bhv:MediaElementBehavior.Controller="{Binding}"
+                          LoadedBehavior="Manual" />
+        <DockPanel>
+            <!-- Title bar -->
+            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,5">
+                <Image Source="/Images/music.png" Width="48" Height="48" Margin="0,0,3,0" />
+                <TextBlock DockPanel.Dock="Left"
+                           VerticalAlignment="Center"
+                           Text="{Binding Title, ElementName=window, FallbackValue=Zikmu}"
+                           FontSize="24"
+                           FontFamily="/Fonts/#Permanent Marker" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <ctl:ImageButton Image="/Images/close.png" Width="32" Height="32"
+                                     Command="{Binding CloseCommand}"/>
+                </StackPanel>
+            </DockPanel>
+            
+            <!-- Volume -->
+            <Slider DockPanel.Dock="Top" Value="{Binding Volume}"
+                    Style="{StaticResource VolumeSliderStyle}"
+                    Margin="8" Foreground="LightBlue" />
+
+            <Border DockPanel.Dock="Bottom" ClipToBounds="True">
+                <ctl:Marquee Content="{Binding CurrentSong.DisplayText}"
+                             ScrollMode="BackAndForth" />
+            </Border>
+
+            <!-- Playback control buttons -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <ctl:ImageButton Image="/Images/backward.png" Style="{StaticResource PlaybackControlButtonStyle}"
+                                 Command="{Binding PreviousTrackCommand}"/>
+                <ctl:ImageButton Image="/Images/play.png" Style="{StaticResource PlaybackControlButtonStyle}"
+                                 Command="{Binding PlayCommand}"/>
+                <ctl:ImageButton Image="/Images/pause.png" Style="{StaticResource PlaybackControlButtonStyle}"
+                                 Command="{Binding PauseCommand}"/>
+                <ctl:ImageButton Image="/Images/stop.png" Style="{StaticResource PlaybackControlButtonStyle}"
+                                 Command="{Binding StopCommand}"/>
+                <ctl:ImageButton Image="/Images/forward.png" Style="{StaticResource PlaybackControlButtonStyle}"
+                                 Command="{Binding NextTrackCommand}"/>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>
