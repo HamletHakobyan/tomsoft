@@ -7,7 +7,7 @@
         xmlns:cnv="clr-namespace:Zikmu.Converters"
         Name="window"
         Title="Zikmu" Icon="/Images/music.ico"
-        Height="200" Width="270"
+        Height="150" Width="520"
         WindowStyle="None" Background="Transparent"
         dvp:WindowBehavior.GlassFrameMargins="-1"
         dvp:WindowBehavior.EnableDragMove="True">
@@ -17,7 +17,7 @@
                           LoadedBehavior="Manual" />
         <DockPanel>
             <!-- Title bar -->
-            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,5">
+            <DockPanel DockPanel.Dock="Top">
                 <Image Source="/Images/music.png" Width="48" Height="48" Margin="0,0,3,0" />
                 <TextBlock DockPanel.Dock="Left"
                            VerticalAlignment="Center"
@@ -30,29 +30,54 @@
                 </StackPanel>
             </DockPanel>
             
-            <!-- Volume -->
-            <Slider DockPanel.Dock="Top" Value="{Binding Volume}"
-                    Style="{StaticResource VolumeSliderStyle}"
-                    Margin="8" Foreground="LightBlue" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.Column="0">
+                    
+                    <!-- Volume -->
+                    <Slider DockPanel.Dock="Top" Value="{Binding Volume}"
+                            Style="{StaticResource VolumeSliderStyle}"
+                            Margin="8" Foreground="LightBlue" />
 
-            <Border DockPanel.Dock="Bottom" ClipToBounds="True">
-                <ctl:Marquee Content="{Binding CurrentSong.DisplayText}"
-                             ScrollMode="BackAndForth" />
-            </Border>
-
-            <!-- Playback control buttons -->
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-                <ctl:ImageButton Image="/Images/backward.png" Style="{StaticResource PlaybackControlButtonStyle}"
-                                 Command="{Binding PreviousTrackCommand}"/>
-                <ctl:ImageButton Image="/Images/play.png" Style="{StaticResource PlaybackControlButtonStyle}"
-                                 Command="{Binding PlayCommand}"/>
-                <ctl:ImageButton Image="/Images/pause.png" Style="{StaticResource PlaybackControlButtonStyle}"
-                                 Command="{Binding PauseCommand}"/>
-                <ctl:ImageButton Image="/Images/stop.png" Style="{StaticResource PlaybackControlButtonStyle}"
-                                 Command="{Binding StopCommand}"/>
-                <ctl:ImageButton Image="/Images/forward.png" Style="{StaticResource PlaybackControlButtonStyle}"
-                                 Command="{Binding NextTrackCommand}"/>
-            </StackPanel>
+                    <!-- Playback control buttons -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                        <ctl:ImageButton Image="/Images/backward.png" Style="{StaticResource PlaybackControlButtonStyle}"
+                                            Command="{Binding PreviousTrackCommand}"/>
+                        <ctl:ImageButton Image="/Images/play.png" Style="{StaticResource PlaybackControlButtonStyle}"
+                                            Command="{Binding PlayCommand}"/>
+                        <ctl:ImageButton Image="/Images/pause.png" Style="{StaticResource PlaybackControlButtonStyle}"
+                                            Command="{Binding PauseCommand}"/>
+                        <ctl:ImageButton Image="/Images/stop.png" Style="{StaticResource PlaybackControlButtonStyle}"
+                                            Command="{Binding StopCommand}"/>
+                        <ctl:ImageButton Image="/Images/forward.png" Style="{StaticResource PlaybackControlButtonStyle}"
+                                            Command="{Binding NextTrackCommand}"/>
+                    </StackPanel>
+                </DockPanel>
+                
+                <DockPanel Grid.Column="1">
+                    <!-- Current song title -->
+                    <ctl:Marquee DockPanel.Dock="Top"
+                                 FontSize="20" Height="30"
+                                 Content="{Binding CurrentSong.DisplayText}"
+                                 ScrollMode="BackAndForthIfTooLarge" />
+                    
+                    <!-- Current position slider -->
+                    <Slider DockPanel.Dock="Bottom"
+                            Minimum="0" Maximum="{Binding CurrentDuration.TotalSeconds}"
+                            Value="{Binding CurrentPositionUI}" />
+                    
+                    <!-- Current position -->
+                    <TextBlock Text="{Binding CurrentPositionText}"
+                               FontSize="32" FontFamily="/Fonts/#Gochi Hand"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </DockPanel>
+                
+            </Grid>
+            
+            
         </DockPanel>
     </Grid>
 </Window>

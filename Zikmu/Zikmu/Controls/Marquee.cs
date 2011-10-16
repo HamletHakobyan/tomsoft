@@ -151,16 +151,39 @@ namespace Zikmu.Controls
             animation.KeyFrames.Add(new LinearDoubleKeyFrame());
             animation.KeyFrames.Add(new LinearDoubleKeyFrame());
 
+            var animationFromBinding = new MultiBinding
+            {
+                Bindings =
+                    {
+                        new Binding(sizePropertyName) { Source = _canvas },
+                        new Binding(sizePropertyName) { Source = _presenter },
+                        new Binding("ScrollMode") { Source = this }
+                    },
+                Converter = Singleton<BackAndForthOffsetConverter>.Instance,
+                ConverterParameter = false // "From"
+            };
+
             var animationToBinding = new MultiBinding
             {
                 Bindings =
                     {
                         new Binding(sizePropertyName) { Source = _canvas },
-                        new Binding(sizePropertyName) { Source = _presenter }
+                        new Binding(sizePropertyName) { Source = _presenter },
+                        new Binding("ScrollMode") { Source = this }
                     },
                 Converter = Singleton<BackAndForthOffsetConverter>.Instance,
-                ConverterParameter = ScrollMode
+                ConverterParameter = true // "To"
             };
+
+            BindingOperations.SetBinding(
+                animation.KeyFrames[0],
+                DoubleKeyFrame.ValueProperty,
+                animationFromBinding);
+
+            BindingOperations.SetBinding(
+                animation.KeyFrames[1],
+                DoubleKeyFrame.ValueProperty,
+                animationFromBinding);
 
             BindingOperations.SetBinding(
                 animation.KeyFrames[2],
@@ -265,11 +288,17 @@ namespace Zikmu.Controls
             {
                 double actualCanvasSize = (double) values[0];
                 double actualContentSize = (double)values[1];
-                MarqueeScrollMode scrollMode = (MarqueeScrollMode) parameter;
+                var scrollMode = (MarqueeScrollMode) values[2];
+                bool to = (bool) parameter;
+
                 if (scrollMode == MarqueeScrollMode.BackAndForthIfTooLarge &&
                     actualCanvasSize > actualContentSize)
-                    return 0.0;
-                return actualCanvasSize - actualContentSize;
+                    return (actualCanvasSize - actualContentSize) / 2.0;
+                
+                if (to)
+                    return actualCanvasSize - actualContentSize;
+
+                return 0.0;
             }
 
             public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
