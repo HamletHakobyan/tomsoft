@@ -1,7 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Developpez.Dotnet;
+using Developpez.Dotnet.Text;
 using Developpez.Dotnet.Windows.Input;
 using Zikmu.Behaviors;
 using Zikmu.Infrastructure;
@@ -10,9 +13,16 @@ namespace Zikmu.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase, IMediaController
     {
+        private readonly DispatcherTimer _positionRefreshTimer;
+
         public MainWindowViewModel()
         {
             InitCommands();
+            _positionRefreshTimer = new DispatcherTimer();
+            _positionRefreshTimer.Interval = TimeSpan.FromMilliseconds(100);
+            _positionRefreshTimer.Tick += _positionRefreshTimer_Tick;
+            _positionRefreshTimer.Start();
+
             CurrentSong = new SongViewModel
             {
                 Uri = new Uri(@"D:\Mp3\MUSIC\Divers\A-B\Brad Mehldau - Paranoid Android.mp3"),
@@ -42,6 +52,49 @@ namespace Zikmu.ViewModel
             {
                 Volume = value / 100;
                 OnPropertyChanged("DisplayVolume");
+            }
+        }
+
+        private TimeSpan _currentDuration;
+        public TimeSpan CurrentDuration
+        {
+            get { return _currentDuration; }
+            set
+            {
+                _currentDuration = value;
+                OnPropertyChanged("CurrentDuration");
+            }
+        }
+
+        private TimeSpan _currentPosition;
+        public TimeSpan CurrentPosition
+        {
+            get { return _currentPosition; }
+            set
+            {
+                _currentPosition = value;
+                NotifyPositionChanged();
+            }
+        }
+
+        public double CurrentPositionUI
+        {
+            get { return _currentPosition.TotalSeconds; }
+            set
+            {
+                Seek(TimeSpan.FromSeconds(value));
+                NotifyPositionChanged();
+            }
+        }
+
+        public string CurrentPositionText
+        {
+            get
+            {
+                var pos = _currentPosition;
+                string minutes = ((int) pos.TotalMinutes).ToString("D2");
+                string seconds = pos.Seconds.ToString("D2");
+                return string.Format("{0}:{1}", minutes, seconds);
             }
         }
 
@@ -167,6 +220,39 @@ namespace Zikmu.ViewModel
             OpenMediaRequested.Raise(this, args);
         }
 
+        private TimeSpan GetDuration()
+        {
+            var args = new MediaQueryDurationEventArgs();
+            QueryDuration.Raise(this, args);
+            return args.Duration;
+        }
+
+        private TimeSpan GetPosition()
+        {
+            var args = new MediaQueryDurationEventArgs();
+            QueryPosition.Raise(this, args);
+            return args.Duration;
+        }
+
+        private void NotifyPositionChanged()
+        {
+            OnPropertyChanged("CurrentPosition");
+            OnPropertyChanged("CurrentPositionUI");
+            OnPropertyChanged("CurrentPositionText");
+        }
+
+        private void Seek(TimeSpan offset)
+        {
+            var args = new MediaSeekEventArgs(SeekOrigin.Begin, offset);
+            SeekRequested.Raise(this, args);
+        }
+
+        void _positionRefreshTimer_Tick(object sender, EventArgs e)
+        {
+            _currentPosition = GetPosition();
+            NotifyPositionChanged();
+        }
+
         #endregion
 
         #region Implementation of IMediaController
@@ -182,7 +268,7 @@ namespace Zikmu.ViewModel
         
         public void OnMediaOpened()
         {
-            // TODO : Show duration
+            CurrentDuration = GetDuration();
         }
 
         public void OnMediaEnded()
@@ -192,7 +278,8 @@ namespace Zikmu.ViewModel
 
         public void OnMediaFailed(Exception exception)
         {
-            // TODO : MessageBox
+            // TODO : MessageBox via DialogService
+            MessageBox.Show(exception.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private double _volume = 1.0;

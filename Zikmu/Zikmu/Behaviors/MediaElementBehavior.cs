@@ -169,7 +169,7 @@ namespace Zikmu.Behaviors
 
             void ControllerQueryDuration(object sender, MediaQueryDurationEventArgs e)
             {
-                e.Duration = _mediaElement.Position;
+                e.Duration = _mediaElement.NaturalDuration.TimeSpan;
                 e.Handled = true;
             }
 
