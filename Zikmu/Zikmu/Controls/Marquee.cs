@@ -22,6 +22,10 @@ namespace Zikmu.Controls
         public static readonly DependencyProperty SpeedProperty =
             DependencyProperty.Register("Speed", typeof(double), typeof(Marquee), new UIPropertyMetadata(75.0, MarqueePropertyChanged));
 
+        public static readonly DependencyProperty PauseDurationProperty =
+            DependencyProperty.Register("PauseDuration", typeof(TimeSpan), typeof(Marquee), new UIPropertyMetadata(TimeSpan.FromSeconds((1)), MarqueePropertyChanged));
+
+
         private Canvas _canvas;
         private UIElement _presenter;
 
@@ -53,6 +57,12 @@ namespace Zikmu.Controls
             set { SetValue(SpeedProperty, value); }
         }
 
+        public TimeSpan PauseDuration
+        {
+            get { return (TimeSpan)GetValue(PauseDurationProperty); }
+            set { SetValue(PauseDurationProperty, value); }
+        }
+
         void Marquee_Loaded(object sender, RoutedEventArgs e)
         {
             SetupAnimation();
@@ -79,74 +89,142 @@ namespace Zikmu.Controls
         {
             if (!IsLoaded)
                 return;
+
+            DoubleAnimationBase animation;
             DependencyProperty targetProperty;
-            BindingBase animationFromBinding = null;
-            BindingBase animationToBinding = null;
-            string sizeProperty;
-            bool autoReverse = false;
-            IEasingFunction easingFunction = null;
-            var animation = new DoubleAnimation();
-            animation.From = 0.0;
-            double pauseRatio = 0.0;
-
-            switch (Orientation)
-            {
-                case Orientation.Vertical:
-                    targetProperty = TranslateTransform.YProperty;
-                    sizeProperty = "ActualHeight";
-                    _canvas.SetBinding(MinWidthProperty, new Binding("ActualWidth") { Source = _presenter});
-                    break;
-                default:
-                    targetProperty = TranslateTransform.XProperty;
-                    sizeProperty = "ActualWidth";
-                    _canvas.SetBinding(MinHeightProperty, new Binding("ActualHeight") { Source = _presenter });
-                    break;
-            }
-
+            string sizePropertyName;
+            SetupOrientation(out targetProperty, out sizePropertyName);
+            
             switch (ScrollMode)
             {
                 case MarqueeScrollMode.BackAndForth:
                 case MarqueeScrollMode.BackAndForthIfTooLarge:
-                    animationToBinding = new MultiBinding
-                    {
-                        Bindings =
-                            {
-                                new Binding(sizeProperty) { Source = _canvas },
-                                new Binding(sizeProperty) { Source = _presenter },
-                            },
-                        Converter = Singleton<BackAndForthOffsetConverter>.Instance,
-                        ConverterParameter = ScrollMode
-                    };
-                    autoReverse = true;
-                    easingFunction = new LinearEaseWithPause()
-                    {
-                        EasingMode = EasingMode.EaseIn,
-                        InPause = 0.25,
-                        OutPause = 0.25
-                    };
-                    pauseRatio = 0.6;
+                    animation = SetupBackAndForthAnimation(sizePropertyName);
                     break;
                 default:
-                    animationFromBinding = new Binding(sizeProperty)
-                    {
-                        Source = _canvas
-                    };
-                    animationToBinding = new Binding(sizeProperty)
-                    {
-                        Source = _canvas,
-                        Converter = Singleton<LoopOffsetConverter>.Instance
-                    };
+                    animation = SetupLoopAnimation(sizePropertyName);
                     break;
             }
 
-            animation.RepeatBehavior = RepeatBehavior.Forever;
-            animation.AutoReverse = autoReverse;
-            animation.EasingFunction = easingFunction;
-            
-            if (animationFromBinding != null)
-                BindingOperations.SetBinding(animation, DoubleAnimation.FromProperty, animationFromBinding);
-            if (animationToBinding != null)
-                BindingOperations.SetBinding(animation, DoubleAnimation.ToProperty, animationToBinding);
+            var transform = _presenter.RenderTransform as TranslateTransform;
+            if (transform != null)
+            {
+                // Stop previous animation
+                transform.BeginAnimation(TranslateTransform.XProperty, null);
+                transform.BeginAnimation(TranslateTransform.YProperty, null);
+            }
+            else if (animation != null)
+            {
+                transform = new TranslateTransform();
+                _presenter.RenderTransform = transform;
+            }
+
+            if (animation != null)
+            {
+                animation.RepeatBehavior = RepeatBehavior.Forever;
+                transform.BeginAnimation(targetProperty, animation);
+            }
+        }
+
+        private void SetupOrientation(out DependencyProperty targetProperty, out string sizePropertyName)
+        {
+            switch (Orientation)
+            {
+                case Orientation.Vertical:
+                    targetProperty = TranslateTransform.YProperty;
+                    sizePropertyName = "ActualHeight";
+                    _canvas.SetBinding(MinWidthProperty, new Binding("ActualWidth") { Source = _presenter });
+                    break;
+                default:
+                    targetProperty = TranslateTransform.XProperty;
+                    sizePropertyName = "ActualWidth";
+                    _canvas.SetBinding(MinHeightProperty, new Binding("ActualHeight") { Source = _presenter });
+                    break;
+            }
+        }
+
+        private DoubleAnimationBase SetupBackAndForthAnimation(string sizePropertyName)
+        {
+            var animation = new DoubleAnimationUsingKeyFrames();
+            animation.KeyFrames.Add(new LinearDoubleKeyFrame(0, KeyTime.FromTimeSpan(TimeSpan.Zero)));
+            animation.KeyFrames.Add(new LinearDoubleKeyFrame(0, KeyTime.FromTimeSpan(PauseDuration)));
+            animation.KeyFrames.Add(new LinearDoubleKeyFrame());
+            animation.KeyFrames.Add(new LinearDoubleKeyFrame());
+
+            var animationToBinding = new MultiBinding
+            {
+                Bindings =
+                    {
+                        new Binding(sizePropertyName) { Source = _canvas },
+                        new Binding(sizePropertyName) { Source = _presenter }
+                    },
+                Converter = Singleton<BackAndForthOffsetConverter>.Instance,
+                ConverterParameter = ScrollMode
+            };
+
+            BindingOperations.SetBinding(
+                animation.KeyFrames[2],
+                DoubleKeyFrame.ValueProperty,
+                animationToBinding);
+
+            BindingOperations.SetBinding(
+                animation.KeyFrames[3],
+                DoubleKeyFrame.ValueProperty,
+                animationToBinding);
+
+            var keyTime2Binding = new MultiBinding
+            {
+                Bindings =
+                    {
+                        new Binding("Value") { Source = animation.KeyFrames[0] },
+                        new Binding("Value") { Source = animation.KeyFrames[3] },
+                        new Binding("Speed") { Source = this },
+                        new Binding("PauseDuration") { Source = this }
+                    },
+                Converter = Singleton<ScrollDurationConverter>.Instance,
+                ConverterParameter = 1
+            };
+
+            var keyTime3Binding =  new MultiBinding
+            {
+                Bindings =
+                    {
+                        new Binding("Value") { Source = animation.KeyFrames[0] },
+                        new Binding("Value") { Source = animation.KeyFrames[3] },
+                        new Binding("Speed") { Source = this },
+                        new Binding("PauseDuration") { Source = this }
+                    },
+                Converter = Singleton<ScrollDurationConverter>.Instance,
+                ConverterParameter = 2
+            };
+
+            BindingOperations.SetBinding(
+                animation.KeyFrames[2],
+                DoubleKeyFrame.KeyTimeProperty,
+                keyTime2Binding);
+
+            BindingOperations.SetBinding(
+                animation.KeyFrames[3],
+                DoubleKeyFrame.KeyTimeProperty,
+                keyTime3Binding);
+
+            animation.AutoReverse = true;
+            return animation;
+        }
+
+        private DoubleAnimationBase SetupLoopAnimation(string sizePropertyName)
+        {
+            var animation = new DoubleAnimation();
+
+            var animationFromBinding = new Binding(sizePropertyName)
+            {
+                Source = _canvas
+            };
+            var animationToBinding = new Binding(sizePropertyName)
+            {
+                Source = _canvas,
+                Converter = Singleton<LoopOffsetConverter>.Instance
+            };
 
             var durationBinding = new MultiBinding
             {
@@ -155,21 +233,26 @@ namespace Zikmu.Controls
                         new Binding("From") { Source = animation },
                         new Binding("To") { Source = animation },
                         new Binding("Speed") { Source = this },
-                        new Binding { Source = pauseRatio }
                     },
                 Converter = Singleton<ScrollDurationConverter>.Instance
             };
-            BindingOperations.SetBinding(animation, Timeline.DurationProperty, durationBinding);
 
-            var transform = _presenter.RenderTransform as TranslateTransform;
-            if (transform == null)
-            {
-                transform = new TranslateTransform();
-                _presenter.RenderTransform = transform;
-            }
-            transform.BeginAnimation(TranslateTransform.XProperty, null);
-            transform.BeginAnimation(TranslateTransform.YProperty, null);
-            transform.BeginAnimation(targetProperty, animation);
+            BindingOperations.SetBinding(
+                animation,
+                DoubleAnimation.FromProperty,
+                animationFromBinding);
+
+            BindingOperations.SetBinding(
+                animation,
+                DoubleAnimation.ToProperty,
+                animationToBinding);
+
+            BindingOperations.SetBinding(
+                animation,
+                Timeline.DurationProperty,
+                durationBinding);
+
+            return animation;
         }
 
         #region Nested type: BackAndForthOffsetConverter
@@ -191,7 +274,7 @@ namespace Zikmu.Controls
 
             public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
             {
-                throw new NotImplementedException();
+                throw new NotSupportedException();
             }
 
             #endregion
@@ -210,88 +293,34 @@ namespace Zikmu.Controls
                 double from = (double) values[0];
                 double to = (double) values[1];
                 double speed = (double) values[2];
-                double pauseRatio = 0.0;
-                for (int i = 3; i < values.Length; i++)
+
+                TimeSpan pauseDuration = TimeSpan.Zero;
+                if (values.Length > 3)
+                    pauseDuration = (TimeSpan) values[3];
+                int nPauses = 0;
+                if (parameter != null)
+                    nPauses = (int) parameter;
+                var totalPause = TimeSpan.Zero;
+                for (int i = 0; i < nPauses; i++)
                 {
-                    pauseRatio += (double) values[i];
+                    totalPause += pauseDuration;
                 }
-                if (pauseRatio >= 1.0)
-                    pauseRatio = 0.9;
-                double timeInSeconds = Math.Abs(to - from) / speed / (1 - pauseRatio);
-                return new Duration(TimeSpan.FromSeconds(timeInSeconds));
+
+                double timeInSeconds = totalPause.TotalSeconds + Math.Abs(to - from) / speed;
+                var ts = TimeSpan.FromSeconds(timeInSeconds);
+                if (targetType == typeof(Duration))
+                    return new Duration(ts);
+                if (targetType == typeof(KeyTime))
+                    return KeyTime.FromTimeSpan(ts);
+                return ts;
             }
 
             public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
             {
-                throw new NotImplementedException();
+                throw new NotSupportedException();
             }
 
             #endregion
-        }
-
-        #endregion
-
-        #region Nested type: LinearEaseWithPause
-
-        class LinearEaseWithPause : EasingFunctionBase
-        {
-            #region Overrides of Freezable
-
-            protected override Freezable CreateInstanceCore()
-            {
-                return new LinearEaseWithPause();
-            }
-
-            #endregion
-
-            #region Overrides of EasingFunctionBase
-
-            protected override double EaseInCore(double normalizedTime)
-            {
-                if (normalizedTime < InPause)
-                    return 0.0;
-                if (normalizedTime >= 1.0 - OutPause)
-                    return 1.0;
-
-                // y = ax + b
-                double a = 1 / (1 - InPause - OutPause);
-                double b = -a * InPause;
-
-                return a * normalizedTime + b;
-            }
-
-            #endregion
-
-            // Using a DependencyProperty as the backing store for InPause.  This enables animation, styling, binding, etc...
-            public static readonly DependencyProperty InPauseProperty =
-                DependencyProperty.Register("InPause", typeof(double), typeof(LinearEaseWithPause), new UIPropertyMetadata(0.1, null, CoercePause));
-
-            // Using a DependencyProperty as the backing store for OutPause.  This enables animation, styling, binding, etc...
-            public static readonly DependencyProperty OutPauseProperty =
-                DependencyProperty.Register("OutPause", typeof(double), typeof(LinearEaseWithPause), new UIPropertyMetadata(0.1, null, CoercePause));
-
-            public double InPause
-            {
-                get { return (double)GetValue(InPauseProperty); }
-                set { SetValue(InPauseProperty, value); }
-            }
-
-            public double OutPause
-            {
-                get { return (double)GetValue(OutPauseProperty); }
-                set { SetValue(OutPauseProperty, value); }
-            }
-
-            private static object CoercePause(DependencyObject obj, object baseValue)
-            {
-                double d = (double) baseValue;
-                if (d < 0.0)
-                    return 0.0;
-                if (d >= 1.0)
-                    return 0.0;
-                return d;
-            }
-
         }
 
         #endregion
@@ -310,7 +339,7 @@ namespace Zikmu.Controls
 
             public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             {
-                throw new NotImplementedException();
+                throw new NotSupportedException();
             }
 
             #endregion
