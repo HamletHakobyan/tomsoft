@@ -4,10 +4,9 @@
         xmlns:dvp="http://www.developpez.com/xaml"
         xmlns:ctl="clr-namespace:Zikmu.Controls"
         xmlns:bhv="clr-namespace:Zikmu.Behaviors"
-        xmlns:cnv="clr-namespace:Zikmu.Converters"
         Name="window"
         Title="Zikmu" Icon="/Images/music.ico"
-        Height="150" Width="520"
+        Height="160" Width="600"
         WindowStyle="None" Background="Transparent"
         dvp:WindowBehavior.GlassFrameMargins="-1"
         dvp:WindowBehavior.EnableDragMove="True">
@@ -58,21 +57,28 @@
                 </DockPanel>
                 
                 <DockPanel Grid.Column="1">
-                    <!-- Current song title -->
-                    <ctl:Marquee DockPanel.Dock="Top"
-                                 FontSize="20" Height="30"
-                                 Content="{Binding CurrentSong.DisplayText}"
-                                 ScrollMode="BackAndForthIfTooLarge" />
-                    
+
                     <!-- Current position slider -->
-                    <Slider DockPanel.Dock="Bottom"
+                    <Slider DockPanel.Dock="Bottom" Margin="0,3,0,0"
                             Minimum="0" Maximum="{Binding CurrentDuration.TotalSeconds}"
                             Value="{Binding CurrentPositionUI}" />
-                    
-                    <!-- Current position -->
-                    <TextBlock Text="{Binding CurrentPositionText}"
-                               FontSize="32" FontFamily="/Fonts/#Gochi Hand"
-                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <Border Background="#80FFFFFF"
+                            BorderBrush="Black" BorderThickness="1"
+                            CornerRadius="8" Padding="3">
+                        <DockPanel>
+                            <!-- Current position -->
+                            <TextBlock DockPanel.Dock="Top"
+                                       Text="{Binding CurrentPositionText}"
+                                       FontSize="32" FontFamily="/Fonts/#Gochi Hand"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            
+                            <!-- Current song title -->
+                            <ctl:Marquee FontSize="20" Height="30"
+                                         Content="{Binding CurrentSong.DisplayText}"
+                                         ScrollMode="BackAndForthIfTooLarge" />
+                        </DockPanel>
+                    </Border>
                 </DockPanel>
                 
             </Grid>

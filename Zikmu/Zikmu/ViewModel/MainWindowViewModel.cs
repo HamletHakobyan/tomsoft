@@ -7,6 +7,7 @@ using Developpez.Dotnet;
 using Developpez.Dotnet.Text;
 using Developpez.Dotnet.Windows.Input;
 using Zikmu.Behaviors;
+using Zikmu.ExtensionMethods;
 using Zikmu.Infrastructure;
 
 namespace Zikmu.ViewModel
@@ -17,7 +18,7 @@ namespace Zikmu.ViewModel
 
         public MainWindowViewModel()
         {
-            InitCommands();
+            this.InitCommands();
             _positionRefreshTimer = new DispatcherTimer();
             _positionRefreshTimer.Interval = TimeSpan.FromMilliseconds(100);
             _positionRefreshTimer.Tick += _positionRefreshTimer_Tick;
@@ -110,6 +111,7 @@ namespace Zikmu.ViewModel
         public ICommand StopCommand { get; private set; }
         public ICommand NextTrackCommand { get; private set; }
         public ICommand PreviousTrackCommand { get; private set; }
+        public ICommand TestCommand { get; private set; }
 
         //private DelegateCommand _playCommand;
         //public ICommand PlayCommand
@@ -188,7 +190,7 @@ namespace Zikmu.ViewModel
             PlayRequested.Raise(this);
         }
 
-        [Command("PauseCommand")]
+        [Command]
         private void Pause()
         {
             PauseRequested.Raise(this);
@@ -208,6 +210,12 @@ namespace Zikmu.ViewModel
         [Command]
         private void PreviousTrack()
         {
+        }
+
+        [Command]
+        private void Test(string s)
+        {
+            
         }
 
         #endregion
@@ -245,6 +253,11 @@ namespace Zikmu.ViewModel
         {
             var args = new MediaSeekEventArgs(SeekOrigin.Begin, offset);
             SeekRequested.Raise(this, args);
+        }
+
+        private void CloseMedia()
+        {
+            CloseMediaRequested.Raise(this);
         }
 
         void _positionRefreshTimer_Tick(object sender, EventArgs e)
