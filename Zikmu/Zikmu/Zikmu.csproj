@@ -36,11 +36,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Developpez.Dotnet">
-      <HintPath>..\packages\dvp-net.0.4\lib\net40\Developpez.Dotnet.dll</HintPath>
+    <Reference Include="Developpez.Dotnet, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Developpez.Dotnet.dll</HintPath>
     </Reference>
-    <Reference Include="Developpez.Dotnet.Windows">
-      <HintPath>..\packages\dvp-net-wpf.0.4\lib\net40\Developpez.Dotnet.Windows.dll</HintPath>
+    <Reference Include="Developpez.Dotnet.Windows, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Developpez.Dotnet.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -67,8 +67,6 @@
     <Compile Include="Behaviors\MediaElementBehavior.cs" />
     <Compile Include="Behaviors\IMediaController.cs" />
     <Compile Include="Controls\Marquee.cs" />
-    <Compile Include="ExtensionMethods\ViewModelExtensions.cs" />
-    <Compile Include="Infrastructure\CommandAttribute.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SongViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -115,7 +113,6 @@
     <Resource Include="Fonts\GloriaHallelujah.ttf" />
     <Resource Include="Fonts\GochiHand-Regular.ttf" />
     <Resource Include="Fonts\PermanentMarker.ttf" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -140,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Converters\" />
+    <Folder Include="Infrastructure\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,11 +4,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Developpez.Dotnet;
-using Developpez.Dotnet.Text;
-using Developpez.Dotnet.Windows.Input;
+using Developpez.Dotnet.Windows.ViewModel;
 using Zikmu.Behaviors;
-using Zikmu.ExtensionMethods;
-using Zikmu.Infrastructure;
 
 namespace Zikmu.ViewModel
 {
@@ -18,7 +15,7 @@ namespace Zikmu.ViewModel
 
         public MainWindowViewModel()
         {
-            this.InitCommands();
+            this.InitializeViewModelCommands();
             _positionRefreshTimer = new DispatcherTimer();
             _positionRefreshTimer.Interval = TimeSpan.FromMilliseconds(100);
             _positionRefreshTimer.Tick += _positionRefreshTimer_Tick;
@@ -178,44 +175,43 @@ namespace Zikmu.ViewModel
         //    }
         //}
 
-        [Command]
+        [CommandExecute]
         private void Close()
         {
             Application.Current.Shutdown();
         }
 
-        [Command]
+        [CommandExecute]
         private void Play()
         {
             PlayRequested.Raise(this);
         }
 
-        [Command]
+        [CommandExecute]
         private void Pause()
         {
             PauseRequested.Raise(this);
         }
 
-        [Command]
+        [CommandExecute]
         private void Stop()
         {
             StopRequested.Raise(this);
         }
 
-        [Command]
+        [CommandExecute]
         private void NextTrack()
         {
         }
 
-        [Command]
+        [CommandExecute]
         private void PreviousTrack()
         {
         }
 
-        [Command]
+        [CommandExecute]
         private void Test(string s)
         {
-            
         }
 
         #endregion
@@ -299,7 +295,7 @@ namespace Zikmu.ViewModel
         public double Volume
         {
             get { return _volume; }
-            private set
+            set
             {
                 _volume = value;
                 OnPropertyChanged("Volume");
