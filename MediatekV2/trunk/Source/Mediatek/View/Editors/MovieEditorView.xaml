@@ -11,6 +11,10 @@
             <ctl:TextFormField Header="Title" Binding="{Binding Title}" />
             <ctl:TextFormField Header="Original title" Binding="{Binding OriginalTitle}" />
             <ctl:TextFormField Header="Year" Binding="{Binding Year}" />
+            <ctl:ComboBoxFormField Header="Director"
+                                   Binding="{Binding Director}"
+                                   ItemsSource="{Binding Persons}"
+                                   DisplayMemberPath="DisplayName" />
         </ctl:FormDataView>
     </Grid>
 </UserControl>

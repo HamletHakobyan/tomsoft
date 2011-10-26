@@ -61,4 +61,52 @@
         </Setter>
     </Style>
     
+    <Style TargetType="{x:Type ctl:CheckBoxFormField}"
+           BasedOn="{StaticResource ResourceKey={x:Type ctl:FormField}}">
+        <Setter Property="DisplayTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <CheckBox IsChecked="{Binding Value, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctl:FormField}}}"
+                              IsThreeState="{Binding IsThreeState, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctl:FormField}}}"
+                              IsEnabled="False" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="EditorTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <CheckBox IsChecked="{Binding Value, Mode=TwoWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctl:FormField}}}"
+                              IsThreeState="{Binding IsThreeState, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctl:FormField}}}" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ctl:ComboBoxFormField}"
+           BasedOn="{StaticResource ResourceKey={x:Type ctl:FormField}}">
+        <Setter Property="DisplayTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <ComboBox ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctl:FormField}}}"
+                              ItemTemplate="{Binding ItemTemplate, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctl:FormField}}}"
+                              ItemContainerStyle="{Binding ItemContainerStyle, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctl:FormField}}}"
+                              DisplayMemberPath="{Binding DisplayMemberPath, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctl:FormField}}}"
+                              SelectedItem="{Binding Value, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctl:FormField}}}"
+                              IsReadOnly="True"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="EditorTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <ComboBox ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctl:FormField}}}"
+                              ItemTemplate="{Binding ItemTemplate, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctl:FormField}}}"
+                              ItemContainerStyle="{Binding ItemContainerStyle, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctl:FormField}}}"
+                              DisplayMemberPath="{Binding DisplayMemberPath, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctl:FormField}}}"
+                              SelectedItem="{Binding Value, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctl:FormField}}}" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
