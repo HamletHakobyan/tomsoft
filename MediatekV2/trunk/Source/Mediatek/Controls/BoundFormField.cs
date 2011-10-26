@@ -31,20 +31,6 @@ namespace Mediatek.Controls
                 new FrameworkPropertyMetadata(
                     null,
                     FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-
-        //public override void OnApplyTemplate()
-        //{
-        //    base.OnApplyTemplate();
-        //    var display = Template.FindName("PART_Display", this) as FrameworkElement;
-        //    var editor = Template.FindName("PART_Editor", this) as FrameworkElement;
-        //    if (this.Binding != null)
-        //    {
-        //        if (display != null)
-        //            display.SetBinding(DataContextProperty, this.Binding);
-        //        if (editor != null)
-        //            editor.SetBinding(DataContextProperty, this.Binding); 
-        //    }
-        //}
     }
 
     public class TextFormField : BoundFormField
