@@ -53,12 +53,33 @@ namespace Mediatek.ViewModel.Editors
             }
         }
 
+        private PersonViewModel _director;
+        public PersonViewModel Director
+        {
+            get { return _director; }
+            set
+            {
+                _director = value;
+                OnPropertyChanged("Director");
+            }
+        }
+
+        public ICollection<PersonViewModel> Persons { get; private set; }
+
         protected override void Load()
         {
             base.Load();
             _title = _movie.Title;
             _originalTitle = _movie.OriginalTitle;
             _year = _movie.Year;
+            var rep = GetService<IViewModelRepository>();
+            var directorContrib =
+                _movie.Contributions
+                    .Where(c => c.Model.RoleId == Role.DirectorRoleId)
+                    .FirstOrDefault();
+            if (directorContrib != null)
+                _director = rep.Persons.FirstOrDefault(d => d.Id == directorContrib.Model.PersonId);
+            Persons = rep.Persons;
         }
 
         protected override void Save()
@@ -67,6 +88,12 @@ namespace Mediatek.ViewModel.Editors
             _movie.Title = _title;
             _movie.OriginalTitle = _originalTitle;
             _movie.Year = _year;
+            var directorContrib =
+                _movie.Contributions
+                    .Where(c => c.Model.RoleId == Role.DirectorRoleId)
+                    .FirstOrDefault();
+            if (directorContrib != null && _director != null)
+                directorContrib.Model.Person = _director.Model;
         }
 
     }

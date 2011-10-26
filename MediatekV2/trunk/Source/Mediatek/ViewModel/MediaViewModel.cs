@@ -222,6 +222,7 @@ namespace Mediatek.ViewModel
 
         protected virtual void OnModified()
         {
+            OnPropertyChanged(string.Empty);
             Mediator.Instance.Post(this, new EntityMessage<MediaViewModel>(this, EntityAction.Modified));
         }
 

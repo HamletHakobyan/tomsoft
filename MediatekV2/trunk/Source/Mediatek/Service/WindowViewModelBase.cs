@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
 using Developpez.Dotnet.Windows.ViewModel;
+using Mediatek.ViewModel;
 
 namespace Mediatek.Service
 {
-    public abstract class WindowViewModelBase : ViewModelBase, IWindowViewModel
+    public abstract class WindowViewModelBase : MediatekViewModelBase, IWindowViewModel
     {
         void IWindowViewModel.OnShow()
         {
