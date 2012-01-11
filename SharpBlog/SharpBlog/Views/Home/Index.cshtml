@@ -1,0 +1,23 @@
+﻿@model IEnumerable<SharpBlog.Models.Article>
+
+@{
+    ViewBag.Title = ViewBag.BlogName;
+}
+
+<h1>@ViewBag.BlogName</h1>
+
+@if (Model.Any())
+{
+    foreach (var article in Model)
+    {
+        <div id="article@(article.Id)">
+            <h2>@article.Title</h2>
+            <em>by <strong>@article.Author.Name</strong></em>
+        </div>
+    }
+}
+else
+{
+    <em>No articles on this blog...</em>
+}
+
