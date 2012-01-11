@@ -1,0 +1,40 @@
+﻿@model SharpBlog.Models.Article
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Article</legend>
+
+    <div class="display-label">Title</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">Body</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Body)
+    </div>
+
+    <div class="display-label">PublicationDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PublicationDate)
+    </div>
+
+    <div class="display-label">ModificationDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ModificationDate)
+    </div>
+
+    <div class="display-label">LastModificationAuthor</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastModificationAuthor)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
