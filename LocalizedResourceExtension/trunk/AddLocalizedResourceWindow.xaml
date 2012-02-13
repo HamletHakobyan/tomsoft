@@ -1,0 +1,57 @@
+﻿<Window x:Class="LocalizedResourceExtension.AddLocalizedResourceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prop="clr-namespace:LocalizedResourceExtension.Properties"
+        Title="{Binding Title}" SizeToContent="WidthAndHeight"
+        WindowStyle="ToolWindow" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <GroupBox Header="{x:Static prop:Resources.TargetCulture}">
+            <StackPanel Orientation="Vertical">
+                <RadioButton Name="rbKnownCulture" Content="{x:Static prop:Resources.KnownCulture}" IsChecked="{Binding IsKnownCulture}" />
+                <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsChecked, ElementName=rbKnownCulture}">
+                    <ComboBox Width="175" Margin="5"
+                              DisplayMemberPath="DisplayName"
+                              ItemsSource="{Binding NeutralCultures}"
+                              SelectedItem="{Binding SelectedNeutralCulture}"/>
+                    <ComboBox Width="175" Margin="0,5,5,5"
+                              DisplayMemberPath="DisplayName"
+                              ItemsSource="{Binding SelectedNeutralCulture.Children}"
+                              SelectedItem="{Binding SelectedSpecificCulture}">
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ComboBoxItem}">
+                                <Setter Property="IsEnabled" Value="{Binding Enabled}" />
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
+                    </ComboBox>
+                </StackPanel>
+                <RadioButton Name="rbCustomCulture" Content="{x:Static prop:Resources.CustomCulture}" IsChecked="{Binding IsCustomCulture}" />
+                <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsChecked, ElementName=rbCustomCulture}">
+                    <TextBlock Text="{x:Static prop:Resources.CultureCode}"
+                               Margin="5" VerticalAlignment="Center"/>
+                    <TextBox Width="50" Text="{Binding CustomCultureCode}"
+                             Margin="5" VerticalAlignment="Center" />
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+        <CheckBox Grid.Row="1" Margin="5" Content="{x:Static prop:Resources.MakeSubItem}" IsChecked="{Binding AddAsSubItem}" />
+        <CheckBox Grid.Row="2" Margin="5" Content="{x:Static prop:Resources.CopyResources}" IsChecked="{Binding CopyNeutralResources}" />
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="{x:Static prop:Resources.OK}"
+                    Width="80" Margin="5"
+                    IsDefault="True"
+                    Command="{Binding AcceptCommand}"
+                    Click="btnOK_Click" />
+            <Button Content="{x:Static prop:Resources.Cancel}"
+                    Width="80" Margin="5"
+                    IsCancel="True"
+                    Click="btnCancel_Click" />
+        </StackPanel>
+    </Grid>
+</Window>
