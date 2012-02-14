@@ -136,7 +136,7 @@
     <value>Target culture</value>
   </data>
   <data name="WindowTitleFormat" xml:space="preserve">
-    <value>Add localized resource for {0}</value>
+    <value>Add localization for {0}</value>
   </data>
   <data name="Neutral" xml:space="preserve">
     <value>(Neutral)</value>
