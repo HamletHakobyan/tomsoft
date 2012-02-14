@@ -70,7 +70,7 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <CommandName>cmdidAddLocalizedResource</CommandName>
-          <ButtonText>Ajouter une ressource localisée...</ButtonText>
+          <ButtonText>Ajouter une localisation...</ButtonText>
         </Strings>
       </Button>
 
