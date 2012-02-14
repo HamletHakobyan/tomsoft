@@ -55,7 +55,7 @@ namespace LocalizedResourceExtension
             public AddLocalizedResourceViewModel(string rootName, HashSet<string> usedCultures)
             {
                 _usedCultures = usedCultures;
-                Title = string.Format(Properties.Resources.WindowTitleFormat, rootName);
+                Title = string.Format(Properties.Resources.WindowTitleFormat, rootName + ".resx");
                 NeutralCultures = CreateCultureHierarchy(usedCultures).ToList();
             }
 

@@ -14,7 +14,9 @@
         </Grid.RowDefinitions>
         <GroupBox Header="{x:Static prop:Resources.TargetCulture}">
             <StackPanel Orientation="Vertical">
-                <RadioButton Name="rbKnownCulture" Content="{x:Static prop:Resources.KnownCulture}" IsChecked="{Binding IsKnownCulture}" />
+                <RadioButton Name="rbKnownCulture" Content="{x:Static prop:Resources.KnownCulture}"
+                             IsChecked="{Binding IsKnownCulture}"
+                             Margin="3"/>
                 <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsChecked, ElementName=rbKnownCulture}">
                     <ComboBox Width="175" Margin="5"
                               DisplayMemberPath="DisplayName"
@@ -31,7 +33,9 @@
                         </ComboBox.ItemContainerStyle>
                     </ComboBox>
                 </StackPanel>
-                <RadioButton Name="rbCustomCulture" Content="{x:Static prop:Resources.CustomCulture}" IsChecked="{Binding IsCustomCulture}" />
+                <RadioButton Name="rbCustomCulture" Content="{x:Static prop:Resources.CustomCulture}"
+                             IsChecked="{Binding IsCustomCulture}"
+                             Margin="3"/>
                 <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsChecked, ElementName=rbCustomCulture}">
                     <TextBlock Text="{x:Static prop:Resources.CultureCode}"
                                Margin="5" VerticalAlignment="Center"/>
