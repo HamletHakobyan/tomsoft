@@ -1,0 +1,6 @@
+﻿<FolderViewModel xmlns="clr-namespace:VBulletinBox.ViewModels"
+                 Name="Inbox">
+    <FolderViewModel.Messages>
+        <MessageViewModel FromUser="Joe" ToUser="tomlev" Date="01/01/2012" Title="Test message" />
+    </FolderViewModel.Messages>
+</FolderViewModel>
