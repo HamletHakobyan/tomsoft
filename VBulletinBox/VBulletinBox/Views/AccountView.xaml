@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="VBulletinBox.Views.AccountView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dvp="http://www.developpez.com/xaml" xmlns:bhv="clr-namespace:VBulletinBox.Behaviors" mc:Ignorable="d"
+             d:DesignHeight="200"
+             d:DesignWidth="500"
+             d:DataContext="{d:DesignData Source=/DesignData/Account.xaml}">
+
+    <dvp:FormView IsInEditMode="True">
+        <dvp:TextFormField Header="Account name" Binding="{Binding DisplayName}" />
+        <dvp:TextFormField Header="Site URL" Binding="{Binding SiteUrl}" />
+        <dvp:TextFormField Header="User name" Binding="{Binding UserName}" />
+        <dvp:FormField Header="Password">
+            <dvp:FormField.DisplayTemplate>
+                <DataTemplate>
+                    <TextBlock Text="●●●●●●●●" />
+                </DataTemplate>
+            </dvp:FormField.DisplayTemplate>
+            <dvp:FormField.EditorTemplate>
+                <DataTemplate>
+                    <PasswordBox bhv:PasswordBoxBehavior.BindPassword="True"
+                                     bhv:PasswordBoxBehavior.Password="{Binding Password}"/>
+                </DataTemplate>
+            </dvp:FormField.EditorTemplate>
+        </dvp:FormField>
+        <dvp:FormField Header="Repository">
+            <dvp:FormField.DisplayTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding RepositoryFile}" />
+                </DataTemplate>
+            </dvp:FormField.DisplayTemplate>
+            <dvp:FormField.EditorTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <Button DockPanel.Dock="Right" Content="..." Width="25" Command="{Binding BrowseRepositoryCommand}" />
+                        <TextBox Text="{Binding RepositoryFile}" />
+                    </DockPanel>
+                </DataTemplate>
+            </dvp:FormField.EditorTemplate>
+        </dvp:FormField>
+    </dvp:FormView>
+
+</UserControl>

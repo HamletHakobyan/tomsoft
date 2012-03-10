@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="VBulletinBox.Views.FolderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dvp="http://www.developpez.com/xaml"
+             mc:Ignorable="d"
+             d:DesignWidth="500" d:DesignHeight="300"
+             d:DataContext="{d:DesignData /DesignData/Folder.xaml}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0"
+               Padding="5"
+               Background="Cyan"
+               FontSize="24"
+               FontWeight="Bold"
+               Content="{Binding Name}"/>
+        <DockPanel Grid.Row="1">
+            <Label DockPanel.Dock="Left" Content="Filter" />
+            <TextBox Text="{Binding SearchFilter, UpdateSourceTrigger=PropertyChanged}" />
+        </DockPanel>
+        <ListView Grid.Row="2"
+                  ItemsSource="{Binding Messages}"
+                  SelectedItem="{Binding CurrentMessage, Mode=TwoWay}"
+                  dvp:GridViewBehavior.AutoSort="True">
+            <ListView.View>
+                <GridView>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+                    <GridViewColumn Header="From"
+                                    DisplayMemberBinding="{Binding FromUser}"
+                                    dvp:GridViewBehavior.SortPropertyName="FromUser"/>
+                    <GridViewColumn Header="To"
+                                    DisplayMemberBinding="{Binding ToUser}"
+                                    dvp:GridViewBehavior.SortPropertyName="ToUser"/>
+                    <GridViewColumn Header="Subject"
+                                    DisplayMemberBinding="{Binding Title}"
+                                    dvp:GridViewBehavior.SortPropertyName="Title"/>
+                    <GridViewColumn Header="Date"
+                                    DisplayMemberBinding="{Binding Date}"
+                                    dvp:GridViewBehavior.SortPropertyName="Date"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

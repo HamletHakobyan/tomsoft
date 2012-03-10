@@ -1,0 +1,7 @@
+﻿<AccountViewModel xmlns="clr-namespace:VBulletinBox.ViewModels"
+                  SiteUrl="http://www.developpez.com"
+                  UserName="tomlev"
+                  Password="blablabla"
+                  DisplayName="Developpez.com"
+                  RepositoryFile="C:\Users\Tom\AppData\Roaming\VBulletinBox\Repositories\Developpez.com.xml">
+</AccountViewModel>
