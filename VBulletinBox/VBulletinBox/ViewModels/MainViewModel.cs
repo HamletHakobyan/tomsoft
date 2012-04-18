@@ -227,8 +227,10 @@ namespace VBulletinBox.ViewModels
             AccountViewModel vm = new AccountViewModel(account);
             if (vm.ShowProperties())
             {
-                account.RepositoryFile = Path.Combine(DataDirectoryPath, string.Format(@"Repositories\{0}.xml", account.DisplayName));
+                if (string.IsNullOrEmpty(account.RepositoryFile))
+                    account.RepositoryFile = Path.Combine(DataDirectoryPath, string.Format(@"Repositories\{0}.xml", account.DisplayName));
                 this.Accounts.Add(vm);
+                SaveAccounts();
             }
         }
 
