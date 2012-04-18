@@ -21,7 +21,7 @@
             <dvp:FormField.EditorTemplate>
                 <DataTemplate>
                     <PasswordBox bhv:PasswordBoxBehavior.BindPassword="True"
-                                     bhv:PasswordBoxBehavior.Password="{Binding Password}"/>
+                                 bhv:PasswordBoxBehavior.Password="{Binding Password, Mode=TwoWay}"/>
                 </DataTemplate>
             </dvp:FormField.EditorTemplate>
         </dvp:FormField>
