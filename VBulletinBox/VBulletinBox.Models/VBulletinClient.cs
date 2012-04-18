@@ -45,16 +45,17 @@ namespace VBulletinBox.Models
             }
             using (HttpWebResponse resp = req.GetResponse() as HttpWebResponse)
             {
-                if (resp.StatusCode == HttpStatusCode.OK)
+                if (resp.Cookies["bbuserid"] != null)
                 {
-                    if (resp.Cookies["bbuserid"] != null)
-                    {
-                        this.Cookies = resp.Cookies;
-                        this.LoggedIn = true;
-                    }
-                    this.StatusCode = resp.StatusCode;
-                    this.StatusDescription = resp.StatusDescription;
+                    this.Cookies = resp.Cookies;
+                    this.LoggedIn = true;
                 }
+                else
+                {
+                    throw new Exception("Login error: missing cookie");
+                }
+                this.StatusCode = resp.StatusCode;
+                this.StatusDescription = resp.StatusDescription;
             }
 
             return this.LoggedIn;
@@ -63,10 +64,7 @@ namespace VBulletinBox.Models
         public MessageRepository GetMessages()
         {
             if (!this.LoggedIn)
-            {
-                if (!Login())
-                    return null;
-            }
+                Login();
 
             Uri messagesUri = new Uri(_account.SiteUrl.Trim('/') + "/private.php?do=downloadpm&dowhat=xml");
             HttpWebRequest req = HttpWebRequest.Create(messagesUri) as HttpWebRequest;
@@ -75,17 +73,13 @@ namespace VBulletinBox.Models
             req.CookieContainer.Add(this.Cookies);
             using (HttpWebResponse resp = req.GetResponse() as HttpWebResponse)
             {
-                if (resp.StatusCode == HttpStatusCode.OK)
+                using (Stream stream = resp.GetResponseStream())
                 {
-                    using (Stream stream = resp.GetResponseStream())
-                    {
-                        string path = Path.GetTempFileName();
-                        stream.CopyToFile(path);
-                        return MessageRepository.FromFile(path, _account);
-                    }
+                    string path = Path.GetTempFileName();
+                    stream.CopyToFile(path);
+                    return MessageRepository.FromFile(path, _account);
                 }
             }
-            return null;
         }
     }
 }
