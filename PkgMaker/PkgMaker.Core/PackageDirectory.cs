@@ -11,18 +11,25 @@ namespace PkgMaker.Core
     [DebuggerDisplay("PackageDirectory [{Name}]")]
     public class PackageDirectory
     {
+        public PackageDirectory()
+        {
+            Sources = new List<ContentSourceBase>();
+            SubDirectories = new List<PackageDirectory>();
+            Includes = new List<IncludeDirectory>();
+        }
+
         [XmlAttribute]
         public string Name { get; set; }
 
         [XmlElement("DirectorySource", typeof(DirectorySource))]
         [XmlElement("FileSource", typeof(FileSource))]
-        public List<ContentSourceBase> Sources { get; set; }
+        public List<ContentSourceBase> Sources { get; private set; }
 
         [XmlElement("Directory")]
-        public List<PackageDirectory> SubDirectories { get; set; }
+        public List<PackageDirectory> SubDirectories { get; private set; }
 
         [XmlElement("Include")]
-        public List<IncludeDirectory> Includes { get; set; }
+        public List<IncludeDirectory> Includes { get; private set; }
 
         public static PackageDirectory FromFile(string fileName)
         {
@@ -38,7 +45,7 @@ namespace PkgMaker.Core
             return (PackageDirectory)xs.Deserialize(stream);
         }
 
-        internal void ProcessIncludes(string basePath)
+        internal void ProcessIncludes(string basePath, PackageProperties properties)
         {
             if (!Includes.IsNullOrEmpty())
             {
@@ -51,7 +58,7 @@ namespace PkgMaker.Core
                     }
                     string includeFullPath = PathUtil.GetFullPath(basePath, include.Source);
                     include.Directory = FromFile(includeFullPath);
-                    include.Directory.ProcessIncludes(basePath);
+                    include.Directory.ProcessIncludes(basePath, properties);
                 }
             }
 
@@ -59,7 +66,7 @@ namespace PkgMaker.Core
             {
                 foreach (var subDir in SubDirectories)
                 {
-                    subDir.ProcessIncludes(basePath);
+                    subDir.ProcessIncludes(basePath, properties);
                 }
             }
         }

@@ -19,11 +19,11 @@ namespace PkgMaker.Core
             get { return ExclusionTarget.File; }
         }
 
-        public override bool IsMatch(FileSystemInfo item, string basePath)
+        public override bool IsMatch(FileSystemInfo item, string basePath, PackageProperties properties)
         {
-            if (base.IsMatch(item, basePath))
+            if (base.IsMatch(item, basePath, properties))
             {
-                string thisExtension = Extension.TrimStart('.');
+                string thisExtension = properties.Expand(Extension).TrimStart('.');
                 var extensions = GetPossibleExtensions(item.Name);
                 return extensions.Any(e => e.TrimStart('.').Equals(thisExtension, StringComparison.CurrentCultureIgnoreCase));
             }

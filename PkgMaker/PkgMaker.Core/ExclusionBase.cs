@@ -6,7 +6,7 @@ namespace PkgMaker.Core
     {
         public abstract ExclusionTarget Target { get; }
 
-        public virtual bool IsMatch(FileSystemInfo item, string basePath)
+        public virtual bool IsMatch(FileSystemInfo item, string basePath, PackageProperties properties)
         {
             bool isDirectory = (item is DirectoryInfo);
             if (this.Target == ExclusionTarget.File && isDirectory)

@@ -11,6 +11,12 @@ namespace PkgMaker.Core
     [DebuggerDisplay("Package [{Name}]")]
     public class Package
     {
+        public Package()
+        {
+            Properties = new PackageProperties();
+            Root = new PackageDirectory();
+        }
+
         [XmlIgnore]
         public string FileName { get; set; }
 
@@ -19,6 +25,8 @@ namespace PkgMaker.Core
         public string Version { get; set; }
         public string OutputFileName { get; set; }
         public string SourceBasePath { get; set; }
+
+        public PackageProperties Properties { get; set; }
 
         public PackageDirectory Root { get; set; }
 
@@ -32,9 +40,11 @@ namespace PkgMaker.Core
                 pkg.FileName = fileName;
 
                 string basePath = Path.GetDirectoryName(Path.GetFullPath(fileName));
+                
+                pkg.Properties.ProcessIncludes(basePath);
+                pkg.Properties.LoadValues();
 
-                if (pkg.Root != null)
-                    pkg.Root.ProcessIncludes(basePath);
+                pkg.Root.ProcessIncludes(basePath, pkg.Properties);
 
                 return pkg;
             }
@@ -66,6 +76,10 @@ namespace PkgMaker.Core
 
         #endregion
 
+        public string ExpandProperties(string text)
+        {
+            return Properties.Expand(text);
+        }
     }
 
 }
