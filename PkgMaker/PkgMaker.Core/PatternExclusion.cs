@@ -19,12 +19,13 @@ namespace PkgMaker.Core
             get { return ActualTarget; }
         }
 
-        public override bool IsMatch(FileSystemInfo item, string basePath)
+        public override bool IsMatch(FileSystemInfo item, string basePath, PackageProperties properties)
         {
-            if (base.IsMatch(item, basePath))
+            if (base.IsMatch(item, basePath, properties))
             {
                 string relativePath = PathUtil.GetRelativePath(basePath, item.FullName);
-                return Regex.IsMatch(relativePath, this.Pattern, RegexOptions.IgnoreCase);
+                string pattern = properties.Expand(this.Pattern);
+                return Regex.IsMatch(relativePath, pattern, RegexOptions.IgnoreCase);
             }
             return false;
         }

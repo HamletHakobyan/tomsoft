@@ -1,23 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="PkgMaker.Core.Package">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAIAAgAAgACAAAAAAAgQAAAAAAAAEAABAAABAAAA=</HashCode>
+      <HashCode>IAAAAIAAgAAgACAAAAAAAgQAAAAAAAAEAABAAABCAAA=</HashCode>
       <FileName>Package.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Root" />
+      <Property Name="Properties" />
     </ShowAsAssociation>
   </Class>
   <Class Name="PkgMaker.Core.PackageDirectory">
-    <Position X="3.25" Y="0.5" Width="1.5" />
+    <Position X="3.25" Y="2.25" Width="1.5" />
     <AssociationLine Name="SubDirectories" Type="PkgMaker.Core.PackageDirectory" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="3.562" Y="2.44" />
-        <Point X="3.562" Y="3.106" />
-        <Point X="4.5" Y="3.106" />
-        <Point X="4.5" Y="2.44" />
+        <Point X="3.562" Y="4.382" />
+        <Point X="3.562" Y="4.632" />
+        <Point X="4.5" Y="4.632" />
+        <Point X="4.5" Y="4.382" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="-1.161" Y="0.258" />
@@ -28,13 +29,13 @@
       <FileName>PackageDirectory.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Includes" />
       <Property Name="Sources" />
       <Property Name="SubDirectories" />
+      <Property Name="Includes" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="PkgMaker.Core.DirectorySource">
-    <Position X="5.25" Y="3.5" Width="1.5" />
+    <Position X="5.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAgAAAAAAAAIAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DirectorySource.cs</FileName>
@@ -44,14 +45,14 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="PkgMaker.Core.FileSource">
-    <Position X="7.25" Y="3.5" Width="1.5" />
+    <Position X="7.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>FileSource.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PkgMaker.Core.IncludeDirectory">
-    <Position X="8.75" Y="0.5" Width="1.5" />
+    <Position X="8.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAABAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IncludeDirectory.cs</FileName>
@@ -61,53 +62,70 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="PkgMaker.Core.ContentSourceBase" Collapsed="true">
-    <Position X="6.25" Y="1.75" Width="1.5" />
+    <Position X="6.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ContentSourceBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PkgMaker.Core.ExclusionBase">
-    <Position X="2.5" Y="4" Width="1.75" />
+    <Position X="2.5" Y="5.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ExclusionBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PkgMaker.Core.ExtensionExclusion">
-    <Position X="0.5" Y="6.25" Width="1.75" />
+    <Position X="0.5" Y="8" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAEAAAAACAAAAAAAQAAAAAAAAAAAAA=</HashCode>
       <FileName>ExtensionExclusion.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PkgMaker.Core.FileSystemEntryExclusion">
-    <Position X="2.5" Y="6.25" Width="1.75" />
+    <Position X="2.5" Y="8" Width="1.75" />
     <TypeIdentifier>
       <HashCode>IAACAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>FileSystemEntryExclusion.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PkgMaker.Core.PatternExclusion">
-    <Position X="4.5" Y="6.25" Width="1.75" />
+    <Position X="4.5" Y="8" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAIAAACAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PatternExclusion.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PkgMaker.Core.DirectoryExclusion">
-    <Position X="1.5" Y="9" Width="1.75" />
+    <Position X="1.5" Y="10.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DirectoryExclusion.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PkgMaker.Core.FileExclusion">
-    <Position X="3.5" Y="9" Width="1.75" />
+    <Position X="3.5" Y="10.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>FileExclusion.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="PkgMaker.Core.PackageProperty">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>PackageProperty.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PkgMaker.Core.PackageProperties">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAQAAAEAAAAIAAAAAEAABAAAAAACA=</HashCode>
+      <FileName>PackageProperties.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Entries" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

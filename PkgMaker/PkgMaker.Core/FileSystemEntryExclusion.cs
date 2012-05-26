@@ -12,12 +12,13 @@ namespace PkgMaker.Core
         [XmlAttribute]
         public bool Any { get; set; }
 
-        public override bool IsMatch(FileSystemInfo item, string basePath)
+        public override bool IsMatch(FileSystemInfo item, string basePath, PackageProperties properties)
         {
-            if (base.IsMatch(item, basePath))
+            if (base.IsMatch(item, basePath, properties))
             {
                 string relativePath = this.Any ? item.Name : PathUtil.GetRelativePath(basePath, item.FullName);
-                return relativePath.Equals(this.Path.TrimEnd('\\'), StringComparison.CurrentCultureIgnoreCase);
+                string path = properties.Expand(this.Path);
+                return relativePath.Equals(path.TrimEnd('\\'), StringComparison.CurrentCultureIgnoreCase);
             }
             return false;
         }
