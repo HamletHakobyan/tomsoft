@@ -15,7 +15,7 @@ namespace PkgMaker.Core
         public PackageProperties()
         {
             Entries = new List<PackageProperty>();
-            Includes = new List<IncludeProperties>();
+            Includes = new List<PropertiesInclude>();
             _values = new Dictionary<string, string>();
         }
 
@@ -23,7 +23,7 @@ namespace PkgMaker.Core
         public List<PackageProperty> Entries { get; private set; }
 
         [XmlElement("Include")]
-        public List<IncludeProperties> Includes { get; private set; }
+        public List<PropertiesInclude> Includes { get; private set; }
 
         [XmlIgnore]
         public IEnumerable<string> Keys
@@ -92,7 +92,7 @@ namespace PkgMaker.Core
             }
         }
 
-        public string Expand(string text)
+        public string Expand(string text, bool isRegex = false)
         {
             if (text == null)
                 return null;
@@ -102,10 +102,25 @@ namespace PkgMaker.Core
                 string value = kvp.Value;
                 if (value == null)
                     continue;
+                if (isRegex)
+                    value = EscapeRegex(value);
                 string pattern = string.Format("{{{0}}}", kvp.Key);
                 text = text.Replace(pattern, value);
             }
             return text;
+        }
+
+        private static readonly string _regexSpecialChars = @".\()[]<>?*+^$";
+        private static string EscapeRegex(string value)
+        {
+            var sb = new StringBuilder();
+            foreach (char c in value)
+            {
+                if (_regexSpecialChars.Contains(c))
+                    sb.Append('\\');
+                sb.Append(c);
+            }
+            return sb.ToString();
         }
     }
 }

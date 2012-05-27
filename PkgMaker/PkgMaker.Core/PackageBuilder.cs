@@ -147,6 +147,7 @@ namespace PkgMaker.Core
                 else if (source is DirectorySource)
                 {
                     var directorySource = (DirectorySource)source;
+                    directorySource.PrepareFilters(properties);
                     string directoryPath = properties.Expand(directorySource.Path);
                     var fullPath = PathUtil.GetFullPath(sourceBasePath, directoryPath);
                     var dirInfo = new DirectoryInfo(fullPath);
@@ -159,7 +160,7 @@ namespace PkgMaker.Core
                         if (isDirectory && !directorySource.Recursive)
                             continue;
 
-                        if (IncludeItem(item, fullPath, directorySource.Exclusions, properties))
+                        if (directorySource.IncludeItem(item, fullPath, properties))
                         {
                             string relativePath = PathUtil.GetRelativePath(fullPath, item.FullName);
                             string entryName = Path.Combine(dirEntryName, relativePath);
@@ -187,11 +188,6 @@ namespace PkgMaker.Core
             {
                 PopulateEntries(subDirectory, dirEntryName, sourceBasePath, entries, properties);
             }
-        }
-
-        private bool IncludeItem(FileSystemInfo item, string basePath, IEnumerable<ExclusionBase> exclusions, PackageProperties properties)
-        {
-            return !exclusions.Any(e => e.IsMatch(item, basePath, properties));
         }
 
         private class PackageEntry

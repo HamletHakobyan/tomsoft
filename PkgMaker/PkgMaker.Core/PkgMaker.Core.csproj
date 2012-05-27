@@ -41,23 +41,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentSourceBase.cs" />
-    <Compile Include="DirectoryExclusion.cs" />
+    <Compile Include="DirectoryFilter.cs" />
     <Compile Include="DirectorySource.cs" />
-    <Compile Include="ExclusionBase.cs" />
-    <Compile Include="ExtensionExclusion.cs" />
+    <Compile Include="ExtensionFilter.cs" />
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="FileExclusion.cs" />
+    <Compile Include="FileFilter.cs" />
     <Compile Include="FileSource.cs" />
     <Compile Include="FileSystemEntryExclusion.cs" />
-    <Compile Include="IncludeDirectory.cs" />
-    <Compile Include="IncludeProperties.cs" />
+    <Compile Include="DirectoryInclude.cs" />
+    <Compile Include="FilterBase.cs" />
+    <Compile Include="PropertiesInclude.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="PackageBuilder.cs" />
     <Compile Include="PackageDirectory.cs" />
     <Compile Include="PackageProperties.cs" />
     <Compile Include="PackageProperty.cs" />
     <Compile Include="PathUtil.cs" />
-    <Compile Include="PatternExclusion.cs" />
+    <Compile Include="PatternFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

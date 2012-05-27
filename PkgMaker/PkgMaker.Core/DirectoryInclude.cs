@@ -7,8 +7,8 @@ using System.Xml.Serialization;
 
 namespace PkgMaker.Core
 {
-    [DebuggerDisplay("IncludeDirectory [{Source}]")]
-    public class IncludeDirectory
+    [DebuggerDisplay("DirectoryInclude [{Source}]")]
+    public class DirectoryInclude
     {
         [XmlAttribute]
         public string Source { get; set; }

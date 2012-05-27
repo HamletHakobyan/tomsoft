@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace PkgMaker.Core
 {
-    public abstract class FileSystemEntryExclusion : ExclusionBase
+    public abstract class FileSystemEntryFilter : FilterBase
     {
         [XmlText]
         public string Path { get; set; }
@@ -12,15 +12,21 @@ namespace PkgMaker.Core
         [XmlAttribute]
         public bool Any { get; set; }
 
-        public override bool IsMatch(FileSystemInfo item, string basePath, PackageProperties properties)
+        protected override bool IsMatchCore(FileSystemInfo item, string basePath)
         {
-            if (base.IsMatch(item, basePath, properties))
+            if (base.IsMatchCore(item, basePath))
             {
                 string relativePath = this.Any ? item.Name : PathUtil.GetRelativePath(basePath, item.FullName);
-                string path = properties.Expand(this.Path);
-                return relativePath.Equals(path.TrimEnd('\\'), StringComparison.CurrentCultureIgnoreCase);
+                return relativePath.Equals(_preparedPath, StringComparison.CurrentCultureIgnoreCase);
             }
             return false;
+        }
+
+        private string _preparedPath;
+        public override void Prepare(PackageProperties properties)
+        {
+            base.Prepare(properties);
+            _preparedPath = properties.Expand(this.Path).TrimEnd('\\');
         }
     }
 }
