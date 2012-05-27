@@ -15,7 +15,7 @@ namespace PkgMaker.Core
         {
             Sources = new List<ContentSourceBase>();
             SubDirectories = new List<PackageDirectory>();
-            Includes = new List<IncludeDirectory>();
+            Includes = new List<DirectoryInclude>();
         }
 
         [XmlAttribute]
@@ -29,7 +29,7 @@ namespace PkgMaker.Core
         public List<PackageDirectory> SubDirectories { get; private set; }
 
         [XmlElement("Include")]
-        public List<IncludeDirectory> Includes { get; private set; }
+        public List<DirectoryInclude> Includes { get; private set; }
 
         public static PackageDirectory FromFile(string fileName)
         {
