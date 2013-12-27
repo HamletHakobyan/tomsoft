@@ -31,9 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Developpez.Dotnet, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Developpez.Dotnet">
+      <HintPath>..\packages\dvp-net.0.6.1\lib\net40\Developpez.Dotnet.dll</HintPath>
+    </Reference>
     <Reference Include="Developpez.Dotnet.Windows">
-      <HintPath>..\lib\Dvp.NET\Developpez.Dotnet.Windows.dll</HintPath>
+      <HintPath>..\packages\dvp-net-wpf.0.6.1\lib\net40\Developpez.Dotnet.Windows.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -73,6 +75,9 @@
       <Project>{232EA960-9E1C-4193-960A-E79EB6D71CFD}</Project>
       <Name>SharpDB.Util</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
