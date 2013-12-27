@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Developpez.Dotnet">
-      <HintPath>..\lib\Dvp.NET\Developpez.Dotnet.dll</HintPath>
+    <Reference Include="Developpez.Dotnet, Version=0.6.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\dvp-net.0.6.1\lib\net40\Developpez.Dotnet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -98,6 +99,7 @@
     <None Include="Data\SQLite\SQLiteDbModel.xss">
       <DependentUpon>SQLiteDbModel.xsd</DependentUpon>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Data\SQLite\SQLiteResources.fr-FR.resx" />

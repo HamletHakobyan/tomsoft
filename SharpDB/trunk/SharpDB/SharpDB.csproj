@@ -43,11 +43,11 @@
     <StartupObject>SharpDB.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Developpez.Dotnet, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\lib\Dvp.NET\Developpez.Dotnet.dll</HintPath>
+    <Reference Include="Developpez.Dotnet">
+      <HintPath>..\packages\dvp-net.0.6.1\lib\net40\Developpez.Dotnet.dll</HintPath>
     </Reference>
     <Reference Include="Developpez.Dotnet.Windows">
-      <HintPath>..\lib\Dvp.NET\Developpez.Dotnet.Windows.dll</HintPath>
+      <HintPath>..\packages\dvp-net-wpf.0.6.1\lib\net40\Developpez.Dotnet.Windows.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit">
       <HintPath>..\lib\AvalonEdit\ICSharpCode.AvalonEdit.dll</HintPath>
@@ -185,6 +185,7 @@
     <None Include="app.config" />
     <Resource Include="CustomEffects\ByteCode\Greyscale.ps" />
     <None Include="CustomEffects\Source\Greyscale.fx" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
